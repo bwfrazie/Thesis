@@ -1,0 +1,11 @@
+import os
+Import('env')
+local_env=env.Clone()
+root=os.path.dirname(Dir('.').srcnode().abspath)
+media_path=os.path.join(root,'media')
+common_path=os.path.join(root,'common')
+local_env.PrependENVPath('PATH',common_path)
+local_env.Append(TEXINPUTS=[common_path,media_path])
+pdf=local_env.PDF('document.tex')
+install=local_env.InstallAs('thesis.pdf',pdf)
+Return('install')
