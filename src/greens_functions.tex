@@ -220,7 +220,7 @@ G\left(\mathbf{r},\mathbf{r}',t \right) = g\left(\omega t - k| \mathbf{r} - \mat
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \section{Free Space Green's Functions}
-This section demonstrates solving for the free space Green's functions for the Helmholtz equation (Equation \ref{gf_eq:9}) in 3-dimensions, 2-dimensions, and 1-dimension. In free space, there are no boundaries, so we can let $r\rightarrow \infty$ and use Dirichlet boundary conditions. Without loss of generality, we can place the delta function at the origin, so that $\delta\left(\mathbf{r}-\mathbf{r}' \right) \rightarrow \delta \left(\mathbf{r} \right)$. To find the Green's function, we need to solve the homogeneous equation away from the delta function and then integrate over a small region around the origin for normalization. The homogenous equation to solve is:
+This section demonstrates solving for the free space Green's functions for the Helmholtz equation (Equation \ref{gf_eq:9}) in both 3-dimensions and 2-dimensions. In free space, there are no boundaries, so we can let $r\rightarrow \infty$ and use Dirichlet boundary conditions. Without loss of generality, we can place the delta function at the origin, so that $\delta\left(\mathbf{r}-\mathbf{r}' \right) \rightarrow \delta \left(\mathbf{r} \right)$. To find the Green's function, we need to solve the homogeneous equation away from the delta function and then integrate over a small region around the origin for normalization. The homogenous equation to solve is:
 
 \begin{equation}
 \nabla^2G+ k^2G = 0
@@ -610,86 +610,6 @@ G_o\left(\boldsymbol{\rho},0,t\right) = \frac{H\left(t -\frac{\rho}{c}\right)}{2
 \subsubsection{Example of Use}
 The 2-dimensional free space Green's function is commonly used to describe scattering from wires.
 
-\subsection{1-Dimensions}
-This section derives the free space Green's function for the Helmholtz equation in 1-dimensional space. Because we used the Fourier transform to remove the time dependence from the wave equation (Equation \ref{gf_eq:6}), we will first work in the frequency domain and then transform the result back to the time domain.
-
-\subsubsection{Deriviation in the Frequency Domain}
-In 1-dimension, we let $r\rightarrow x$ and expand the Laplacian of Equation \ref{gf_eq:19} in cartesian coordinates:
-
-\begin{equation}
-\frac{d^2G}{d x^2}+k^2G = 0
-\label{gf_eq:41}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-\noindent This equation appears to have a simple solution:
-\begin{equation}
-G=c_1e^{jkx}+c_2e^{-jkx}
-\label{gf_eq:42}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-However, $x$ is no longer strictly positive and we need to take some caution due to the sign. Because the Green's function must be continuous at $x=0$ (Section \ref{gf_sec:continuity}), $c_1=c_2=c$. Using the causality argument from Section \ref{gf_sec:causality}, $e^{-jkx}$ is the outward traveling wave when $x < 0$ and $e^{jkx}$ is the outward traveling wave when $x>0$. This gives the following representation for the Green's function:
-
-\begin{equation}
-G =
-  \begin{cases}
-    ce^{-jkx}      & \quad \text{if } x\geq 0\\
-    ce^{jkx}    & \quad \text{if } x \leq 0
-  \end{cases}
-\label{gf_eq:43}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-\noindent We can write this compactly as:
-\begin{equation}
-G=ce^{jk|x|}
-\label{gf_eq:44}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-\noindent Now we can integrate over a small region $\epsilon$ in $x$ and take the limit as $\epsilon \rightarrow 0$:
-\begin{equation}
-\lim_{\epsilon\to 0} \left[\int\limits_{-\epsilon}^{\epsilon}dx \frac{d^2G}{dx^2}+ k^2\int\limits_{-\epsilon}^{\epsilon}Gdx  \right] = -\lim_{\epsilon\to 0}\int\limits_{-\epsilon}^{\epsilon}dx \delta(x)
-\label{gf_eq:45}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-As in Sections \ref{gf_sec:3d} and \ref{gf_sec:2d}, the integral with the $k^2$ term is $0$ due to the continuity of G at $x=0$ and we have:
-\begin{equation}
-\lim_{\epsilon\to 0}  \frac{dG}{dx}\bigg|_{-\epsilon}^{\epsilon} = -1 
-\label{gf_eq:46}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-\noindent This is also the jump condition on the derivative of the Green's function:
-\begin{equation}
-\frac{dG}{dx}\bigg|_{0^-}^{0^+} = -1 
-\label{gf_eq:47}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-\noindent Substituting Equation \ref{gf_eq:44} into Equation \ref{gf_eq:47} yields:
-\begin{equation}
-\begin{gathered}
--jkc- jkc= -1 \\
-c = \frac{-j}{2k}
-\end{gathered}
-\label{gf_eq:48}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-Now letting $x \rightarrow |x-x'|$, we have the final free space 1-dimensional Green's function, $G_o$:
-
-\begin{equation}
-\boxed{G_o\left(x,x'\right) = \frac{-j}{2k}e^{(jk|x - x' | )}}
-\label{gf_eq:49}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-\subsubsection{Conversion to the Time Domain}
-
-\subsubsection{Example of Use}
 
 \section{Dyadic Green's Functions}
 
