@@ -4,10 +4,9 @@ To capture the physical behavior of electromagnetic waves reflecting off the sur
 \section {Waves in the Ocean}
 Ocean waves are primarily driven by wind and start when turbulence creates capillary or surface waves with small wavelengths (on the order of a few centimeters). As the wind continues to blow, it increases both the amplitude and the wavelength of the waves until they start to interact. These interactions continue to increase the wavelength and phase speed of the waves until they are traveling faster than the wind, at which point the sea is fully developed. As a sea develops, the energy will transfer from higher frequencies to lower frequencies by the processes just described.
 
-Before discussing the statistical properties of ocean waves, it is useful to review some standard nomenclature. Fetch is the length over which the wind can be considered constant, and a longer fetch generally means higher waves. Significant wave height is the mean wave height of the highest third of the waves. Significant wave height is represented in the literature as $H_{1/3}$ and is equal to 4 times the standard deviation of the wave height, $H_{1/3} = 4\sigma_h$.
+Before discussing the statistical properties of ocean waves, it is useful to review some standard nomenclature. Fetch is the length over which the wind can be considered constant, and a longer fetch generally means higher waves. Significant wave height is the mean wave height of the highest third of the waves. Significant wave height is represented in the literature as $H_{1/3}$ and is equal to 4 times the standard deviation of the wave height, $H_{1/3} = 4\sigma_h$. Wave height refers to the mean difference between successive peaks and throughs (twice the amplitude).
 
-The phase speed of waves due to gravity in deep water is $v_p=\sqrt{g/k}$, which allows us to write the dispersion relation $\omega = \sqrt{gk}$. This dispersion relation is important for changing variables in the power spectra, for instance converting $S(\omega)$ to $S(k)$. We can use the fact that the amount of energy contained per unit interval should be constant so that $S(k)dk = S(\omega)d\omega = S(f)df$. To convert a power spectrum in terms of $\omega$ to one in terms of $k$, we would use the expression in Equation \ref{os_eq:0aa}.
-
+The phase speed of waves due to gravity in deep water is $v_p=\sqrt{g/k}$, which allows us to write the dispersion relation $\omega = \sqrt{gk}$. This dispersion relation is important for changing variables in the power spectra, for instance converting $S(\omega)$ to $S(k)$. We can use the fact that the amount of energy contained per unit interval is constant so that $S(k)dk = S(\omega)d\omega = S(f)df$. To convert a power spectrum in terms of $\omega$ to one in terms of $k$, we would use the expression in Equation \ref{os_eq:0aa}.
 \begin{equation}
   \label{os_eq:0aa}
   S(k) = S(\omega = \sqrt{gk})\frac{d\omega}{dk} = \frac{1}{2}\sqrt{\frac{g}{k}}S(\omega=\sqrt{gk})
@@ -17,10 +16,14 @@ The phase speed of waves due to gravity in deep water is $v_p=\sqrt{g/k}$, which
 Many methods have been proposed to statistically describe the behavior of ocean waves. These range from the simplest sea state representation with a very coarse binning of wind speed and sea height variations to the mathematically complex Elfouhaily variance power spectrum that unifies the more recent work.
 
 \subsection {Sea State}
-The modern concept of sea state is a combination of the Beaufort wind scale and the Douglas sea scale. The Beaufort scale was developed in the early 1800s by sir Francis Beaufort and the Douglas scale was developed in the 1920s by H.P Douglass, both of the Royal Navy \cite{uk_met_fact_sheet6}. Table \ref{os_tab:0} shows the World Meterological Organization (WMO) sea state vs. wind speed, with wave height referring to the mean difference between successive peaks and throughs (twice the amplitude).
+The modern concept of sea state is a combination of the Beaufort wind scale and the Douglas sea scale. The Beaufort scale was developed in the early 1800s by sir Francis Beaufort and the Douglas scale was developed in the 1920s by H.P Douglass, both of the Royal Navy \cite{uk_met_fact_sheet6}. The Beaufort scale measures the force of wind speed in 12 bins from Calm to Hurricane and was extended in 1944 to add scales up to 17. In 1960, it was further extended to add probable wave heights. The Douglas scale on the other hand measures sea height in 9 bins from Calm (glossy) to Phenomenal. The Word Meterological Organization (WMO) has adopted the Douglas sea scale as a standard \cite{wmo_code} and we can compare this to the Beaufort wind scale to add the dependency on wind speed as shown in Table \ref{os_tab:0}. There are no true standards when working with sea states, so care must be taken when comparing results between research groups.
 
 \begin{table}[H]
-\begin{center}
+  \begin{center}
+      \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[WMO Sea State vs. Wind Speed and Wave Height]{WMO Sea State vs. Wind Seed and Wave Height\label{os_tab:0}}
+  \end{quote}
   \begin{tabular} {|c | c | c| c|}
     \hline
   \bf{Sea State} & \bf{Descriptio}n & \bf{Wave Height (m)} & \bf{Wind Speed (m/s)}\\ \hline
@@ -29,28 +32,24 @@ The modern concept of sea state is a combination of the Beaufort wind scale and 
   2 & Smooth (wavelets) & 0.1 - 0.5 & 1.6 - 3.3 \\ \hline
   3 & Slight & 0.5 - 1.25 & 3.4 - 5.5 \\ \hline
   4 & Moderate & 1.25 - 2.5 & 5.5 - 10.7 \\ \hline
-  5 & Rough & 2.5 - 5 & 10.8 - 13.8 \\ \hline
-  6 & Very Rough & 4 -6 & 13.9 - 17.1\\ \hline
+  5 & Rough & 2.5 - 4 & 10.8 - 13.8 \\ \hline
+  6 & Very Rough & 4 - 6 & 13.9 - 17.1\\ \hline
   7 & High & 6 - 9 & 17.2 - 24.4\\ \hline
   8 & Very High & 9 - 14 & 24.5 - 32.6\\ \hline
   9 & Phenomenal & $\geq$ 14 & $\geq$ 32.7\\ \hline
 \end{tabular}
-  \renewcommand{\baselinestretch}{1} \small\normalsize
-  \begin{quote}
-    \caption[WMO Sea State vs. Wind Speed]{WMO Sea State vs. Wind Seed\label{os_tab:0}}
-  \end{quote}
 \end{center}
 \end{table}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection{Pierson-Moskowitz Spectrum}
-In 1964, the Pierson-Moskowitz (PM) spectrum defined in Equation \ref{os_eq:1} was developed to describe the power spectrum of the variance of wave height and relate it to the measured wind speed 19 meters above the sea surface ($U_{19}$) and the coefficient of gravity ($g=9.81 m/s^2$) \cite{michel_sea_spectra}. 
+In 1964, the Pierson-Moskowitz (PM) spectrum defined in Equation \ref{os_eq:1} was developed to describe the power spectrum of the variance of wave height in terms of the measured wind speed 19 meters above the sea surface ($U_{19}$) and the coefficient of gravity ($g=9.81 m/s^2$) \cite{michel_sea_spectra}. 
  \begin{equation}
 S(k) = \frac{0.0081}{k^3}e^{-0.74\left(\frac{g}{k}\right)^2U_{19}^{-4}}
 \label{os_eq:1}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
- The PM power spectrum ($S$) is shown in the left hand side of Figure \ref{os_fig:1} and the associated curvature spectrum ($k^3S$) is shown in the right hand side of Figure \ref{os_fig:1}. These figures were generated for wind speeds from 3 m/s to 21 m/s in increments of 2 m/s.
+ The PM power spectrum ($S$) is shown in the left hand side of Figure \ref{os_fig:1} and the associated curvature spectrum ($k^3S$) is shown in the right hand side of Figure \ref{os_fig:1}. These figures were generated for wind speeds from 3 m/s to 21 m/s in increments of 2 m/s. The curvature spectrum is also referred to as the saturation spectrum. It removes the $k^-3$ dependence of the power spectrum which can disguise some high spatial frequency behavior.
  
  \begin{figure}[H]
   \begin{center}
@@ -63,10 +62,10 @@ S(k) = \frac{0.0081}{k^3}e^{-0.74\left(\frac{g}{k}\right)^2U_{19}^{-4}}
 \end{figure}
  \renewcommand{\baselinestretch}{2} \small\normalsize
  
-The PM spectrum assumes deep water, infinite fetch and no swells and has repeatedly been shown to be accurate for gravity waves in fully developed seas, but fails to capture spectral peaks due to high winds over short fetches. This means that the low frequency component of the power spectrum is valid in almost all cases but the high frequency component is not, as can be seen by the flat slope of both $S$ and $k^3S$ in Figure \ref{os_fig:1}.
+The PM spectrum assumes deep water, infinite fetch and no swells and has repeatedly been shown to be accurate for gravity waves in fully developed seas, but fails to capture spectral peaks due to high winds over short fetches. This means that the low spatial frequency component of the power spectrum is valid in almost all cases but the high spatial frequency component is not, as can be seen by the flat slope of both $S$ and $k^3S$ in Figure \ref{os_fig:1}.
 
 \subsection{Bretschneider Spectrum}
-To overcome the limitations of a spectrum that required fully developed seas, several multi-parameter spectra were developed. In 1978, the 12th International Towing Tank Conference recommended the two-parameter Bretschneider spectrum given in Equation \ref{os_eq:1a} where the modal frequency $\omega_m$ is given by $\omega_m = 0.4\sqrt{g/H_{1/3}}$.
+To overcome the limitations of a spectrum that required fully developed seas, several multi-parameter spectra have been developed. In 1978, the 12th International Towing Tank Conference recommended the two-parameter Bretschneider spectrum given in Equation \ref{os_eq:1a} where the modal frequency $\omega_m$ is given by $\omega_m = 0.4\sqrt{g/H_{1/3}}$.
 \begin{equation}
   \begin{gathered}
   \label{os_eq:1a}
@@ -84,7 +83,7 @@ Join North Sea Wave Project in the 1970s modified the Pierson-Moskowitz spectrum
 The enhancement factor $\nu$ was empirically derived for many locations in the North Sea.
 
 \subsection{Elfouhaily Spectrum}
-Many additional spectra have been developed and in 1997, Elfouhaily et. al unified several of these to provide a modern spectrum that is broken into low and high frequency regions, $B_l$ and $B_h$, \cite{elfouhaily}.
+Many additional spectra have been developed and in 1997, Elfouhaily et. al extended several of these to provide a unified modern spectrum that is broken into low and high spatial frequency regions, $B_l$ and $B_h$, \cite{elfouhaily}.
 \begin{equation}
   \label{os_eq:2}
   S(k) = k^{-3}\left[B_l + B_h \right]
@@ -92,14 +91,14 @@ Many additional spectra have been developed and in 1997, Elfouhaily et. al unifi
 \renewcommand{\baselinestretch}{2} \small\normalsize
 The Elfouhaily spectrum is dependent on the wind speed at 10 m altitude ($U_{10}$) and the inverse age parameter ($\Omega$). The inverse age parameter indicates how developed the sea is; fully developed for $\Omega = 0.84$, mature for $\Omega = 1.0$, and young for $\Omega > 2.0$. 
 
-The low frequency region, $B_l$, is given by Equation \ref{os_eq:3} and the parameters are defined in Table \ref{os_tab:1}.
+The low spatial frequency region, $B_l$, is given by Equation \ref{os_eq:3} and the parameters are defined in Table \ref{os_tab:1}.
 \begin{equation}
   \label{os_eq:3}
  B_l = \frac{1}{2} \alpha_p \frac{c_p}{c} F_p
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 \begin{subequations}
-   Low frequency spectrum dependencies:
+   Low spatial frequency spectrum dependencies:
 \begin{align*}
   F_p &= L_{PM}J_pe^{-\Omega\left[\sqrt{10}\left(\sqrt{k/_{k_p}} - 1 \right) \right]^{-1}} &  k_p &= g\left(\frac{\Omega}{U_{10}}\right)^2 & c_p &= \frac{U_{10}}{\Omega} \\
    L_{PM} &=e^{-\frac{5}{4}\left(\frac{k}{k_p} \right)^2} &  J_p &= \gamma^\Gamma  & \alpha_p &= 0.006\Omega^{0.55} 
@@ -107,7 +106,11 @@ The low frequency region, $B_l$, is given by Equation \ref{os_eq:3} and the para
 \end{subequations}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 \begin{table}[H]
-\begin{center}
+  \begin{center}
+      \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Elfouhaily Low Spatial Frequency Spectrum Parameters]{Elfouhaily Low Spatial Frequency Spectrum Parameters\label{os_tab:1}}
+  \end{quote}
   \begin{tabular} {|c | c |}
     \hline
   \bf{Parameter} & \bf{Description} \\ \hline
@@ -118,21 +121,17 @@ The low frequency region, $B_l$, is given by Equation \ref{os_eq:3} and the para
   $J_p$ & JONSWAP peak enhancement function \\ \hline
    $\alpha_p$ & Generalized Phillips-Kitaigorodskii long wave equilibrium range parameter\\ \hline
 \end{tabular}
-  \renewcommand{\baselinestretch}{1} \small\normalsize
-  \begin{quote}
-    \caption[Elfouhaily Low Frequency Spectrum Parameters]{Elfouhaily Low Frequency Spectrum Parameters\label{os_tab:1}}
-  \end{quote}
 \end{center}
 \end{table}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-The high frequency region, $B_h$, is given by Equation \ref{os_eq:4} and the parameters are defined in Table \ref{os_tab:2}.
+The high spatial frequency region, $B_h$, is given by Equation \ref{os_eq:4} and the parameters are defined in Table \ref{os_tab:2}.
 \begin{equation}
   \label{os_eq:4}
  B_h = \frac{1}{2} \alpha_m \frac{c_m}{c} F_m
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 \begin{subequations}
-   Low frequency spectrum dependencies:
+   High spatial frequency spectrum dependencies:
 \begin{align*}
   F_m &= L_{PM}J_pe^{-\frac{1}{4}\left[k/_{k_m} - 1 \right]^2 } & k_m & = 370 \text{ rad/m} &  c_m &=\sqrt{\frac{2g}{k_m}} \\
   u^* &= \sqrt{0.00144}U_{10}  & \alpha_m &= \alpha_o\frac{u^*}{c_m}  \\
@@ -141,7 +140,11 @@ The high frequency region, $B_h$, is given by Equation \ref{os_eq:4} and the par
 \end{subequations}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 \begin{table}[H]
-\begin{center}
+  \begin{center}
+      \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Elfouhaily High Spatial Frequency Spectrum Parameters]{Elfouhaily High Spatial Frequency Spectrum Parameters\label{os_tab:2}}
+  \end{quote}
   \begin{tabular} {|c | c |}
     \hline
   \bf{Parameter} & \bf{Description} \\ \hline
@@ -152,10 +155,6 @@ The high frequency region, $B_h$, is given by Equation \ref{os_eq:4} and the par
   $L_{PM}$ & PM shape spectrum \\ \hline
   $J_p$ & JONSWAP peak enhancement function \\ \hline
 \end{tabular}
-  \renewcommand{\baselinestretch}{1} \small\normalsize
-  \begin{quote}
-    \caption[Elfouhaily High Frequency Spectrum Parameters]{Elfouhaily High Frequency Spectrum Parameters\label{os_tab:2}}
-  \end{quote}
 \end{center}
 \end{table}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -227,7 +226,7 @@ In order to understand the remaining scale factors and evaluate the 2nd moment, 
   V(-k) = \sqrt{\frac{1}{2}}\left[u(-k) - iv(-k) \right]\sqrt{S_d(-k)}
   \end{gathered}
 \end{equation}
-The 2nd moment of either of these functions individually is equal to $S_d(k)$, but the 2nd moment of the combined function is $2S_d(k)$. This means we need to multiply the sequence $V(k)$ by an additional scale factor of $\sqrt{\frac{1}{2}}$ to conserve the total energy. We could also arrive at this result by realizing that in Equation \ref{os_eq:7}, we are starting with a sequence of length $N/2$ and extending it to cover a length of $N$, effectively doubling the energy contained. The scaling factor corrections are shown in Equation \ref{os_eq:8}.
+The 2nd moment of either of these functions individually is equal to $S_d(k)$, but the 2nd moment of the combined function is $2S_d(k)$. This means we need to multiply the sequence $V(k)$ by an additional scale factor of $\sqrt{\frac{1}{2}}$ to conserve the total energy. We could also arrive at this result by realizing that in Equation \ref{os_eq:7}, we are starting with a sequence of length $N/2$ and extending it to cover a length of $N$, effectively doubling the energy contained. The scaling factor corrections are shown in Equation \ref{os_eq:8}, which is valid for one-side discrete spectra.
 \begin{equation}
   \label{os_eq:8}   
   V_j = \begin{cases}
