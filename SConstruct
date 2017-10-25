@@ -13,3 +13,6 @@ Install('dist',tgf)
 
 tsp = SConscript('src/SConscriptSP',variant_dir='build')
 Install('dist',tsp)
+
+os1 = SConscript('src/SConscriptOS',variant_dir='build')
+Install('dist',os1)
