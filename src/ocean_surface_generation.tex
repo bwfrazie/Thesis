@@ -6,11 +6,11 @@ Ocean waves are primarily driven by wind and start when turbulence creates capil
 
 Before discussing the statistical properties of ocean waves, it is useful to review some standard nomenclature. Fetch is the length over which the wind can be considered constant, and a longer fetch generally means higher waves. Significant wave height is the mean wave height of the highest third of the waves. Significant wave height is represented in the literature as $H_{1/3}$ and is equal to 4 times the standard deviation of the wave height, $H_{1/3} = 4\sigma_h$.
 
-The phase speed of wves due to gravity in deep water is $v_p=\sqrt{g/k}$, which allows us to write the dispersion relation $\omega = \sqrt{gk}$. This dispersion relation is import for changing variables in the power spectra, for instance converting $S(\omega)$ to $S(k)$. We can use the fact that the amount of energy contained per unit interval should be constant so that $S(k)dk = S(\omega)d\omega = S(f)df$. To convert a power spectrum in terms of $\omega$ to one in terms of $k$, we would use the expression in Equation \ref{os_eq:0aa}.
+The phase speed of waves due to gravity in deep water is $v_p=\sqrt{g/k}$, which allows us to write the dispersion relation $\omega = \sqrt{gk}$. This dispersion relation is important for changing variables in the power spectra, for instance converting $S(\omega)$ to $S(k)$. We can use the fact that the amount of energy contained per unit interval should be constant so that $S(k)dk = S(\omega)d\omega = S(f)df$. To convert a power spectrum in terms of $\omega$ to one in terms of $k$, we would use the expression in Equation \ref{os_eq:0aa}.
 
 \begin{equation}
   \label{os_eq:0aa}
-  S(k) = S(\omega = \sqrt{qk})\frac{d\omega}{dk}
+  S(k) = S(\omega = \sqrt{gk})\frac{d\omega}{dk} = \frac{1}{2}\sqrt{\frac{g}{k}}S(\omega=\sqrt{gk})
   \end{equation}
 
 \section{Ocean Wave Power Spectra}  \label{os_sec:power_spectra}
@@ -54,7 +54,7 @@ S(k) = \frac{0.0081}{k^3}e^{-0.74\left(\frac{g}{k}\right)^2U_{19}^{-4}}
  
  \begin{figure}[H]
   \begin{center}
-\includegraphics[width=6in]{../media/PM_variance_curvature_spectrum.png}
+\includegraphics[width=6in]{../media/Ocean_Surface/PM_variance_curvature_spectrum.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
@@ -175,7 +175,7 @@ The variables $L_{PM}$ and $J_p$ are found in both $B_l$ and $B_h$ and are given
 To compare the results, the Elfouhaily and PM variance spectra are shown in the left hand side of Figure \ref{os_fig:2} for wind speeds of 5 m/s and 10 m/s. The inverse age parameter was set to 0.84 to match and the wind speed at 19 m was approximated from $U_{19} \approx 1.026 U_{10}$. The Elfouhaily spectra are shown by the dashed lines and indicate a deviation from the PM spectra at large wave numbers. The corresponding curvature spectra are shown in the right hand side of Figure \ref{os_fig:2}. The secondary peak in the Elfouhaily curvature spectrum is shown at 370 rad/m.
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=6in]{../media/elf_vs_PM_variance_curvature_spectrum.png}
+\includegraphics[width=6in]{../media/Ocean_Surface/elf_vs_PM_variance_curvature_spectrum.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
@@ -186,7 +186,7 @@ To compare the results, the Elfouhaily and PM variance spectra are shown in the 
 To look at the dependence on wind speed, the Elfohaily variance spectrum is shown in the left hand side of Figure \ref{os_fig:3} and the associated curvature spectrum is shown in the right hand side of Figure \ref{os_fig:3}. These figures were generated for wind speeds from 3 m/s to 21 m/s in increments of 2 m/s, matching Figure 8 in \cite{elfouhaily}.
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=6in]{../media/elf_variance_curvature_spectrum.png}
+\includegraphics[width=6in]{../media/Ocean_Surface/elf_variance_curvature_spectrum.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
@@ -247,7 +247,7 @@ Now that we have the random Fourier coefficients, we can generate the sea surfac
 Figure \ref{os_fig:7} shows one realization of a sea surface with $U_{10}$ = 20 m/s, $N$ = $2^{20}$, and $L$ = 10 km. For these parameters, $\Delta x$ = 9.5 mm, $\Delta k$ = 0.628 mrad/m, $k_{max} = 32.9\times 10^4$ rad/m, and $\lambda_{min} = 19$ mm.
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=5in]{../media/realized_sea_surface_20m_per_s.png}
+\includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_test.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
@@ -255,10 +255,11 @@ Figure \ref{os_fig:7} shows one realization of a sea surface with $U_{10}$ = 20 
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
 Figure \ref{os_fig:8} shows the original variance spectrum and the locations of the sampling points in wave number space.
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=5in]{../media/sampled_spectra_points.png}
+\includegraphics[width=6in]{../media/Ocean_Surface/sampling_test.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
@@ -266,14 +267,40 @@ Figure \ref{os_fig:8} shows the original variance spectrum and the locations of 
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-Figure \ref{os_fig:9} shows the original variance spectrum compared to the recovered spectrum that was estimated from the sea surface realization.
+
+\subsection{Verification Testing}
+In order to verify the results, the first step was to estimate the power spectrum of the sea surface realization and see how that compared to the original power spectrum. Figure \ref{os_fig:9} shows the original variance spectrum compared to the spectrum recovered through a periodogram of the realization. This figure shows that the original spectrum is centered in the estimated spectrum and does not change with the total length $L$.
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=5in]{../media/recreated_test_spectrum.png}
+\includegraphics[width=6in]{../media/Ocean_Surface/power_spectrum_test.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
     \caption[Comparison of Original and Recovered Spectra]{Comparison of Original and Recovered Spectra\label{os_fig:9}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+The next step was to compare the sequence of random coefficients, $V$ with those recovered from the forward Fourier transform of the sea surface realization. Figure \ref{os_fig:10} shows this comparison. The magnitudes of the two sequences lie on top of each other and we can see that the sequences are indeed Hermitian.
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/random_variable_test.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Comparison of Original and Recovered Coefficients]{Comparison of Original and Recovered Coefficients\label{os_fig:10}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Finally, we can look at the difference between the sequence of random coefficients, $V$ with those recovered from the forward Fourier transform of the sea surface realization. Figure \ref{os_fig:11} shows these differences and we can see that they are extremely small, $ < 10^-15$..
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/random_variable_diff_test.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Difference Between Original and Recovered Coefficients]{Difference Between Original and Recovered Coefficients\label{os_fig:11}}
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize

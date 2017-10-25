@@ -23,7 +23,7 @@ grid on
 xlim([10^-3 10^4.5]);
 ylim([10^-15 10^3])
 xlabel('k (rad/m)');
-ylabel('S(k) (m/rad)')
+ylabel('S(k) (m^2/rad/m)')
 title('Pierson-Moskowitz Variance Spectrum')
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
@@ -40,7 +40,7 @@ grid on
 xlim([10^-3 10^4.5]);
 ylim([10^-4 10^-2])
 xlabel('k (rad/m)');
-ylabel('k^3S(k) (rad/m)^2)')
+ylabel('k^3S(k) (rad)')
 title('Pierson-Moskowitz Curvature Spectrum')
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
