@@ -35,7 +35,7 @@ text(370,10^-5,'\leftarrow k = 370 rad/m','FontWeight','bold','FontSize',12)
 
 legend('PM, U_{10} = 5m/s','PM,  U_{10} = 10 m/s','E,  U_{10} = 5 m/s','E,  U_{10} = 10 m/s')
 xlabel('k (rad/m)');
-ylabel('S(k) (m^2/rad/m)')
+ylabel('S(k) (m^3/rad)')
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 title('Variance Spectra')
@@ -59,7 +59,7 @@ ylim([10^-4 10^0])
 
 legend('PM,  U_{10} = 5m/s','PM,  U_{10} = 10 m/s','E,  U_{10} = 5 m/s','E,  U_{10} = 10 m/s')
 xlabel('k (rad/m)');
-ylabel('k^3S(k) (rad)')
+ylabel('k^3S(k) (rad^2)')
 
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)

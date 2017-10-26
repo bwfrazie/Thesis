@@ -26,7 +26,7 @@ grid on
 xlim([10^-3 10^5]);
 ylim([10^-15 10^3])
 xlabel('k (rad/m)');
-ylabel('S(k) (m^2/rad/m)')
+ylabel('S(k) (m^3/rad)')
 text(370,10^-5,'\leftarrow k = 370 rad/m','FontWeight','bold','FontSize',12)
 title('Elfouhaily Variance Spectrum')
 set(gca,'LineWidth',2)
@@ -44,7 +44,7 @@ grid on
 xlim([10^-3 10^5]);
 ylim([10^-4 10^0])
 xlabel('k (rad/m)');
-ylabel('k^3S(k) (rad)')
+ylabel('k^3S(k) (rad^2)')
 l1 = linspace(-16,3,26);
 l = 10.^l1;
 plot(370*ones(size(l)),l,'k','LineWidth',2);
