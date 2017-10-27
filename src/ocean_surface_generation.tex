@@ -4,7 +4,7 @@ To capture the physical behavior of electromagnetic waves reflecting off the sur
 \section {Waves in the Ocean}
 Ocean waves are primarily driven by wind and start when turbulence creates capillary or surface waves with small wavelengths (on the order of a few centimeters). As the wind continues to blow, it increases both the amplitude and the wavelength of the waves until they start to interact. These interactions continue to increase the wavelength and phase speed of the waves until they are traveling faster than the wind, at which point the sea is fully developed. As a sea develops, the energy will transfer from higher frequencies to lower frequencies by the processes just described.
 
-Before discussing the statistical properties of ocean waves, it is useful to review some standard nomenclature. Fetch is the length over which the wind can be considered constant, and a longer fetch generally means higher waves. Significant wave height is the mean wave height of the highest third of the waves. It is represented in the literature as $H_{1/3}$ and is equal to 4 times the standard deviation of the wave height, $H_{1/3} = 4\sigma_h$. Wave height refers to the mean difference between successive peaks and throughs (twice the amplitude).
+Before discussing the statistical properties of ocean waves, it is useful to review some standard nomenclature. Fetch is the length over which the wind can be considered constant, and a longer fetch generally means higher waves. Significant wave height is the mean wave height of the highest third of the waves. It is represented in the literature as $H_{1/3}$ and is equal to 4 times the standard deviation of the wave height, $H_{1/3} = 4\sigma_h$. Wave height refers to the mean difference between successive peaks and troughs (twice the amplitude).
 
 The phase speed of waves due to gravity in deep water is $v_p=\sqrt{g/k}$, which allows us to write the dispersion relation $\omega = \sqrt{gk}$. This dispersion relation is important for changing variables in the power spectra, for instance converting $S(\omega)$ to $S(k)$. We can use the fact that the amount of energy contained per unit interval is constant so that $S(k)dk = S(\omega)d\omega = S(f)df$. To convert a power spectrum in terms of $\omega$ to one in terms of $k$, we would use the expression in Equation \ref{os_eq:0aa}.
 \begin{equation}
@@ -13,10 +13,10 @@ The phase speed of waves due to gravity in deep water is $v_p=\sqrt{g/k}$, which
   \end{equation}
 
 \section{Ocean Wave Power Spectra}  \label{os_sec:power_spectra}
-Many methods have been proposed to statistically describe the behavior of ocean waves. These range from the simplest sea state representation with a very coarse binning of wind speed and sea height variations to the mathematically complex Elfouhaily variance power spectrum that unifies the more recent work.
+Many methods have been proposed to statistically describe the behavior of ocean waves. These range from the simplest sea state representation with a very coarse binning of wind speed and sea height variations to the mathematically complex Elfouhaily variance power spectrum.
 
 \subsection {Sea State}
-The modern concept of sea state is a combination of the Beaufort wind scale and the Douglas sea scale. The Beaufort wind scale was developed in the early 1800s by sir Francis Beaufort and the Douglas sea scale was developed in the 1920s by H.P Douglass, both of the Royal Navy \cite{uk_met_fact_sheet6}. The Beaufort wind scale measures force vs. wind speed in 12 bins from "Calm" to "Hurricane" and was extended in 1944 to add scales up to 17. In 1960, it was further extended to add probable wave heights. The Douglas sea scale on the other hand measures sea height in 9 bins from "Calm (glossy)" to "Phenomenal". The Word Meterological Organization (WMO) has adopted the Douglas sea scale as a standard \cite{wmo_code} and we can compare this to the Beaufort wind scale to add the dependency on wind speed as shown in Table \ref{os_tab:0}. There are no true standards when working with sea states, so care must be taken when comparing results between research groups.
+The modern concept of sea state is a combination of the Beaufort wind scale and the Douglas sea scale. The Beaufort wind scale was developed in the early 1800s by sir Francis Beaufort and the Douglas sea scale was developed in the 1920s by H.P Douglas, both of the Royal Navy \cite{uk_met_fact_sheet6}. The Beaufort wind scale measures force vs. wind speed in 12 bins from "Calm" to "Hurricane" and was extended in 1944 to add scales up to 17. In 1960, it was further extended to add probable wave heights. The Douglas sea scale on the other hand measures sea height in 9 bins from "Calm (glossy)" to "Phenomenal". The Word Meterological Organization (WMO) has adopted the Douglas sea scale as a standard \cite{wmo_code} and we can compare this to the Beaufort wind scale to add the dependency on wind speed as shown in Table \ref{os_tab:0}. There are no true standards when working with sea states, so care must be taken when comparing results between research groups.
 
 \begin{table}[H]
   \begin{center}
@@ -49,7 +49,7 @@ S(k) = \frac{0.0081}{k^3}e^{-0.74\left(\frac{g}{k}\right)^2U_{19}^{-4}}
 \label{os_eq:1}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
-The PM spectrum is a single parameter spectrum as it only allows tuning of the spectrum through wind speed in the exponential term of Equation \ref{os_eq:1}. The power spectrum ($S$) is shown in the left hand side of Figure \ref{os_fig:1} and the associated curvature spectrum ($k^3S$) is shown in the right hand side of Figure \ref{os_fig:1}, both for wind speeds from 3 m/s to 21 m/s in increments of 2 m/s. The curvature spectrum is also referred to as the saturation spectrum. It removes the $k^-3$ dependence of the power spectrum and allows some high spatial frequency behavior to be more readily observed.
+The PM spectrum is a single parameter spectrum as it only allows tuning of the spectrum through wind speed in the exponential term of Equation \ref{os_eq:1}. The power spectrum ($S$) is shown in the left hand side of Figure \ref{os_fig:1} and the associated curvature spectrum ($k^3S$) is shown in the right hand side of Figure \ref{os_fig:1}, both for wind speeds from 3 m/s to 21 m/s in increments of 2 m/s. The curvature spectrum is also referred to as the saturation spectrum. It removes the $k^-3$ dependence of the power spectrum and allows high spatial frequency behavior to be more readily observed.
  
  \begin{figure}[H]
   \begin{center}
@@ -62,7 +62,7 @@ The PM spectrum is a single parameter spectrum as it only allows tuning of the s
 \end{figure}
  \renewcommand{\baselinestretch}{2} \small\normalsize
  
- From Figure \ref{os_fig:1} we can see that the wind speed impacts the spectral peak and low spatial frequency cutoff but has no effect for high spatial frequencies.
+ From Figure \ref{os_fig:1} we can see that the wind speed impacts the spectral peak and low spatial frequency cutoff but has no effect at high spatial frequencies.
  
 The PM spectrum assumes deep water, infinite fetch and no swells and has repeatedly been shown to be accurate for gravity waves in fully developed seas, but fails to capture spectral peaks due to high winds over short fetches. This means that the low spatial frequency component of the power spectrum is valid in almost all cases but the high spatial frequency component is not.
 
@@ -75,7 +75,6 @@ To overcome the limitations of a spectrum that requires fully developed seas, se
   \end{gathered}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-
 The Bretschneider power spectrum ($S$) is shown in the left hand side of Figure \ref{os_fig:1a} and the associated curvature spectrum ($k^3S$) is shown in the right hand side of Figure \ref{os_fig:1a}, both for wave height standard deviations from 0.1 m to 1 m in increments of 0.1 m.
 
  \begin{figure}[H]
@@ -91,7 +90,7 @@ The Bretschneider power spectrum ($S$) is shown in the left hand side of Figure 
 The Bretschneider spectrum is a two-parameter spectrum as it allows tuning of both the exponential term and the amplitude in Equation \ref{os_eq:1a}.
 
 \subsection{JONSWAP Spectrum}
-Join North Sea Wave Project in the 1970s modified the Pierson-Moskowitz spectrum by adding a peak enhancement factor as shown in Equation \ref{os_eq:1b} \cite{michel_sea_spectra}.
+Join North Sea Wave Project (JONSWAP) in the 1970s modified the Pierson-Moskowitz spectrum by adding a peak enhancement factor as shown in Equation \ref{os_eq:1b} \cite{michel_sea_spectra}.
 \begin{equation}
   \label{os_eq:1b}
   S(k) = S_{PM}(k)\nu^{\frac{k-k_0}{2\sigma^2k_0}} 
@@ -155,7 +154,7 @@ The high spatial frequency region, $B_h$, is given by Equation \ref{os_eq:4} and
    High spatial frequency spectrum dependencies:
 \begin{align}
   F_m &= L_{PM}J_pe^{-\frac{1}{4}\left[k/_{k_m} - 1 \right]^2 } & k_m & = 370 \text{ rad/m} &  c_m &=\sqrt{\frac{2g}{k_m}} = 0.23 \text{ m/s} \\
-  u^* &= \sqrt{0.00144}U_{10}  & L_{PM} &=e^{-\frac{5}{4}\left(\frac{k_p}{k} \right)^2}  &  J_p &= \gamma^\Gamma
+  u^* &= \sqrt{Cd_{10N}}U_{10}  & L_{PM} &=e^{-\frac{5}{4}\left(\frac{k_p}{k} \right)^2}  &  J_p &= \gamma^\Gamma
 \end{align}
 \end{subequations}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -186,6 +185,7 @@ The high spatial frequency region, $B_h$, is given by Equation \ref{os_eq:4} and
   $\alpha_m$ & Generalized Phillips-Kitaigorodskii short wave equilibrium range parameter \\ \hline
   $L_{PM}$ & PM shape spectrum \\ \hline
   $J_p$ & JONSWAP peak enhancement function \\ \hline
+  $Cd_{10N}$ & Neutral stability drag coefficient at 10 m above sea level, $\approx 0.00144$ \\ \hline
 \end{tabular}
 \end{center}
 \end{table}
@@ -215,6 +215,31 @@ We can compute the inverse age parameter from fetch as shown in Equation \ref{os
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
+\subsubsection{Spectrum Visualization}
+The Elfohaily variance spectrum is shown in the left hand side of Figure \ref{os_fig:3} and the associated curvature spectrum is shown in the right hand side of Figure \ref{os_fig:3}. These figures were generated for wind speeds from 3 m/s to 21 m/s in increments of 2 m/s, matching Figure 8 in \cite{elfouhaily}.
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/elf_variance_curvature_spectrum.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Elfouhaily Variance and Curvature Spectra vs. $U_{10}$]{Elfouhaily Variance and Curvature Spectra vs. $U_{10}$\label{os_fig:3}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+To understand the impact from the inverse age parameter, the Elfohaily variance spectrum is shown in the left hand side of Figure \ref{os_fig:3a} and the associated curvature spectrum is shown in the right hand side of Figure \ref{os_fig:3a}. These figures were generated for $\Omega$ ranging from $0.84$ (fully developed) to $5.0$ (very young). From this figure, we can see that the spectrum reflects energy transferring from high spatial frequencies to low spatial frequencies and the spectral peak flattening as the sea develops.
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/elf_variance_curvature_spectrum_age.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Elfouhaily Variance and Curvature Spectra vs. $\Omega$]{Elfouhaily Variance and Curvature Spectra vs. $\Omega$ \label{os_fig:3a}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
 \subsubsection{Comparison with PM Spectrum}
 To compare the results, the Elfouhaily and PM variance spectra are shown in the left hand side of Figure \ref{os_fig:2} for wind speeds of 5 m/s and 10 m/s. The inverse age parameter was set to 0.84 to match and the wind speed at 19 m was approximated from $U_{19} \approx 1.026 U_{10}$. The Elfouhaily spectra are shown by the dashed lines and indicate a deviation from the PM spectra at large wave numbers. The corresponding curvature spectra are shown in the right hand side of Figure \ref{os_fig:2}. The secondary peak in the Elfouhaily curvature spectrum is shown at 370 rad/m.
 \begin{figure}[H]
@@ -227,17 +252,6 @@ To compare the results, the Elfouhaily and PM variance spectra are shown in the 
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-To look at the dependence on wind speed, the Elfohaily variance spectrum is shown in the left hand side of Figure \ref{os_fig:3} and the associated curvature spectrum is shown in the right hand side of Figure \ref{os_fig:3}. These figures were generated for wind speeds from 3 m/s to 21 m/s in increments of 2 m/s, matching Figure 8 in \cite{elfouhaily}.
-\begin{figure}[H]
-  \begin{center}
-\includegraphics[width=6in]{../media/Ocean_Surface/elf_variance_curvature_spectrum.png}
-  \end{center}
-  \renewcommand{\baselinestretch}{1} \small\normalsize
-  \begin{quote}
-    \caption[Elfouhaily Variance and Curvature Spectra]{Elfouhaily Variance and Curvature Spectra\label{os_fig:3}}
-  \end{quote}
-\end{figure}
-\renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection{Directional Spreading Functions}
 All the variance power spectra that have been discussed are uni-directional, meaning they only apply downrange in the direction of the wind. For two-dimensional surfaces, we need to include angular extent. This can be accomplished by applying a spreading function $\Phi$ as shown in Equation \ref{os_eq:5b} \cite{elfouhaily}.
@@ -246,15 +260,14 @@ All the variance power spectra that have been discussed are uni-directional, mea
 \Psi(k,\phi) = \frac{1}{k}S(k)\Phi(k,\phi)
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-
 As discussed in \cite{elfouhaily}, the spreading function should be symmetric in upwind-crosswind and will have the form given in Equation \ref{os_eq:5c}.
 \begin{equation}
 \label{os_eq:5c}
-\Psi)(k,\phi) = \frac{1}{2\pi}\left[1 + \Delta(k)\cos(2\phi) \right]
+\Psi(k,\phi) = \frac{1}{2\pi}\left[1 + \Delta(k)\cos(2\phi) \right]
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Where $\Delta(k)$ is defined as in Equation \ref{os_eq:5d}.
+Here $\Delta(k)$ is defined as in Equation \ref{os_eq:5d}.
 \begin{equation}
 \label{os_eq:5d}
 \begin{gathered}
@@ -273,15 +286,15 @@ The complete unified Elfouhaily spectrum is given in Equation \ref{os_eq:5e}.
 \end{equation}
 
 \section{Generation of Sea Surface Realizations}
-Realizations of sea surfaces rely on adequate sampling to cover the spectral range of interest and then generating an appropriate set of Fourier coefficients.
+Realizations of sea surfaces rely on adequate sampling to cover the both spectral and spatial ranges of interest and then generating an appropriate set of Fourier coefficients.
 
 \subsection{Sampling Constraints}
-In order to generate a random sea surface height realization,  the first thing we need to establish is the number of points to use, $N$, and the spatial domain length to cover, $L$. The spatial domain sampling is then $\Delta x = \frac{L}{N}$ and the frequency domain sampling is $\Delta k = \frac{2\pi}{L}$.
+In order to generate a random sea surface height realization,  the first thing we need to establish is the number of points to use ($N$) and the spatial domain length to cover ($L$). The spatial domain sampling inteval is then $\Delta x = \frac{L}{N}$ and the frequency domain sampling interval is $\Delta k = \frac{2\pi}{L}$.
 
 The highest wave number that can be sampled given these values is $k_{max} = \frac{N}{2}\Delta k = \frac{N\pi}{L} = \frac{\pi}{\Delta x}$ rad/m, which corresponds to a minimum wavelength of $\lambda_{min} = 2\Delta x = \frac{2L}{N} = \frac{4\pi}{\Delta k N}$ m.
 
 \subsection{Power Spectrum Discretization}
-We next follow the procedure outlined in \cite{percival_spectra},  where we work in the frequency domain and start with a set of Gaussian distributed random variables, $W_j$. We need to scale these random numbers by the square root of the variance spectrum, arrange them so the sequence is Hermitian, and then take the inverse Fourier transform. For a sequence of $N$ variables, and a two-sided continuous power spectrum, $S(k)$, we can generate the frequency domain random variables, $V(k)$ as shown in Equation \ref{os_eq:6}.
+We next follow the procedure outlined in \cite{percival_spectra},  where we work in the frequency domain and start with a set of Gaussian distributed random variables, $W_j$. We need to scale these random numbers by the square root of the variance spectrum, arrange them so the sequence is Hermitian, and then take the inverse Fourier transform. For a sequence of length $N$ and a two-sided continuous power spectrum ($S$), we can generate the frequency domain random variables ($V(k)$) as shown in Equation \ref{os_eq:6}.
 \begin{equation}
   \label{os_eq:6}   
   V_j = \begin{cases}
@@ -291,7 +304,7 @@ We next follow the procedure outlined in \cite{percival_spectra},  where we work
     V_{N-j}^*, &  \frac{N}{2} < j \leq N-1 
   \end{cases} 
 \end{equation}
-Since we have a one-sided, discrete power spectrum, there are some additional scaling factors that need to be added to Equation \ref{os_eq:6} for conservation of energy. To convert to a discrete power spectrum, we use the fact that the amount of energy contained per unit interval will be a constant, so that $S(f)df = S(k)dk = S(\omega) d\omega$. To normalize the spectrum to the specified wave number sampling interval, we simply need to multiply by $\Delta k$. Next, since we have a one-sided spectrum rather than a two-sided one, we have half the energy and need to divide the power spectrum by 2. With these factors included, we can define the discrete spectrum as $S_d(k) = \frac{S(k)\Delta k}{2}$.
+Since we have a one-sided, discrete power spectrum, there are some additional scaling factors that need to be added to Equation \ref{os_eq:6} to account for conservation of energy. To convert to a discrete power spectrum, we use the fact that the amount of energy contained per unit interval will be a constant, so that $S(f)df = S(k)dk = S(\omega) d\omega$. To normalize the spectrum to the specified wave number sampling interval, we simply need to multiply by $\Delta k$. Next, since we have a one-sided spectrum rather than a two-sided one, we only have half the energy present and need to divide the power spectrum by 2. With these factors included, we can define the one-sided, discrete spectrum as $S_d(k) = \frac{S(k)\Delta k}{2}$.
 
 In order to understand the remaining scale factors and evaluate the 2nd moment, we can rewrite Equation \ref{os_eq:6} into a more clear form as shown in Equation \ref{os_eq:7}, letting $u(k) = W_{2-j}$ and $v(k) = W_{2j}$.
 \begin{equation}
@@ -301,7 +314,7 @@ In order to understand the remaining scale factors and evaluate the 2nd moment, 
   V(-k) = \sqrt{\frac{1}{2}}\left[u(-k) - iv(-k) \right]\sqrt{S_d(-k)}
   \end{gathered}
 \end{equation}
-The 2nd moment of either of these functions individually is equal to $S_d(k)$, but the 2nd moment of the combined function is $2S_d(k)$. This means we need to multiply the sequence $V(k)$ by an additional scale factor of $\sqrt{\frac{1}{2}}$ to conserve the total energy. We could also arrive at this result by realizing that in Equation \ref{os_eq:6}, we are starting with a sequence of length $N/2$ and extending it to cover a length of $N$, effectively doubling the energy contained. The scaling factor corrections are shown in Equation \ref{os_eq:8}, which is valid for one-side discrete spectra.
+The 2nd moment of either of these functions individually is equal to $S_d(k)$, but the 2nd moment of the combined function is $2S_d(k)$. This means we need to multiply the sequence $V(k)$ by an additional scale factor of $\sqrt{1/2}$ to conserve the total energy. We could also arrive at this result by realizing that in Equation \ref{os_eq:6}, we are starting with a sequence of length $N/2$ and extending it to cover a length of $N$, effectively doubling the energy contained. The scaling factor corrections are shown in Equation \ref{os_eq:8}, which is valid for one-side discrete spectra.
 \begin{equation}
   \label{os_eq:8}   
   V_j = \begin{cases}
@@ -311,7 +324,7 @@ The 2nd moment of either of these functions individually is equal to $S_d(k)$, b
     V_{N-j}^*, &  \frac{N}{2} < j \leq N-1 
   \end{cases} 
 \end{equation}
-Now that we have the random Fourier coefficients, we can generate the sea surface through the inverse Fourier transform. Because the sequence is Hermitian, the sea surface will be purely real.
+Now that we have the random Fourier coefficients, we can generate the sea surface through the inverse Fourier transform as in Equation \ref{os_eq:9}. Because the sequence is Hermitian, the sea surface will be purely real.
 \begin{equation}
   \label{os_eq:9}
   h(x) = \mathcal{F}^{-1}\left\{V(k) \right\}
