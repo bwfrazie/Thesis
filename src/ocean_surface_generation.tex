@@ -302,11 +302,11 @@ In order to generate a random sea surface,  the first thing we need to establish
 
 From the Nyquist sampling theorem, the highest wave number that can be sampled given these values is $k_{max} = \frac{N}{2}\Delta k = \frac{N\pi}{L}$ rad/m, which corresponds to a minimum wavelength of $\lambda_{min} = 2\Delta x = \frac{2L}{N}$ m.
 
-Immediately, we see that to cover the secondary peak at $k_m$, $\frac{N}{L}\pi > k_m$ or $N > \frac{Lk_m}{\pi}$. Since $k_m = 370$ rad/m, $N > 118L$. In other words, the number of points required to cover the secondary peak in the spectrum is 118 times more than the length of the spatial domain. For the 1-dimensional case, this is not too bad as a 10 km length can be sampled with 1,180,000 points. It is in the 2-dimensional case where this really becomes problematic.
+Immediately, we see that to cover the secondary peak at $k_m$, $\frac{N}{L}\pi > k_m$ or $N > \frac{Lk_m}{\pi}$. Since $k_m = 370$ rad/m, we can round up to state that $N \geq 118L$. In other words, the number of points required to cover the secondary peak in the spectrum is 118 times more than the length of the spatial domain. For the 1-dimensional case, this is not too bad as a 10 km length can be sampled with 1,180,000 points. It is in the 2-dimensional case where this really becomes problematic, as we now need $N^2$ points.
 
 As a final note for sampling constraints, we need to maintain integer indexing for digital implementation so $N$ must be an even number. We will define the range in $k$-space as running from $-\left(\frac{N}{2}-1\right)\Delta k$ to $\frac{N}{2}\Delta k$.
 
-Figure \ref{os_fig:6aa} shows the impact on wavenumber sampling for various values of $N$.
+Figure \ref{os_fig:6aa} shows the impact on wavenumber sampling for various values of $N$ for $L$ = 1 km. The upper left hand plot shows the case were $N = 5L$, the upper right hand plot shows the case where $N = 10L$, the lower left hand plot shows the case where $N = 118L$, and the lower right hand plot shows the case were $N = 500L$.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sampling_coverage.png}
@@ -317,6 +317,7 @@ Figure \ref{os_fig:6aa} shows the impact on wavenumber sampling for various valu
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+Since $L$ is the same for each case, $\Delta k$ is also the same and we can see how increasing $N$ increases coverage of higher spatial frequencies.
 
 \subsection{Frequency Domain Representation}
 The general idea is to use the power spectrum to create a realization of the sea surface in the frequency domain and then transform that to the spatial domain through an inverse Fourier transform. We will follow the procedure outlined in \cite{percival_spectra}, 
@@ -324,9 +325,7 @@ but we need to provide some additional scale factors to account for conservation
 
 To handle discretization of the power spectrum, we use the fact that the amount of energy contained per unit interval is a constant, so that $S(k)dk = S(\omega) d\omega$. To normalize the spectrum to the specified wave number sampling interval, we simply need to multiply by $\Delta k$. Next, since we have a one-sided spectrum rather than a two-sided one, we only have half the energy present and need to divide the power spectrum by 2. With these factors included, we can define the one-sided, discrete spectrum as $S_d = \frac{S(k)\Delta k}{2}$.
 
-The frequency domain representation of the sea surface will be contained in the sequence $V_j$. To generate this representation, we will take a set of Gaussian distributed random variables that are scaled  by the square root of the power spectrum and arrange them so the sequence is Hermitian, $V(k) = V^*(-k)$.
-
-Because $N$ is even as described in Section \ref{os_label:1d_sampling_constraints}, there are special cases to handle to ensure that the discrete sequence, $V_j$ is Hermitian, namely at $k = 0$ and $k = \frac{N}{2}\Delta k$. The sequence $V_j$ only contains a single element for both of these frequencies and must be purely real. If we take a pair of uncorrelated Gaussian distributed random variables of length $\frac{N}{2}$, $w$ and $u$, we can generate the sequence $V_j$ as shown in Equation \ref{os_eq:8}.
+To generate the frequency domain representation ($V_j$), we will take a set of Gaussian distributed random variables that are scaled  by the square root of the power spectrum and arrange them so the sequence is Hermitian, $V(k) = V^*(-k)$. Because $N$ is even, as described in Section \ref{os_label:1d_sampling_constraints}, there are special cases to handle to ensure that the discrete sequence is Hermitian. The sequence $V_j$ only contains a single element for $k = 0$ and $k = \frac{N}{2}\Delta k$ and must be purely real at both frequencies. If we take a pair of uncorrelated Gaussian distributed random variables of length $\frac{N}{2}$ ($w$ and $u$), we can generate the sequence $V_j$ as shown in Equation \ref{os_eq:8}.
 
 \begin{equation}
   \label{os_eq:8}   
@@ -337,7 +336,7 @@ Because $N$ is even as described in Section \ref{os_label:1d_sampling_constraint
     V_{N-j}^*, &  \frac{N}{2} < j \leq N-1 
   \end{cases} 
 \end{equation}
-The extra factor of $\frac{1}{2}$ in line 2 of Equation \ref{os_eq:8} comes from the fact that we need to normalize the expectations $\left<w_j + iu_j\right>$ and $\left<w_j - iu_j\right>$ to conserve energy.
+The extra factor of $\frac{1}{2}$ in line 2 of Equation \ref{os_eq:8} comes from the fact that we need to normalize both the expectations $\left<w_j + iu_j\right>$ and $\left<w_j - iu_j\right>$ to conserve energy.
 
 The index ordering is assumed to have $k=0$ at the first element so that the sequence will wrap in frequency at $j = \frac{N}{2} + 1$. An example sequence for $N = 8$ is shown in Table \ref{os_tab:2a}.
 \begin{table}[H]
