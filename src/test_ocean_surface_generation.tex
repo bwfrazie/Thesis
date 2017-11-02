@@ -2,7 +2,7 @@
 
 \usepackage{titlesec}
    \titleformat{\chapter}
-      {\normalfont\large}{Chapter \thechapter:}{1em}{}
+      {\normalfont\large}{}{1em}{}
 
 \usepackage[pdftex]{graphicx}
 \usepackage{mathrsfs,amsmath}
@@ -37,14 +37,30 @@
 %\setlength{\topmargin}{0in}    %use this setting if the printer makes the the top margin 1/2 inch instead of 1 inch
 \setlength{\oddsidemargin}{.55in}
 \setlength{\parindent}{.4in}
-%\pagestyle{empty}
-
 \begin{document}
+\titlepage
+\begin{center}
+\vspace*{25pt}
+\includegraphics[width=0.75\textwidth]{../media/apl_small_horizontal_blue}~\\[1cm]
+
+\vspace{50pt}
+
+{\huge \bfseries Ocean Surface Generation\\[0.4 cm]}
+
+
+\vspace{25pt}
+\large Ben Frazier \\
+\large FPS/KVU
+
+\vspace{175pt}
+\large \today
+\end{center}
+
+
 
 \pagenumbering{arabic}
 \include{supertabular}
 \setcounter{page}{1}
-
 
 \include{ocean_surface_generation}
 
