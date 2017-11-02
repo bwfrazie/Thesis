@@ -1,5 +1,7 @@
-function S= Elfouhaily(k,U10,age)
-%S = Elfouhaily(k,U10,age)
+function PSI= Elfouhaily2D(k,phi,U10,age)
+%PSI = Elfouhaily(k,phi, U10,age)
+
+N = size(k,1);
 
 %constants
 g = 9.81; %gravity acceleration
@@ -35,3 +37,12 @@ Bl = 0.5*alphap*(cp./c).*Fp;
 Bh = 0.5*alpham*(cm./c).*Fm;
 
 S = (Bl + Bh)./(k.^3);
+S(N/2+1,N/2+1) = 0.0;
+%% compute the spreading function
+a0 = log(2)/2;
+ap = 4;
+am = 0.13*ustar/cm;
+
+Delk = tanh(a0 + ap*(c/cp).^(2.5) + am*(cm./c).^(2.5));
+PSI = S.*1./k.*(1 + Delk.*cos(2*phi));
+PSI(N/2+1,N/2+1) = 0.0;
