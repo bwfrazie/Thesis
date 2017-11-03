@@ -47,7 +47,7 @@ S(k) = \frac{0.0081}{k^3}e^{-0.74\left(\frac{g}{k}\right)^2U_{19}^{-4}}
  \renewcommand{\baselinestretch}{2} \small\normalsize
 Here, $g$ is the coefficient of gravity ($g = 9.81 m/s^2$). 
  
-The PM spectrum is a single parameter spectrum as wind speed only drives the exponential term of Equation \ref{os_eq:1}. The power spectrum is shown in the left hand side of Figure \ref{os_fig:1} and the associated curvature spectrum is shown in the right hand side of Figure \ref{os_fig:1}, both for wind speeds from 3 m/s to 21 m/s in increments of 2 m/s. The curvature spectrum is also referred to as the saturation spectrum. It removes the $k^{-3}$ dependence of the power spectrum and allows high spatial frequency behavior to be more readily observed.
+The PM spectrum is a single parameter spectrum as wind speed only drives the exponential term of Equation \ref{os_eq:1}. The variance power spectrum is shown in the left hand side of Figure \ref{os_fig:1} and the associated curvature spectrum is shown in the right hand side of Figure \ref{os_fig:1}, both for wind speeds from 3 m/s to 21 m/s in increments of 2 m/s. The curvature spectrum is also referred to as the saturation spectrum. It removes the $k^{-3}$ dependence of the power spectrum and allows high spatial frequency behavior to be more readily observed.
  
  \begin{figure}[H]
   \begin{center}
@@ -59,7 +59,7 @@ The PM spectrum is a single parameter spectrum as wind speed only drives the exp
   \end{quote}
 \end{figure}
  \renewcommand{\baselinestretch}{2} \small\normalsize
-From Figure \ref{os_fig:1} we can see that the wind speed impacts the spectral peak and low spatial frequency cutoff but has no effect at high spatial frequencies.
+From Figure \ref{os_fig:1} we can see that wind speed impacts the spectral peak and low spatial frequency cutoff but has no effect at high spatial frequencies.
  
 The PM spectrum assumes deep water, infinite fetch and no swells and has repeatedly been shown to be accurate for gravity waves in fully developed seas, but fails to capture spectral peaks due to high winds over short fetches. This means that the low spatial frequency component of the power spectrum is valid in almost all cases but the high spatial frequency component is not.
 
@@ -72,7 +72,7 @@ To overcome the limitations of a spectrum that requires fully developed seas, se
   \end{gathered}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-The power spectrum is shown in the left hand side of Figure \ref{os_fig:1a} and the associated curvature spectrum is shown in the right hand side of Figure \ref{os_fig:1a}, both for wave height standard deviations from 0.1 m to 1 m in increments of 0.1 m.
+The variance power spectrum is shown in the left hand side of Figure \ref{os_fig:1a} and the associated curvature spectrum is shown in the right hand side of Figure \ref{os_fig:1a}, both for wave height standard deviations from 0.1 m to 1 m in increments of 0.1 m.
 
  \begin{figure}[H]
   \begin{center}
@@ -92,7 +92,7 @@ The Joint North Sea Wave Project (JONSWAP) in the 1970s modified the Pierson-Mos
   \label{os_eq:1b}
   S(k) = S_{PM}(k)\nu^{\frac{k-k_0}{2\sigma^2k_0}} 
   \end{equation}
-The enhancement factor $\nu$ was empirically derived for many locations in the North Sea and allows control of the amplitude as in the Bretschneider spectrum. The difference is that the JONSWAP enhancement factor only amplifies the spectrum around the spectral peak.
+The enhancement factor $\nu$ was empirically derived for locations in the North Sea and allows control of the amplitude as in the Bretschneider spectrum. The difference is that the JONSWAP enhancement factor only amplifies the spectrum around the spectral peak.
 
 \subsection{Elfouhaily Spectrum}
 Many additional spectra have been developed and in 1997, Elfouhaily et. al extended several of these to provide a unified modern spectrum that is broken into low and high spatial frequency regions, $B_l$ and $B_h$, \cite{elfouhaily}. 
@@ -109,14 +109,14 @@ This spectrum is dependent on the wind speed at 10 m altitude ($U_{10}$) and the
 The low spatial frequency region, $B_l$, is given by Equation \ref{os_eq:3} and the parameters are defined in Table \ref{os_tab:1} and Equation \ref{os_eq:3a}. Here we are using $v$ to represent phase speed rather than $c$ to prevent confusion with the speed of light.
 \begin{equation}
   \label{os_eq:3}
- B_l = \frac{1}{2} \alpha_p \frac{c_p}{v} F_p
+ B_l = \frac{1}{2} \alpha_p \frac{v_p}{v} F_p
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 \begin{subequations}
 \label{os_eq:3a}
    Low spatial frequency spectrum dependencies:
 \begin{align}
-  F_p &= L_{PM}J_pe^{-\frac{\Omega}{\sqrt{10}}\left[\sqrt{k/_{k_p}} - 1 \right]} &  k_p &= g\left(\frac{\Omega}{U_{10}}\right)^2 & c_p &= \frac{U_{10}}{\Omega} \\
+  F_p &= L_{PM}J_pe^{-\frac{\Omega}{\sqrt{10}}\left[\sqrt{k/_{k_p}} - 1 \right]} &  k_p &= g\left(\frac{\Omega}{U_{10}}\right)^2 & v_p &= \frac{U_{10}}{\Omega} \\
    L_{PM} &=e^{-\frac{5}{4}\left(\frac{k_p}{k} \right)^2} &  J_p &= \gamma^\Gamma  & \alpha_p &= 0.006\Omega^{0.55} 
 \end{align}
 \end{subequations}
@@ -132,7 +132,7 @@ The low spatial frequency region, $B_l$, is given by Equation \ref{os_eq:3} and 
   \bf{Parameter} & \bf{Description} \\ \hline
   $F_p$ & Long wave side effect function \\ \hline
   $k_p$ &  Wave number of the spectral peak \\ \hline
-  $c_p$ &  Phase speed at the spectral peak \\ \hline
+  $v_p$ &  Phase speed at the spectral peak \\ \hline
   $L_{PM}$ & PM shape spectrum \\ \hline
   $J_p$ & JONSWAP peak enhancement function \\ \hline
   $\alpha_p$ & Generalized Phillips-Kitaigorodskii long wave equilibrium range parameter\\ \hline
@@ -144,25 +144,24 @@ The low spatial frequency region, $B_l$, is given by Equation \ref{os_eq:3} and 
 The high spatial frequency region, $B_h$, is given by Equation \ref{os_eq:4} and the parameters are defined in Table \ref{os_tab:2} and Equations \ref{os_eq:4a} and \ref{os_eq:4b}.
 \begin{equation}
   \label{os_eq:4}
- B_h = \frac{1}{2} \alpha_m \frac{c_m}{v} F_m
+ B_h = \frac{1}{2} \alpha_m \frac{v_m}{v} F_m
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 \begin{subequations}
 \label{os_eq:4a}
    High spatial frequency spectrum dependencies:
 \begin{align}
-  F_m &= L_{PM}J_pe^{-\frac{1}{4}\left[k/_{k_m} - 1 \right]^2 } & k_m & = 370 \text{ rad/m} &  c_m &=\sqrt{\frac{2g}{k_m}} = 0.23 \text{ m/s} \\
+  F_m &= L_{PM}J_pe^{-\frac{1}{4}\left[k/_{k_m} - 1 \right]^2 } & k_m & = 370 \text{ rad/m} &  v_m &=\sqrt{\frac{2g}{k_m}} = 0.23 \text{ m/s} \\
   u^* &= \sqrt{Cd_{10N}}U_{10}  & L_{PM} &=e^{-\frac{5}{4}\left(\frac{k_p}{k} \right)^2}  &  J_p &= \gamma^\Gamma
 \end{align}
 \end{subequations}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-
 \begin{equation}
 \begin{gathered}
   \label{os_eq:4b}
    \alpha_m= \begin{cases}
-    10^{-2}\left[1 + \log\left(\frac{u^*}{c_m} \right) \right],& \text{if } u^* \leq c_m\\
-    10^{-2}\left[1 + 3\log\left(\frac{u^*}{c_m} \right) \right], & \text{if } u^* > c_m\\
+    10^{-2}\left[1 + \log\left(\frac{u^*}{v_m} \right) \right],& \text{if } u^* \leq v_m\\
+    10^{-2}\left[1 + 3\log\left(\frac{u^*}{v_m} \right) \right], & \text{if } u^* > v_m\\
   \end{cases}
 \end{gathered}
 \end{equation}
@@ -179,7 +178,7 @@ The high spatial frequency region, $B_h$, is given by Equation \ref{os_eq:4} and
   \bf{Parameter} & \bf{Description} \\ \hline
   $F_m$ & Short wave side effect function \\ \hline
   $k_m$ &  Wave number at the secondary peak of the curvature spectrum \\ \hline
-  $c_m$ &  Minimum phase speed at $k_m$ \\ \hline
+  $v_m$ &  Minimum phase speed at $k_m$ \\ \hline
   $\alpha_m$ & Generalized Phillips-Kitaigorodskii short wave equilibrium range parameter \\ \hline
   $L_{PM}$ & PM shape spectrum \\ \hline
   $J_p$ & JONSWAP peak enhancement function \\ \hline
@@ -202,7 +201,7 @@ The variables $L_{PM}$ and $J_p$ are found in both $B_l$ and $B_h$ and are given
 \end{gathered}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-In \cite{elfouhaily}, the dispersion relation for both gravity and capillary waves is given as 
+In \cite{elfouhaily}, the dispersion relation that holds for both gravity and capillary waves is given as 
 \begin{equation}
 \label{os_eq:5aa}
 \omega^2 = gk\left[1 + \left(\frac{k}{k_m}\right)^2 \right]
@@ -213,7 +212,7 @@ We can use Equation \ref{os_eq:5aa} to define the phase speed as
 v = \frac{\omega}{k}= \sqrt{\frac{g}{k}\left[1 + \left(\frac{k}{k_m}\right)^2 \right]}
 \end{equation}
 
-In the case where we have fetch rather than the inverse age parameter, we can compute the inverse age parameter from fetch as shown in Equation \ref{os_eq:5a}. Here $x$ is the dimensional fetch in m and $X$ is the non-dimensional fetch.
+In the case where we have fetch rather than the inverse age parameter, we can compute the inverse age parameter as shown in Equation \ref{os_eq:5a}. Here $x$ is the dimensional fetch in m and $X$ is the non-dimensional fetch.
 \begin{equation}
 \label{os_eq:5a}
 \begin{gathered}
@@ -225,7 +224,7 @@ In the case where we have fetch rather than the inverse age parameter, we can co
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsubsection{Spectrum Visualization}
-The power spectrum is shown in the left hand side of Figure \ref{os_fig:3} and the associated curvature spectrum is shown in the right hand side of Figure \ref{os_fig:3}. These figures were generated for wind speeds from 3 m/s to 21 m/s in increments of 2 m/s, matching Figure 8 in \cite{elfouhaily}. In these figures, the secondary peak can clearly be seen at 370 rad/m.
+The variance power spectrum is shown in the left hand side of Figure \ref{os_fig:3} and the associated curvature spectrum is shown in the right hand side of Figure \ref{os_fig:3}. These figures were generated for wind speeds from 3 m/s to 21 m/s in increments of 2 m/s, matching Figure 8 in \cite{elfouhaily}. In these figures, the secondary peak can clearly be seen at 370 rad/m.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/elf_variance_curvature_spectrum.png}
@@ -237,7 +236,7 @@ The power spectrum is shown in the left hand side of Figure \ref{os_fig:3} and t
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-To demonstrate the impact from the inverse age parameter, the power spectrum is shown in the left hand side of Figure \ref{os_fig:3a} and the associated curvature spectrum is shown in the right hand side of Figure \ref{os_fig:3a}. These figures were generated for $\Omega$ ranging from $0.84$ (fully developed) to $5.0$ (very young). From this figure, we can see that the spectra show energy transferring from high spatial frequencies to low spatial frequencies and the spectral peak flattening as the sea develops.
+To demonstrate the impact from the inverse age parameter, the variance power spectrum is shown in the left hand side of Figure \ref{os_fig:3a} and the associated curvature spectrum is shown in the right hand side of Figure \ref{os_fig:3a}. These figures were generated for $\Omega$ ranging from $0.84$ (fully developed) to $5.0$ (very young). From this figure, we can see that the spectra show energy transferring from high spatial frequencies to low spatial frequencies and the spectral peak flattening as the sea develops.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/elf_variance_curvature_spectrum_age.png}
@@ -250,7 +249,7 @@ To demonstrate the impact from the inverse age parameter, the power spectrum is 
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsubsection{Comparison with PM Spectrum}
-To compare the results, the Elfouhaily and PM power spectra are shown in the left hand side of Figure \ref{os_fig:2} for wind speeds of 5 m/s and 10 m/s. The inverse age parameter was set to 0.84 to match and the wind speed at 19 m altitude was approximated from $U_{19} \approx 1.026 U_{10}$. The Elfouhaily spectra are shown by the dashed lines and indicate a deviation from the PM spectra at large wave numbers. The corresponding curvature spectra are shown in the right hand side of Figure \ref{os_fig:2}. 
+To compare the results, the Elfouhaily and PM variance power spectra are shown in the left hand side of Figure \ref{os_fig:2} for wind speeds of 5 m/s and 10 m/s. The inverse age parameter was set to 0.84 to match and the wind speed at 19 m altitude was approximated as $U_{19} \approx 1.026 U_{10}$. The Elfouhaily spectra are shown by the dashed lines and indicate a deviation from the PM spectra at large wave numbers. The corresponding curvature spectra are shown in the right hand side of Figure \ref{os_fig:2}. 
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/elf_vs_PM_variance_curvature_spectrum.png}
@@ -280,10 +279,10 @@ Here $\Delta(k)$ is defined as in Equation \ref{os_eq:5d}.
 \begin{equation}
 \label{os_eq:5d}
 \begin{gathered}
-\Delta(k) = \tanh\left( a_0 + a_p\left(\frac{v}{c_p}\right)^{2.5}  + a_m\left(\frac{c_m}{v} \right)^{2.5}\right)\\
+\Delta(k) = \tanh\left( a_0 + a_p\left(\frac{v}{v_p}\right)^{2.5}  + a_m\left(\frac{v_m}{v} \right)^{2.5}\right)\\
 a_0 = \frac{\log(2)}{4} \\
 a_p = 4\\
-a_m = 0.13\frac{u^*}{c_m} \\
+a_m = 0.13\frac{u^*}{v_m} \\
 \end{gathered}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -295,18 +294,16 @@ The complete 2-dimensional unified Elfouhaily spectrum is given in Equation \ref
 \end{equation}
 
 \section{Generation of Sea Surface Realizations in 1-Dimension}
-Realizations of sea surfaces rely on having adequate sampling to cover the both spectral and spatial ranges of interest and then generating an appropriate set of Fourier coefficients. The 1-dimensional case is easiest to both understand and implement and will be discussed first.
+Realizations of sea surfaces rely on having adequate sampling to cover both the spectral and spatial ranges of interest and then generating an appropriate set of Fourier coefficients. The 1-dimensional case is easiest to both understand and implement and will be discussed first.
 
 \subsection{Sampling Constraints}\label{os_label:1d_sampling_constraints}
-In order to generate a random sea surface,  the first thing we need to establish is the number of points to use ($N$) and the spatial domain length to cover ($L$). The spatial domain sampling inteval is then $\Delta x = \frac{L}{N}$ and the frequency domain sampling interval is $\Delta k = \frac{2\pi}{L}$. 
+In order to generate a random sea surface, we need to establish the number of points to use ($N$) and the spatial domain length to cover ($L$). The spatial domain sampling inteval is then $\Delta x = \frac{L}{N}$ and the frequency domain sampling interval is $\Delta k = \frac{2\pi}{L}$. 
 
 From the Nyquist sampling theorem, the highest wave number that can be sampled given these values is $k_{max} = \frac{N}{2}\Delta k = \frac{N\pi}{L}$ rad/m, which corresponds to a minimum wavelength of $\lambda_{min} = 2\Delta x = \frac{2L}{N}$ m.
 
-Immediately, we see that to cover the secondary peak at $k_m$, $\frac{N}{L}\pi > k_m$ or $N > \frac{Lk_m}{\pi}$. Since $k_m = 370$ rad/m, we can round up to state that $N \geq 118L$. In other words, the number of points required to cover the secondary peak in the spectrum is 118 times more than the length of the spatial domain. For the 1-dimensional case, this is not too bad as a 10 km length can be sampled with 1,180,000 points. It is in the 2-dimensional case where this really becomes problematic, as we now need $N^2$ points.
+Immediately, we see that to cover up to the secondary peak at $k_m$, $\frac{N}{L}\pi > k_m$ or $N > \frac{k_m}{\pi}L$. Since $k_m = 370$ rad/m, we can round up to state that $N \geq 118L$. In other words, the number of points required to cover up to the secondary peak in the spectrum is 118 times more than the length of the spatial domain. For the 1-dimensional case, this is not too bad as a 10 km length can be sampled with 1,180,000 points. It is in the 2-dimensional case where this really becomes problematic, as we now need $N^2$ points.
 
-As a final note for sampling constraints, we need to maintain integer indexing for digital implementation so $N$ must be an even number. We will define the range in $k$-space as running from $-\left(\frac{N}{2}-1\right)\Delta k$ to $\frac{N}{2}\Delta k$.
-
-Figure \ref{os_fig:6aa} shows the impact on wavenumber sampling for various values of $N$ for $L$ = 1 km. The upper left hand plot shows the case were $N = 5L$, the upper right hand plot shows the case where $N = 10L$, the lower left hand plot shows the case where $N = 118L$, and the lower right hand plot shows the case were $N = 500L$.
+Figure \ref{os_fig:6aa} shows the impact on wavenumber sampling for various values of $N$ for $L$ = 1 km. The upper left hand plot shows the case where $N = 5L$, the upper right hand plot shows the case where $N = 10L$, the lower left hand plot shows the case where $N = 118L$, and the lower right hand plot shows the case where $N = 500L$. Since $\Delta x = \frac{L}{N}$, these cases represent spatial resolutions of 1/5 m, 1/10 m, 1/118 m, and 1/500 m. 
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sampling_coverage.png}
@@ -319,13 +316,17 @@ Figure \ref{os_fig:6aa} shows the impact on wavenumber sampling for various valu
 \renewcommand{\baselinestretch}{2} \small\normalsize
 Since $L$ is the same for each case, $\Delta k$ is also the same and we can see how increasing $N$ increases coverage of higher spatial frequencies.
 
+In many situations, we are not concerned with capturing the high spatial frequencies as much as we are with staying below a pre-defined maximum spatial step. This step is typically on the order of 0.5 m, in which case $N = 2L$.
+
+As a final note for sampling constraints, we need to maintain integer indexing for digital implementation so $N$ must be an even number. Because we will be using an FFT, it is convenient to force $N$ to be a power of 2. We will define the range in $k$-space as running from $-\left(\frac{N}{2}-1\right)\Delta k$ to $\frac{N}{2}\Delta k$.
+
 \subsection{Frequency Domain Representation}
 The general idea is to use the power spectrum to create a realization of the sea surface in the frequency domain and then transform that to the spatial domain through an inverse Fourier transform. We will follow the procedure outlined in \cite{percival_spectra}, 
 but we need to provide some additional scale factors to account for conservation of energy.
 
 To handle discretization of the power spectrum, we use the fact that the amount of energy contained per unit interval is a constant, so that $S(k)dk = S(\omega) d\omega$. To normalize the spectrum to the specified wave number sampling interval, we simply need to multiply by $\Delta k$. Next, since we have a one-sided spectrum rather than a two-sided one, we only have half the energy present and need to divide the power spectrum by 2. With these factors included, we can define the one-sided, discrete spectrum as $S_d = \frac{S(k)\Delta k}{2}$.
 
-To generate the frequency domain representation ($V_j$), we will take a set of Gaussian distributed random variables that are scaled  by the square root of the power spectrum and arrange them so the sequence is Hermitian, $V(k) = V^*(-k)$. Because $N$ is even, as described in Section \ref{os_label:1d_sampling_constraints}, there are special cases to handle to ensure that the discrete sequence is Hermitian. The sequence $V_j$ only contains a single element for $k = 0$ and $k = \frac{N}{2}\Delta k$ and must be purely real at both frequencies. If we take a pair of uncorrelated Gaussian distributed random variables of length $\frac{N}{2}$ ($w$ and $u$), we can generate the sequence $V_j$ as shown in Equation \ref{os_eq:8}.
+To generate the frequency domain representation ($V_j$), we will take a set of Gaussian distributed random variables that are scaled  by the square root of the power spectrum and arrange them so the sequence is Hermitian, $V(k) = V^*(-k)$. Because $N$ is even, as described in Section \ref{os_label:1d_sampling_constraints}, there are special cases to handle to ensure that the sequence is Hermitian. $V_j$ only contains a single element for $k = 0$ and $k = \frac{N}{2}\Delta k$ and must be purely real at both frequencies. If we take a pair of uncorrelated Gaussian distributed random variables of length $\frac{N}{2}$ ($w$ and $u$), we can generate $V_j$ as shown in Equation \ref{os_eq:8}.
 
 \begin{equation}
   \label{os_eq:8}   
@@ -369,8 +370,7 @@ Now that we have the random Fourier coefficients, we can generate the sea surfac
   \end{equation}
 
 \subsection{Example Realizations}
-Figure \ref{os_fig:7a} shows an example realization for $U_{10}$ = 10 m/s, $N$ = $2^{17}$, and $L$ = 1km. In this figure, the left hand side shows the generated sea surface, and the right hand side shows the original spectrum compared to the estimated spectrum recovered from the generated surface through a periodogram.
-
+Figure \ref{os_fig:7a} shows an example realization for $U_{10}$ = 10 m/s and $L$ = 1km. The upper plots show the generated sea surface, and a comparison of the original spectrum to the recovered spectrum for $N = 2^{17}$. Here, $N = 131.07L$ and $\Delta x$ = 7.6 mm. The bottom plots show the same for $N=2^{11}$. Here, $N = 2.04L$ and $\Delta x$ = 0.49 m.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_1000.png}
@@ -382,7 +382,7 @@ Figure \ref{os_fig:7a} shows an example realization for $U_{10}$ = 10 m/s, $N$ =
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Figure \ref{os_fig:7aa} shows another example realization, this time for $L$ = 10km and $N$ = $2^{21}$. 
+Figure \ref{os_fig:7aa} shows another example realization, this time for $L$ = 10km. The upper plots show the generated sea surface, and a comparison of the original spectrum to the recovered spectrum for $N = 2^{21}$. Here, $N = 209.7L$ and $\Delta x$ = 4.8 mm. The bottom plots show the same for $N=2^{15}$. Here, $N = 3.3L$ and $\Delta x$ = 0.3 m.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_10000.png}
