@@ -98,7 +98,7 @@ subplot(2,2,2)
 loglog(kx(N/2+1:end),Pxx1(1:N/2),'LineWidth',2);
 hold on
 loglog(k1,Elfouhaily(k1,U10,age),'LineWidth',2);
-legend('Recovered','Original')
+legend('Recovered','1-D S')
 ylim([10^-15 10^3])
 xlim([10^-3 10^5]);
 grid on
@@ -126,7 +126,7 @@ subplot(2,2,4)
 loglog(kx(N/2+1:end),Pxx2(1:N/2),'LineWidth',2);
 hold on
 loglog(k1,Elfouhaily(k1,U10,age),'LineWidth',2);
-legend('Recovered','Original')
+legend('Recovered','1-D S')
 ylim([10^-15 10^3])
 xlim([10^-3 10^5]);
 grid on

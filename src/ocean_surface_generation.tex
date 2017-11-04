@@ -293,6 +293,30 @@ The complete 2-dimensional unified Elfouhaily spectrum is given in Equation \ref
 \boxed{\Psi(k,\phi) = \frac{1}{2\pi k^4}\left[B_l + B_h \right] \left[1 + \Delta(k)\cos(2\phi) \right]}
 \end{equation}
 
+Figure \ref{os_fig:7bb} shows the 2-D variance and curvature power spectra on a log scale. In the curvature spectrum, we can see the secondary peak as in the 1-dimensional case.
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/elf_variance_curvature_spectrum_2D.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Elfouhaily 2-D Variance and Curvature Power Spectra]{Elfouhaily 2-D Variance and Curvature Power Spectra\label{os_fig:7bb}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Figure \ref{os_fig:7cc} shows the low frequency behavior of the 2-D variance power spectrum.
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=4in]{../media/Ocean_Surface/elf_variance_spectrum_2D_zoom.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Elfouhaily 2-D Variance Power Spectrum]{Elfouhaily 2-D Variance Power Spectrum\label{os_fig:7cc}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
 \section{Generation of Sea Surface Realizations in 1-Dimension}\label{os_sec:1d}
 Realizations of sea surfaces rely on having adequate sampling to cover both the spectral and spatial ranges of interest and then generating an appropriate set of Fourier coefficients. The 1-dimensional case is easiest to both understand and implement and will be discussed first.
 
@@ -318,7 +342,7 @@ Since $L$ is the same for each case, $\Delta k$ is also the same and we can see 
 
 In many situations, we are not concerned with capturing the high spatial frequencies as much as we are with staying below a pre-defined maximum spatial step. This step is typically on the order of 0.5 m, in which case $N = 2L$.
 
-As a final note for sampling constraints, we need to maintain integer indexing for digital implementation so $N$ must be an even number. Because we will be using an FFT, it is convenient to force $N$ to be a power of 2. We will define the range in $k$-space as running from $-\left(\frac{N}{2}-1\right)\Delta k$ to $\frac{N}{2}\Delta k$.
+As a final note for sampling constraints, we need to maintain integer indexing for digital implementation so $N$ must be an even integer to allow the element $N/2$ to be an integer as well. We will define the range in $k$-space as running from $-\left(\frac{N}{2}-1\right)\Delta k$ to $\frac{N}{2}\Delta k$.
 
 \subsection{Frequency Domain Representation}
 The general idea is to use the power spectrum to create a realization of the sea surface in the frequency domain and then transform that to the spatial domain through an inverse Fourier transform. We will follow the procedure outlined in \cite{percival_spectra}, 
