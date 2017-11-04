@@ -9,12 +9,10 @@ end
 p = linspace(-4,4,10000);
 k = 10.^p;
 
-angle = pi/2;
-
 h(1) = figure('pos',[50 50 1000 400]);
 subplot(1,2,1)
 for (u = 3:2:21) 
-   S = Elfouhaily(k,u,0.84,angle);
+   S = Elfouhaily(k,u,0.84);
    loglog(k,S, 'LineWidth',2);
    hold on
 end
@@ -36,7 +34,7 @@ set(gca,'FontWeight','bold')
 
 subplot(1,2,2)
 for (u = 3:2:21) 
-   S = Elfouhaily(k,u,0.84,angle);
+   S = Elfouhaily(k,u,0.84);
    loglog(k,k.^3.*S, 'LineWidth',2);
    hold on
 end

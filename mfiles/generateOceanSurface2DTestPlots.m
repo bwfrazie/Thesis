@@ -8,8 +8,7 @@ if(nargin == 1)
 end
 
 L = 1000;
-M = 11;
-N = 2^M;
+N = 2*L;
 dx = L/N;
 U10 = 10;
 age = 0.84;
@@ -21,12 +20,30 @@ x = (0:N-1)*dx;
 y = (0:N-1)*dx;
 
 %% Plot the surface
+% hh(1) = figure;
+% ha = surf(x,y,h,'FaceLighting','gouraud','FaceColor','interp',...
+%       'AmbientStrength',0.5);
+% shading interp
+% light('Position',[0 0 5],'Style','local')
+% colormap(winter(256))
+% xlim([0 100]);
+% ylim([0 100])
+% xlabel('x (m)')
+% ylabel('y (m)')
+% zlabel('h (m)')
+% set(gca,'LineWidth',2)
+% set(gca,'FontSize',12)
+% set(gca,'FontWeight','bold')
+% set(gca,'View',[-34, 65]);
+% tstring = sprintf('100m^2 Generated 2D Ocean Surface Patch, L = %d m, N = %dL', L, N/L);
+% title(tstring);
+
+%% Plot the surface
 hh(1) = figure;
-surf(x,y,h,'FaceLighting','gouraud','FaceColor','interp',...
-      'AmbientStrength',0.5);
+surfl(x,y,h,'light');
 shading interp
-light('Position',[-1 0 0],'Style','local')
-colormap winter
+light('Position',[-1 -1 0],'Style','local')
+colormap(winter(256))
 xlim([0 100]);
 ylim([0 100])
 xlabel('x (m)')
@@ -36,7 +53,8 @@ set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 set(gca,'View',[-34, 65]);
-title('Generated 2D Ocean Surface, 100 m^2 Patch')
+tstring = sprintf('100m^2 Generated 2D Ocean Surface Patch, L = %d m, N = %dL', L, N/L);
+title(tstring);
 
 %% Plot the surface image
 hh(2) = figure;
@@ -65,7 +83,7 @@ set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 grid on
-tstring = sprintf('Sea Surface Y Slice, L = %d km, N = 2^{%d}',L/1000,M);
+tstring = sprintf('Sea Surface Y Slice, L = %d m, N = %d',L,N/L);
 title(tstring);
 
 subplot(2,2,2)
@@ -82,7 +100,7 @@ set(gca,'FontWeight','bold')
 xlabel('k (rad/m)')
 ylabel('S(k) (m^3/rad)')
 title('X Slice')
-tstring = sprintf('Spectrum Comparison, L = %d km, N = 2^{%d}',L/1000,M);
+tstring = sprintf('Spectrum Comparison, L = %d m, N = %dL',L,N/L);
 title(tstring);
 
 subplot(2,2,3)
@@ -93,7 +111,7 @@ set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 grid on
-tstring = sprintf('Sea Surface Y Slice, L = %d km, N = 2^{%d}',L/1000,M);
+tstring = sprintf('Sea Surface Y Slice, L = %d m, N = %d',L,N/L);
 title(tstring);
 
 subplot(2,2,4)
@@ -110,7 +128,7 @@ set(gca,'FontWeight','bold')
 xlabel('k (rad/m)')
 ylabel('S(k) (m^3/rad)')
 title('Y Slice')
-tstring = sprintf('Spectrum Comparison, L = %d km, N = 2^{%d}',L/1000,M);
+tstring = sprintf('Spectrum Comparison, L = %d m, N = %d',L,N/L);
 title(tstring);
 
 %% plot the sampling coverage

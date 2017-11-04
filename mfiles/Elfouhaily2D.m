@@ -22,4 +22,3 @@ am = 0.13*ustar/cm;
 
 Delk = tanh(a0 + ap*(c/cp).^(2.5) + am*(cm./c).^(2.5));
 PSI = S.*1./k.*(1 + Delk.*cos(2*phi));
-PSI(N/2+1,N/2+1) = 0.0;
