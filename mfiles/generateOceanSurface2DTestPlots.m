@@ -8,7 +8,7 @@ if(nargin == 1)
 end
 
 L = 1000;
-M = 13;
+M = 11;
 N = 2^M;
 dx = L/N;
 U10 = 10;
@@ -136,6 +136,6 @@ disp(dispstring);
 
 if(saveFigs == 1)
     saveas(hh(1),'sea_surface_2d_surf.png','png')
-    saveas(hh(1),'sea_surface_2d_image.png','png')
+    saveas(hh(2),'sea_surface_2d_image.png','png')
     saveas(hh(3),'sea_surface_2d_slices1000.png','png')
 end
