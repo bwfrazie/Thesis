@@ -1,93 +1,122 @@
-% function [h,S, V] = generateSeaSurface2D(kx, ky, phi, dk, U10, age, varargin)
-%[h,S, V] = generateSeaSurface(kx, ky,phi, dk, U10, age)
-% 
-% if (nargin == 5)
-%    seed = varargin{1};
-%    if (seed > 0)
-%        rng(seed)
-%    else
-%        error('Random Number Seed Must be Nonnegative Integer');
-%    end
-% end
-% 
-% N = 2*size(kx,1);
-L = 100;
-N = 2^2;
-del_x = L/N;
-U10 = 10;
-age = 0.84;
+function [h, k, S, V, kx, ky] = generateSeaSurface2D(L, N, U10, age, varargin)
+%[h, k, S, V, kx, ky] = generateSeaSurface2D(L, N, U10, age)
 
-%setup the PSD
-del_k = 1/(N*del_x); %frequency grid spacing (1/m)
-kx = (-N/2: N/2-1) * del_k; 
+if (nargin == 6)
+   seed = varargin{1};
+   if (seed > 0)
+       rng(seed)
+   else
+       error('Random Number Seed Must be Nonnegative Integer');
+   end
+end
 
-%frequency grid (rad/m)
-[kxx,kyy] = meshgrid(kx);
-[phi, k] = cart2pol(kxx, kyy); %polar grid
+%% Frequency Mesh
+dk = 2*pi/L; %frequency grid spacing (1/m)
+%build up the matrix of wave numbers
+kx = (-N/2: N/2-1) * dk; 
+ky = kx';
+[kxx,kyy] = meshgrid(kx,ky);
+%shift so that element (1,1) is k = 0
+kxx = ifftshift(kxx);
+kyy = ifftshift(kyy);
 
+%convert to polar coordinates
+[phi,k] = cart2pol(kxx,kyy);
 
+%% Spectral Representation
+%get the elfouhaily spectrum
 S = Elfouhaily2D(k,phi,U10,age);
+S(1,1) = 0.0;
 
-S = S/2*del_k^2;
+%build up the random representation in frequency space
+V = zeros(N);
 
-%create the random variables
-V = [];
+%need to generate two sub matrices Va and Vb
+Va = zeros(N/2-1);
+Vb = zeros(N/2-1);
 
-% W1 = randn((N)^2,1);
-% W2 = randn((N)^2,1);
-% 
-% counter = 1;
-% 
-% for (row = 1:N)
-%     for(col = 1:row)
-%         if(row == col)
-%             V(row,col) = sqrt(S(row,col))*W1(counter);
-%         else
-%             V(row,col) = sqrt(S(row,col))*1/2*(W1(counter) + 1i*W2(counter));
-%             V(col,row) = conj(V(row,col));
-%         end
-%         counter = counter + 1;
-%     end
-% end
-% 
-% V(1,1) = 0.0;
+%matrices of random variables for Va and Vb
+W1 = randn(N/2-1);
+W2 = randn(N/2-1);
+W3 = randn(N/2-1);
+W4 = randn(N/2-1);
 
-W1 = randn(N);
-W2 = randn(N);
-
-for u = 1:N
-    for v = 1:N
-        indU = N - u + 1;
-        indV = N - v + 1;
-        V(u,v) =    W1(u,v)*sqrt(S(u,v)) + W1(indU,indV)*sqrt(S(indU,indV)) + ...
-                1i*(W2(u,v)*sqrt(S(u,v)) - W2(indU,indV)*sqrt(S(indU,indV)));
+%loop and populate Va and Vb
+for u = 1:N/2-1
+    for v = 1:N/2-1
+        ua = u+1;
+        va = v+1;
+        ub = u + 1;
+        vb = v + N/2 + 1;
+        Va(u,v) = 1/2*sqrt(S(ua,va)/2*dk^2)*(W1(u,v) + 1i*W2(u,v));
+        Vb(u,v) = 1/2*sqrt(S(ub,vb)/2*dk^2)*(W3(u,v) + 1i*W4(u,v));
     end
 end
 
-for v = 2:N/2
-    indV = N - v + 1;
-    V(1,v) =    W1(1,v)*sqrt(S(1,v)) + W1(1,indV)*sqrt(S(1,indV)) + ...
-            1i*(W2(1,v)*sqrt(S(1,v)) - W2(1,indV)*sqrt(S(1,indV)));
-   V(1,indV) = conj(V(1,v));
+%now place the submatrices and their Hermitian conjugates in place
+V(2:N/2,2:N/2) = Va;
+V(N/2+2:N,N/2+2:N) = conj(flipud(fliplr(Va)));
+V(2:N/2,N/2+2:N) = Vb;
+V(N/2+2:N,2:N/2) = conj(flipud(fliplr(Vb)));
+
+%now need to handle the cases: kx = 0, and ky = 0
+w1 = randn(1,N/2);
+u1 = randn(1,N/2);
+w2 = randn(1,N/2);
+u2 = randn(1,N/2);
+
+Vx0 = [];
+VxN2 = [];
+Vy0 = [];
+VyN2 = [];
+
+%build the zero frequency lines
+Vx0(1) = 0;
+Vy0(1) = 0;
+for(j = 2:N/2)
+    Vx0(j) = 1/2*sqrt(S(1,j)/2*dk^2)*(w1(j) + 1i*u1(j));
+    Vy0(j) = 1/2*sqrt(S(j,1)/2*dk^2)*(w2(j) + 1i*u2(j));
+end
+Vx0(N/2+1) = sqrt(S(1,N/2+1)/2*dk^2)*u1(1);
+Vy0(N/2+1) = sqrt(S(N/2+1,1)/2*dk^2)*u2(1);
+
+for (j = N/2+2:N)
+Vx0(j) = conj(Vx0(N-j + 2));
+Vy0(j) = conj(Vy0(N-j + 2));
 end
 
-for (u = 2:N/2)
-    indU = N - u + 1;
-    V(u,1) =    W1(u,1)*sqrt(S(u,1)) + W1(indU,1)*sqrt(S(indU,1)) + ...
-                1i*(W2(u,1)*sqrt(S(u,1)) - W2(indU,1)*sqrt(S(indU,1)));
-            
-    V(indU,1) = conj(V(u,1));
+%place the zero frequency lines in V
+V(1,:) = Vy0 ;
+V(:,1) = Vx0';
+
+%now need to handle the cases: kx = N/2, and ky = N/2
+w3 = randn(1,N/2);
+u3 = randn(1,N/2);
+w4 = randn(1,N/2);
+u4 = randn(1,N/2);
+
+%build the N/2 frequency lines
+Vx2(1) = sqrt(S(N/2+1,1)/2*dk^2)*w3(1);
+Vy2(1) = sqrt(S(1,N/2+1)/2*dk^2)*w4(1);
+
+for(j = 2:N/2)
+    Vx2(j) = 1/2*sqrt(S(N/2+1,j)/2*dk^2)*(w3(j) + 1i*u3(j));
+    Vy2(j) = 1/2*sqrt(S(j,N/2+1)/2*dk^2)*(w4(j) + 1i*u4(j));
 end
 
-V(N/2 + 1, N/2 + 1) = 0.0;
+Vx2(N/2+1) = sqrt(S(N/2+1,N/2+1)/2*dk^2)*u4(1);
+Vy2(N/2+1) = sqrt(S(N/2+1,N/2+1)/2*dk^2)*u4(1);
+
+for (j = N/2+2:N)
+Vx2(j) = conj(Vx2(N-j + 2));
+Vy2(j) = conj(Vy2(N-j + 2));
+end
+
+%now place the N/2 frequency lines
+V(N/2+1,:) = Vy2;
+V(:,N/2+1) = Vx2';
+
+%scale by 1/2 to capture 2-D instead of only 1-D
 V = 1/2*V;
 
 h = ifft2(V)*length(V)^2;
-x = (0:N-1)*del_x;
-y = (0:N-1)*del_x;
-
-figure;
-surf(x,y,real(h),'FaceLighting','gouraud');
-shading interp
-colormap jet
-

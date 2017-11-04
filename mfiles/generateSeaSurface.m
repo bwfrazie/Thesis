@@ -1,5 +1,5 @@
-function [h,S, V] = generateSeaSurface(k, dk, U10, age, varargin)
-%[h,S, V] = generateSeaSurface(k, dk, U10, age)
+function [h, k, S, V] = generateSeaSurface(L, N, U10, age, varargin)
+%[h, k, S, V] = generateSeaSurface(L, N, U10, age)
 
 if (nargin == 5)
    seed = varargin{1};
@@ -10,7 +10,8 @@ if (nargin == 5)
    end
 end
 
-N = 2*(length(k) - 1);
+dk = 2*pi/L;
+k = (1:N/2+1)*dk;
 
 S = Elfouhaily(k,U10,age);
 
