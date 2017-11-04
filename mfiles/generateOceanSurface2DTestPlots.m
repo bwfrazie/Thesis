@@ -39,11 +39,12 @@ y = (0:N-1)*dx;
 % title(tstring);
 
 %% Plot the surface
-hh(1) = figure;
+hh(1) = figure('pos',[50 50 1143 392]);
+ax1 = subplot(1,2,1);
 surfl(x,y,h,'light');
 shading interp
 light('Position',[-1 -1 0],'Style','local')
-colormap(winter(256))
+colormap(ax1,winter(256))
 xlim([0 100]);
 ylim([0 100])
 xlabel('x (m)')
@@ -53,25 +54,32 @@ set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 set(gca,'View',[-34, 65]);
-tstring = sprintf('100m^2 Generated 2D Ocean Surface Patch, L = %d m, N = %dL', L, N/L);
+tstring = sprintf('Subsection, 100m^2 Patch, L = %d m, N = %dL', L, N/L);
 title(tstring);
 
 %% Plot the surface image
-hh(2) = figure;
+l1 = linspace(0,100,200);
+ax2 = subplot(1,2,2);
 imagesc(x,y,h);
-colormap jet
+hold on
+colormap(ax2,jet(256))
 xlabel('x (m)')
 ylabel('y (m)')
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
-title('Generated 2D Ocean Surface')
+title('Full 1km^2 Patch')
 colorbar
+
+plot(100*ones(size(l1)),l1,'m','LineWidth',2);
+plot(1*ones(size(l1)),l1,'m','LineWidth',2);
+plot(l1,100*ones(size(l1)),'m','LineWidth',2);
+plot(l1,1*ones(size(l1)),'m','LineWidth',2);
 
 %% plot the realization slices and recovered spectra
 p = linspace(-3,4,1000);
 k1 = 10.^p;
-hh(3) = figure('pos',[50 50 872 641]);
+hh(2) = figure('pos',[50 50 872 641]);
 Pxx1 = periodogram(h(N/2+1,:),[],'onesided',N,1/dx);
 Pxx2 = periodogram(h(:,N/2+1),[],'onesided',N,1/dx);
 
@@ -154,6 +162,5 @@ disp(dispstring);
 
 if(saveFigs == 1)
     saveas(hh(1),'sea_surface_2d_surf.png','png')
-    saveas(hh(2),'sea_surface_2d_image.png','png')
-    saveas(hh(3),'sea_surface_2d_slices1000.png','png')
+    saveas(hh(2),'sea_surface_2d_slices1000.png','png')
 end

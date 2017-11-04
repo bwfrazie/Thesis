@@ -16,11 +16,10 @@ ky = kx';
 
 h(1) = figure('pos',[50 50 1000 400]);
 subplot(1,2,1)
-% for (u = 3:2:21) 
-   S = Elfouhaily2D(k,phi,20,0.84);
-   imagesc(kx,ky,10*log10(S),[-150 30]);
-   hold on
-% end
+
+S = Elfouhaily2D(k,phi,20,0.84);
+imagesc(kx,ky,10*log10(S));%,[-150 30]);
+hold on
 
 grid on
 % xlim([10^-3 10^5]);
@@ -28,26 +27,22 @@ grid on
 % ylim([10^-15 10^3])
 xlabel('k_x (rad/m)');
 ylabel('k_y (rad/m)')
-title('Elfouhaily 2-D Variance Spectrum')
+title('Elfouhaily 2-D Variance Spectrum (m^4/rad^2)')
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 colormap(jet(256))
 colorbar
 
-subplot(1,2,2)
-% for (u = 3:2:21) 
-   S = Elfouhaily(k,10,0.84);
-   imagesc(kx,ky,k.^4.*S);
-%    hold on
-% end
+subplot(1,2,2) 
+imagesc(kx,ky,k.^4.*S);
 
 grid on
 % xlim([10^-3 10^5]);
 % ylim([10^-4 10^0])
 xlabel('k_x (rad/m)');
 ylabel('k_y (rad/m)')
-title('Elfouhaily 2-D Curvature Spectrum')
+title('Elfouhaily 2-D Curvature Spectrum (rad^2)')
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
