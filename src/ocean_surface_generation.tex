@@ -1,10 +1,12 @@
 \chapter{Ocean Surface Modeling}
+Analysis of RADAR systems in maritime environments is complicated by the fact that the ocean does not necessarily provide a smooth or uniform surface to work with. Altitude variations change the aspect angle for multipath bounces, induce wave blockage, and add clutter and spikes to the echo return \cite{skolnik_handbook}, \cite{blake_radar}, \cite{nathanson_radar}.
+
 To capture the physical behavior of electromagnetic waves reflecting off the surface of the ocean, we need to model the surface altitude variations correctly. For this, we first need to understand the power spectra of ocean waves and their dependencies. Next, we can generate random realizations of sea surfaces by discretizing the power spectrum and taking the inverse Fourier transform of a Hermitian sequence of spectrally appropriate coefficients. This will be demonstrated in both the 1-dimensional and 2-dimensional cases.
 
 \section {Waves in the Ocean}
 Ocean waves are primarily driven by wind and start when turbulence creates capillary or surface waves with small wavelengths (on the order of a few centimeters). As the wind continues to blow, it increases both the amplitude and the wavelength of the waves until they start to interact. These interactions continue to increase the wavelength and phase speed of the waves until they are traveling faster than the wind, at which point the sea is deemed fully developed. As a sea develops, energy will transfer from higher frequencies to lower frequencies which means the power spectrum will be different for a younger sea than a mature one.
 
-Before discussing the statistical properties of ocean waves, it is useful to review some standard nomenclature. Fetch is the length over which the wind can be considered constant, and a longer fetch generally means higher waves. Significant wave height is the mean wave height of the highest third of the waves. It is represented in the literature as $H_{1/3}$ and is equal to 4 times the standard deviation of the wave height, $H_{1/3} = 4\sigma_h$. Wave height generally refers to the mean difference between successive peaks and troughs (twice the amplitude) \cite{nathanson_radar}.
+Before discussing the statistical properties of ocean waves, it is useful to review some standard nomenclature. Fetch is the length over which the wind can be considered constant, and a longer fetch generally means higher waves. Significant wave height is the mean wave height of the highest third of the waves. It is represented in the literature as $H_{1/3}$ and is equal to 4 times the standard deviation of the wave height, $H_{1/3} = 4\sigma_h$. Wave height generally refers to the mean difference between successive peaks and troughs (twice the amplitude).
 
 \section{Ocean Wave Power Spectra}  \label{os_sec:power_spectra}
 Many methods have been proposed to statistically describe the behavior of ocean waves. These range from the simplest sea state representations with a very coarse binning of wind speed and sea height variations to mathematically complex multi-parameter power spectra.
@@ -224,7 +226,7 @@ In the case where we have fetch rather than the inverse age parameter, we can co
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\subsubsection{Spectrum Visualization}
+\subsubsection{1-Dimensional Spectrum Visualization}
 The variance power spectrum is shown in the left hand side of Figure \ref{os_fig:3} and the associated curvature spectrum is shown in the right hand side of Figure \ref{os_fig:3}. These figures were generated for wind speeds from 3 m/s to 21 m/s in increments of 2 m/s, matching Figure 8 in \cite{elfouhaily}. In these figures, the secondary peak can clearly be seen at 370 rad/m.
 \begin{figure}[H]
   \begin{center}
@@ -262,14 +264,14 @@ To compare the results, the Elfouhaily and PM variance power spectra are shown i
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\subsection{Directional Spreading Functions}
+\subsubsection{Directional Spreading Functions}
 All the variance power spectra that have been discussed are uni-directional, meaning they only apply downrange in the direction of the wind. For two-dimensional surfaces, we need to include angular extent. This can be accomplished by applying a spreading function $\Phi$ in $k$-space as shown in Equation \ref{os_eq:5b} \cite{elfouhaily}.
 \begin{equation}
 \label{os_eq:5b}
 \Psi(k,\phi) = \frac{1}{k}S(k)\Phi(k,\phi)
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-As discussed in \cite{elfouhaily}, the spreading function should be symmetric in upwind-crosswind and will have the form given in Equation \ref{os_eq:5c}.
+As discussed in \cite{elfouhaily}, the spreading function should be symmetric in downwind-crosswind and will have the form given in Equation \ref{os_eq:5c}.
 \begin{equation}
 \label{os_eq:5c}
 \Psi(k,\phi) = \frac{1}{2\pi}\left[1 + \Delta(k)\cos(2\phi) \right]
@@ -296,6 +298,7 @@ The complete 2-dimensional unified Elfouhaily spectrum is given in Equation \ref
 \boxed{\Psi(k,\phi) = \frac{1}{2\pi k^4}\left[B_l + B_h \right] \left[1 + \Delta(k)\cos(2\phi) \right]}
 \end{equation}
 
+\subsubsection{2-Dimensional Spectrum Visualization}
 Figure \ref{os_fig:7bb} shows the 2-D variance and curvature power spectra. In the curvature spectrum, we can see the secondary peak along the $x$-axis as in the 1-dimensional case. The secondary peak is not observed along the $y$-axis as that represents the crosswind direction where additional energy is not being injected by the wind.
 \begin{figure}[H]
   \begin{center}
@@ -328,7 +331,7 @@ In order to generate a random sea surface, we need to establish the number of po
 
 From the Nyquist sampling theorem, the highest wave number that can be sampled given these values is $k_{max} = \frac{N}{2}\Delta k = \frac{N\pi}{L}$ rad/m, which corresponds to a minimum wavelength of $\lambda_{min} = 2\Delta x = \frac{2L}{N}$ m.
 
-Immediately, we see that to sample the secondary peak at $k_m$, $\frac{N}{L}\pi > k_m$ or $N > \frac{k_m}{\pi}L$. Since $k_m = 370$ rad/m, we can round up to state that $N \geq 118L$. In other words, the number of points required to sample the secondary peak in the spectrum is 118 times more than the length of the spatial domain. For the 1-dimensional case, this is not too bad as a 10 km length can be sampled with 1,180,000 points. 
+Immediately, we see that to sample the secondary peak at $k_m$, $\frac{N}{L}\pi > k_m$ or $N > \frac{k_m}{\pi}L$. Since $k_m = 370$ rad/m, we can round up to state that $N \geq 118L$ in this case. In other words, the number of points required to sample the secondary peak in the spectrum is 118 times more than the length of the spatial domain. For the 1-dimensional case, this is not too bad as the secondary peak for a 10 km length can be sampled with 1,180,000 points. 
 
 In general, we only need this many points when performing verification runs to demonstrate we are capable of modeling the entire spectrum correctly. In many situations, we are not concerned with capturing the high spatial frequencies as much as we are with staying below a pre-defined maximum spatial step. This step is typically on the order of 0.1 m ($N = 10L$) to 0.5 m ($N = 2L$).
 
@@ -389,7 +392,7 @@ The index ordering is assumed to have $k=0$ at the first element so that the seq
 \end{table}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Figure \ref{os_fig:6ab} shows the Hermitian symmetry of the frequency domain representation graphically. The elements with frequencies $0$ and $4\Delta k$ (white boxes) have no opposites and must be purely real. The other elements (colored boxes) do have opposing frequencies and must be complex conjugates to each other (complex conjugate pairs are identified by the arrows).
+Figure \ref{os_fig:6ab} shows the Hermitian symmetry of the frequency domain representation graphically with $N$ = 8. The elements with frequencies $0$ and $4\Delta k$ (white boxes) have no opposites and must be purely real. The other elements (colored boxes) do have opposing frequencies and must be complex conjugates to each other (complex conjugate pairs are identified by the arrows).
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=5in]{../media/Ocean_Surface/1-d_hermitian_symmetry.png}
@@ -432,10 +435,10 @@ Figure \ref{os_fig:7aa} shows another example realization, this time for $L$ = 1
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \section{Generation of Sea Surface Realizations in 2-Dimensions}
-We will generally follow Section \ref{os_sec:1d} to generate 2-dimensional surfaces but we now have a wave vector $\mathbf{k} = k_x\hat{x} + k_y\hat{y}$ instead of a scalar wave number. In this case we will have matrices and the number of points will go as $N^2$. We still have the constraint that the frequency domain representation should exhibit Hermitian symmetry, so $V(n,m) = V^*(N-n,N-m)$. The special cases at the elements $k = 0$ and $k = \frac{N}{2}$ now turn into special cases for the vectors $k_x = 0$, $k_x = \frac{N}{2}$, $k_y = 0$, and $k_y = \frac{N}{2}$. 
+We will generally follow Section \ref{os_sec:1d} to generate 2-dimensional surfaces but we now have a wave vector $\mathbf{k} = k_x\hat{\mathbf{x}} + k_y\hat{\mathbf{y}}$ instead of a scalar wave number. In this case we will have matrices and the number of points will go as $N^2$. We still have the constraint that the frequency domain representation should exhibit Hermitian symmetry, so $V(n,m) = V^*(N-n,N-m)$. The special cases at the elements $k = 0$ and $k = \frac{N}{2}\Delta k$ now turn into special cases for the vectors $k_x = 0$, $k_x = \frac{N}{2}\Delta k$, $k_y = 0$, and $k_y = \frac{N}{2}\Delta k$. 
 
 \subsection{Frequency Domain Representation}
-The idea of Hermitian symmetry is less intuitive for 2-dimensions than 1-dimension. We should be careful to explicitly state that the property of Hermitian symmetry does not imply that the matrix is Hermitian, as in general, $V \neq V^H$. Figure \ref{os_fig:7dd} shows the symmetry properties for an 8 x 8 matrix in terms of $(k_x, k_y)$ pairs. The 4 white blocks at $(k_x=0, k_y=0)$, $(k_x=4\Delta k, k_y=0)$, $(k_x=0, k_y=4\Delta k)$, and $(k_x=4\Delta k, k_y=4\Delta k)$ have no opposing frequencies and must be purely real. The 4 vectors where $k_x = 0$, $k_x = 4\Delta k$, $k_y = 0$, and $k_y = 4\Delta k$ are again special cases with no opposing frequencies in the 2nd dimension. These cases can be treated independently as if they were 1-dimensional sequences. This leaves a set of 4 sub-matrices of size $\frac{N}{2} - 1 \times \frac{N}{2} - 1$. It is sufficient to compute 2 of the sub-matrices directly ($\mathbf{A}$ and $\mathbf{B}$) and then use the Hermitian symmetry to generate the remaining 2 sub-matrices ($\mathbf{C}$ and $\mathbf{D}$).
+The idea of Hermitian symmetry is less intuitive for 2-dimensions than 1-dimension. We should be careful to point out that the property of Hermitian symmetry does not imply that the matrix is Hermitian, as in general, $V \neq V^H$. Figure \ref{os_fig:7dd} shows the symmetry properties for an $8 \times 8$ matrix ($N$ = 8) in terms of $(k_x, k_y)$ pairs. Here, the arrows identify the groupings that show symmetry. The 4 white blocks at $(k_x=0, k_y=0)$, $(k_x=4\Delta k, k_y=0)$, $(k_x=0, k_y=4\Delta k)$, and $(k_x=4\Delta k, k_y=4\Delta k)$ have no opposing frequencies and must be purely real. The 4 vectors where $k_x = 0$, $k_x = 4\Delta k$, $k_y = 0$, and $k_y = 4\Delta k$ are again special cases with no opposing frequencies in the 2nd dimension. These cases can be treated independently as if they were 1-dimensional sequences. This leaves a set of 4 sub-matrices of size $\frac{N}{2} - 1 \times \frac{N}{2} - 1$. It is sufficient to compute 2 of the sub-matrices directly ($\mathbf{A}$ and $\mathbf{B}$) and then use the Hermitian symmetry property to generate the remaining 2 sub-matrices ($\mathbf{C}$ and $\mathbf{D}$).
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=4in]{../media/Ocean_Surface/2-d_hermitian_symmetry.png}
@@ -447,7 +450,19 @@ The idea of Hermitian symmetry is less intuitive for 2-dimensions than 1-dimensi
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-The process to generate the frequency domain representation starts by using Equation \ref{os_eq:8} 4 times to cover the 4 special cases where $k_x = 0$, $k_x = \frac{N}{2}\Delta k$, $k_y = 0$, and $k_y = \frac{N}{2}\Delta k$. Each case should use independent sets of random variables $w$ and $u$ and the full 2-dimensional spectrum $Psi$ instead of $S$. We can then generate 4 $\frac{N}{2} - 1 \times \frac{N}{2} - 1$ matrices of random variables, $W_1$, $W_2$, $U_1$, and $U_2$ and compute $\mathbf{A}$ from Equation \ref{os_eq:10} and $\mathbf{B}$ from Equation \ref{os_eq:11}.
+The process to generate the frequency domain representation starts by using Equation \ref{os_eq:8} to cover the 4 special cases where $k_x = 0$, $k_x = \frac{N}{2}\Delta k$, $k_y = 0$, and $k_y = \frac{N}{2}\Delta k$. Each case will produce a sequence of length $N$, and should use independent sets of random variables $w$ and $u$ and the full 2-dimensional spectrum $\Psi$ instead of $S$. This is shown in Equation \ref{os_eq:9a} where $\alpha$ represents the spatial case being considered ($\alpha = 0$ or $\alpha = \frac{N}{2}$).
+
+\begin{equation}
+  \label{os_eq:9a}   
+  V(\alpha,j) = \begin{cases}
+    \sqrt{\frac{1}{2}\Psi(\alpha,j)\Delta k^2}w(0), & j = 0 \\
+    \frac{1}{2}\sqrt{\frac{1}{2}S(\alpha,j)\Delta k^2}\left(w(j) + iu(j) \right), & 1 \leq j < \frac{N}{2} \\
+   \sqrt{\frac{1}{2}\Psi(\alpha,N/2)\Delta k}u(0) & j = \frac{N}{2} \\
+    V(\alpha,N-j)^*, &  \frac{N}{2} < j \leq N-1 
+  \end{cases} 
+\end{equation}
+
+We can then generate 4 $\frac{N}{2} - 1 \times \frac{N}{2} - 1$ matrices of random variables ($W_1$, $W_2$, $U_1$, and $U_2$) and compute $\mathbf{A}$ from Equation \ref{os_eq:10} and $\mathbf{B}$ from Equation \ref{os_eq:11}.
 
 \begin{equation}
 \label{os_eq:10}
@@ -459,21 +474,21 @@ The process to generate the frequency domain representation starts by using Equa
 \mathbf{B}(m,n) = \frac{1}{4}\sqrt{\frac{1}{2}\Psi(m+\frac{N}{2} + 1,n+1)\Delta k^2}\left[W_1(m,n) + iW_2(m,n) \right]
 \end{equation}
 
-As with Equation \ref{os_eq:8}, we have an extra scale factor to account for the additional expectations that arise when extending the matrix. Because we are extending in both $x$ and $y$, we have a factor of $\frac{1}{4}$ instead of $\frac{1}{2}$.
+In these equations, the offsets in indexing $\Psi$ ensure that the correct spectral component is used. As with Equation \ref{os_eq:8}, we have an extra scale factor to account for the additional expectations. Because we are working in 2-dimensional space (both $x$ and $y$), we have a factor of $\frac{1}{4}$ instead of $\frac{1}{2}$.
 
 We can then compute $\mathbf{C}$ and $\mathbf{D}$ from symmetry:
 \begin{equation}
 \label{os_eq:12}
 \begin{gathered}
-\mathbf{C}(m,n) = \mathbf{A}\left(\frac{N}{2} - m, \frac{N}{2} - n \right) \\
-\mathbf{D}(m,n) = \mathbf{B}\left(\frac{N}{2} - m, \frac{N}{2} - n \right) \\
+\mathbf{C}(m,n) = \mathbf{A}^*\left(\frac{N}{2} - m, \frac{N}{2} - n \right) \\
+\mathbf{D}(m,n) = \mathbf{B}^*\left(\frac{N}{2} - m, \frac{N}{2} - n \right) \\
 \end{gathered}
 \end{equation}
 
-Once we have all the pieces, we can lay things down in the appropriate location in $V$.
+Once we have all the pieces, we can lay everything down in the appropriate location in $V$.
 
 \subsection{Example Realizations}
-Figure \ref{os_fig:8} shows a generated 2D sea surface with $L$ = 1 km and $U_{10}$ = 10 m/s. The right hand plot shows an image of the entire 1000 square meter surface area and the left hand plot shows a 3D rendering of the 100 square meter patch outlined in the red box in the upper left hand corner of the left hand plot.
+Figure \ref{os_fig:8} shows a generated 2D sea surface with $L$ = 1 km and $U_{10}$ = 10 m/s. The right hand plot shows an image of the entire 1000 square meter surface and the left hand plot shows a 3D rendering of the 100 square meter patch outlined in the red box in the upper left hand corner of the left hand plot.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_surf.png}
@@ -497,7 +512,7 @@ Figure \ref{os_fig:10} shows slices along the $N/2$ element in both the $x$ and 
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Figure \ref{os_fig:11} shows the generated sea surface for $L$ = 5 km and Figure \ref{os_fig:12} shows the generated sea surface for $L$ = 7.5 km.
+Figure \ref{os_fig:11} shows the generated sea surface for $L$ = 5 km and $U_{10}$ = 10 m/s. Again, the right hand plot shows an image of the entire 1000 square meter surface and the left hand plot shows a 3D rendering of the 100 square meter patch outlined in the red box in the upper left hand corner of the left hand plot.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_surf_5000.png}
@@ -509,6 +524,7 @@ Figure \ref{os_fig:11} shows the generated sea surface for $L$ = 5 km and Figure
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
+Figure \ref{os_fig:12} shows the generated sea surface for $L$ = 7.5 km and $U_{10}$ = 10 m/s. Again, the right hand plot shows an image of the entire 1000 square meter surface and the left hand plot shows a 3D rendering of the 100 square meter patch outlined in the red box in the upper left hand corner of the left hand plot.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_surf_7500.png}
