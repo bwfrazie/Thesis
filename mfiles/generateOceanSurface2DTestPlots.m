@@ -94,6 +94,7 @@ set(gca,'FontWeight','bold')
 grid on
 tstring = sprintf('Sea Surface Y Slice, L = %d m, N = %d',L,N/L);
 title(tstring);
+xlim([0 1000])
 
 subplot(2,2,2)
 loglog(kx(N/2+1:end),Pxx1(1:N/2),'LineWidth',2);
@@ -122,6 +123,7 @@ set(gca,'FontWeight','bold')
 grid on
 tstring = sprintf('Sea Surface Y Slice, L = %d m, N = %dL',L,N/L);
 title(tstring);
+xlim([0 1000])
 
 subplot(2,2,4)
 loglog(kx(N/2+1:end),Pxx2(1:N/2),'LineWidth',2);

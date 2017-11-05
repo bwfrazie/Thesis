@@ -48,8 +48,8 @@ for u = 1:N/2-1
         va = v+1;
         ub = u + 1;
         vb = v + N/2 + 1;
-        Va(u,v) = 1/2*sqrt(S(ua,va)/2*dk^2)*(W1(u,v) + 1i*W2(u,v));
-        Vb(u,v) = 1/2*sqrt(S(ub,vb)/2*dk^2)*(W3(u,v) + 1i*W4(u,v));
+        Va(u,v) = 1/4*sqrt(S(ua,va)/2*dk^2)*(W1(u,v) + 1i*W2(u,v));
+        Vb(u,v) = 1/4*sqrt(S(ub,vb)/2*dk^2)*(W3(u,v) + 1i*W4(u,v));
     end
 end
 
@@ -117,6 +117,6 @@ V(N/2+1,:) = Vy2;
 V(:,N/2+1) = Vx2';
 
 %scale by 1/2 to capture 2-D instead of only 1-D
-V = 1/2*V;
+% V = 1/2*V;
 
 h = ifft2(V)*length(V)^2;
