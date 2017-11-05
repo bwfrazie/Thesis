@@ -54,7 +54,7 @@ set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 set(gca,'View',[-34, 65]);
-tstring = sprintf('Subsection, 100m^2 Patch, L = %d m, N = %dL', L, N/L);
+tstring = sprintf('Generated 2-D Surface, 100m^2 Patch, L = %d m, N = %dL', L, N/L);
 title(tstring);
 
 %% Plot the surface image
@@ -68,7 +68,8 @@ ylabel('y (m)')
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
-title('Full 1km^2 Patch')
+tstring = sprintf('Generated 2-D Surface, L = %d m, N = %dL', L, N/L);
+title(tstring);
 colorbar
 
 plot(100*ones(size(l1)),l1,'m','LineWidth',2);
@@ -119,7 +120,7 @@ set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 grid on
-tstring = sprintf('Sea Surface Y Slice, L = %d m, N = %d',L,N/L);
+tstring = sprintf('Sea Surface Y Slice, L = %d m, N = %dL',L,N/L);
 title(tstring);
 
 subplot(2,2,4)
@@ -136,7 +137,7 @@ set(gca,'FontWeight','bold')
 xlabel('k (rad/m)')
 ylabel('S(k) (m^3/rad)')
 title('Y Slice')
-tstring = sprintf('Spectrum Comparison, L = %d m, N = %d',L,N/L);
+tstring = sprintf('Spectrum Comparison, L = %d m, N = %dL',L,N/L);
 title(tstring);
 
 %% plot the sampling coverage

@@ -64,7 +64,7 @@ From Figure \ref{os_fig:1} we can see that wind speed impacts the spectral peak 
 The PM spectrum assumes deep water, infinite fetch and no swells and has repeatedly been shown to be accurate for gravity waves in fully developed seas, but fails to capture spectral peaks due to high winds over short fetches. This means that the low spatial frequency component of the power spectrum is valid in almost all cases but the high spatial frequency component is not.
 
 \subsection{Bretschneider Spectrum}
-To overcome the limitations of a spectrum that requires fully developed seas, several multi-parameter spectra have been developed. In 1978, the 12th International Towing Tank Conference recommended the Bretschneider spectrum \cite{michel_sea_spectra} given in Equation \ref{os_eq:1a} where the modal frequency $\omega_m$ is given by $\omega_m = 0.4\sqrt{g/H_{1/3}}$.
+To overcome the limitations of a spectrum that requires fully developed seas, several multi-parameter spectra have been developed. In 1978, the 12th International Towing Tank Conference recommended the Bretschneider spectrum \cite{michel_sea_spectra} shown in Equation \ref{os_eq:1a} where the modal frequency $\omega_m$ is given by $\omega_m = 0.4\sqrt{g/H_{1/3}}$.
 \begin{equation}
   \begin{gathered}
   \label{os_eq:1a}
@@ -95,7 +95,7 @@ The Joint North Sea Wave Project (JONSWAP) in the 1970s modified the Pierson-Mos
 The enhancement factor $\nu$ was empirically derived for locations in the North Sea and allows control of the amplitude as in the Bretschneider spectrum. The difference is that the JONSWAP enhancement factor only amplifies the spectrum around the spectral peak.
 
 \subsection{Elfouhaily Spectrum}
-Many additional spectra have been developed and in 1997, Elfouhaily et. al extended several of these to provide a unified modern spectrum that is broken into low and high spatial frequency regions, $B_l$ and $B_h$, \cite{elfouhaily}. 
+Many additional spectra have been developed and in 1997, Elfouhaily et. al extended several of these to provide a unified modern spectrum that is broken into low and high spatial frequency regions, $B_l$ and $B_h$, \cite{elfouhaily}. The Ocean Surface Generator (OSG) mode added in the Tropospheric Electromagnetic Parabolic Equation Routine (TEMPER) v3.2 internally uses the 1-dimensional Elfouhaily spectrum to generate random sea surface realizations \cite{temper_guide}.
 
 \subsubsection{Spectrum Definition}
 The 1-dimensional version of the Elfouhaily spectrum is given in Equation \ref{os_eq:2}.
@@ -183,6 +183,7 @@ The high spatial frequency region, $B_h$, is given by Equation \ref{os_eq:4} and
   $L_{PM}$ & PM shape spectrum \\ \hline
   $J_p$ & JONSWAP peak enhancement function \\ \hline
   $Cd_{10N}$ & Neutral stability drag coefficient at 10 m above sea level, $\approx 0.00144$ \\ \hline
+  $u^*$ & Friction velocity at the water surface \\ \hline
   $v$ & Phase speed of the wave \\ \hline
 \end{tabular}
 \end{center}
@@ -287,13 +288,15 @@ a_m = 0.13\frac{u^*}{v_m} \\
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
+In Equation \ref{os_eq:5c}, $\phi$ is the azimuth angle in the $x$-$y$ plane, so that the downwind direction will be along the positive $x$-axis and the crosswind direction will be along the positive $y$-axis. The true orientation of these axes is arbitrary and can be rotated to any desired coordinate frame.
+
 The complete 2-dimensional unified Elfouhaily spectrum is given in Equation \ref{os_eq:5e}.
 \begin{equation}
 \label{os_eq:5e}
 \boxed{\Psi(k,\phi) = \frac{1}{2\pi k^4}\left[B_l + B_h \right] \left[1 + \Delta(k)\cos(2\phi) \right]}
 \end{equation}
 
-Figure \ref{os_fig:7bb} shows the 2-D variance and curvature power spectra on a log scale. In the curvature spectrum, we can see the secondary peak as in the 1-dimensional case.
+Figure \ref{os_fig:7bb} shows the 2-D variance and curvature power spectra. In the curvature spectrum, we can see the secondary peak along the $x$-axis as in the 1-dimensional case. The secondary peak is not observed along the $y$-axis as that represents the crosswind direction where additional energy is not being injected by the wind.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/elf_variance_curvature_spectrum_2D.png}
@@ -318,16 +321,18 @@ Figure \ref{os_fig:7cc} shows the low frequency behavior of the 2-D variance pow
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \section{Generation of Sea Surface Realizations in 1-Dimension}\label{os_sec:1d}
-Realizations of sea surfaces rely on having adequate sampling to cover both the spectral and spatial ranges of interest and then generating an appropriate set of Fourier coefficients. The 1-dimensional case is easiest to both understand and implement and will be discussed first.
+Realizations of sea surfaces rely on having adequate sampling to cover both the spectral and spatial ranges of interest and then generating an appropriate set of Fourier coefficients. The 1-dimensional case is easiest to understand and implement and will be discussed first.
 
 \subsection{Sampling Constraints}\label{os_label:1d_sampling_constraints}
 In order to generate a random sea surface, we need to establish the number of points to use ($N$) and the spatial domain length to cover ($L$). The spatial domain sampling inteval is then $\Delta x = \frac{L}{N}$ and the frequency domain sampling interval is $\Delta k = \frac{2\pi}{L}$. 
 
 From the Nyquist sampling theorem, the highest wave number that can be sampled given these values is $k_{max} = \frac{N}{2}\Delta k = \frac{N\pi}{L}$ rad/m, which corresponds to a minimum wavelength of $\lambda_{min} = 2\Delta x = \frac{2L}{N}$ m.
 
-Immediately, we see that to cover up to the secondary peak at $k_m$, $\frac{N}{L}\pi > k_m$ or $N > \frac{k_m}{\pi}L$. Since $k_m = 370$ rad/m, we can round up to state that $N \geq 118L$. In other words, the number of points required to cover up to the secondary peak in the spectrum is 118 times more than the length of the spatial domain. For the 1-dimensional case, this is not too bad as a 10 km length can be sampled with 1,180,000 points. It is in the 2-dimensional case where this really becomes problematic, as we now need $N^2$ points.
+Immediately, we see that to sample the secondary peak at $k_m$, $\frac{N}{L}\pi > k_m$ or $N > \frac{k_m}{\pi}L$. Since $k_m = 370$ rad/m, we can round up to state that $N \geq 118L$. In other words, the number of points required to sample the secondary peak in the spectrum is 118 times more than the length of the spatial domain. For the 1-dimensional case, this is not too bad as a 10 km length can be sampled with 1,180,000 points. 
 
-Figure \ref{os_fig:6aa} shows the impact on wavenumber sampling for various values of $N$ for $L$ = 1 km. The upper left hand plot shows the case where $N = 5L$, the upper right hand plot shows the case where $N = 10L$, the lower left hand plot shows the case where $N = 118L$, and the lower right hand plot shows the case where $N = 500L$. Since $\Delta x = \frac{L}{N}$, these cases represent spatial resolutions of 1/5 m, 1/10 m, 1/118 m, and 1/500 m. 
+In general, we only need this many points when performing verification runs to demonstrate we are capable of modeling the entire spectrum correctly. In many situations, we are not concerned with capturing the high spatial frequencies as much as we are with staying below a pre-defined maximum spatial step. This step is typically on the order of 0.1 m ($N = 10L$) to 0.5 m ($N = 2L$).
+
+Figure \ref{os_fig:6aa} shows the impact on wavenumber sampling for various values of $N$ for $L$ = 1 km. The upper left hand plot shows the case where $N = 2L$, the upper right hand plot shows the case where $N = 10L$, the lower left hand plot shows the case where $N = 118L$, and the lower right hand plot shows the case where $N = 500L$. Since $\Delta x = \frac{L}{N}$, these cases represent spatial resolutions of 1/2 m, 1/10 m, 1/118 m, and 1/500 m. 
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sampling_coverage.png}
@@ -340,9 +345,7 @@ Figure \ref{os_fig:6aa} shows the impact on wavenumber sampling for various valu
 \renewcommand{\baselinestretch}{2} \small\normalsize
 Since $L$ is the same for each case, $\Delta k$ is also the same and we can see how increasing $N$ increases coverage of higher spatial frequencies.
 
-In many situations, we are not concerned with capturing the high spatial frequencies as much as we are with staying below a pre-defined maximum spatial step. This step is typically on the order of 0.5 m, in which case $N = 2L$.
-
-As a final note for sampling constraints, we need to maintain integer indexing for digital implementation so $N$ must be an even integer to allow the element $N/2$ to be an integer as well. We will define the range in $k$-space as running from $-\left(\frac{N}{2}-1\right)\Delta k$ to $\frac{N}{2}\Delta k$.
+As a final note for sampling constraints, we need to maintain integer indexing for digital implementation so $N$ must be an even integer to allow the element $N/2$ to be an integer as well. For the 1-dimensional case, we will define the range in $k$-space as running from $0$ to $\frac{N}{2}\Delta k$.
 
 \subsection{Frequency Domain Representation}
 The general idea is to use the power spectrum to create a realization of the sea surface in the frequency domain and then transform that to the spatial domain through an inverse Fourier transform. We will follow the procedure outlined in \cite{percival_spectra}, 
@@ -361,14 +364,14 @@ To generate the frequency domain representation ($V_j$), we will take a set of G
     V_{N-j}^*, &  \frac{N}{2} < j \leq N-1 
   \end{cases} 
 \end{equation}
-The extra factor of $\frac{1}{2}$ in line 2 of Equation \ref{os_eq:8} comes from the fact that we need to normalize both the expectations $\left<w_j + iu_j\right>$ and $\left<w_j - iu_j\right>$ to conserve energy.
+The extra factor of $\frac{1}{2}$ in line 2 of Equation \ref{os_eq:8} comes from the fact that we have Hermitian symmetry and need to normalize both the expectations $\left<w_j + iu_j\right>$ and $\left<w_j - iu_j\right>$ to conserve energy.
 
 The index ordering is assumed to have $k=0$ at the first element so that the sequence will wrap in frequency at $j = \frac{N}{2} + 1$. An example sequence for $N = 8$ is shown in Table \ref{os_tab:2a}.
 \begin{table}[H]
   \begin{center}
       \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
-    \caption[Example 1-D Hermitian Sequence]{Example 1-D Hermitian Sequence\label{os_tab:2a}}
+    \caption[Example 1-Dimensional Frequency Domain Representation]{Example 1-Dimensional Frequency Domain Representation\label{os_tab:2a}}
   \end{quote}
   \begin{tabular} {| c | c | c |}
     \hline
@@ -381,12 +384,22 @@ The index ordering is assumed to have $k=0$ at the first element so that the seq
   $5$ & $-3\Delta k$ & $\frac{1}{2}\sqrt{\frac{S_{3}}{2} \Delta k} \left(w_3 - iu_3 \right)$ \\ \hline
   $6$ & $-2\Delta k$ & $\frac{1}{2}\sqrt{\frac{S_{2}}{2} \Delta k} \left(w_2 - iu_2 \right)$  \\ \hline
   $7$ & $-\Delta k$ & $\frac{1}{2}\sqrt{\frac{S_{1}}{2} \Delta k} \left(w_1 - iu_1 \right)$ \\ \hline
-
 \end{tabular}
 \end{center}
 \end{table}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
+Figure \ref{os_fig:6ab} shows the Hermitian symmetry of the frequency domain representation graphically. The elements with frequencies $0$ and $4\Delta k$ (white boxes) have no opposites and must be purely real. The other elements (colored boxes) do have opposing frequencies and must be complex conjugates to each other (complex conjugate pairs are identified by the arrows).
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=5in]{../media/Ocean_Surface/1-d_hermitian_symmetry.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Hermitian Symmetry in 1-Dimension]{Hermitian Symmetry in 1-Dimension\label{os_fig:6ab}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 Now that we have the random Fourier coefficients, we can generate the sea surface through the inverse Fourier transform as in Equation \ref{os_eq:9}. Because the sequence is Hermitian, the sea surface will be purely real.
 \begin{equation}
   \label{os_eq:9}
@@ -394,7 +407,7 @@ Now that we have the random Fourier coefficients, we can generate the sea surfac
   \end{equation}
 
 \subsection{Example Realizations}
-Figure \ref{os_fig:7a} shows an example realization for $U_{10}$ = 10 m/s and $L$ = 1km. The upper plots show the generated sea surface, and a comparison of the original spectrum to the recovered spectrum for $N = 2^{17}$. Here, $N = 131.07L$ and $\Delta x$ = 7.6 mm. The bottom plots show the same for $N=2^{11}$. Here, $N = 2.04L$ and $\Delta x$ = 0.49 m.
+Figure \ref{os_fig:7a} shows an example realization for $U_{10}$ = 10 m/s and $L$ = 1km. The upper plots show the generated sea surface, and a comparison of the original spectrum to the recovered spectrum for $N = 500L$ ($\Delta x$ = 1/500 m). The bottom plots show the same for $N=2L$ ($\Delta x$ = 1/2 m).
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_1000.png}
@@ -406,7 +419,7 @@ Figure \ref{os_fig:7a} shows an example realization for $U_{10}$ = 10 m/s and $L
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Figure \ref{os_fig:7aa} shows another example realization, this time for $L$ = 10km. The upper plots show the generated sea surface, and a comparison of the original spectrum to the recovered spectrum for $N = 2^{21}$. Here, $N = 209.7L$ and $\Delta x$ = 4.8 mm. The bottom plots show the same for $N=2^{15}$. Here, $N = 3.3L$ and $\Delta x$ = 0.3 m.
+Figure \ref{os_fig:7aa} shows another example realization, this time for $L$ = 10km. The upper plots show the generated sea surface, and a comparison of the original spectrum to the recovered spectrum for $N = 500L$ ($\Delta x$ = 1/500 m). The bottom plots show the same for $N=2L$ ($\Delta x$ = 1/2 m).
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_10000.png}
@@ -417,11 +430,23 @@ Figure \ref{os_fig:7aa} shows another example realization, this time for $L$ = 1
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-For both Figures \ref{os_fig:7a} and \ref{os_fig:7aa}, $N$ was set to the next highest power of 2 to capture the secondary peak.
 
 \section{Generation of Sea Surface Realizations in 2-Dimensions}
 We will generally follow Section \ref{os_sec:1d} to generate 2-dimensional surfaces but we now have a wave vector $\mathbf{k} = k_x\hat{x} + k_y\hat{y}$ instead of a scalar wave number. In this case we will have matrices and the number of points will go as $N^2$. We still have the constraint that the frequency domain representation should exhibit Hermitian symmetry, so $V(n,m) = V^*(N-n,N-m)$. The special cases at the elements $k = 0$ and $k = \frac{N}{2}$ now turn into special cases for the vectors $k_x = 0$, $k_x = \frac{N}{2}$, $k_y = 0$, and $k_y = \frac{N}{2}$. 
 
+The idea of Hermitian symmetry is less intuitive for 2-dimensions. Figure \ref{os_fig:7dd} shows the concept for an 8 x 8 matrix in terms of $(k_x, k_y)$ pairs. The 4 white blocks at $(k_x=0, k_y=0)$, $(k_x=4\Delta k, k_y=0)$, $(k_x=0, k_y=4\Delta k)$, and $(k_x=4\Delta k), k_y=4\Delta k))$ have no opposing frequencies and must be purely real. The 4 vectors where $k_x = 0$, $k_x = 4\Delta k$, $k_y = 0$, and $k_y = 4\Delta k$ are again special cases with no opposing frequencies in the 2nd dimension. These cases can be treated independently as if they were 1-dimensional sequences. This leaves a set of 4 sub-matrices of size $\frac{N}{2} - 1 $ x $\frac{N}{2} - 1$. It is sufficient to compute 2 of the sub-matrices directly and then use the Hermitian symmetry to generate the remaining 2.
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/2-d_hermitian_symmetry.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Hermitian Symmetry in 2-Dimensions]{Hermitian Symmetry in 2-Dimensions \label{os_fig:7dd}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\section{Example Realizations}
 Figure \ref{os_fig:8} shows a section of a generated 2D sea surface. The total surface was $1000 m^2$, only $100 m^2$ is shown here.
 \begin{figure}[H]
   \begin{center}

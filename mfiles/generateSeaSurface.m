@@ -11,10 +11,10 @@ if (nargin == 5)
 end
 
 dk = 2*pi/L;
-k = (1:N/2+1)*dk;
+k = (0:N/2)*dk;
 
 S = Elfouhaily(k,U10,age);
-
+S(1) = 0;
 %create the random variables
 
 V = [];

@@ -7,16 +7,12 @@ if(nargin == 1)
 end
 
 L1 = 1000;
-M1 = nextpow2(118*L1);
-M3 = nextpow2(2*L1);
-N1 = 2^M1;
-N3 = 2^M3;
+N1 = 500*L1;
+N3 = 2*L1;
 
 L2 = 10000;
-M2 = nextpow2(118*L2);
-N2 = 2^M2;
-M4 = nextpow2(2*L2);
-N4 = 2^M4;
+N2 = 500*L2;
+N4 = 2*L2;
 
 U10 = 10;
 age = 0.84;
@@ -55,7 +51,7 @@ set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 xlabel('x (m)')
 ylabel('h (m)')
-tstring = sprintf('Sea Surface, L = %d km, N = 2^{%d}',L1/1000,M1);
+tstring = sprintf('Sea Surface, L = %d km, N = %dL',L1/1000,N1/L1);
 title(tstring);
 
 Pxx1 = periodogram(real(h1),[],'onesided',N1,1/dx1);
@@ -73,7 +69,7 @@ set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 xlabel('k (rad/m)')
 ylabel('S(k) (m^3/rad)')
-tstring = sprintf('Spectrum Comparison, L = %d km, N = 2^{%d}',L1/1000,M1);
+tstring = sprintf('Spectrum Comparison, L = %d km, N = %dL',L1/1000,N1/L1);
 title(tstring);
 
 subplot(2,2,3)
@@ -84,7 +80,7 @@ set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 xlabel('x (m)')
 ylabel('h (m)')
-tstring = sprintf('Sea Surface, L = %d km, N = 2^{%d}',L1/1000,M3);
+tstring = sprintf('Sea Surface, L = %d km, N = %dL',L1/1000,N3/L1);
 title(tstring);
 
 Pxx3 = periodogram(real(h3),[],'onesided',N3,1/dx3);
@@ -102,7 +98,7 @@ set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 xlabel('k (rad/m)')
 ylabel('S(k) (m^3/rad)')
-tstring = sprintf('Spectrum Comparison, L = %d km, N = 2^{%d}',L1/1000,M3);
+tstring = sprintf('Spectrum Comparison, L = %d km, N = %dL',L1/1000,N3/L1);
 title(tstring);
 
 %% plot the sea surface realizations
@@ -115,7 +111,7 @@ set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 xlabel('x (m)')
 ylabel('h (m)')
-tstring = sprintf('Sea Surface, L = %d km, N = 2^{%d}',L2/1000,M2);
+tstring = sprintf('Sea Surface, L = %d km, N = %dL',L2/1000,N2/L2);
 title(tstring);
 xlim([0 1000])
 
@@ -134,7 +130,7 @@ set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 xlabel('k (rad/m)')
 ylabel('S(k) (m^3/rad)')
-tstring = sprintf('Spectrum Comparison, L = %d km, N = 2^{%d}',L2/1000,M2);
+tstring = sprintf('Spectrum Comparison, L = %d km, N =%dL',L2/1000,N2/L2);
 title(tstring);
 
 subplot(2,2,3)
@@ -145,7 +141,7 @@ set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 xlabel('x (m)')
 ylabel('h (m)')
-tstring = sprintf('Sea Surface, L = %d km, N = 2^{%d}',L2/1000,M4);
+tstring = sprintf('Sea Surface, L = %d km, N = %dL',L2/1000,N4/L2);
 title(tstring);
 xlim([0 1000])
 
@@ -164,7 +160,7 @@ set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 xlabel('k (rad/m)')
 ylabel('S(k) (m^3/rad)')
-tstring = sprintf('Spectrum Comparison, L = %d km, N = 2^{%d}',L2/1000,M2);
+tstring = sprintf('Spectrum Comparison, L = %d km, N = %dL',L2/1000,N4/L2);
 title(tstring);
 %% 
 s1 = std(h1);

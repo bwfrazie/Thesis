@@ -12,7 +12,7 @@ U10 = 10;
 age = 0.84;
 
 L = 1000;
-N1 = 5*L;
+N1 = 2*L;
 N2 = 10*L;
 N3 = 118*L;
 N4 = 500*L;
@@ -27,7 +27,7 @@ k4 = (1:N4/2+1)*dk;
 p = linspace(-3,4,1000);
 k = 10.^p;
 
-hh(1) = figure('pos',[50 50 1000 650]);
+hh(1) = figure('pos',[50 50 917 740]);
 subplot(2,2,1)
 loglog(k,Elfouhaily(k,U10,age),'LineWidth',2);
 hold on

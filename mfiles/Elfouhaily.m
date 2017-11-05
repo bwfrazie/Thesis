@@ -8,7 +8,7 @@ ustar = sqrt(Cd10N)*U10;%friction velocity at the water surface
 km = 370.0;
 cm = 0.23; %minimum phase speed at wavenumber km
 sigma = 0.08*(1+4*age^(-3));
-alphap = 0.006*age^(0.55); %generalizaed Phillips-Kitaigorodskii equilibrium range parameter for long waves
+alphap = 0.006*age^(0.55); %generalized Phillips-Kitaigorodskii equilibrium range parameter for long waves
 k0 = g/(U10^2);
 kp = k0 * age^2; %wavenumber of the spectral peak
 cp = sqrt(g/kp); %phase speed at the spectral peak cp = U10/age
