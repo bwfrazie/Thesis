@@ -48,8 +48,8 @@ for u = 1:N/2-1
         va = v+1;
         ub = u + 1;
         vb = v + N/2 + 1;
-        Va(u,v) = 1/4*sqrt(S(ua,va)*dk^2)*(W1(u,v) + 1i*W2(u,v));
-        Vb(u,v) = 1/4*sqrt(S(ub,vb)*dk^2)*(W3(u,v) + 1i*W4(u,v));
+        Va(u,v) = 1/4*sqrt(S(ua,va)/2*dk^2)*(W1(u,v) + 1i*W2(u,v));
+        Vb(u,v) = 1/4*sqrt(S(ub,vb)/2*dk^2)*(W3(u,v) + 1i*W4(u,v));
     end
 end
 

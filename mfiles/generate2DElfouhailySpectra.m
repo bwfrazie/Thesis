@@ -21,8 +21,8 @@ S = Elfouhaily2D(k,phi,U10,age);
 p = linspace(-4,4,10000);
 k1 = 10.^p;
 
-Sx = Elfouhaily2D(k1,zeros(size(k1)),U10,age);
-Sy = Elfouhaily2D(k1,pi/2*ones(size(k1)),U10,age);
+Sx = Elfouhaily2D(k1,zeros(size(k1)),U10,age).*k1;
+Sy = Elfouhaily2D(k1,pi/2*ones(size(k1)),U10,age).*k1;
 S1 = Elfouhaily(k1,U10,age);
 
 h(1) = figure('pos',[50 50 1000 400]);
@@ -80,7 +80,7 @@ loglog(k1,Sx,'LineWidth',2);
 hold on
 loglog(k1, Sy,'LineWidth',2);
 loglog(k1,S1,'LineWidth',2);
-legend('\Psi_x','\Psi_y','S');
+legend('k\Psi_x','k\Psi_y','S');
 xlim([10^-3 10^5]);
 ylim([10^-15 10^5]);
 grid on
@@ -88,11 +88,13 @@ title('Variance Spectrum Comparison of 2D Slices and 1D')
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
+xlabel('k (rad/m)')
+ylabel('m^2/rad')
 
 subplot(1,2,2)
-loglog(k1,k1.^4.*Sx,'LineWidth',2);
+loglog(k1,k1.^3.*Sx,'LineWidth',2);
 hold on
-loglog(k1,k1.^4.*Sy,'LineWidth',2);
+loglog(k1,k1.^3.*Sy,'LineWidth',2);
 loglog(k1,k1.^3.*S1,'LineWidth',2);
 legend('k^4\Psi_x','k^4\Psi_y','k^3S');
 xlim([10^-3 10^5]);
@@ -102,6 +104,8 @@ title('Curvature Spectrum Comparison of 2D Slices and 1D')
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
+xlabel('k (rad/m)')
+ylabel('rad^2')
 
 if(saveFigs)
  saveas(h(1),'elf_variance_curvature_spectrum_2D.png','png')

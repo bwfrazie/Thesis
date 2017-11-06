@@ -311,7 +311,7 @@ Figure \ref{os_fig:7bb} shows the 2-D variance and curvature power spectra. In t
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Figure \ref{os_fig:7bc} shows 2-D slices of the power spectrum vs the 1-D power spectrum on the left hand side and the same for the curvature spectrum on the right hand side. Here,  $\Psi_x = \Psi(k_y = 0)$ and $\Psi_u = \Psi(k_x = 0)$.
+Figure \ref{os_fig:7bc} shows 2-D slices of the power spectrum vs the 1-D power spectrum on the left hand side and the same for the curvature spectrum on the right hand side, where $\Psi_x = \Psi(k_y = 0)$ and $\Psi_u = \Psi(k_x = 0)$. The 2-D spectral slices are plotted as $k_x\Psi_x$ and $k_y\Psi_y$ so that all three spectra have the same units. Note that the $\Psi_x$ slice $\approx S$ and that the $\Psi_y$ slice has a shifted spectral peak and low frequency cutoff but converges to the other spectra at high spatial frequencies.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/elf_variance_curvature_spectrum_2D_slices.png}
@@ -479,12 +479,12 @@ We can then generate 4 matrices of random variables ($W_1$, $W_2$, $U_1$, and $U
 
 \begin{equation}
 \label{os_eq:10}
-\mathbf{A}(m,n) = \frac{1}{4}\sqrt{\Psi(m+1,n+1)\Delta k^2}\left[W_1(m,n) + iW_2(m,n) \right]
+\mathbf{A}(m,n) = \frac{1}{4}\sqrt{\frac{1}{2}\Psi(m+1,n+1)\Delta k^2}\left[W_1(m,n) + iW_2(m,n) \right]
 \end{equation}
 
 \begin{equation}
 \label{os_eq:11}
-\mathbf{B}(m,n) = \frac{1}{4}\sqrt{\Psi(m+\frac{N}{2} + 1,n+1)\Delta k^2}\left[W_1(m,n) + iW_2(m,n) \right]
+\mathbf{B}(m,n) = \frac{1}{4}\sqrt{\frac{1}{2}\Psi(m+\frac{N}{2} + 1,n+1)\Delta k^2}\left[W_1(m,n) + iW_2(m,n) \right]
 \end{equation}
 
 In these equations, the offsets in indexing $\Psi$ ensure that the correct spectral component is used. As with Equation \ref{os_eq:8}, we have an extra scale factor to account for the additional expectations. Because we are working in 2-dimensional space (both $x$ and $y$), we have a factor of $\frac{1}{4}$ instead of $\frac{1}{2}$.
@@ -504,7 +504,7 @@ Once we have all the pieces, we can lay everything down in the appropriate locat
 Figure \ref{os_fig:8} shows a generated 2D sea surface with $L$ = 1 km and $U_{10}$ = 10 m/s. The right hand plot shows an image of the entire 1000 square meter surface and the left hand plot shows a 3D rendering of the 100 square meter patch outlined in the red box in the upper left hand corner of the left hand plot.
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_surf.png}
+\includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_surf_1000.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
@@ -513,10 +513,10 @@ Figure \ref{os_fig:8} shows a generated 2D sea surface with $L$ = 1 km and $U_{1
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Figure \ref{os_fig:10} shows slices along the $N/2$ element in both the $x$ and $y$ planes along with a comparison of the 1D Elfouhaily spectrum to the spectrum recovered from the slices. The low frequency content does not match as well as in the 1-dimensional case. Because we have added a spreading function, we do not expect the crosswind ($y$) slice to match as well as the downwind ($x$) slice.
+Figure \ref{os_fig:10} shows slices along the $N/2$ element in both the $x$ and $y$ planes on the left hand side and a comparison of the spectral slices in the 2-D Elfouhaily spectrum on the right hand side. The full 2-D spectrum was estimated from the generated surface and then slices were taken to compare to slices from the original 2-D spectrum. The low frequency content does not match as well as in the 1-dimensional case.
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_slices1000.png}
+\includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_slices_1000.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
@@ -524,8 +524,34 @@ Figure \ref{os_fig:10} shows slices along the $N/2$ element in both the $x$ and 
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
+Figure \ref{os_fig:8a} shows the same thing as Figure \ref{os_fig:8} but with $N=5L$ instead of $N = 2L$.
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_surf_1000_5.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Generated 2D Sea Surface, $L$ = 1 km, $N$ = 5$L$]{Generated 2D Sea Surface, $L$ = 1 km, $N$ = 5$L$ \label{os_fig:8a}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
-Figure \ref{os_fig:11} shows the generated sea surface for $L$ = 5 km and $U_{10}$ = 10 m/s. Again, the right hand plot shows an image of the entire 5000 square meter surface and the left hand plot shows a 3D rendering of the 100 square meter patch outlined in the red box in the upper left hand corner of the left hand plot.
+
+Figure \ref{os_fig:10a} shows the same thing as Figure \ref{os_fig:10} but with $N=5L$ instead of $N = 2L$.
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_slices_1000_5.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[X and Y Slices of 2D Generated Sea Surface, $L$ = 1 km, $N$ = 5$L$]{X and Y Slices of 2D Generated Sea Surface, $L$ = 1 km, $N$ = 5$L$\label{os_fig:10a}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+
+Figure \ref{os_fig:11} shows the generated sea surface for $L$ = 5 km and $U_{10}$ = 10 m/s. Again, the right hand plot shows an image of a 1000 square meter section of the surface and the left hand plot shows a 3D rendering of the 100 square meter patch outlined in the red box in the upper left hand corner of the left hand plot.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_surf_5000.png}
@@ -537,7 +563,19 @@ Figure \ref{os_fig:11} shows the generated sea surface for $L$ = 5 km and $U_{10
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Figure \ref{os_fig:12} shows the generated sea surface for $L$ = 7.5 km and $U_{10}$ = 10 m/s. Again, the right hand plot shows an image of the entire 7500 square meter surface and the left hand plot shows a 3D rendering of the 100 square meter patch outlined in the red box in the upper left hand corner of the left hand plot.
+Figure \ref{os_fig:11a} shows slices along the $N/2$ element in both the $x$ and $y$ planes on the left hand side and a comparison of the spectral slices in the 2-D Elfouhaily spectrum on the right hand side. The full 2-D spectrum was estimated from the generated surface and then slices were taken to compare to slices from the original 2-D spectrum. The low frequency content does not match as well as in the 1-dimensional case.
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_slices_5000.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[X and Y Slices of 2D Generated Sea Surface, $L$ = 5 km]{X and Y Slices of 2D Generated Sea Surface, $L$ = 5 km\label{os_fig:11a}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Figure \ref{os_fig:12} shows the generated sea surface for $L$ = 7.5 km and $U_{10}$ = 10 m/s. Again, the right hand plot shows an image of a 1000 square meter section of the surface and the left hand plot shows a 3D rendering of the 100 square meter patch outlined in the red box in the upper left hand corner of the left hand plot.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_surf_7500.png}
@@ -545,6 +583,18 @@ Figure \ref{os_fig:12} shows the generated sea surface for $L$ = 7.5 km and $U_{
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
     \caption[Generated 2D Sea Surface, $L$ = 7.5 km]{Generated 2D Sea Surface, $L$ = 7.5 km \label{os_fig:12}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Figure \ref{os_fig:12a} shows slices along the $N/2$ element in both the $x$ and $y$ planes on the left hand side and a comparison of the spectral slices in the 2-D Elfouhaily spectrum on the right hand side. The full 2-D spectrum was estimated from the generated surface and then slices were taken to compare to slices from the original 2-D spectrum. The low frequency content does not match as well as in the 1-dimensional case.
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_slices_7500.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[X and Y Slices of 2D Generated Sea Surface, $L$ = 7.5 km]{X and Y Slices of 2D Generated Sea Surface, $L$ = 7.5 km\label{os_fig:12a}}
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
