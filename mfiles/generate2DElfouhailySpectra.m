@@ -76,30 +76,36 @@ colorbar
 %% plot the spectrum slices
 h(3) = figure('pos',[50 50 1000 400]);
 subplot(1,2,1)
-loglog(k1,Sx);
+loglog(k1,Sx,'LineWidth',2);
 hold on
-loglog(k1, Sy);
-loglog(k1,S1);
+loglog(k1, Sy,'LineWidth',2);
+loglog(k1,S1,'LineWidth',2);
 legend('\Psi_x','\Psi_y','S');
 xlim([10^-3 10^5]);
 ylim([10^-15 10^5]);
 grid on
 title('Variance Spectrum Comparison of 2D Slices and 1D')
+set(gca,'LineWidth',2)
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
 
 subplot(1,2,2)
-loglog(k1,k1.^4.*Sx);
+loglog(k1,k1.^4.*Sx,'LineWidth',2);
 hold on
-loglog(k1,k1.^4.*Sy);
-loglog(k1,k1.^3.*S1);
+loglog(k1,k1.^4.*Sy,'LineWidth',2);
+loglog(k1,k1.^3.*S1,'LineWidth',2);
 legend('k^4\Psi_x','k^4\Psi_y','k^3S');
 xlim([10^-3 10^5]);
 ylim([10^-4 10^0]);
 grid on
 title('Curvature Spectrum Comparison of 2D Slices and 1D')
+set(gca,'LineWidth',2)
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
 
 if(saveFigs)
  saveas(h(1),'elf_variance_curvature_spectrum_2D.png','png')
- saveas(h(2),'elf_variance_curvature_spectrum_2D_zoom.png','png')
+ saveas(h(2),'elf_variance_spectrum_2D_zoom.png','png')
  saveas(h(3),'elf_variance_curvature_spectrum_2D_slices.png','png')
 end
 

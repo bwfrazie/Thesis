@@ -77,8 +77,8 @@ for(j = 2:N/2)
     Vx0(j) = 1/2*sqrt(S(1,j)/2*dk^2)*(w1(j) + 1i*u1(j));
     Vy0(j) = 1/2*sqrt(S(j,1)/2*dk^2)*(w2(j) + 1i*u2(j));
 end
-Vx0(N/2+1) = sqrt(S(1,N/2+1)/2*dk^2)*u1(1);
-Vy0(N/2+1) = sqrt(S(N/2+1,1)/2*dk^2)*u2(1);
+Vx0(N/2+1) = sqrt(S(1,N/2+1)*dk^2)*u1(1);
+Vy0(N/2+1) = sqrt(S(N/2+1,1)*dk^2)*u2(1);
 
 for (j = N/2+2:N)
 Vx0(j) = conj(Vx0(N-j + 2));
@@ -96,16 +96,16 @@ w4 = randn(1,N/2);
 u4 = randn(1,N/2);
 
 %build the N/2 frequency lines
-Vx2(1) = sqrt(S(N/2+1,1)/2*dk^2)*w3(1);
-Vy2(1) = sqrt(S(1,N/2+1)/2*dk^2)*w4(1);
+Vx2(1) = sqrt(S(N/2+1,1)*dk^2)*w3(1);
+Vy2(1) = sqrt(S(1,N/2+1)*dk^2)*w4(1);
 
 for(j = 2:N/2)
     Vx2(j) = 1/2*sqrt(S(N/2+1,j)/2*dk^2)*(w3(j) + 1i*u3(j));
     Vy2(j) = 1/2*sqrt(S(j,N/2+1)/2*dk^2)*(w4(j) + 1i*u4(j));
 end
 
-Vx2(N/2+1) = sqrt(S(N/2+1,N/2+1)/2*dk^2)*u4(1);
-Vy2(N/2+1) = sqrt(S(N/2+1,N/2+1)/2*dk^2)*u4(1);
+Vx2(N/2+1) = sqrt(S(N/2+1,N/2+1)*dk^2)*u4(1);
+Vy2(N/2+1) = sqrt(S(N/2+1,N/2+1)*dk^2)*u4(1);
 
 for (j = N/2+2:N)
 Vx2(j) = conj(Vx2(N-j + 2));

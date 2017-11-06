@@ -84,6 +84,10 @@ hh(2) = figure('pos',[50 50 872 641]);
 Pxx1 = periodogram(h(N/2+1,:),[],'onesided',N,1/dx);
 Pxx2 = periodogram(h(:,N/2+1),[],'onesided',N,1/dx);
 
+Sx = Elfouhaily2D(k1,zeros(size(k1)),U10,age);
+Sy = Elfouhaily2D(k1,pi/2*ones(size(k1)),U10,age);
+S1 = Elfouhaily(k1,U10,age);
+
 subplot(2,2,1)
 plot(x,h(N/2+1,:),'LineWidth',2);
 xlabel('x (m)');
@@ -99,7 +103,7 @@ xlim([0 1000])
 subplot(2,2,2)
 loglog(kx(N/2+1:end),Pxx1(1:N/2),'LineWidth',2);
 hold on
-loglog(k1,Elfouhaily(k1,U10,age),'LineWidth',2);
+loglog(k1,S1,'LineWidth',2);
 legend('Recovered','1-D S')
 ylim([10^-15 10^3])
 xlim([10^-3 10^5]);
@@ -128,7 +132,7 @@ xlim([0 1000])
 subplot(2,2,4)
 loglog(kx(N/2+1:end),Pxx2(1:N/2),'LineWidth',2);
 hold on
-loglog(k1,Elfouhaily(k1,U10,age),'LineWidth',2);
+loglog(k1,S1,'LineWidth',2);
 legend('Recovered','1-D S')
 ylim([10^-15 10^3])
 xlim([10^-3 10^5]);

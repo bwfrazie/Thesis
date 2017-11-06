@@ -311,7 +311,7 @@ Figure \ref{os_fig:7bb} shows the 2-D variance and curvature power spectra. In t
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Figure \ref{os_fig:7bc} shows 2-D slices of the power spectrum vs the 1-D power spectrum on the left hand side ($\Psi_x = \Psi(k_y = 0)$, $\Psi_u = \Psi(k_x = 0)$) and the same for the curvature spectrum on the right hand side.
+Figure \ref{os_fig:7bc} shows 2-D slices of the power spectrum vs the 1-D power spectrum on the left hand side and the same for the curvature spectrum on the right hand side. Here,  $\Psi_x = \Psi(k_y = 0)$ and $\Psi_u = \Psi(k_x = 0)$.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/elf_variance_curvature_spectrum_2D_slices.png}
@@ -323,7 +323,7 @@ Figure \ref{os_fig:7bc} shows 2-D slices of the power spectrum vs the 1-D power 
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Figure \ref{os_fig:7cc} shows the low frequency behavior of the 2-D variance power spectrum for $|k| leq$ 2 rad/m.
+Figure \ref{os_fig:7cc} shows the low frequency behavior of the 2-D variance power spectrum for $|k| \leq$ 2 rad/m.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=4in]{../media/Ocean_Surface/elf_variance_spectrum_2D_zoom.png}
@@ -373,13 +373,13 @@ To generate the frequency domain representation ($V_j$), we will take a set of G
 \begin{equation}
   \label{os_eq:8}   
   V_j = \begin{cases}
-    \sqrt{\frac{1}{2}S_0\Delta k}w_0, & j = 0 \\
+    \sqrt{S_0\Delta k}w_0, & j = 0 \\
     \frac{1}{2}\sqrt{\frac{1}{2}S_j\Delta k}\left[w_j + iu_j \right], & 1 \leq j < \frac{N}{2} \\
-   \sqrt{\frac{1}{2}S_{N/2}\Delta k}u_0 & j = \frac{N}{2} \\
+   \sqrt{S_{N/2}\Delta k}u_0 & j = \frac{N}{2} \\
     V_{N-j}^*, &  \frac{N}{2} < j \leq N-1 
   \end{cases} 
 \end{equation}
-The extra factor of $\frac{1}{2}$ in line 2 of Equation \ref{os_eq:8} comes from the fact that we have Hermitian symmetry and need to normalize both the expectations $\left<w_j + iu_j\right>$ and $\left<w_j - iu_j\right>$ to conserve energy.
+The extra factor of $\frac{1}{2}$ in line 2 of Equation \ref{os_eq:8} comes from the fact that we have Hermitian symmetry and need to normalize both the expectations $\left<w_j + iu_j\right>$ and $\left<w_j - iu_j\right>$ to conserve energy. Also note that the power spectrum for frequencies $k = 0$, and $k = \frac{N}{2}$ is not divided by 2 since these are single points that are not repeated.
 
 The index ordering is assumed to have $k=0$ at the first element so that the sequence will wrap in frequency at $j = \frac{N}{2} + 1$. An example sequence for $N = 8$ is shown in Table \ref{os_tab:2a}.
 \begin{table}[H]
@@ -391,11 +391,11 @@ The index ordering is assumed to have $k=0$ at the first element so that the seq
   \begin{tabular} {| c | c | c |}
     \hline
   \bf{$j$} & \bf{$k_j$} & \bf{$V_j$} \\ \hline
-  $0$ & $0$ & $\sqrt{\frac{S_{0}}{2} \Delta k}w_0$ \\ \hline
+  $0$ & $0$ & $\sqrt{S_{0} \Delta k}w_0$ \\ \hline
   $1$ & $\Delta k$ & $\frac{1}{2}\sqrt{\frac{S_{1}}{2} \Delta k} \left(w_1 + iu_1 \right)$ \\ \hline
   $2$ & $2\Delta k$ & $\frac{1}{2}\sqrt{\frac{S_{2}}{2} \Delta k} \left(w_2 + iu_2 \right)$ \\ \hline
   $3$ & $3\Delta k$ & $\frac{1}{2}\sqrt{\frac{S_{3}}{2} \Delta k} \left(w_3 + iu_3 \right)$ \\ \hline
-  $4$ & $4\Delta k$ & $\sqrt{\frac{S_{4}}{2} \Delta k} u_0$ \\ \hline
+  $4$ & $4\Delta k$ & $\sqrt{S_{4} \Delta k} u_0$ \\ \hline
   $5$ & $-3\Delta k$ & $\frac{1}{2}\sqrt{\frac{S_{3}}{2} \Delta k} \left(w_3 - iu_3 \right)$ \\ \hline
   $6$ & $-2\Delta k$ & $\frac{1}{2}\sqrt{\frac{S_{2}}{2} \Delta k} \left(w_2 - iu_2 \right)$  \\ \hline
   $7$ & $-\Delta k$ & $\frac{1}{2}\sqrt{\frac{S_{1}}{2} \Delta k} \left(w_1 - iu_1 \right)$ \\ \hline
@@ -468,9 +468,9 @@ The process to generate the frequency domain representation starts by using Equa
 \begin{equation}
   \label{os_eq:9a}   
   V(\alpha,j) = \begin{cases}
-    \sqrt{\frac{1}{2}\Psi(\alpha,j)\Delta k^2}w(0), & j = 0 \\
-    \frac{1}{4}\sqrt{\Psi(\alpha,j)\Delta k^2}\left[w(j) + iu(j) \right], & 1 \leq j < \frac{N}{2} \\
-   \sqrt{\frac{1}{2}\Psi(\alpha,N/2)\Delta k^2}u(0) & j = \frac{N}{2} \\
+    \sqrt{\Psi(\alpha,j)\Delta k^2}w(0), & j = 0 \\
+    \frac{1}{2}\sqrt{\frac{1}{2}\Psi(\alpha,j)\Delta k^2}\left[w(j) + iu(j) \right], & 1 \leq j < \frac{N}{2} \\
+   \sqrt{\Psi(\alpha,N/2)\Delta k^2}u(0) & j = \frac{N}{2} \\
     V(\alpha,N-j)^*, &  \frac{N}{2} < j \leq N-1 
   \end{cases} 
 \end{equation}
@@ -479,12 +479,12 @@ We can then generate 4 matrices of random variables ($W_1$, $W_2$, $U_1$, and $U
 
 \begin{equation}
 \label{os_eq:10}
-\mathbf{A}(m,n) = \frac{1}{4}\sqrt{\frac{1}{2}\Psi(m+1,n+1)\Delta k^2}\left[W_1(m,n) + iW_2(m,n) \right]
+\mathbf{A}(m,n) = \frac{1}{4}\sqrt{\Psi(m+1,n+1)\Delta k^2}\left[W_1(m,n) + iW_2(m,n) \right]
 \end{equation}
 
 \begin{equation}
 \label{os_eq:11}
-\mathbf{B}(m,n) = \frac{1}{4}\sqrt{\frac{1}{2}\Psi(m+\frac{N}{2} + 1,n+1)\Delta k^2}\left[W_1(m,n) + iW_2(m,n) \right]
+\mathbf{B}(m,n) = \frac{1}{4}\sqrt{\Psi(m+\frac{N}{2} + 1,n+1)\Delta k^2}\left[W_1(m,n) + iW_2(m,n) \right]
 \end{equation}
 
 In these equations, the offsets in indexing $\Psi$ ensure that the correct spectral component is used. As with Equation \ref{os_eq:8}, we have an extra scale factor to account for the additional expectations. Because we are working in 2-dimensional space (both $x$ and $y$), we have a factor of $\frac{1}{4}$ instead of $\frac{1}{2}$.
