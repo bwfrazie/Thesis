@@ -105,15 +105,11 @@ Sx = Elfouhaily2D(k1,zeros(size(k1)),U10,age);
 Sy = Elfouhaily2D(k1,pi/2*ones(size(k1)),U10,age);
 S1 = Elfouhaily(k1,U10,age);
 
-Psi = fftshift(fft2(h))*dx^2;
-Psi = (abs(Psi)).^2/N^2;
+Psi = fftshift(fft2(h))*(dx/(2*N));
+Psi = (abs(Psi)).^2;
 Psiy = Psi(N/2+1,:);
 Psix = Psi(:,N/2+1);
 
-kern = 1/25*[1 1 1 1 1;1 1 1 1 1;1 1 1 1 1;1 1 1 1 1;1 1 1 1 1];
-kern2 = 1/9*[1 1 1 ;1 1 1;1 1 1];
-Psi_smooth = conv2(Psi,kern,'same');
-Psi2 = conv2(Psi,kern2,'same');
 
 subplot(2,2,1)
 plot(x,h(N/2+1,:),'LineWidth',2);

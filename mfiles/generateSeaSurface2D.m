@@ -116,7 +116,4 @@ end
 V(N/2+1,:) = Vy2;
 V(:,N/2+1) = Vx2';
 
-%scale by 1/2 to capture 2-D instead of only 1-D
-% V = 1/2*V;
-
 h = ifft2(V)*length(V)^2;
