@@ -61,6 +61,15 @@ totalTime = 0;
         h5writeatt(fname,'/surface','N (unitless)',N);
         h5writeatt(fname,'/surface','dk (rad/m)',2*pi/L);
         
+        %get the statistics
+        h1 = reshape(h,1,N^2);
+        h5writeatt(fname,'/surface','std (m)' ,std(h1));
+        h5writeatt(fname,'/surface','var (m)' ,var(h1));
+        h5writeatt(fname,'/surface','max (m)' ,max(h1));
+        h5writeatt(fname,'/surface','min (m)' ,min(h1));
+        h5writeatt(fname,'/surface','wave height (m)' ,max(h1) - min(h1));
+        h5writeatt(fname,'/surface','mean (m)' ,mean(h1));
+        
         %get the final time
         t2 = cputime-t1;
         
