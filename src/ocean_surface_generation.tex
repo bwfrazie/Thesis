@@ -311,6 +311,18 @@ Figure \ref{os_fig:7bb} shows the 2-D variance and curvature power spectra. In t
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
+Figure \ref{os_fig:7bc} shows 2-D slices of the power spectrum vs the 1-D power spectrum on the left hand side ($\Psi_x = \Psi(k_y = 0)$, $\Psi_u = \Psi(k_x = 0)$) and the same for the curvature spectrum on the right hand side.
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/elf_variance_curvature_spectrum_2D_slices.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Elfouhaily 2-D and 1D Variance and Curvature Power Spectra]{Elfouhaily 2-D and 1-D Variance and Curvature Power Spectra\label{os_fig:7bc}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
 Figure \ref{os_fig:7cc} shows the low frequency behavior of the 2-D variance power spectrum for $|k| leq$ 2 rad/m.
 \begin{figure}[H]
   \begin{center}
@@ -457,7 +469,7 @@ The process to generate the frequency domain representation starts by using Equa
   \label{os_eq:9a}   
   V(\alpha,j) = \begin{cases}
     \sqrt{\frac{1}{2}\Psi(\alpha,j)\Delta k^2}w(0), & j = 0 \\
-    \frac{1}{2}\sqrt{\frac{1}{2}\Psi(\alpha,j)\Delta k^2}\left[w(j) + iu(j) \right], & 1 \leq j < \frac{N}{2} \\
+    \frac{1}{4}\sqrt{\Psi(\alpha,j)\Delta k^2}\left[w(j) + iu(j) \right], & 1 \leq j < \frac{N}{2} \\
    \sqrt{\frac{1}{2}\Psi(\alpha,N/2)\Delta k^2}u(0) & j = \frac{N}{2} \\
     V(\alpha,N-j)^*, &  \frac{N}{2} < j \leq N-1 
   \end{cases} 

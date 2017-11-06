@@ -41,7 +41,7 @@ end
 
 grid on
 xlim([10^-3 10^5]);
-ylim([10^-4 10^0])
+ylim([10^-4 10^0]);
 xlabel('k (rad/m)');
 ylabel('k^3S(k) (rad^2)')
 l1 = linspace(-16,3,26);
