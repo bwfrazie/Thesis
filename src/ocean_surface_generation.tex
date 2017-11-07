@@ -366,7 +366,7 @@ As a final note for sampling constraints, we need to maintain integer indexing f
 The general idea is to use the power spectrum to create a realization of the sea surface in the frequency domain and then transform that to the spatial domain through an inverse Fourier transform. We will follow the procedure outlined in \cite{percival_spectra}, 
 but we need to provide some additional scale factors to account for conservation of energy.
 
-To handle discretization of the power spectrum, we use the fact that the amount of energy contained per unit interval is a constant, so that $S(k)dk = S(\omega) d\omega$. To normalize the spectrum to the specified wave number sampling interval, we simply need to multiply by $\Delta k$. Next, since we have a one-sided spectrum rather than a two-sided one, we only have half the energy present and need to divide the power spectrum by 2. With these factors included, we can define the one-sided, discrete spectrum as $S_d = \frac{S(k)\Delta k}{2}$.
+To handle discretization of the power spectrum, we use the fact that the amount of energy contained per unit interval is a constant, so that $S(k)dk = S(\omega) d\omega$. To normalize the spectrum to the specified wave number sampling interval, we simply need to multiply by $\Delta k$.
 
 To generate the frequency domain representation ($V_j$), we will take a set of Gaussian distributed random variables that are scaled  by the square root of the power spectrum and arrange them so the sequence is Hermitian, $V(k) = V^*(-k)$. Because $N$ is even, as described in Section \ref{os_label:1d_sampling_constraints}, there are special cases to handle to ensure that the sequence is Hermitian. $V_j$ only contains a single element for $k = 0$ and $k = \frac{N}{2}\Delta k$ and must be purely real at both frequencies. If we take a pair of uncorrelated Gaussian distributed random variables of length $\frac{N}{2}$ ($w$ and $u$), we can generate $V_j$ as shown in Equation \ref{os_eq:8}.
 
@@ -374,12 +374,12 @@ To generate the frequency domain representation ($V_j$), we will take a set of G
   \label{os_eq:8}   
   V_j = \begin{cases}
     \sqrt{S_0\Delta k}w_0, & j = 0 \\
-    \frac{1}{2}\sqrt{\frac{1}{2}S_j\Delta k}\left[w_j + iu_j \right], & 1 \leq j < \frac{N}{2} \\
+    \frac{1}{2}\sqrt{S_j\Delta k}\left[w_j + iu_j \right], & 1 \leq j < \frac{N}{2} \\
    \sqrt{S_{N/2}\Delta k}u_0 & j = \frac{N}{2} \\
     V_{N-j}^*, &  \frac{N}{2} < j \leq N-1 
   \end{cases} 
 \end{equation}
-The extra factor of $\frac{1}{2}$ in line 2 of Equation \ref{os_eq:8} comes from the fact that we have Hermitian symmetry and need to normalize both the expectations $\left<w_j + iu_j\right>$ and $\left<w_j - iu_j\right>$ to conserve energy. Also note that the power spectrum for frequencies $k = 0$, and $k = \frac{N}{2}$ is not divided by 2 since these are single points that are not repeated.
+The extra factor of $\frac{1}{2}$ in line 2 of Equation \ref{os_eq:8} comes from the fact that we have Hermitian symmetry and need to normalize both the expectations $\left<w_j + iu_j\right>$ and $\left<w_j - iu_j\right>$ to conserve energy.
 
 The index ordering is assumed to have $k=0$ at the first element so that the sequence will wrap in frequency at $j = \frac{N}{2} + 1$. An example sequence for $N = 8$ is shown in Table \ref{os_tab:2a}.
 \begin{table}[H]
@@ -392,13 +392,13 @@ The index ordering is assumed to have $k=0$ at the first element so that the seq
     \hline
   \bf{$j$} & \bf{$k_j$} & \bf{$V_j$} \\ \hline
   $0$ & $0$ & $\sqrt{S_{0} \Delta k}w_0$ \\ \hline
-  $1$ & $\Delta k$ & $\frac{1}{2}\sqrt{\frac{S_{1}}{2} \Delta k} \left(w_1 + iu_1 \right)$ \\ \hline
-  $2$ & $2\Delta k$ & $\frac{1}{2}\sqrt{\frac{S_{2}}{2} \Delta k} \left(w_2 + iu_2 \right)$ \\ \hline
-  $3$ & $3\Delta k$ & $\frac{1}{2}\sqrt{\frac{S_{3}}{2} \Delta k} \left(w_3 + iu_3 \right)$ \\ \hline
+  $1$ & $\Delta k$ & $\frac{1}{2}\sqrt{S_1 \Delta k} \left(w_1 + iu_1 \right)$ \\ \hline
+  $2$ & $2\Delta k$ & $\frac{1}{2}\sqrt{S_2\Delta k} \left(w_2 + iu_2 \right)$ \\ \hline
+  $3$ & $3\Delta k$ & $\frac{1}{2}\sqrt{S_3 \Delta k} \left(w_3 + iu_3 \right)$ \\ \hline
   $4$ & $4\Delta k$ & $\sqrt{S_{4} \Delta k} u_0$ \\ \hline
-  $5$ & $-3\Delta k$ & $\frac{1}{2}\sqrt{\frac{S_{3}}{2} \Delta k} \left(w_3 - iu_3 \right)$ \\ \hline
-  $6$ & $-2\Delta k$ & $\frac{1}{2}\sqrt{\frac{S_{2}}{2} \Delta k} \left(w_2 - iu_2 \right)$  \\ \hline
-  $7$ & $-\Delta k$ & $\frac{1}{2}\sqrt{\frac{S_{1}}{2} \Delta k} \left(w_1 - iu_1 \right)$ \\ \hline
+  $5$ & $-3\Delta k$ & $\frac{1}{2}\sqrt{S_3 \Delta k} \left(w_3 - iu_3 \right)$ \\ \hline
+  $6$ & $-2\Delta k$ & $\frac{1}{2}\sqrt{S_2 \Delta k} \left(w_2 - iu_2 \right)$  \\ \hline
+  $7$ & $-\Delta k$ & $\frac{1}{2}\sqrt{S_1 \Delta k} \left(w_1 - iu_1 \right)$ \\ \hline
 \end{tabular}
 \end{center}
 \end{table}
@@ -469,7 +469,7 @@ The process to generate the frequency domain representation starts by using Equa
   \label{os_eq:9a}   
   V(\alpha,j) = \begin{cases}
     \sqrt{\Psi(\alpha,j)\Delta k^2}w(0), & j = 0 \\
-    \frac{1}{2}\sqrt{\frac{1}{2}\Psi(\alpha,j)\Delta k^2}\left[w(j) + iu(j) \right], & 1 \leq j < \frac{N}{2} \\
+    \frac{1}{2}\sqrt{\Psi(\alpha,j)\Delta k^2}\left[w(j) + iu(j) \right], & 1 \leq j < \frac{N}{2} \\
    \sqrt{\Psi(\alpha,N/2)\Delta k^2}u(0) & j = \frac{N}{2} \\
     V(\alpha,N-j)^*, &  \frac{N}{2} < j \leq N-1 
   \end{cases} 
@@ -479,12 +479,12 @@ We can then generate 4 matrices of random variables ($W_1$, $W_2$, $U_1$, and $U
 
 \begin{equation}
 \label{os_eq:10}
-\mathbf{A}(m,n) = \frac{1}{4}\sqrt{\frac{1}{2}\Psi(m+1,n+1)\Delta k^2}\left[W_1(m,n) + iW_2(m,n) \right]
+\mathbf{A}(m,n) = \frac{1}{4}\sqrt{Psi(m+1,n+1)\Delta k^2}\left[W_1(m,n) + iW_2(m,n) \right]
 \end{equation}
 
 \begin{equation}
 \label{os_eq:11}
-\mathbf{B}(m,n) = \frac{1}{4}\sqrt{\frac{1}{2}\Psi(m+ 1,n+\frac{N}{2} +1)\Delta k^2}\left[W_1(m,n) + iW_2(m,n) \right]
+\mathbf{B}(m,n) = \frac{1}{4}\sqrt{\Psi(m+ 1,n+\frac{N}{2} +1)\Delta k^2}\left[W_1(m,n) + iW_2(m,n) \right]
 \end{equation}
 
 In these equations, the offsets in indexing $\Psi$ ensure that the correct spectral component is used. As with Equation \ref{os_eq:8}, we have an extra scale factor to account for the additional expectations. Because we are working in 2-dimensional space (both $x$ and $y$), we have a factor of $\frac{1}{4}$ instead of $\frac{1}{2}$.

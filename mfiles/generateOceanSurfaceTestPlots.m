@@ -50,7 +50,7 @@ ylabel('h (m)')
 tstring = sprintf('Sea Surface, L = %d km, N = %dL',L1/1000,N1/L1);
 title(tstring);
 
-Pxx1 = periodogram(real(h1),[],'onesided',N1,1/dx1);
+Pxx1 = periodogram(real(h1),[],'onesided',N1,1/dx1)/(2*pi);
 
 subplot(2,2,2)
 loglog(k1(1:end-1),Pxx1(1:N1/2),'LineWidth',2);
@@ -79,7 +79,7 @@ ylabel('h (m)')
 tstring = sprintf('Sea Surface, L = %d km, N = %dL',L1/1000,N3/L1);
 title(tstring);
 
-Pxx3 = periodogram(real(h3),[],'onesided',N3,1/dx3);
+Pxx3 = periodogram(real(h3),[],'onesided',N3,1/dx3)/(2*pi);
 
 subplot(2,2,4)
 loglog(k3(1:end-1),Pxx3(1:N3/2),'LineWidth',2);
@@ -111,7 +111,7 @@ tstring = sprintf('Sea Surface, L = %d km, N = %dL',L2/1000,N2/L2);
 title(tstring);
 xlim([0 1000])
 
-Pxx1 = periodogram(real(h2),[],'onesided',N2,1/dx2);
+Pxx1 = periodogram(real(h2),[],'onesided',N2,1/dx2)/(2*pi);
 
 subplot(2,2,2)
 loglog(k2(1:end-1),Pxx1(1:N2/2),'LineWidth',2);
@@ -141,7 +141,7 @@ tstring = sprintf('Sea Surface, L = %d km, N = %dL',L2/1000,N4/L2);
 title(tstring);
 xlim([0 1000])
 
-Pxx4 = periodogram(real(h4),[],'onesided',N4,1/dx4);
+Pxx4 = periodogram(real(h4),[],'onesided',N4,1/dx4)/(2*pi);
 
 subplot(2,2,4)
 loglog(k4(1:end-1),Pxx1(1:N4/2),'LineWidth',2);

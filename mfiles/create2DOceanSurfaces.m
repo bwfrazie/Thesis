@@ -30,7 +30,7 @@ minTime = 9e10;
 maxTime = 0;
 avgTime = 0;
 totalTime = 0;
-
+totalRMS = 0;
 %loop over the number of requested surfaces
     for counter = 1:M
         
@@ -70,6 +70,11 @@ totalTime = 0;
         h5writeatt(fname,'/surface','wave height (m)' ,max(h1) - min(h1));
         h5writeatt(fname,'/surface','mean (m)' ,mean(h1));
         
+        if (totalRMS == 0)
+            totalRMS = std(h1);
+        else
+            totalRMS = sqrt((totalRMS^2 + var(h1))/2);
+        end
         %get the final time
         t2 = cputime-t1;
         
@@ -85,7 +90,9 @@ totalTime = 0;
         
         %print the timing info
         dispstring = sprintf('Total Time: %0.2f s, Average Time: %0.2f s, Max Time: %0.2f s, Min Time; %0.2f s',totalTime,avgTime,maxTime,minTime);
+        dispstring2 = sprintf('Current RMS: %0.2f m, Total RMS: %0.2fm',std(h1), totalRMS);
         disp(dispstring);
+        disp(dispstring2);
     end
 
 end
