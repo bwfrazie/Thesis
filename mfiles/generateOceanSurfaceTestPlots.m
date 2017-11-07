@@ -2,6 +2,10 @@ function generateOceanSurfaceTestPlots(varargin)
 %generateOceanSurfaceTestPlots(varargin)
 saveFigs = 0;
 
+if(nargin == 1)
+    saveFigs = varargin{1};
+end
+
 L1 = 1000;
 N1 = 500*L1;
 N3 = 2*L1;
