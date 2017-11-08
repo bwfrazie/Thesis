@@ -31,7 +31,6 @@ dk = 2*pi/L;
 U10 = 10;
 age = 0.84;
 
-
 [h,k,S,V,kx,ky] = generateSeaSurface2D(L, N, U10, age);
 
 x = (0:N-1)*dx;

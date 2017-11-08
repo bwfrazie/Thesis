@@ -1,42 +1,48 @@
-\documentclass[12pt]{../packages/thesis}  %12pt is larger than 11pt
-
-\usepackage{titlesec}
-\titleformat{\chapter}
-     {\normalfont\large}{}{1em}{}
-
-\usepackage[pdftex]{graphicx}
-\usepackage{mathrsfs,amsmath}
-\usepackage{float}
-\numberwithin{equation}{chapter}
+\documentclass[12pt,letterpaper,twoside]{article}
+\special{papersize=8.5in,11in} %make sure paper size is correct
+\usepackage[]{mathtools,amssymb,fancyhdr,helvet,afterpage,multirow,overcite,mathrsfs,mathtools,float}
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
 \setcounter{secnumdepth}{4}
-\titleformat{\paragraph}
-{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
-\titlespacing*{\paragraph}
-{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
-\usepackage{chngcntr}
-\counterwithin{table}{chapter}
-\counterwithin{figure}{chapter}
-\usepackage{cite}
-\usepackage{lscape}
-\usepackage{indentfirst}
-\usepackage{latexsym}
-\usepackage{multirow}
-\usepackage{tabls}
-\usepackage{wrapfig}
-\usepackage{../packages/slashbox}
-\usepackage{longtable}
-\usepackage{supertabular}
-\usepackage{subfigure}
+\usepackage[version=3]{mhchem}
+\usepackage[]{natbib}
+\usepackage[pdftex]{graphicx}
+\usepackage[usenames]{color}
+\usepackage[bottom=1.5in,headheight=68pt,left=1in,right=1in,top=1 in]{geometry}
+\usepackage{epstopdf}
+\usepackage{titlesec}
+\renewcommand{\familydefault}{\sfdefault}
 
+\renewcommand{\thetable}{\arabic{table}}
+\textheight 8.5in
+\pagestyle{plain}
 
-\newcommand{\tbsp}{\rule{0pt}{18pt}} %used to get a vertical distance after \hline
-\renewcommand{\baselinestretch}{2}
-\setlength{\textwidth}{5.9in}
-\setlength{\textheight}{9in}
-\setlength{\topmargin}{-.50in}
-%\setlength{\topmargin}{0in}    %use this setting if the printer makes the the top margin 1/2 inch instead of 1 inch
-\setlength{\oddsidemargin}{.55in}
-\setlength{\parindent}{.4in}
+%define single and double space
+\def\dsp{\def\baselinestretch{2.0}\large\normalsize}
+\def\ssp{\def\baselinestretch{1.0}\large\normalsize}
+\long\def\symbolfootnote[#1]#2{\begingroup%
+ \def\thefootnote{\fnsymbol{footnote}}\footnote[#1]{#2}\endgroup}
+
+%define pKa
+\newcommand{\pka}{p\emph{K}$_{\rm a}$}
+
+%define bold font to denote vectors
+\newcommand{\br}{\bf r}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\required}[1]{\section*{\hfil #1\hfil}}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+\fancyhead[LE,RO]{Ben Frazier}
+\fancyhead[RE,LO] {\includegraphics[width=0.05\textwidth]{../media/apl_shield}\includegraphics[width=0.05\textwidth]{../media/umd_shield}}
+\fancyfoot[RE,LO]{\thepage}% \includegraphics{../media/apl_shield}}
+\fancyfoot[LE,RO]{Ocean Surface Modeling}%{\leftmark}
+\renewcommand{\headrulewidth}{2pt}
+\renewcommand{\footrulewidth}{1pt}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
 \begin{document}
 \titlepage
 \begin{center}
@@ -53,6 +59,15 @@
 \vspace{75pt}
 \large \today
 \end{center}
+
+\renewcommand{\baselinestretch}{1}
+\small\normalsize
+\tableofcontents %(required, lower-case Roman)
+\newpage
+\listoffigures %(if present, lower-case Roman)
+\newpage
+\listoftables%(if present, lower-case Roman)
+\newpage
 
 \pagenumbering{arabic}
 \include{supertabular}

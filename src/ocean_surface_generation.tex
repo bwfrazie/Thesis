@@ -1,4 +1,4 @@
-\chapter{Ocean Surface Modeling}
+%\chapter{Ocean Surface Modeling}
 Analysis of RADAR systems in maritime environments is complicated by the fact that the ocean does not necessarily provide a smooth or uniform surface to work with. Altitude variations change the aspect angle for multipath bounces, induce wave blockage, and add clutter and spikes to the echo return \cite{skolnik_handbook}, \cite{blake_radar}, \cite{nathanson_radar}.
 
 To capture the physical behavior of electromagnetic waves reflecting off the surface of the ocean, we need to model the surface altitude variations correctly. For this, we first need to understand the power spectra of ocean waves and their dependencies. Next, we can generate random realizations of sea surfaces by discretizing the power spectrum and taking the inverse Fourier transform of a Hermitian sequence of spectrally appropriate coefficients. This will be demonstrated in both the 1-dimensional and 2-dimensional cases.
@@ -61,9 +61,9 @@ The PM spectrum is a single parameter spectrum as wind speed only drives the exp
   \end{quote}
 \end{figure}
  \renewcommand{\baselinestretch}{2} \small\normalsize
-From Figure \ref{os_fig:1} we can see that wind speed impacts the spectral peak and low spatial frequency cutoff but has no effect at high spatial frequencies.
+From Figure \ref{os_fig:1} we can see that, for the PM spectrum, wind speed impacts the spectral peak and low spatial frequency cutoff but has no effect at high spatial frequencies.
  
-The PM spectrum assumes deep water, infinite fetch and no swells and has repeatedly been shown to be accurate for gravity waves in fully developed seas, but fails to capture spectral peaks due to high winds over short fetches. This means that the low spatial frequency component of the power spectrum is valid in almost all cases but the high spatial frequency component is not.
+The PM spectrum assumes deep water, infinite fetch and no swells and has repeatedly been shown to be accurate for gravity waves in fully developed seas, but fails to capture spectral peaks due to high winds over short fetches.
 
 \subsection{Bretschneider Spectrum}
 To overcome the limitations of a spectrum that requires fully developed seas, several multi-parameter spectra have been developed. In 1978, the 12th International Towing Tank Conference recommended the Bretschneider spectrum \cite{michel_sea_spectra} shown in Equation \ref{os_eq:1a} where the modal frequency $\omega_m$ is given by $\omega_m = 0.4\sqrt{g/H_{1/3}}$.
@@ -74,7 +74,7 @@ To overcome the limitations of a spectrum that requires fully developed seas, se
   \end{gathered}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-The variance power spectrum is shown in the left hand side of Figure \ref{os_fig:1a} and the associated curvature spectrum is shown in the right hand side of Figure \ref{os_fig:1a}, both for wave height standard deviations from 0.1 m to 1 m in increments of 0.1 m.
+Figure \ref{os_fig:1a} shows the variance power spectrum on the left hand side and the associated curvature spectrum on the right hand side, both for wave height standard deviations from 0.1 m to 1 m in increments of 0.1 m.
 
  \begin{figure}[H]
   \begin{center}
@@ -97,7 +97,7 @@ The Joint North Sea Wave Project (JONSWAP) in the 1970s modified the Pierson-Mos
 The enhancement factor $\nu$ was empirically derived for locations in the North Sea and allows control of the amplitude as in the Bretschneider spectrum. The difference is that the JONSWAP enhancement factor only amplifies the spectrum around the spectral peak.
 
 \subsection{Elfouhaily Spectrum}
-Many additional spectra have been developed and in 1997, Elfouhaily et. al extended several of these to provide a unified modern spectrum that is broken into low and high spatial frequency regions, $B_l$ and $B_h$, \cite{elfouhaily}. The Ocean Surface Generator (OSG) mode added in the Tropospheric Electromagnetic Parabolic Equation Routine (TEMPER) v3.2 internally uses the 1-dimensional Elfouhaily spectrum to generate random sea surface realizations \cite{temper_guide}.
+Many additional spectra have been developed and in 1997, Elfouhaily et. al extended several of these to provide a unified modern spectrum that is broken into low and high spatial frequency regions, $B_l$ and $B_h$, \cite{elfouhaily}. 
 
 \subsubsection{Spectrum Definition}
 The 1-dimensional version of the Elfouhaily spectrum is given in Equation \ref{os_eq:2}.
@@ -227,7 +227,7 @@ In the case where we have fetch rather than the inverse age parameter, we can co
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsubsection{1-Dimensional Spectrum Visualization}
-The variance power spectrum is shown in the left hand side of Figure \ref{os_fig:3} and the associated curvature spectrum is shown in the right hand side of Figure \ref{os_fig:3}. These figures were generated for wind speeds from 3 m/s to 21 m/s in increments of 2 m/s, matching Figure 8 in \cite{elfouhaily}. In these figures, the secondary peak can clearly be seen at 370 rad/m.
+Figure \ref{os_fig:3} shows the variance power spectrum is shown on the left hand side and the associated curvature spectrum is shown on the right hand side. These figures were generated for wind speeds from 3 m/s to 21 m/s in increments of 2 m/s, matching Figure 8 in \cite{elfouhaily}. In these figures, the secondary peak can clearly be seen at 370 rad/m.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/elf_variance_curvature_spectrum.png}
@@ -239,7 +239,7 @@ The variance power spectrum is shown in the left hand side of Figure \ref{os_fig
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-To demonstrate the impact of the inverse age parameter, the variance power spectrum is shown in the left hand side of Figure \ref{os_fig:3a} and the associated curvature spectrum is shown in the right hand side of Figure \ref{os_fig:3a}. These figures were generated for $\Omega$ ranging from $0.84$ (fully developed) to $5.0$ (very young). From this figure, we can see that the spectra show energy transferring from high spatial frequencies to low spatial frequencies and the spectral peak flattening as the sea develops.
+To demonstrate the impact of the inverse age parameter, Figure \ref{os_fig:3a} shows the variance power spectrum on the left hand side and the associated curvature spectrum on the right hand side. These figures were generated for $\Omega$ ranging from $0.84$ (fully developed) to $5.0$ (very young). From this figure, we can see that the spectra show energy transferring from high spatial frequencies to low spatial frequencies and the spectral peak flattening as the sea develops.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/elf_variance_curvature_spectrum_age.png}
@@ -335,10 +335,7 @@ Figure \ref{os_fig:7cc} shows the low frequency behavior of the 2-D variance pow
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\section{Generation of Sea Surface Realizations in 1-Dimension}\label{os_sec:1d}
-Realizations of sea surfaces rely on having adequate sampling to cover both the spectral and spatial ranges of interest and then generating an appropriate set of Fourier coefficients. The 1-dimensional case is easiest to understand and implement and will be discussed first.
-
-\subsection{Sampling Constraints}\label{os_label:1d_sampling_constraints}
+\section{Sampling Constraints}\label{os_label:1d_sampling_constraints}
 In order to generate a random sea surface, we need to establish the number of points to use ($N$) and the spatial domain length to cover ($L$). The spatial domain sampling inteval is then $\Delta x = \frac{L}{N}$ and the frequency domain sampling interval is $\Delta k = \frac{2\pi}{L}$. 
 
 From the Nyquist sampling theorem, the highest wave number that can be sampled given these values is $k_{max} = \frac{N}{2}\Delta k = \frac{N\pi}{L}$ rad/m, which corresponds to a minimum wavelength of $\lambda_{min} = 2\Delta x = \frac{2L}{N}$ m.
@@ -361,6 +358,9 @@ Figure \ref{os_fig:6aa} shows the impact on wavenumber sampling for various valu
 Since $L$ is the same for each case, $\Delta k$ is also the same and we can see how increasing $N$ increases coverage of higher spatial frequencies.
 
 As a final note for sampling constraints, we need to maintain integer indexing for digital implementation so $N$ must be an even integer to allow the element $N/2$ to be an integer as well. For the 1-dimensional case, we will define the range in $k$-space as running from $0$ to $\frac{N}{2}\Delta k$.
+
+\section{Generation of Sea Surfaces in 1-Dimension}\label{os_sec:1d}
+The general idea for generating sea surfaces is to use the power spectrum to create a realization of the sea surface in the frequency domain and then transform that to the spatial domain through an inverse Fourier transform. The 1-dimensional case is easiest to understand and implement and will be discussed first.
 
 \subsection{Frequency Domain Representation}
 The general idea is to use the power spectrum to create a realization of the sea surface in the frequency domain and then transform that to the spatial domain through an inverse Fourier transform. We will follow the procedure outlined in \cite{percival_spectra}, 
@@ -404,7 +404,7 @@ The index ordering is assumed to have $k=0$ at the first element so that the seq
 \end{table}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Figure \ref{os_fig:6ab} shows the Hermitian symmetry of the frequency domain representation graphically with $N$ = 8. The elements with frequencies $0$ and $4\Delta k$ (white boxes) have no opposites and must be purely real. The other elements (colored boxes) do have opposing frequencies and must be complex conjugates to each other (complex conjugate pairs are identified by the arrows).
+Figure \ref{os_fig:6ab} shows the Hermitian symmetry of the frequency domain representation graphically with $N$ = 8. The elements with frequencies $0$ and $4\Delta k$ (white boxes) have no symmetric frequencies and must be purely real. The other elements (colored boxes) do have symmetric frequencies and must be complex conjugates to each other (complex conjugate pairs are identified by the arrows).
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=5in]{../media/Ocean_Surface/1-d_hermitian_symmetry.png}
@@ -422,7 +422,7 @@ Now that we have the coefficients in the frequency domain, we can generate the s
   \end{equation}
 
 \subsection{Example Realizations}
-Figure \ref{os_fig:7a} shows an example realization for $U_{10}$ = 10 m/s and $L$ = 1 km. The upper plots show the generated sea surface and a comparison of the original spectrum to the recovered spectrum for $N = 500L$ ($\Delta x$ = 1/500 m). The bottom plots show the same for $N=2L$ ($\Delta x$ = 1/2 m).
+Figure \ref{os_fig:7a} shows an example realization for $U_{10}$ = 10 m/s and $L$ = 1 km. The right hand plot shows the generated sea surface for $N = 500L$ ($\Delta x$ = 1/500 m) and the bottom plot shows the same for $N=2L$ ($\Delta x$ = 1/2 m).
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_1000.png}
@@ -434,7 +434,7 @@ Figure \ref{os_fig:7a} shows an example realization for $U_{10}$ = 10 m/s and $L
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Figure \ref{os_fig:7aa} shows another example realization, this time for $L$ = 10 km. The upper plots show the generated sea surface and a comparison of the original spectrum to the recovered spectrum for $N = 500L$ ($\Delta x$ = 1/500 m). The bottom plots show the same for $N=2L$ ($\Delta x$ = 1/2 m).
+Figure \ref{os_fig:7aa} sshows an example realization for $U_{10}$ = 10 m/s and $L$ = 10 km. The right hand plot shows the generated sea surface for $N = 500L$ ($\Delta x$ = 1/500 m) and the bottom plot shows the same for $N=2L$ ($\Delta x$ = 1/2 m).
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_10000.png}
@@ -461,7 +461,7 @@ The idea of Hermitian symmetry is less intuitive for 2-dimensions than 1-dimensi
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-The 4 white blocks at $(k_x=0, k_y=0)$, $(k_x=4\Delta k, k_y=0)$, $(k_x=0, k_y=4\Delta k)$, and $(k_x=4\Delta k, k_y=4\Delta k)$ have no opposing frequencies and must be purely real. The 4 vectors where $k_x = 0$, $k_x = 4\Delta k$, $k_y = 0$, and $k_y = 4\Delta k$ are again special cases with no opposing frequencies in the 2nd dimension. These cases can be treated independently as if they were 1-dimensional sequences. This leaves a set of 4 sub-matrices of size $\frac{N}{2} - 1 \times \frac{N}{2} - 1$. It is sufficient to compute 2 of the sub-matrices directly ($\mathbf{A}$ and $\mathbf{B}$) and then use the Hermitian symmetry property to generate the remaining 2 sub-matrices ($\mathbf{C}$ and $\mathbf{D}$).
+The 4 white blocks at $(k_x=0, k_y=0)$, $(k_x=4\Delta k, k_y=0)$, $(k_x=0, k_y=4\Delta k)$, and $(k_x=4\Delta k, k_y=4\Delta k)$ have no symmetric frequencies and must be purely real. The 4 vectors where $k_x = 0$, $k_x = 4\Delta k$, $k_y = 0$, and $k_y = 4\Delta k$ are again special cases with no symmetric frequencies in the 2nd dimension. These cases can be treated independently as if they were 1-dimensional sequences. This leaves a set of 4 sub-matrices of size $\frac{N}{2} - 1 \times \frac{N}{2} - 1$. It is sufficient to compute 2 of the sub-matrices directly ($\mathbf{A}$ and $\mathbf{B}$) and then use the Hermitian symmetry property to generate the remaining 2 sub-matrices ($\mathbf{C}$ and $\mathbf{D}$).
 
 The process to generate the frequency domain representation starts by using Equation \ref{os_eq:8} to cover the 4 special cases where $k_x = 0$, $k_x = \frac{N}{2}\Delta k$, $k_y = 0$, and $k_y = \frac{N}{2}\Delta k$. Each case will produce a sequence of length $N$, and should use independent sets of random variables $w$ and $u$ and the full 2-dimensional spectrum $\Psi$ instead of $S$. This is shown in Equation \ref{os_eq:9a} where $\alpha$ represents the spatial case being considered ($\alpha = 0$ or $\alpha = \frac{N}{2}$).
 
@@ -501,7 +501,7 @@ We can then compute $\mathbf{C}$ and $\mathbf{D}$ from symmetry:
 Once we have all the pieces, we can lay everything down in the appropriate location in $V$.
 
 \subsection{Example Realizations}
-Figure \ref{os_fig:8} shows a generated 2D sea surface with $L$ = 1 km and $U_{10}$ = 10 m/s. The right hand plot shows an image of the entire 1000 square meter surface and the left hand plot shows a 3D rendering of the 100 square meter patch outlined in the red box in the upper left hand corner of the left hand plot.
+Figure \ref{os_fig:8} shows a generated 2D sea surface with $L$ = 1 km and $U_{10}$ = 10 m/s. The right hand plot shows an image of the entire 1000 square meter surface and the left hand plot shows a 3D rendering of the 100 square meter patch outlined in the red box in the upper left hand corner of the right hand plot.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_surf_1000.png}
@@ -513,18 +513,6 @@ Figure \ref{os_fig:8} shows a generated 2D sea surface with $L$ = 1 km and $U_{1
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Figure \ref{os_fig:10} shows slices along the $N/2$ element in both the $x$ and $y$ planes on the left hand side and a comparison of the spectral slices in the 2-D Elfouhaily spectrum on the right hand side. The full 2-D spectrum was estimated from the generated surface and then slices were taken to compare to slices from the original 2-D spectrum. The low frequency content does not match as well as in the 1-dimensional case.
-\begin{figure}[H]
-  \begin{center}
-\includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_slices_1000.png}
-  \end{center}
-  \renewcommand{\baselinestretch}{1} \small\normalsize
-  \begin{quote}
-    \caption[X and Y Slices of 2D Generated Sea Surface, $L$ = 1 km]{X and Y Slices of 2D Generated Sea Surface, $L$ = 1 km\label{os_fig:10}}
-  \end{quote}
-\end{figure}
-\renewcommand{\baselinestretch}{2} \small\normalsize
- 
 Figure \ref{os_fig:8a} shows the same thing as Figure \ref{os_fig:8} but with $N=10L$ instead of $N = 2L$.
 \begin{figure}[H]
   \begin{center}
@@ -537,6 +525,75 @@ Figure \ref{os_fig:8a} shows the same thing as Figure \ref{os_fig:8} but with $N
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
+Figure \ref{os_fig:11} shows the generated sea surface for $L$ = 5 km, $N$= $2L$, and $U_{10}$ = 10 m/s. Again, the right hand plot shows an image of a 1000 square meter section of the surface and the left hand plot shows a 3D rendering of the 100 square meter patch outlined in the red box in the upper left hand corner of the right hand plot.
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_surf_5000.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Generated 2D Sea Surface, $L$ = 5 km]{Generated 2D Sea Surface, $L$ = 5 km \label{os_fig:11}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Figure \ref{os_fig:12} shows the generated sea surface for $L$ = 7.5 km , $N$ = $2L$, and $U_{10}$ = 10 m/s. Again, the right hand plot shows an image of a 1000 square meter section of the surface and the left hand plot shows a 3D rendering of the 100 square meter patch outlined in the red box in the upper left hand corner of the right hand plot.
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_surf_7500.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Generated 2D Sea Surface, $L$ = 7.5 km]{Generated 2D Sea Surface, $L$ = 7.5 km \label{os_fig:12}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\section{Verification}
+Verification testing is important to ensure that the computed sea surfaces have the appropriate statistics and that conservation of energy is maintained.
+
+\subsection{Verification Process}
+The verification process involves first generating a series of realizations to compare ensemble statistics. The overall wave height is compared against Table \ref{os_tab:0} and $\sigma_h$ is compared to Table 6.3 in the Tropospheric Electromagnetic Parabolic Equation Routine (TEMPER) user guide \cite{temper_guide} The Ocean Surface Generator (OSG) mode added in TEMPER v3.2 internally uses the 1-dimensional Elfouhaily spectrum to generate random sea surface realizations and provides tables of ensemble statistics \cite{temper_guide} for comparison. 
+
+The next step is to recover the power spectrum from the sea surface and compare it to the original power spectrum. Since we are operating in $k$-space and most computational FFT routines work in frequency space ($f_x$), we need to scale the results by $1/2\pi$. In the 2-D case, the full 2-D spectrum is estimated from the generated surface and then slices are taken to compare to slices from the original 2-D spectrum. 
+
+\subsection{1-D Testing}
+Figure \ref{os_fig:7bbb} shows the case for $U_{10}$ = 10 m/s and $L$ = 1 km. The left hand plot shows a comparison of the original spectrum to the recovered spectrum for $N = 500L$ ($\Delta x$ = 1/500 m) and the right hand plot shows the same for $N=2L$ ($\Delta x$ = 1/2 m).
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_spectra_1000.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Example Sea Surface Realization for 1 km Range]{Example Sea Surface Realization for 1 km Range\label{os_fig:7bbb}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Figure \ref{os_fig:7aaa} shows the case for $U_{10}$ = 10 m/s and $L$ = 10 km. The left hand plot shows a comparison of the original spectrum to the recovered spectrum for $N = 500L$ ($\Delta x$ = 1/500 m) and the right hand plot shows the same for $N=2L$ ($\Delta x$ = 1/2 m).
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_spectra_10000.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Example Sea Surface Realization for 10 km Range]{Example Sea Surface Realization for 10 km Range\label{os_fig:7aaa}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\subsection{2-D Testing}
+For the $L$ = 1 km, $N$ = $2L$, and $U_{10}$ = 10 m/s case, Figure \ref{os_fig:10} shows slices along the $N/2$ element in both the $x$ and $y$ planes on the left hand side and a comparison of the spectral slices in the 2-D Elfouhaily spectrum on the right hand side. 
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_slices_1000.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[X and Y Slices of 2D Generated Sea Surface, $L$ = 1 km]{X and Y Slices of 2D Generated Sea Surface, $L$ = 1 km\label{os_fig:10}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
 Figure \ref{os_fig:10a} shows the same thing as Figure \ref{os_fig:10} but with $N=10L$ instead of $N = 2L$.
 \begin{figure}[H]
@@ -550,20 +607,7 @@ Figure \ref{os_fig:10a} shows the same thing as Figure \ref{os_fig:10} but with 
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-
-Figure \ref{os_fig:11} shows the generated sea surface for $L$ = 5 km and $U_{10}$ = 10 m/s. Again, the right hand plot shows an image of a 1000 square meter section of the surface and the left hand plot shows a 3D rendering of the 100 square meter patch outlined in the red box in the upper left hand corner of the left hand plot.
-\begin{figure}[H]
-  \begin{center}
-\includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_surf_5000.png}
-  \end{center}
-  \renewcommand{\baselinestretch}{1} \small\normalsize
-  \begin{quote}
-    \caption[Generated 2D Sea Surface, $L$ = 5 km]{Generated 2D Sea Surface, $L$ = 5 km \label{os_fig:11}}
-  \end{quote}
-\end{figure}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-Figure \ref{os_fig:11a} shows slices along the $N/2$ element in both the $x$ and $y$ planes on the left hand side and a comparison of the spectral slices in the 2-D Elfouhaily spectrum on the right hand side. The full 2-D spectrum was estimated from the generated surface and then slices were taken to compare to slices from the original 2-D spectrum. The low frequency content does not match as well as in the 1-dimensional case.
+For the $L$ = 5 km, $N$ = $2L$, and $U_{10}$ = 10 m/s case, Figure \ref{os_fig:11a} shows slices along the $N/2$ element in both the $x$ and $y$ planes on the left hand side and a comparison of the spectral slices in the 2-D Elfouhaily spectrum on the right hand side.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_slices_5000.png}
@@ -574,20 +618,8 @@ Figure \ref{os_fig:11a} shows slices along the $N/2$ element in both the $x$ and
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-
-Figure \ref{os_fig:12} shows the generated sea surface for $L$ = 7.5 km and $U_{10}$ = 10 m/s. Again, the right hand plot shows an image of a 1000 square meter section of the surface and the left hand plot shows a 3D rendering of the 100 square meter patch outlined in the red box in the upper left hand corner of the left hand plot.
-\begin{figure}[H]
-  \begin{center}
-\includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_surf_7500.png}
-  \end{center}
-  \renewcommand{\baselinestretch}{1} \small\normalsize
-  \begin{quote}
-    \caption[Generated 2D Sea Surface, $L$ = 7.5 km]{Generated 2D Sea Surface, $L$ = 7.5 km \label{os_fig:12}}
-  \end{quote}
-\end{figure}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-Figure \ref{os_fig:12a} shows slices along the $N/2$ element in both the $x$ and $y$ planes on the left hand side and a comparison of the spectral slices in the 2-D Elfouhaily spectrum on the right hand side. The full 2-D spectrum was estimated from the generated surface and then slices were taken to compare to slices from the original 2-D spectrum. The low frequency content does not match as well as in the 1-dimensional case.
+ 
+For the $L$ = 7.5 km, $N$ = $2L$, and $U_{10}$ = 10 m/s case, Figure \ref{os_fig:12a} shows slices along the $N/2$ element in both the $x$ and $y$ planes on the left hand side and a comparison of the spectral slices in the 2-D Elfouhaily spectrum on the right hand side.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_slices_7500.png}

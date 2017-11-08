@@ -1,6 +1,6 @@
-function create2DOceanSurfaces(L,alpha,M,U10,age,varargin)
-%create2DOceanSurfaces(L,alpha, M,U10,age)
-%create2DOceanSurfaces(L,alpha, M,U10,age,fileNamePrefix)
+function create1DOceanSurfaces(L,alpha,M,U10,age,varargin)
+%create1DOceanSurfaces(L,alpha, M,U10,age)
+%create1DOceanSurfaces(L,alpha, M,U10,age,fileNamePrefix)
 %
 %This function will generate a set of 2D ocean surfaces for the given
 %parameters and store them in HDF5 files
@@ -41,7 +41,7 @@ varVec = [];
         disp(dispstring);
         
         %generate the surface
-        [h,k,S,V,kx,ky] = generateSeaSurface2D(L, N, U10, age);
+        [h, k, S, V] = generateSeaSurface(L, N, U10, age);
         
         %get the next file name
         fname = sprintf('%s%d.h5',fileNamePrefix,counter);
@@ -52,7 +52,7 @@ varVec = [];
        end
        
        %create the file structre and write out the surface
-        h5create(fname,'/surface',[N N]);
+        h5create(fname,'/surface',[1 N]);
         h5write(fname,'/surface',h);
         
         %attach attributes to the dataset (metadata)
@@ -63,15 +63,14 @@ varVec = [];
         h5writeatt(fname,'/surface','dk (rad/m)',2*pi/L);
         
         %get the statistics
-        h1 = reshape(h,1,N^2);
-        h5writeatt(fname,'/surface','std (m)' ,std(h1));
-        h5writeatt(fname,'/surface','var (m)' ,var(h1));
-        h5writeatt(fname,'/surface','max (m)' ,max(h1));
-        h5writeatt(fname,'/surface','min (m)' ,min(h1));
-        h5writeatt(fname,'/surface','wave height (m)' ,max(h1) - min(h1));
-        h5writeatt(fname,'/surface','mean (m)' ,mean(h1));
+        h5writeatt(fname,'/surface','std (m)' ,std(h));
+        h5writeatt(fname,'/surface','var (m)' ,var(h));
+        h5writeatt(fname,'/surface','max (m)' ,max(h));
+        h5writeatt(fname,'/surface','min (m)' ,min(h));
+        h5writeatt(fname,'/surface','wave height (m)' ,max(h) - min(h));
+        h5writeatt(fname,'/surface','mean (m)' ,mean(h));
         
-        varVec = [varVec var(h1)];
+        varVec = [varVec var(h)];
         totalRMS = sqrt(mean(varVec));
         
         %get the final time
@@ -89,7 +88,7 @@ varVec = [];
         
         %print the timing info
         dispstring = sprintf('Total Time: %0.2f s, Average Time: %0.2f s, Max Time: %0.2f s, Min Time; %0.2f s',totalTime,avgTime,maxTime,minTime);
-        dispstring2 = sprintf('Current RMS: %0.5f m, Total RMS: %0.5f m',std(h1), totalRMS);
+        dispstring2 = sprintf('Current RMS: %0.5f m, Total RMS: %0.5f m',std(h), totalRMS);
         disp(dispstring);
         disp(dispstring2);
     end

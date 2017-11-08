@@ -42,8 +42,10 @@ p = linspace(-3,4,1000);
 k = 10.^p;
 
 %% plot the sea surface realizations
-hh(1) = figure('pos',[50 50 872 641]);
-subplot(2,2,1)
+
+hh(1) = figure('pos',[50 50 1000 400]);
+% hh(1) = figure('pos',[50 50 872 641]);
+subplot(1,2,1)
 plot(x1,real(h1),'LineWidth',2);
 grid on
 set(gca,'LineWidth',2)
@@ -54,9 +56,22 @@ ylabel('h (m)')
 tstring = sprintf('Sea Surface, L = %d km, N = %dL',L1/1000,N1/L1);
 title(tstring);
 
+subplot(1,2,2)
+plot(x3,real(h3),'LineWidth',2);
+grid on
+set(gca,'LineWidth',2)
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+xlabel('x (m)')
+ylabel('h (m)')
+tstring = sprintf('Sea Surface, L = %d km, N = %dL',L1/1000,N3/L1);
+title(tstring);
+
+%% plot the periodograms
 Pxx1 = periodogram(real(h1),[],'onesided',N1,1/dx1)/(2*pi);
 
-subplot(2,2,2)
+hh(2) = figure('pos',[50 50 1000 400]);
+subplot(1,2,1)
 loglog(k1(1:end-1),Pxx1(1:N1/2),'LineWidth',2);
 hold on
 loglog(k,Elfouhaily(k,U10,age),'LineWidth',2);
@@ -72,20 +87,9 @@ ylabel('S(k) (m^3/rad)')
 tstring = sprintf('Spectrum Comparison, L = %d km, N = %dL',L1/1000,N1/L1);
 title(tstring);
 
-subplot(2,2,3)
-plot(x3,real(h3),'LineWidth',2);
-grid on
-set(gca,'LineWidth',2)
-set(gca,'FontSize',12)
-set(gca,'FontWeight','bold')
-xlabel('x (m)')
-ylabel('h (m)')
-tstring = sprintf('Sea Surface, L = %d km, N = %dL',L1/1000,N3/L1);
-title(tstring);
-
 Pxx3 = periodogram(real(h3),[],'onesided',N3,1/dx3)/(2*pi);
 
-subplot(2,2,4)
+subplot(1,2,2)
 loglog(k3(1:end-1),Pxx3(1:N3/2),'LineWidth',2);
 hold on
 loglog(k,Elfouhaily(k,U10,age),'LineWidth',2);
@@ -102,8 +106,9 @@ tstring = sprintf('Spectrum Comparison, L = %d km, N = %dL',L1/1000,N3/L1);
 title(tstring);
 
 %% plot the sea surface realizations
-hh(2) = figure('pos',[50 50 872 641]);
-subplot(2,2,1)
+hh(3) = figure('pos',[50 50 1000 400]);
+
+subplot(1,2,1)
 plot(x2,h2,'LineWidth',2);
 grid on
 set(gca,'LineWidth',2)
@@ -115,9 +120,23 @@ tstring = sprintf('Sea Surface, L = %d km, N = %dL',L2/1000,N2/L2);
 title(tstring);
 xlim([0 1000])
 
-Pxx1 = periodogram(real(h2),[],'onesided',N2,1/dx2)/(2*pi);
+subplot(1,2,2)
+plot(x4,h4,'LineWidth',2);
+grid on
+set(gca,'LineWidth',2)
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+xlabel('x (m)')
+ylabel('h (m)')
+tstring = sprintf('Sea Surface, L = %d km, N = %dL',L2/1000,N4/L2);
+title(tstring);
+xlim([0 1000])
 
-subplot(2,2,2)
+%% plot the periodograms
+
+Pxx1 = periodogram(real(h2),[],'onesided',N2,1/dx2)/(2*pi);
+hh(4) = figure('pos',[50 50 1000 400]);
+subplot(1,2,1)
 loglog(k2(1:end-1),Pxx1(1:N2/2),'LineWidth',2);
 hold on
 loglog(k,Elfouhaily(k,U10,age),'LineWidth',2);
@@ -133,21 +152,9 @@ ylabel('S(k) (m^3/rad)')
 tstring = sprintf('Spectrum Comparison, L = %d km, N =%dL',L2/1000,N2/L2);
 title(tstring);
 
-subplot(2,2,3)
-plot(x4,h4,'LineWidth',2);
-grid on
-set(gca,'LineWidth',2)
-set(gca,'FontSize',12)
-set(gca,'FontWeight','bold')
-xlabel('x (m)')
-ylabel('h (m)')
-tstring = sprintf('Sea Surface, L = %d km, N = %dL',L2/1000,N4/L2);
-title(tstring);
-xlim([0 1000])
-
 Pxx4 = periodogram(real(h4),[],'onesided',N4,1/dx4)/(2*pi);
 
-subplot(2,2,4)
+subplot(1,2,2)
 loglog(k4(1:end-1),Pxx1(1:N4/2),'LineWidth',2);
 hold on
 loglog(k,Elfouhaily(k,U10,age),'LineWidth',2);
@@ -176,4 +183,6 @@ disp(dispstring);
 if(saveFigs == 1)
     saveas(hh(1),'sea_surface_1000.png','png')
     saveas(hh(2),'sea_surface_10000.png','png')
+    saveas(hh(3),'sea_surface_spectra_1000.png','png')
+    saveas(hh(4),'sea_surface_spectra_10000.png','png')
 end
