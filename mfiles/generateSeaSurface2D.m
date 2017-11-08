@@ -28,6 +28,9 @@ kyy = ifftshift(kyy);
 S = Elfouhaily2D(k,phi,U10,age);
 S(1,1) = 0.0;
 
+%we now have a 2-way spectrum (positive and negative frequencies) and need to scale the total power by 2
+S = 2*S;
+
 %build up the random representation in frequency space
 V = zeros(N);
 
@@ -48,8 +51,8 @@ for u = 1:N/2-1
         va = v+1;
         ub = u + 1;
         vb = v + N/2 + 1;
-        Va(u,v) = 1/4*sqrt(S(ua,va)*dk^2)*(W1(u,v) + 1i*W2(u,v));
-        Vb(u,v) = 1/4*sqrt(S(ub,vb)*dk^2)*(W3(u,v) + 1i*W4(u,v));
+        Va(u,v) = 1/2*sqrt(S(ua,va)*dk^2)*(W1(u,v) + 1i*W2(u,v));
+        Vb(u,v) = 1/2*sqrt(S(ub,vb)*dk^2)*(W3(u,v) + 1i*W4(u,v));
     end
 end
 
@@ -116,4 +119,5 @@ end
 V(N/2+1,:) = Vy2;
 V(:,N/2+1) = Vx2';
 
+% V = V*sqrt(2);
 h = ifft2(V)*length(V)^2;

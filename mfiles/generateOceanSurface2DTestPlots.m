@@ -172,18 +172,18 @@ tstring = sprintf('Spectrum Comparison, L = %d m, N = %dL',L,N/L);
 title(tstring);
 
 %% plot the sampling coverage
-% figure
-% loglog(k1,Elfouhaily(k1,U10,age),'LineWidth',2);
-% hold on
-% scatter(kx(N/2+1:end),Elfouhaily(kx(N/2+1:end),U10,age),'LineWidth',2);
-% ylim([10^-15 10^3])
-% xlim([10^-3 10^5]);
-% grid on
-% set(gca,'LineWidth',2)
-% set(gca,'FontSize',12)
-% set(gca,'FontWeight','bold')
-% xlabel('k (rad/m)')
-% ylabel('S(k) (m^3/rad)')
+figure
+loglog(k1,Elfouhaily(k1,U10,age),'LineWidth',2);
+hold on
+scatter(kx(N/2+1:end),Elfouhaily(kx(N/2+1:end),U10,age),'LineWidth',2);
+ylim([10^-15 10^3])
+xlim([10^-3 10^5]);
+grid on
+set(gca,'LineWidth',2)
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+xlabel('k (rad/m)')
+ylabel('S(k) (m^3/rad)')
 
 %%
 s1 = std(reshape(h,1,N^2));

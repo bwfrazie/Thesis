@@ -1,0 +1,75 @@
+\documentclass[12pt]{../packages/thesis}  %12pt is larger than 11pt
+
+\usepackage{titlesec}
+\titleformat{\chapter}
+     {\normalfont\large}{}{1em}{}
+
+\usepackage[pdftex]{graphicx}
+\usepackage{mathrsfs,amsmath}
+\usepackage{float}
+\numberwithin{equation}{chapter}
+\setcounter{secnumdepth}{4}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\usepackage{chngcntr}
+\counterwithin{table}{chapter}
+\counterwithin{figure}{chapter}
+\usepackage{cite}
+\usepackage{lscape}
+\usepackage{indentfirst}
+\usepackage{latexsym}
+\usepackage{multirow}
+\usepackage{tabls}
+\usepackage{wrapfig}
+\usepackage{../packages/slashbox}
+\usepackage{longtable}
+\usepackage{supertabular}
+\usepackage{subfigure}
+
+
+\newcommand{\tbsp}{\rule{0pt}{18pt}} %used to get a vertical distance after \hline
+\renewcommand{\baselinestretch}{2}
+\setlength{\textwidth}{5.9in}
+\setlength{\textheight}{9in}
+\setlength{\topmargin}{-.50in}
+%\setlength{\topmargin}{0in}    %use this setting if the printer makes the the top margin 1/2 inch instead of 1 inch
+\setlength{\oddsidemargin}{.55in}
+\setlength{\parindent}{.4in}
+\begin{document}
+\titlepage
+\begin{center}
+\vspace*{25pt}
+{\huge \bfseries Ocean Surface Modeling\\}
+
+\vspace{150 pt}
+
+\large Ben Frazier \\
+ \small IRST and Sensors Group (FPS/KVU), JHU/APL \\
+ \small Electrical and Computer Engineering, UMD \\
+\includegraphics[width=0.6\textwidth]{../media/apl_small_horizontal_blue} \\
+\includegraphics[width=0.5\textwidth]{../media/clark}\\
+\vspace{75pt}
+\large \today
+\end{center}
+
+\renewcommand{\baselinestretch}{1}
+\small\normalsize
+\tableofcontents %(required, lower-case Roman)
+\newpage
+\listoffigures %(if present, lower-case Roman)
+\newpage
+
+
+\pagenumbering{arabic}
+\include{supertabular}
+\setcounter{page}{1}
+
+\include{ocean_surface_generation}
+
+\newpage
+\bibliographystyle{unsrt} 
+\bibliography{ocean_surface_bib}
+
+\end{document}

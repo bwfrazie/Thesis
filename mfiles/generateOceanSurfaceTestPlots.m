@@ -182,7 +182,7 @@ disp(dispstring);
 
 if(saveFigs == 1)
     saveas(hh(1),'sea_surface_1000.png','png')
-    saveas(hh(2),'sea_surface_10000.png','png')
-    saveas(hh(3),'sea_surface_spectra_1000.png','png')
+    saveas(hh(3),'sea_surface_10000.png','png')
+    saveas(hh(2),'sea_surface_spectra_1000.png','png')
     saveas(hh(4),'sea_surface_spectra_10000.png','png')
 end

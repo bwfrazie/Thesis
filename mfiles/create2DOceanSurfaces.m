@@ -31,6 +31,8 @@ maxTime = 0;
 avgTime = 0;
 totalTime = 0;
 totalRMS = 0;
+varXVec = [];
+varYVec = [];
 varVec = [];
 %loop over the number of requested surfaces
     for counter = 1:M
@@ -72,7 +74,11 @@ varVec = [];
         h5writeatt(fname,'/surface','mean (m)' ,mean(h1));
         
         varVec = [varVec var(h1)];
+        varYVec = [varYVec mean(var(h,0,2))];
+        varXVec = [varXVec mean(var(h,0,1))];
         totalRMS = sqrt(mean(varVec));
+        totalXRMS = sqrt(mean(varXVec));
+        totalYRMS = sqrt(mean(varYVec));
         
         %get the final time
         t2 = cputime-t1;
@@ -89,7 +95,7 @@ varVec = [];
         
         %print the timing info
         dispstring = sprintf('Total Time: %0.2f s, Average Time: %0.2f s, Max Time: %0.2f s, Min Time; %0.2f s',totalTime,avgTime,maxTime,minTime);
-        dispstring2 = sprintf('Current RMS: %0.5f m, Total RMS: %0.5f m',std(h1), totalRMS);
+        dispstring2 = sprintf('Current RMS: %0.5f m, Total RMS: %0.5f m, Total RMS in X: %0.5f m, Total RMS in Y: %0.5f m',std(h1),totalRMS, totalXRMS, totalYRMS);
         disp(dispstring);
         disp(dispstring2);
     end

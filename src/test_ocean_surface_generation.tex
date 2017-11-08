@@ -4,6 +4,8 @@
 \numberwithin{equation}{section}
 \numberwithin{figure}{section}
 \numberwithin{table}{section}
+\usepackage{chngcntr}
+\counterwithin{table}{section}
 \setcounter{secnumdepth}{4}
 \usepackage[version=3]{mhchem}
 \usepackage[]{natbib}
@@ -12,6 +14,9 @@
 \usepackage[bottom=1.5in,headheight=68pt,left=1in,right=1in,top=1 in]{geometry}
 \usepackage{epstopdf}
 \usepackage{titlesec}
+\usepackage{longtable}
+\usepackage{supertabular}
+\usepackage{subfigure}
 \renewcommand{\familydefault}{\sfdefault}
 
 \renewcommand{\thetable}{\arabic{table}}

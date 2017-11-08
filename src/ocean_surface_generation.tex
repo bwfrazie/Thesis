@@ -336,15 +336,39 @@ Figure \ref{os_fig:7cc} shows the low frequency behavior of the 2-D variance pow
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \section{Sampling Constraints}\label{os_label:1d_sampling_constraints}
-In order to generate a random sea surface, we need to establish the number of points to use ($N$) and the spatial domain length to cover ($L$). The spatial domain sampling inteval is then $\Delta x = \frac{L}{N}$ and the frequency domain sampling interval is $\Delta k = \frac{2\pi}{L}$. 
+In order to generate a random sea surface, we need to establish the number of points to use ($N$) and the spatial domain length to cover ($L$). The spatial domain sampling inteval is given by $\Delta x = \frac{L}{N}$ and the frequency domain sampling interval is given by $\Delta k = \frac{2\pi}{L}$. 
 
-From the Nyquist sampling theorem, the highest wave number that can be sampled given these values is $k_{max} = \frac{N}{2}\Delta k = \frac{N\pi}{L}$ rad/m, which corresponds to a minimum wavelength of $\lambda_{min} = 2\Delta x = \frac{2L}{N}$ m.
+\subsection{Spatial Domain Constraints}
+The spatial domain length will have a lower bound driven by the frequency of the spectral peak. From the Nyquist theorem, the spatial sampling frequency must be less than or equal to 1/2 the spectral peak in order to recover that frequency. Because most of the energy is around the spectral peak, sampling at half the peak frequency is insufficient. A general rule of thumb is to use a factor of 1/10 to 1/20.
 
-Immediately, we can see that to sample the secondary peak at $k_m$, $\frac{N}{L}\pi > k_m$ or $N > \frac{k_m}{\pi}L$. Since $k_m = 370$ rad/m, we can round up to state that $N \geq 118L$ in this case. In other words, the number of points required to sample the secondary peak in the spectrum is 118 times more than the length of the spatial domain. For the 1-dimensional case, this is not too bad as the secondary peak for a 10 km length can be sampled with 1,180,000 points. 
+Figure \ref{os_fig:6ba} shows the sampled Elfouhaily variance power spectrum in linear units with $U_{10}$ = 10 m/s and $\Omega$ = 0.84.  The upper left hand plot shows the sampling when $\Delta k$ = $1/2 k_p$, the upper right hand plot shows the sampling when $\Delta k$ = $1/5 k_p$, the lower left hand plot shows the sampling when $\Delta k$ = $1/10 k_p$, and the upper right hand plot shows the sampling when $\Delta k$ = $1/20 k_p$. The peak power and 1/2 power points are identified by the horizontally dashed lines. We can see that for the case where $\Delta k$ = $1/2 k_p$, there are only 2 points sampled above half power in the spectrum. For the case where $\Delta k$ = $1/5 k_p$, there are 5 points sampled above half power. This is an improvement, but the spacing over the spectral peak is still coarse and the peak is not adequately sampled until $\Delta k \leq 1/10 k_p$
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/spectral_peak_sampling.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Sampling Constraints for the Spectral Peak]{Sampling Constraints for the Spectral Peak\label{os_fig:6ba}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
-In general, we only need this many points when performing verification runs to demonstrate we are capable of modeling the entire spectrum correctly. In many situations, we are not concerned with capturing the high spatial frequencies as much as we are with staying below a pre-defined maximum spatial step. This step is typically on the order of 0.1 m ($N = 10L$) to 0.5 m ($N = 2L$).
+From Equation \ref{os_eq:3a}, we have $k_p = g\left(\frac{\Omega}{U_{10}}\right)^2$, so for Figure \ref{os_fig:6ba}, $k_p$ = 0.0692 rad/m. Using this equation, we can write the condition for the lower bound of $l$:
+\begin{equation}
+\label{os_eq:8o}
+\boxed{L \geq \frac{20\pi}{g}\left(\frac{U_{10}}{\Omega} \right)^2}
+\end{equation}
 
-Figure \ref{os_fig:6aa} shows the impact on wavenumber sampling for various values of $N$ for $L$ = 1 km. The upper left hand plot shows the case where $N = 2L$, the upper right hand plot shows the case where $N = 10L$, the lower left hand plot shows the case where $N = 118L$, and the lower right hand plot shows the case where $N = 500L$. Since $\Delta x = \frac{L}{N}$, these cases represent spatial resolutions of 1/2 m, 1/10 m, 1/118 m, and 1/500 m. 
+From Equation \ref{os_eq:8o}, the lower bound on $L$ will typically be between 1 km and 10 km. Generating a surface with a length smaller than this will result in inadequate sampling. The upper bound on $L$ will be limited either by the problem size we are covering or computational requirements due to the number of points.
+
+\subsection{Constraints on Number of Points}
+To determine $N$, we can look at sampling requirements for high spatial frequencies. From the Nyquist sampling theorem, the highest wave number that can be sampled is $k_{max} = \frac{N}{2}\Delta k = \frac{N\pi}{L}$ rad/m, which corresponds to a minimum wavelength of $\lambda_{min} = 2\Delta x = \frac{2L}{N}$ m.
+
+Immediately, we can see that to sample the secondary peak at $k_m$, $\frac{N}{L}\pi > k_m$ or $N > \frac{k_m}{\pi}L$. Since $k_m = 370$ rad/m, we can round up to state that $N \geq 118L$ in this case. In other words, the number of points required to sample the secondary peak in the spectrum is 118 times more than the length of the spatial domain. For the 1-dimensional case, this is not too bad as the secondary peak for a 10 km length surface can be sampled with 1,180,000 points. In the 2-dimensional case, the number of points goes as $N^2$, and this will be a significant issue.
+
+In general, we only need this many points when performing verification runs to demonstrate we are capable of modeling the entire spectrum correctly. The energy at the secondary peak is small compared to the energy at the primary peak. In many situations, we are not concerned with capturing the high spatial frequencies as much as we are with staying below a pre-defined maximum spatial step. This step is typically on the order of 0.1 m ($N = 10L$) to 0.5 m ($N = 2L$).
+
+Figure \ref{os_fig:6aa} shows the impact on wavenumber sampling for various values of $N$ for $L$ = 1 km and $\Omega$ = 0.84. The upper left hand plot shows the case where $N = 2L$, the upper right hand plot shows the case where $N = 10L$, the lower left hand plot shows the case where $N = 118L$, and the lower right hand plot shows the case where $N = 500L$. Since $\Delta x = \frac{L}{N}$, these cases represent spatial resolutions of 1/2 m, 1/10 m, 1/118 m, and 1/500 m. 
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sampling_coverage.png}
@@ -446,7 +470,7 @@ Figure \ref{os_fig:7aa} sshows an example realization for $U_{10}$ = 10 m/s and 
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\section{Generation of Sea Surface Realizations in 2-Dimensions}
+\section{Generation of Sea Surfaces in 2-Dimensions}
 We will generally follow Section \ref{os_sec:1d} to generate 2-dimensional surfaces but we now have a wave vector $\mathbf{k} = k_x\hat{\mathbf{x}} + k_y\hat{\mathbf{y}}$ instead of a scalar wave number. In this case we will have matrices and the number of points will go as $N^2$. We still have the constraint that the frequency domain representation should exhibit Hermitian symmetry, so $V(n,m) = V^*(N-n,N-m)$. The special cases at the elements $k = 0$ and $k = \frac{N}{2}\Delta k$ now turn into special cases for the vectors $k_x = 0$, $k_x = \frac{N}{2}\Delta k$, $k_y = 0$, and $k_y = \frac{N}{2}\Delta k$. 
 
 \subsection{Frequency Domain Representation}
@@ -479,15 +503,15 @@ We can then generate 4 matrices of random variables ($W_1$, $W_2$, $U_1$, and $U
 
 \begin{equation}
 \label{os_eq:10}
-\mathbf{A}(m,n) = \frac{1}{4}\sqrt{\Psi(m+1,n+1)\Delta k^2}\left[W_1(m,n) + iW_2(m,n) \right]
+\mathbf{A}(m,n) = \frac{1}{2}\sqrt{\Psi(m+1,n+1)\Delta k^2}\left[W_1(m,n) + iW_2(m,n) \right]
 \end{equation}
 
 \begin{equation}
 \label{os_eq:11}
-\mathbf{B}(m,n) = \frac{1}{4}\sqrt{\Psi(m+ 1,n+\frac{N}{2} +1)\Delta k^2}\left[W_1(m,n) + iW_2(m,n) \right]
+\mathbf{B}(m,n) = \frac{1}{2}\sqrt{\Psi(m+ 1,n+\frac{N}{2} +1)\Delta k^2}\left[W_1(m,n) + iW_2(m,n) \right]
 \end{equation}
 
-In these equations, the offsets in indexing $\Psi$ ensure that the correct spectral component is used. As with Equation \ref{os_eq:8}, we have an extra scale factor to account for the additional expectations. Because we are working in 2-dimensional space (both $x$ and $y$), we have a factor of $\frac{1}{4}$ instead of $\frac{1}{2}$.
+In these equations, the offsets in indexing $\Psi$ ensure that the correct spectral component is used. As with Equation \ref{os_eq:8}, we have an extra scale factor of $\frac{1}{2}$ to account for the additional expectations.
 
 We can then compute $\mathbf{C}$ and $\mathbf{D}$ from symmetry:
 \begin{equation}
@@ -553,11 +577,26 @@ Figure \ref{os_fig:12} shows the generated sea surface for $L$ = 7.5 km , $N$ = 
 Verification testing is important to ensure that the computed sea surfaces have the appropriate statistics and that conservation of energy is maintained.
 
 \subsection{Verification Process}
-The verification process involves first generating a series of realizations to compare ensemble statistics. The overall wave height is compared against Table \ref{os_tab:0} and $\sigma_h$ is compared to Table 6.3 in the Tropospheric Electromagnetic Parabolic Equation Routine (TEMPER) user guide \cite{temper_guide} The Ocean Surface Generator (OSG) mode added in TEMPER v3.2 internally uses the 1-dimensional Elfouhaily spectrum to generate random sea surface realizations and provides tables of ensemble statistics \cite{temper_guide} for comparison. 
+The verification process involves first generating a series of realizations to compare ensemble statistics. The overall wave height is compared against Table \ref{os_tab:0} and $\sigma_h$ is compared to Table 6.3 in the Tropospheric Electromagnetic Parabolic Equation Routine (TEMPER) user guide \cite{temper_guide}. The Ocean Surface Generator (OSG) mode added in TEMPER v3.2 internally uses the 1-dimensional Elfouhaily spectrum to generate random sea surface realizations and provides tables of ensemble statistics for comparison \cite{temper_guide}. 
 
 The next step is to recover the power spectrum from the sea surface and compare it to the original power spectrum. Since we are operating in $k$-space and most computational FFT routines work in frequency space ($f_x$), we need to scale the results by $1/2\pi$. In the 2-D case, the full 2-D spectrum is estimated from the generated surface and then slices are taken to compare to slices from the original 2-D spectrum. 
 
 \subsection{1-D Testing}
+\subsubsection{Ensemble Statistics}
+Figure \ref{os_fig:7fff} shows the RMS wave height vs. wind speed and is consistent with Table 6.3 and Figure 6.6 in \cite{temper_guide}.
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=6in]{../media/Ocean_Surface/1d_ensemble_rms.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[$\sigma_h$ vs. Wind Speed for 1-Dimensional Sea Surface]{$\sigma_h$ vs. Wind Speed for 1-Dimensional Sea Surface\label{os_fig:7fff}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+This figure shows the ensemble averages of 500 realizations for 6 different sampling conditions at various wind speeds. The conditions were set to $N$ = 2$L$, $N$ = 10$L$, and $N$ = 100$L$ for $L$ = 1 km and $L$ = 10 km. There is little difference in the RMS wave heights of any of the settings expect at high wind speeds. Because the wind speed shifts the spectral peak, the $L$ = 1 km cases are no longer adequately sampling the spectral peak at high wind speeds.
+
+\subsubsection{Power Spectrum Recovery}
 Figure \ref{os_fig:7bbb} shows the case for $U_{10}$ = 10 m/s and $L$ = 1 km. The left hand plot shows a comparison of the original spectrum to the recovered spectrum for $N = 500L$ ($\Delta x$ = 1/500 m) and the right hand plot shows the same for $N=2L$ ($\Delta x$ = 1/2 m).
 \begin{figure}[H]
   \begin{center}
@@ -583,6 +622,12 @@ Figure \ref{os_fig:7aaa} shows the case for $U_{10}$ = 10 m/s and $L$ = 10 km. T
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection{2-D Testing}
+Testing in 2-dimensions is not as straightforward as in 1-dimension. The spectrum differs along the $x$ direction from the $y$ direction, so the statistics will be dependent on the direction.
+
+\subsubsection{Ensemble Statistics}
+TBD
+
+\subsubsection{Power Spectrum Recovery}
 For the $L$ = 1 km, $N$ = $2L$, and $U_{10}$ = 10 m/s case, Figure \ref{os_fig:10} shows slices along the $N/2$ element in both the $x$ and $y$ planes on the left hand side and a comparison of the spectral slices in the 2-D Elfouhaily spectrum on the right hand side. 
 \begin{figure}[H]
   \begin{center}
