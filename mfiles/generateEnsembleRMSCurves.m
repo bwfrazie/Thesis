@@ -1,12 +1,23 @@
 function generateEnsembleRMSCurves(varargin)
+%generateEnsembleRMSCurves(saveFigs)
+
 
 saveFigs = 0;
+U10 = [1 3 5 8 10 12 15 17 20];
+useTabulatedData = 1;
 
 if (nargin == 1)
     saveFigs = varargin{1};
+elseif(nargin == 5)
+    useTabulatedData = 0;
+    saveFigs = varargin{1};
+    rmsMatrix = varargin{2};
+    U10 = varargin{3};
+    L = varargin{4};
+    alpha = varargin{5};
 end
 
-U10 = [1 3 5 8 10 12 15 17 20];
+
 %data collected from ensemble runs
 % U10                     1        3         5       8        10       12       15       17       20
 case_1d_L10k_N100L_084 = [0.00548  0.05771  0.16195  0.41821  0.65565  0.94539  1.47126  1.89289  2.60784];
@@ -18,15 +29,27 @@ case_1d_L1k_N10L_084 =   [0.00535  0.05759  0.16162  0.41989  0.65316  0.94510  
 case_1d_L1k_N2L_084 =    [0.00241  0.05713  0.16110  0.41711  0.65669  0.94677  1.46192  1.91702  2.57761];
 
 h(1) = figure;
-plot(U10,case_1d_L10k_N100L_084,'LineWidth',2);
-hold on
-plot(U10,case_1d_L10k_N10L_084,'LineWidth',2);
-plot(U10,case_1d_L10k_N2L_084,'LineWidth',2);
-plot(U10,case_1d_L1k_N100L_084,'LineWidth',2);
-plot(U10,case_1d_L1k_N10L_084,'LineWidth',2);
-plot(U10,case_1d_L1k_N2L_084,'LineWidth',2);
-grid on
-legend('L=10km, N=100L','L=10km, N=10L','L=10km, N=2L','L=1km, N=100L','L=1km, N=10L','L=1km, N=2L','Location','NorthWest');
+
+if (useTabulatedData == 1)
+    plot(U10,case_1d_L10k_N100L_084,'LineWidth',2);
+    hold on
+    plot(U10,case_1d_L10k_N10L_084,'LineWidth',2);
+    plot(U10,case_1d_L10k_N2L_084,'LineWidth',2);
+    plot(U10,case_1d_L1k_N100L_084,'LineWidth',2);
+    plot(U10,case_1d_L1k_N10L_084,'LineWidth',2);
+    plot(U10,case_1d_L1k_N2L_084,'LineWidth',2);
+    legend('L=10km, N=100L','L=10km, N=10L','L=10km, N=2L','L=1km, N=100L','L=1km, N=10L','L=1km, N=2L','Location','NorthWest');
+else
+    lstring = [];
+    [nn,mm] = size(rmsMatrix);
+    for counter = 1:mm
+        plot(U10,rmsMatrix(:,counter),'LineWidth',2);
+        lstring{counter} = sprintf('L=%dkm, N=%dL',L(counter)/1000,alpha(counter));
+        hold on
+    end
+    legend(lstring,'Location','NorthWest');
+end
+grid on;
 
 xlabel('Wind Speed at 10 m Altitude (m/s)');
 ylabel('\sigma_h (m)')
