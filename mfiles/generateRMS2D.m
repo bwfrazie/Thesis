@@ -1,4 +1,4 @@
-function [rmsMatrix, U10, Lresults, alpharesults] = generateRMS1D(varargin)
+function [rmsMatrix, rmsXMatrix, rmsYMatrix, U10, Lresults, alpharesults] = generateRMS2D(varargin)
 
 saveFigs = 0;
 
@@ -10,14 +10,18 @@ M = 100;
 age = 0.84;
 
 L = [1000 10000];
-alpha = [2 10 100];
+alpha = [0.5 1 2];
 U10 = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20];
 index = 1;
 
 Lresults = [];
 alpharesults = [];
 varVec = [];
+varXVec = [];
+varYVec = [];
 rmsMatrix = [];
+rmsXMatrix = [];
+rmsYMatrix = [];
 for Lcounter = 1:length(L)
     dispstring = sprintf('Processing L = %d m, number %d of %d',L(Lcounter), Lcounter,length(L));
     disp(dispstring);
@@ -30,6 +34,8 @@ for Lcounter = 1:length(L)
             disp(dispstring);
             totalRMS = 0;
             varVec = [];
+            varXVec = [];
+            varYVec = [];
             for counter = 1:M
                 if(mod(counter,10) == 0)
                     dispstring = sprintf('Creating Surface %d of %d',counter,M);
@@ -37,12 +43,19 @@ for Lcounter = 1:length(L)
                 end
 
                 %generate the surface
-                [h, ~, ~, ~] = generateSeaSurface(L(Lcounter), N, U10(uCounter), age);
+                [h, ~, ~, ~] = generateSeaSurface2D(L(Lcounter), N, U10(uCounter), age);
                 
-                varVec = [varVec var(h)];
+                h1 = reshape(h,[1 N^2]);
+                varXVec = [varXVec var(h,0,1)];
+                varYVec = [varYVec (var(h,0,2))'];
+                varVec = [varVec var(h1)];
                 totalRMS = sqrt(mean(varVec));
+                totalXRMS = sqrt(mean(varXVec));
+                totalYRMS = sqrt(mean(varYVec));
             end
             rmsMatrix(uCounter,index) = totalRMS;
+            rmsXMatrix(uCounter,index) = totalXRMS;
+            rmsYMatrix(uCounter,index) = totalYRMS;
         end
         alpharesults(index) = alpha(alphaCounter);
         Lresults(index) = L(Lcounter);
@@ -50,6 +63,6 @@ for Lcounter = 1:length(L)
     end
 end
 
-generateEnsembleRMSCurves(saveFigs,rmsMatrix,U10,Lresults,alpharesults)
+generate2DEnsembleRMSCurves(saveFigs,rmsMatrix,rmsXMatrix,rmsYMatrix,U10,Lresults,alpharesults)
 end
 
