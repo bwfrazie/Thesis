@@ -45,7 +45,7 @@
 
 
 %\input{Abstract} %(must be first, required, non-numbered)
-\input{Titlepage} %(must follow Abstract, required, non-numbered)
+\input{MultistaticTitlepage} %(must follow Abstract, required, non-numbered)
 \newpage
 %\input{Copyright} %(highly recommended, non-numbered)
 
@@ -82,9 +82,22 @@
 %Pages from this point start at Arabic numeral 1
 \setcounter{page}{1}
 \pagenumbering{arabic}
-%\input{Chapter1}
-%\input{Chapter2}
-%\input{Chapter3}
+
+\renewcommand{\thechapter}{1}
+\include{multi_static_rf_networks}
+
+\renewcommand{\thechapter}{2}
+\include{ocean_surface_generation}
+
+\renewcommand{\thechapter}{3}
+\chapter{Geometry and Refractivity}
+
+\renewcommand{\thechapter}{4}
+\chapter{Numerical Propagation}
+
+\renewcommand{\thechapter}{5}
+\chapter{Amplitude Statistics}
+
 
 \titleformat{\chapter}
       {\normalfont\large}{Appendix \thechapter:}{1em}{}
@@ -99,12 +112,6 @@
 \renewcommand{\chaptername}{Appendix}
 \input{saddle_point_method}
 
-\newpage
-\appendix
-\renewcommand{\thechapter}{C}
-\renewcommand{\chaptername}{Appendix}
-\chapter{Ocean Surface Generation}
-\input{ocean_surface_generation}
 
 \renewcommand{\baselinestretch}{1}
 \small\normalsize
@@ -113,6 +120,18 @@
 \newpage
 \bibliographystyle{unsrt} 
 \bibliography{background_bib}
-\bibliography{ocean_surface_bib}
+
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+

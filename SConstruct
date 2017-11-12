@@ -16,3 +16,7 @@ Install('dist',tsp)
 
 os1 = SConscript('src/SConscriptOS',variant_dir='build')
 Install('dist',os1)
+
+multistatic = SConscript('src/SConscriptMultistatic',variant_dir='build')
+Install('dist',multistatic)
+
