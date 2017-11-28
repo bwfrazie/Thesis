@@ -166,6 +166,7 @@ We can rewrite Equation \ref{gf_eq:17} as in \cite{jackson_classical_em}, using 
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection{Robin Boundary Conditions}
+TBD
 
 \section{Properties of Green's Functions} \label{gf_sec:properties}
 We have already discussed the fact that Green's functions represent the spatial impulse response of the differential equation. This section introduces some other properties of Green's functions, including causality, reciprocity, continuity, and general forms.
@@ -201,7 +202,7 @@ G\left(\mathbf{r},\mathbf{r}' \right) = G\left(\mathbf{r}',\mathbf{r} \right)
 This property is known as reciprocity and it tells us that the impulse reponse for a propagating wave is the same in both directions. Reciprocity is commonly used in antenna radiation analysis as it allows us to analyze an antenna considering it as either a transmitter or a receiver.
 
 \subsection{Continuity} \label{gf_sec:continuity}
-A necessary condition for reciprocity is that Green's functions must be continuous in all space except $\mathbf{r} = \mathbf{r}'$.
+A necessary condition for reciprocity is that Green's functions must be continuous in all space except $\mathbf{r} = \mathbf{r}'$. In general, Green's functions are discontinuous at $\mathbf{r} = \mathbf{r}'$.
 
 \subsection{General Forms}
 Because Green's functions are the spatial impulse response of the system, we can expect them to be used in a convolution integral. With that in mind, Green's functions usually take the form:
@@ -427,7 +428,7 @@ H_0^{(2)}(k\rho) = J_0(k\rho) - jN_0(k\rho)
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-The Hankel functions behave asymptotically like waves as can be seen by their behavior for large arguments \cite{abramowitz_stegun}, which can be derived from the integral representation through the saddle point method \cite{arfken_weber}:
+The Hankel functions behave asymptotically like waves as can be seen by their behavior for large arguments \cite{abramowitz_stegun}, which can be derived from the integral representation through the saddle point method as shown in Appendix \ref{appendix_saddle_point_method}:
 \begin{equation}
 \begin{gathered}
 H_0^{(1)}(k\rho) \approx \sqrt{\frac{2}{\pi k\rho}}e^{j\left(k\rho - \frac{\pi}{4}\right)}\\
@@ -452,7 +453,7 @@ G = c_2H_0^{(2)}\left(k\rho\right)
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-As in Section \ref{gf_sec:3d}, we integrate Equation \ref{gf_eq:9} over a small disk, $D$, centered at $\rho = 0$ and take the limit as $\rho \rightarrow 0$. For small arguments, the asymptotic behavior of $H_0^{(2)}(k\rho) \sim -j\frac{2}{\pi}\ln\left({k\rho}\right)$ and we can substitute $G = -\frac{j2c_1}{\pi}\ln\left({k\rho}\right)$ \cite{abramowitz_stegun}. 
+As in Section \ref{gf_sec:3d}, we integrate Equation \ref{gf_eq:9} over a small disk, $D$, centered at $\rho = 0$ and take the limit as $\rho \rightarrow 0$. For small arguments, the asymptotic behavior of $H_0^{(2)}(k\rho) \sim -j\frac{2}{\pi}\ln\left({k\rho}\right)$ and we can substitute $G = -\frac{j2c_2}{\pi}\ln\left({k\rho}\right)$ \cite{abramowitz_stegun}. 
 
 \begin{equation}
 \begin{gathered}

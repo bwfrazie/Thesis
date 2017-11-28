@@ -107,7 +107,7 @@ S1 = Elfouhaily(k1,U10,age);
 
 %estimate the power spectrum, need to scale by 1/2pi to convert from
 %spatial frequency to k-space
-Psi = fftshift(fft2(h))/(2*pi);
+Psi = fftshift(fft2(h))/((2*pi));
 Psi = 2*dx^2/N^2*abs(Psi).^2;
 Psiy = Psi(N/2+1,:);
 Psix = Psi(:,N/2+1);

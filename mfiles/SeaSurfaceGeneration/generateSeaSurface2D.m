@@ -13,7 +13,7 @@ end
 %% Frequency Mesh
 dk = 2*pi/L; %frequency grid spacing (1/m)
 %build up the matrix of wave numbers
-kx = (-N/2: N/2-1) * dk; 
+kx = (-N/2: N/2 - 1) * dk; 
 ky = kx';
 [kxx,kyy] = meshgrid(kx,ky);
 %shift so that element (1,1) is k = 0
