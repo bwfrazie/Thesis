@@ -1,0 +1,10 @@
+# Nominal "sea state 5" example (see TEMPER UG section 3.1.22.2)
+# Fully developed seas, looking upwind
+# Canonical Elfouhaily settings
+spectrum ELFOUHAILY
+wind speed 10.00                 # m/s
+wind height 10.00                # use 10 m unless wind speed was measured at a different height
+wind direction 0.00              # degrees from TEMPER axis, 0.0 = upwind
+inverse wave age 0.84            # 0.84 = fully developed, 1.0 = mature, 2.0 = young
+dispersion GRAVITY-CAPILLARY
+directional spectrum SYMMETRIC
