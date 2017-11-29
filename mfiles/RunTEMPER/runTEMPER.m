@@ -41,7 +41,7 @@ baseFileName = sprintf('%s/TEMPER_Inputs/%s',inputPath,'base_20km_1d_10m_s.in');
 filePrefix = '20km_1d_10mps';
 initialSeed = 561894;
 
-numIterations = 100;
+numIterations = 10;
 
 %loop over the requested number of iterations
 for runNumber = 1:numIterations

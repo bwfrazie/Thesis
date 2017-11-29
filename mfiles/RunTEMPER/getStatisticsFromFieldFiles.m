@@ -27,8 +27,9 @@ for counter = 1:length(fileList)
     dispstring = sprintf('Loading file %d of %d',counter,length(fileList));
     disp(dispstring);
     Out = tdata31(fileList{counter},1,1,0);
-    
+     dataCounter = 1;
     for aCounter = 1:length(tAlt)
+   
         for rCounter = 1:length(tRange)
             rInd = find(abs(Out.r - tRange(rCounter)) < 0.05E-3);
             aInd = find(abs(Out.h - tAlt(aCounter)) < 0.05);
