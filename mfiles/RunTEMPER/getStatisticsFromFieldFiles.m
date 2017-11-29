@@ -23,7 +23,7 @@ end
 dataCounter = 1;
 
 %loop over the list and read the data
-for counter = 1:1
+for counter = 1:length(fileList)
     dispstring = sprintf('Loading file %d of %d',counter,length(fileList));
     disp(dispstring);
     Out = tdata31(fileList{counter},1,1,0);
