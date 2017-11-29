@@ -65,6 +65,8 @@
 \newpage
 \listoffigures %(if present, lower-case Roman)
 \newpage
+\listoftables %(if present, lower-case Roman)
+\newpage
 %List of Abbreviations
 \addcontentsline{toc}{chapter}{List of Abbreviations}
 \include{Abbreviations}
@@ -93,10 +95,10 @@
 \include{ocean_surface_generation}
 
 \renewcommand{\thechapter}{4}
-\chapter{Numerical Propagation}
+\include{numerical_propagation}
 
 \renewcommand{\thechapter}{5}
-\chapter{Amplitude Statistics}
+\include{amplitude_statistics}
 
 
 \titleformat{\chapter}
