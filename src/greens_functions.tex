@@ -353,12 +353,21 @@ G_o\left(\mathbf{r},\mathbf{r}',\omega\right) = \frac{e^{-j\frac{\omega}{c}|\mat
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-To determine the Green's function in the time domain, we need to take the inverse Fourier transform:
+To determine the Green's function in the time domain, we need to take the inverse Fourier transform. To go from the frequency domain to the time domain, we need to be consistent with our assumption for the time dependence of a forward propagating wave ($e^{j\omega t}$). This means that the inverse Fourier transform is defined as:
+
+\begin{equation}
+\label{gf_eq:28a}
+x(t) = \mathcal{F}^{-1}\{X(\omega)\} = \frac{1}{2\pi}\int_{-\infty}^\infty X(\omega)e^{j\omega t}d\omega
+\end{equation}
+
+With this definition, we can compute the Green's function in the time domain:
+
 \begin{equation}
 \begin{gathered}
-G_o\left(\mathbf{r},\mathbf{r}',t\right) = \frac{1}{2\pi}\int\limits_{-\infty}^{\infty}d\omega e^{-j\omega t}G_o\left(\mathbf{r},\mathbf{r}',\omega\right) \\
-G_o\left(\mathbf{r},\mathbf{r}',t\right) = \frac{1}{2\pi}\int\limits_{-\infty}^{\infty}d\omega e^{-j\omega t}  \frac{e^{-j\frac{\omega}{c}|\mathbf{r}-\mathbf{r}'|}}{4\pi |\mathbf{r}-\mathbf{r}'|}\\
-G_o\left(\mathbf{r},\mathbf{r}',t\right) = \frac{1}{4\pi |\mathbf{r}-\mathbf{r}'|}\frac{1}{2\pi}\int\limits_{-\infty}^{\infty}d\omega e^{-j\omega\left(t- \frac{|\mathbf{r}-\mathbf{r}'|}{c}\right)}
+G_o\left(\mathbf{r},\mathbf{r}',t\right) = \frac{1}{2\pi}\int\limits_{-\infty}^{\infty}d\omega e^{j\omega t}G_o\left(\mathbf{r},\mathbf{r}',\omega\right) \\
+G_o\left(\mathbf{r},\mathbf{r}',t\right) = \frac{1}{2\pi}\int\limits_{-\infty}^{\infty}d\omega e^{j\omega t}  \frac{e^{-j\frac{\omega}{c}|\mathbf{r}-\mathbf{r}'|}}{4\pi |\mathbf{r}-\mathbf{r}'|}\\
+G_o\left(\mathbf{r},\mathbf{r}',t\right) = \frac{1}{4\pi |\mathbf{r}-\mathbf{r}'|}\frac{1}{2\pi}\int\limits_{-\infty}^{\infty}d\omega e^{-j\omega\left(\frac{|\mathbf{r}-\mathbf{r}'|}{c} - t\right)} \\
+G_o\left(\mathbf{r},\mathbf{r}',t\right) = \frac{1}{4\pi |\mathbf{r}-\mathbf{r}'|}\frac{1}{2\pi}\int\limits_{-\infty}^{\infty}d\omega e^{-j\omega\left(t - \frac{|\mathbf{r}-\mathbf{r}'|}{c}\right)}
 \end{gathered}
 \label{gf_eq:29}
 \end{equation}
@@ -516,10 +525,11 @@ G_o\left(\boldsymbol{\rho},\boldsymbol{\rho}',\omega\right) = -\frac{j}{4}H_0^{(
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 To determine the Green's function in the time domain, we need to take the inverse Fourier transform:
+
 \begin{equation}
 \begin{gathered}
-G_o\left(\boldsymbol{\rho},\boldsymbol{\rho}',t\right) = \frac{1}{2\pi}\int\limits_{-\infty}^{\infty}d\omega e^{-j\omega t}G_o\left(\boldsymbol{\rho},\boldsymbol{\rho}',\omega\right) \\
-G_o\left(\boldsymbol{\rho},\boldsymbol{\rho}',t\right) = -\frac{j}{4}\frac{1}{2\pi}\int\limits_{-\infty}^{\infty}d\omega e^{-j\omega t} H_0^{(2)}\left(\frac{\omega}{c}|\boldsymbol{\rho} - \boldsymbol{\rho}' | \right)\\
+G_o\left(\boldsymbol{\rho},\boldsymbol{\rho}',t\right) = \frac{1}{2\pi}\int\limits_{-\infty}^{\infty}d\omega e^{j\omega t}G_o\left(\boldsymbol{\rho},\boldsymbol{\rho}',\omega\right) \\
+G_o\left(\boldsymbol{\rho},\boldsymbol{\rho}',t\right) = -\frac{j}{4}\frac{1}{2\pi}\int\limits_{-\infty}^{\infty}d\omega e^{j\omega t} H_0^{(2)}\left(\frac{\omega}{c}|\boldsymbol{\rho} - \boldsymbol{\rho}' | \right)\\
 \end{gathered}
 \label{gf_eq:40b}
 \end{equation}
@@ -527,7 +537,7 @@ G_o\left(\boldsymbol{\rho},\boldsymbol{\rho}',t\right) = -\frac{j}{4}\frac{1}{2\
 
 We can use a representation of $H_0^{(2)}$ that is related to the Mehler-Sonine integral representation \cite{nist_handbook}:
 \begin{equation}
-H_o^{(2)}\left(z\right) = -\frac{1}{j\pi}\int\limits_{-\infty}^{\infty}e^{jz\cosh(\tau)}d\tau -\frac{2}{j\pi}\int\limits_{0}^{\infty}e^{jz\cosh(\tau)}d\tau
+H_o^{(2)}\left(z\right) = -\frac{1}{j\pi}\int\limits_{-\infty}^{\infty}e^{-jz\cosh(\tau)}d\tau = -\frac{2}{j\pi}\int\limits_{0}^{\infty}e^{-jz\cosh(\tau)}d\tau
 \label{gf_eq:40c}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -536,7 +546,7 @@ H_o^{(2)}\left(z\right) = -\frac{1}{j\pi}\int\limits_{-\infty}^{\infty}e^{jz\cos
 
 \noindent Letting $\rho' \rightarrow 0$ for simplification yields:
 \begin{equation}
-G_o\left(\boldsymbol{\rho},0,t\right) = \frac{1}{4\pi^2}\int\limits_{-\infty}^{\infty}d\omega e^{-j\omega t} \int\limits_{0}^{\infty}e^{j\frac{\omega}{c}\rho\cosh(\tau)}d\tau\\
+G_o\left(\boldsymbol{\rho},0,t\right) = \frac{1}{4\pi^2}\int\limits_{-\infty}^{\infty}d\omega e^{j\omega t} \int\limits_{0}^{\infty}e^{-j\frac{\omega}{c}\rho\cosh(\tau)}d\tau\\
 \label{gf_eq:40d}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -544,8 +554,9 @@ G_o\left(\boldsymbol{\rho},0,t\right) = \frac{1}{4\pi^2}\int\limits_{-\infty}^{\
 \noindent We can bring the integral over $\omega$ inside the integral over $\tau$:
 \begin{equation}
 \begin{gathered}
-G_o\left(\boldsymbol{\rho},0,t\right) = \frac{1}{4\pi^2}\int\limits_{0}^{\infty}d\tau\int\limits_{-\infty}^{\infty}d\omega e^{-j\omega t} e^{j\frac{\omega}{c}\rho\cosh(\tau)}\\
-G_o\left(\boldsymbol{\rho},0,t\right) = \frac{1}{4\pi^2}\int\limits_{0}^{\infty}d\tau\int\limits_{-\infty}^{\infty}d\omega e^{-j\omega \left(t - \frac{\rho \cosh(\tau)}{c} \right)}\\
+G_o\left(\boldsymbol{\rho},0,t\right) = \frac{1}{4\pi^2}\int\limits_{0}^{\infty}d\tau\int\limits_{-\infty}^{\infty}d\omega e^{j\omega t} e^{-j\frac{\omega}{c}\rho\cosh(\tau)}\\
+G_o\left(\boldsymbol{\rho},0,t\right) = \frac{1}{4\pi^2}\int\limits_{0}^{\infty}d\tau\int\limits_{-\infty}^{\infty}d\omega e^{-j\omega \left(\frac{\rho \cosh(\tau)}{c} - t\right)}\\
+G_o\left(\boldsymbol{\rho},0,t\right) = \frac{1}{4\pi^2}\int\limits_{0}^{\infty}d\tau\int\limits_{-\infty}^{\infty}d\omega e^{-j\omega \left(t - \frac{\rho \cosh(\tau)}{c}\right)}\\
 \end{gathered}
 \label{gf_eq:40e}
 \end{equation}

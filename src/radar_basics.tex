@@ -96,6 +96,7 @@ The two way antenna beam width, $\theta_2$, is the beam width of the beam propag
 \section{Detection}
 The detection process can be cast as a hypothesis test where the two mutually exclusive hypotheses are that the target is either present or not present \cite{richards_radar}. There are three probabilities that need to be considered. First, the probability of detection, $P_d$, is the probability that a target is both detected and present. Second, the probability of false alarm, $P_{fa}$ is the probability that a target is detected but not actually present. Finally, the probability of miss, $P_m$ is the probability that a target is present but not detected. In most cases, a missed detection is worse than a false alarm.
 
+\subsection{Threshold Testing}
 The detection processes is generally a threshold test applied to the output of a matched filter generated for optimal detection with the threshold, $\hat{T}$ tuned to achieve a specified $P_{fa}$. The received signal consists of thermal noise, potential target returns, and potential interference signals such as clutter or jamming.
 
 Expressions for $P_d$ are complicated but well studied for the cases of standard Gaussian noise and fluctuating targets following Swerling models. In general, $P_d$ is dependent on SNR, so processing is typically geared towards maximizing the SNR. As a general rule of thumb, an SNR of $13$ dB provides a $P_d$ of $\approx 0.94$ and a $P_{fa}$ of $\approx 10^{-6}$.
