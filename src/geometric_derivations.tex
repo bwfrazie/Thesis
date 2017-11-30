@@ -1,1 +1,138 @@
 \chapter{Geometric Derivations}
+This appendix derives many of the geometric results provided earlier.
+
+\section{Grazing Angle Derivation}
+The derivation of the grazing angle, $\chi$, starts by applying the Law of Cosines to the 4/3 earth geometry ($r_e' = 4/3r_e$). For improved locality accuracy, $r_e$ can be replaced by the local radius of curvature of the earth from the WGS-84 model.
+
+\begin{equation}
+(r_e' + h)^2 = R^2 + r_e'^2 - 2Rr_e'\cos\left(\frac{\pi}{2} + \chi \right)
+\label{gd_eq:1}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent Using the identity that $\cos(u \pm v) = \cos(u)\cos(v) \mp \sin(u)\sin(v)$ we have:
+
+\begin{equation}
+\begin{gathered}
+\cos\left(\frac{\pi}{2} + \chi \right) = -\sin\left(\chi\right) \\
+(r_e' + h)^2 = R^2 + r_e'^2 + 2Rr_e'\sin\left(\chi\right) \\
+\sin\left(\chi\right) = \frac{\left(r_e' + h \right)^2 - R^2 - r_e'^2}{2Rr_e'} \\
+\sin\left(\chi\right) = \frac{2r_e'h + h^2 - R^2}{2Rr_e'} \\
+\sin\left(\chi\right) = \frac{h}{R}\left[1 + \frac{h}{2r_e'} \right] - \frac{R}{2r_e'} 
+\end{gathered}
+\label{gd_eq:1}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent This yields the final equation:
+\begin{equation}
+\label{gd_eq:3}
+\boxed{  \chi = \sin^{-1}\left(\frac{h}{R}\left[1 + \frac{h}{2r_e'} \right] - \frac{R}{2r_e'} \right)}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\section{Depression Angle Derivation}
+The derivation of the depression angle, $\alpha$, again starts by applying the Law of Cosines to the 4/3 earth geometry ($r_e' = 4/3r_e$). For improved locality accuracy, $r_e$ can be replaced by the local radius of curvature of the earth from the WGS-84 model.
+
+\begin{equation}
+r_e'^2 = R^2 + \left(r_e' + h \right)^2 - 2R\left(r_e' + h \right)\cos\left(\frac{\pi}{2} - \alpha \right)
+\label{gd_eq:4}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent Using the identity that $\cos(u \pm v) = \cos(u)\cos(v) \mp \sin(u)\sin(v)$ we have:
+
+\begin{equation}
+\begin{gathered}
+\cos\left(\frac{\pi}{2} - \alpha \right) = \sin\left(\alpha\right) \\
+r_e'^2 = R^2 + \left(r_e' + h \right)^2 - 2R\left(r_e' + h \right) \sin\left(\alpha\right)\\
+\sin\left(\alpha\right) = \frac{R^2 + \left(r_e' + h \right)^2 - r_e'^2}{2R\left(r_e' + h \right)} \\
+\sin\left(\alpha\right) = \frac{R^2 + 2r_e'h + h^2}{2R\left(r_e' + h \right)}\\
+\sin\left(\alpha\right) =  \frac{2r_e'h + h^2 + R^2}{2R\left[r_e' + h \right]}
+\end{gathered}
+\label{gd_eq:5}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent This yields the final equation:
+\begin{equation}
+\label{gd_eq:6}
+\boxed{\alpha = \sin^{-1}\left(\frac{2r_e'h + h^2 + R^2}{2R\left[r_e' + h \right]} \right)}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\section{RADAR Horizon Derivation}
+The RADAR horizon is the maximum propagation distance and for a given altitude is the range where the grazing angle goes to $0$. Using Equation \ref{gd_eq:3} with $\chi = 0$ yields:
+
+\begin{equation}
+\begin{gathered}
+\label{gd_eq:7}
+0 = \frac{h}{R_h}\left[1 + \frac{h}{2r_e'} \right] - \frac{R_h}{2r_e'} \\
+R_h^2 = 2r_e'h\left[1 + \frac{h}{2r_e'} \right] \\
+R_h^2 = 2r_e'h + h^2
+\end{gathered}
+\end{equation}
+
+\noindent This yields the final equation:
+\begin{equation}
+\label{gd_eq:8}
+\boxed{R_h = \sqrt{2r_e'h + h^2}}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+In the case where the target is at nonzero altitude, the distance to the horizon will be extended and is computed as the sum of the horizon distance from the transmitter and the horizon distance from the target. In this case, the final equation is:
+\begin{equation}
+\label{gd_eq:8}
+\boxed{R_h = \sqrt{2r_e'h + h^2} + \sqrt{2r_e'h_t + h_t^2}}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\section{Conversion of Fresnel Reflection Coefficients to Dependence on Grazing Angle}
+The standard Fresnel reflection coefficients for $s$ and $p$ polarization are given as Equation \ref{gd_eq:9} \cite{zangwill_modern_em} where $Z_1$ and $Z_1$ are the impedances on either side of the boundary, $\theta_1$ is the incident angle relative to the surface normal and $\theta_2$ is the transmitted angle relative to the surface normal.
+
+\begin{equation}
+\begin{gathered}
+\label{gd_eq:9}
+r_p = \frac{Z_1\cos(\theta_1) - Z_2\cos(\theta_2)}{Z_1\cos(\theta_1) + Z_2\cos(\theta_2)} \\
+r_s = \frac{Z_2\cos(\theta_1) - Z_1\cos(\theta_2)}{Z_2\cos(\theta_1) + Z_1\cos(\theta_2)}
+\end{gathered}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+In RADAR nomenclature, $s$ polarization case corresponds to horizontal polarization and $p$ polarization corresponds to vertical polarization ($r_p = \Gamma_v$ and $r_s = \Gamma_h$).
+
+For multipath reflections from a surface, we don't explicitly have the transmitted angle, so we would like to convert these equations to depend on the grazing angle. We can start with Snell's law, $n_1\sin(\theta_1) = n_2\sin(\theta_2)$ where $n_1$ and $n_2$ are the indices of refraction on either side of the boundary. Since the 1st propagation zone is in air, $n1 = 1$, and $n_2 = \sqrt{\epsilon_r}$ so that $\sin(\theta_2) = \frac{1}{\sqrt{\epsilon_r}}\sin(\theta_1)$. Because the reflection coefficients are expressed in terms of cosines, we can use the identity $\sin^2(\theta) + \cos^2(\theta) = 1$ so that $\cos(\theta) = \sqrt{1 - \sin^2(\theta)}$. This means that $\cos(\theta_2) = \sqrt{1 - \frac{1}{\epsilon_r}\sin^2(\theta_1)}$.
+
+We can also express $Z_1$ and $Z_2$ as $Z_1 = \sqrt{\frac{\mu_0}{\epsilon_0}}$ and $Z_2 = \sqrt{\frac{1}{\epsilon_r}}\sqrt{\frac{\mu_0}{\epsilon_0}}$. Now we can rewrite the reflection coefficient for vertical polarization as:
+
+\begin{equation}
+\begin{gathered}
+\label{gd_eq:10}
+\Gamma_v = r_p = \frac{\sqrt{\frac{\mu_0}{\epsilon_0}}\cos(\theta_1) - \sqrt{\frac{1}{\epsilon_r}}\sqrt{\frac{\mu_0}{\epsilon_0}}\sqrt{1 - \frac{1}{\epsilon_r}\sin^2(\theta_1)}}{\sqrt{\frac{\mu_0}{\epsilon_0}}\cos(\theta_1) + \sqrt{\frac{1}{\epsilon_r}}\sqrt{\frac{\mu_0}{\epsilon_0}}\sqrt{1 - \frac{1}{\epsilon_r}\sin^2(\theta_1)}} \\
+\Gamma_v = \frac{\cos(\theta_1) - \sqrt{ \frac{\epsilon_r - \sin^2(\theta_1) }{\epsilon_r^2} }  } {\cos(\theta_1) + \sqrt{  \frac{\epsilon_r - \sin^2(\theta_1) }{\epsilon_r^2}} } \\
+\end{gathered}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+From geometry, $\cos(\theta_1) = \sin(\chi)$ and $\sin(\theta_1) = \cos(\chi)$, so we can express the reflection coefficient for vertical polarization as:
+\begin{equation}
+\label{gd_eq:11}
+\boxed{\Gamma_v = \frac{\sin(\chi) - \sqrt{ \frac{\epsilon_r - \cos^2(\chi) }{\epsilon_r^2} }  } {\sin(\chi) + \sqrt{  \frac{\epsilon_r - \cos^2(\chi) }{\epsilon_r^2}} } }
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+We can follow the same steps for the reflection coefficient for horizontal polarization
+\begin{equation}
+\begin{gathered}
+\label{gd_eq:12}
+\Gamma_h = r_s = \frac{\sqrt{\frac{1}{\epsilon_r}}\sqrt{\frac{\mu_0}{\epsilon_0}}\cos(\theta_1) - \sqrt{\frac{\mu_0}{\epsilon_0}}\sqrt{1 - \frac{1}{\epsilon_r}\sin^2(\theta_1)}}{\sqrt{\frac{1}{\epsilon_r}}\sqrt{\frac{\mu_0}{\epsilon_0}}\cos(\theta_1) + \sqrt{\frac{\mu_0}{\epsilon_0}}\sqrt{1 - \frac{1}{\epsilon_r}\sin^2(\theta_1)}} \\
+\Gamma_h = \frac{\cos(\theta_1) - \sqrt{\epsilon_r - \sin^2(\theta_1)}}{\cos(\theta_1) + \sqrt{\epsilon_r - \sin^2(\theta_1)}} \\
+\end{gathered}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+The reflection coefficient for horizontal polarization is then:
+\begin{equation}
+\label{gd_eq:13}
+\boxed{\Gamma_h = \frac{\sin(\chi) - \sqrt{\epsilon_r - \cos^2(\chi)}}{\sin(\chi) + \sqrt{\epsilon_r - \cos^2(\chi)}}}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
