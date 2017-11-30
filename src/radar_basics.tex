@@ -1,6 +1,5 @@
-\renewcommand{\baselinestretch}{2} \small\normalsize
 \chapter{RADAR Basics}
-This chapter covers some RADAR basics, including the RADAR ranage equation, bistatic configurations, antenna beam widths and a summary of threshold detection.
+This chapter covers some RADAR basics, including the RADAR ranage equation, bistatic configurations, antenna beam widths and a summary of the ideas behind probability of detection.
 
 \section{RADAR Range Equation} 
 The RADAR range equation provides a deterministic method to calculate received signal levels and is the workhorse for analyzing RADAR system performance. This equation is the first step towards building a statistical model, as it captures the underlying physics.
@@ -19,18 +18,18 @@ The RADAR range equation is derived by assuming spherically propagating waves an
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-With spherical waves, the power is spread out over a sphere of radius equal to the slant range, $R$, which gives the scaling factor of $\left( 4\pi R^2 \right)^{-1}$. The total projected power is the transmitted power, $P_t$, multiplied by the antenna gain, $G_t$. The RADAR cross section (RCS), $\sigma$, defines the amount of power reflected. The effective area of the antenna is then $\frac{G_t\lambda^2}{4\pi}$.
+With spherical waves, the power is spread out over a sphere of radius equal to the slant range, $R$, which gives a scaling factor of $\left( 4\pi R^2 \right)^{-1}$ for propagation. The total projected power is the transmitted power, $P_t$, multiplied by the antenna gain, $G_t$. The RADAR cross section (RCS), $\sigma$, defines the amount of power reflected. The effective area of the antenna is then $\frac{G_t\lambda^2}{4\pi}$.
 
-In the monostatic case, $G_t = G_r$ and the RADAR range equation is given in Equation \ref{intro_eq:1}.
+In the monostatic case, $G_t = G_r$ and the RADAR range equation is given in Equation \ref{intro_eq:1} \cite{skolnik_radar}.
   \begin{equation}
   \label{intro_eq:1}
  P_r = \frac{P_tG_t^2\sigma\lambda^2}{\left(4\pi\right)^3R^4}
   \end{equation}
-In this equation, the antenna gain, $G_t$ is a function of the angle between the antenna boresight and the target. Randomness enters this version of the RADAR range equation through this angle and the target RCS, $\sigma$.
+In this equation, the antenna gain, $G_t$ is a function of the angle between the antenna boresight and the target. Randomness enters this version of the RADAR range equation through the target RCS, $\sigma$.
 
 In the atmosphere, propagation is a linear operation. Therefore we can leverage superposition to compute the RADAR range equation for each path or scatterer and sum the results.
 
-We can divide Equation \ref{intro_eq:1} by the noise power to represent the RADAR equation in terms of signal to noise ratio (SNR) as shown in Equation \ref{intro_eq:2} \cite{skolnik_handbook}.
+We can divide Equation \ref{intro_eq:1} by the noise power to represent the RADAR range equation in terms of signal to noise ratio (SNR) as shown in Equation \ref{intro_eq:2} \cite{skolnik_handbook}.
 \begin{equation}
     \label{intro_eq:2}
 \text{SNR} = \frac{P_r}{P_n} = \frac{P_tG_t^2\sigma\lambda^2}{\left(4\pi\right)^3 R^4k_BTBF_n}
@@ -62,7 +61,7 @@ The bistatic RADAR range equation with a propagation factor included in given in
 The propagation factor provides another mechanism to introduce randomness.
 
 \section{Bistatic Configurations}
-
+Because the transmitter and receiver are not colocated in a bistatic configuration, the geometry now becomes an ellipsoid as shown in Figure \ref{intro_fig:2}. Here, $R_1$ is the slant range from the transmitter to the target, $R_2$ is the slant range from the target to the receiver, $\theta_1$ is the one way beam width of the transmitter and $\theta_r$ is the one way beam width of the receiver. The bistatic angle, $\beta$ is the angle between the transmitter and receiver in the plane containing the transmitter, receiver, and target. 
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=4in]{../media/multistatic/Isorange_contours.png}
@@ -73,7 +72,9 @@ The propagation factor provides another mechanism to introduce randomness.
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+The isorange contours are defined as the contours where the total path length , $R_1 + R_2$ is constant. These form ellipses with the transmitter and receiver at the foci. For the monostatic case, the isorange contours are simply circles. In the bistatic case, the beam width is not symmetric about the isorange contours with results in skewing the impact of clutter.
 
+It is often convenient to look at things in terms of SNR. In a bistatic configuration, the loci of constant SNR are known as the ovals of Cassini \cite{willis_bistatic} and an example is shown in Figure \ref{intro_fig:3}.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=4in]{../media/multistatic/ovals_of_cassini.png}
