@@ -86,32 +86,45 @@
 \pagenumbering{arabic}
 
 \renewcommand{\thechapter}{1}
-\include{multi_static_rf_networks}
+\include{introduction}
 
 \renewcommand{\thechapter}{2}
-\include{RF_environmental_impacts}
+\include{random_matrix_theory}
 
 \renewcommand{\thechapter}{3}
-\include{ocean_surface_generation}
+\include{radar_basics}
 
 \renewcommand{\thechapter}{4}
-\include{numerical_propagation}
+\include{RF_environmental_impacts}
 
 \renewcommand{\thechapter}{5}
+\include{ocean_surface_generation}
+
+\renewcommand{\thechapter}{6}
+\include{numerical_propagation}
+
+\renewcommand{\thechapter}{7}
 \include{amplitude_statistics}
 
 
 \titleformat{\chapter}
       {\normalfont\large}{Appendix \thechapter:}{1em}{}
+      
 \newpage
 \appendix
 \renewcommand{\thechapter}{A}
+\renewcommand{\chaptername}{Appendix}
+\input{geometric_derivations}
+
+\newpage
+\appendix
+\renewcommand{\thechapter}{B}
 \renewcommand{\chaptername}{Appendix}
 \input{greens_functions}
 
 \newpage
 \appendix
-\renewcommand{\thechapter}{B}
+\renewcommand{\thechapter}{C}
 \renewcommand{\chaptername}{Appendix}
 \input{saddle_point_method}
 

@@ -1,29 +1,28 @@
 \renewcommand{\baselinestretch}{2} \small\normalsize
 \chapter{Environmental Impacts on Electromagnetic Wave Propagation}
-Before developing our statistical model, we need to understand which environmental factors affect propagation. Multipath, clutter, and sea spikes are all induced by reflections from the sea surface while changes in the index of refraction can cause the electromagnetic waves to bend. We will first describe the various earth models that are used, along with the propagation geometry that follows from these models. Next we will discuss refractivity before covering the reflective effects of multipath, clutter, and sea spikes. We will close this chapter with a discussion of target RCS.
+Before developing a statistical model, we need to understand which environmental factors affect propagation. Multipath, clutter, and sea spikes are all induced by reflections from the sea surface while changes in the index of refraction can cause the electromagnetic waves to bend. We will first describe the various earth models that are used, along with the propagation geometry that follows from these models. Next we will discuss refractivity and anomalous propagation before covering the reflective effects of multipath, clutter, and sea spikes. We will close this chapter with a discussion of the RCS of targets.
 
 \section{Earth Models}
-The earth can be modeled as flat to simplify calculations, as a sphere to capture horizon effects for long range propagation, or as an ellipsoid as described in the WGS-84 model to provide additional geometric accuracy. In general, the standard model is spherical with the 4/3 earth radius approximation.
+The earth can be modeled as flat to simplify calculations, as a sphere to capture horizon effects for long range propagation, or as an ellipsoid to provide additional geometric accuracy. In general, the standard model is spherical with the 4/3 earth radius approximation.
 
 \subsection{Flat Earth}
-The flat earth model is valid only for short ranges as there is no concept of the RADAR horizon. The geometry provides a simple planar surface such that the local tangent plane is equivalent at both the transmitter and target so no coordinate frame transformations are necessary.
+The flat earth model is valid only for short ranges as there is no concept of the RADAR horizon. The geometry provides a simple planar surface such that the local tangent plane is equivalent at both the transmitter and target. This means that coordinate frame transformations are not necessary.
 
 \subsection{Spherical Earth}
 The spherical earth model assumes the earth is a sphere, with a constant radius $r_e = 6370$ km.
 
-
 \subsection{WGS-84 Earth}
 The World Geodetic System (WGS) is an earth fixed standard coordinate system developed in 1984 and the current standard is identified as WGS-84 \cite{dod_wgs84}.
 
-The WGS-84 models is not generally used for RADAR calculations as it complicates analysis beyond the spherical earth model and the difference between the models is negligible compared to the uncertainty in the refractive index profile. In cases where we desire the additional geometry accuracy, such as RADAR horizon calculations at a particular location on the earth, we can follow the spherical earth model but use the local radius of curvature from the WGS-84 earth model as $r_e$.
+The WGS-84 model is not generally used for RADAR calculations as it complicates analysis beyond the spherical earth model and the difference between the models is negligible compared to the uncertainty in the refractive index profile. In cases where we desire the additional geometry accuracy, such as RADAR horizon calculations at a particular location on the earth, we can follow the spherical earth model but use the local radius of curvature from the WGS-84 earth model as $r_e$.
 
 \subsection{4/3 Earth Model}
-Due to the refractive index of the atmosphere, the propagation path of an electromagnetic wave will curve. Under the assumption of standard atmospheric conditions, the propagation path can be approximated as a straight line if an effective radius of the earth is used $r_e' = 4/3 r_e$ \cite{blake_radar}\cite{nathanson_radar}. This is referred to as the 4/3 earth model and is used in most analytical calculations.
+Due to the refractive index of the atmosphere, the propagation path of an electromagnetic wave will curve. Under the assumption of standard atmospheric conditions, the propagation path can be approximated as a straight line if an effective radius of the earth is used $r_e' = 4/3 r_e$ \cite{blake_radar}, \cite{nathanson_radar}. This is referred to as the 4/3 earth model and is used in most analytical calculations.
 
 As stated above, we can increase geometric accuracy for locality by using the local radius of curvature from the WGS-84 model for $r_e$.
 
 \section{Geometry}
-The earth model used defines the propagation geometry and the geometric aspects of most importance are the grazing angle, depression angle, and RADAR horizon. The grazing and depression angles are important in computing the reflection coefficients and beam intersection area for both clutter and multipath and the RADAR horizon bounds the propagation range.
+The earth model used defines the propagation geometry. The geometric aspects of most importance are the grazing angle, depression angle, and RADAR horizon. The grazing and depression angles are important in computing the reflection coefficients and beam intersection area for both clutter and multipath and the RADAR horizon bounds the propagation range.
 
 \subsection{Grazing and Depression Angles}
 The depression angle, $\alpha$ is the angle from the local horizontal plane and is given by Equation \ref{env_eq:1} \cite{nathanson_radar}.
@@ -38,10 +37,10 @@ The grazing angle, $\chi$, is the angle from the local horizontal plane to the t
   \chi = \sin^{-1}\left(\frac{h}{R}\left[1 + \frac{h}{2r_e'} \right] - \frac{R}{2r_e'} \right)
   \end{equation}
   
-In the flat earth case, the grazing and depression angles are equal. The curvature of the earth changes the local tangent plane reference, so they are not equal in the case of a spherical earth.
+In the flat earth case, the grazing and depression angles are equal. The curvature of the earth changes the local tangent plane reference, so they are not equal in the case of a spherical or ellipsoidal earth.
   
 \subsection{RADAR Horizon}
-The curvature of the earth puts an upper limit on the distance an electromagnetic wave can travel before intercepting the earth. The range to the horizon, $R_h$, is given by Equation \ref{env_eq:3}. Slant ranges greater than this distance will be clipped by the earth and not reach the target unless anomalous propagation conditions (ducting) are present as described in Section \ref{env_sec:refractivity}.
+The curvature of the earth puts an upper limit on the distance an electromagnetic wave can travel before intercepting the earth. The range to the horizon, $R_h$, is given by Equation \ref{env_eq:3}. Slant ranges greater than this distance will be clipped by the earth and not reach the target unless anomalous propagation conditions (ducting) are present.
   \begin{equation}
   \label{env_eq:3}
   R_h = \sqrt{2r_e'h + h} + \sqrt{2r_e'h_t + h_t}
@@ -77,7 +76,7 @@ The smooth reflection coefficient depends on the polarization of the incident wa
   \label{env_eq:6}
  \Gamma_v = \frac{\sin(\chi)- \sqrt{\frac{\epsilon_r - \cos^2(\chi)}{\epsilon_r^2}}}{\sin(\chi) + \sqrt{\frac{\epsilon_r - \cos^2(\chi)}{\epsilon_r^2}}}
   \end{equation}
-In these equations, $\epsilon_r$ is the relative permittivity of the ocean and is given by Equation \ref{env_eq:7} at $20^{\circ}$ C and $3.6\%$ salinity. 
+In these equations, $\epsilon_r$ is the relative permittivity of the ocean and is given by Equation \ref{env_eq:7} at $20^{\circ}$ C and $3.6\%$ salinity for an electromagnetic wave with temporal frequency $f$. 
   
 \begin{equation}
   \label{env_eq:7}
@@ -128,7 +127,7 @@ The Chi-squared PDF of degree $2$ covers the case with many randomly distributed
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-The long decorrelation time covers the case where the target RCS can be considered constant over the time the RADAR performs a single scan and the short decorrelation time covers the case where the target RCS changes on a pulse to pulse basis. Modern RADAR systems operate in frequency agile modes where the carrier frequency is changed each pulse, in which case the decorrelation time can be considered to be short. A fluctuating signal can have a significant effect on the $P_d$, as seen in Figure \ref{env_fig:3} which shows the $P_d$ as a function of Signal to Noise Ratio (SNR) for the nonfluctating case and each of the $4$ Swerling cases. In this figure, we can see that using the wrong PDF can result in significantly overestimating the $P_d$.
+The long decorrelation time covers the case where the target RCS can be considered constant over the time the RADAR performs a single scan and the short decorrelation time covers the case where the target RCS changes on a pulse to pulse basis. Modern RADAR systems operate in frequency agile modes where the carrier frequency is changed each pulse, in which case the decorrelation time can be considered to be short. A fluctuating signal can have a significant effect on the $P_d$, as seen in Figure \ref{env_fig:3} which shows $P_d$ as a function of SNR for the nonfluctating case and each of the $4$ Swerling cases. In this figure, we can see that using the wrong PDF can result in significantly overestimating the $P_d$.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=4in]{../media/multistatic/swerling_pd.png}
@@ -144,13 +143,13 @@ Figure \ref{env_fig:3} also shows that the $P_d$ is higher with a dominant scatt
 
 Modeling the RCS for a Swerling fluctuating target is straightforward. We can generate random variables following a Chi-squared distribution of degree $n$ by the sum of $n$ squared normally distributed random variables with zero mean and unit variance. The mean of the Chi-squared distribution is equal to the degree, so to force the mean to the deterministic value, we need to add this value and subtract the degree.
 
-Swerling cases 1 and 2 follow a Chi-squared distribution of degree 2. To generate a random variable, $w_{1,2}$ for our RCS, we need to generate 2 normally distributed random variables, $u_1$ and $u_2$. Then, $w_{1,2}$ is given by Equation \ref{env_eq:8}, where $\sigma$ is the deterministic RCS value.
+Swerling cases 1 and 2 follow a Chi-squared distribution of degree 2. To generate a random variable, $w_{1,2}$, for our RCS, we need to generate 2 normally distributed random variables, $u_1$ and $u_2$. Then, $w_{1,2}$ is given by Equation \ref{env_eq:8}, where $\sigma$ is the deterministic RCS value.
 \begin{equation}
   \label{env_eq:8}
 w_{1,2} = u_1^2 + u_2^2 + \sigma - 2
   \end{equation}
 
-Swerling cases 3 and 4 follow a Chi-squared distribution of degree 4. To generate a random variable, $w_{3,4}$ for our RCS, we need to generate 4 normally distributed random variables, $u_1$, $u_2$, $u_3$, and $u_4$. Then, $w_{3,4}$ is given by Equation \ref{env_eq:9}, where $\sigma$ is again the deterministic RCS value.
+Swerling cases 3 and 4 follow a Chi-squared distribution of degree 4. To generate a random variable, $w_{3,4}$, for our RCS, we need to generate 4 normally distributed random variables, $u_1$, $u_2$, $u_3$, and $u_4$. Then, $w_{3,4}$ is given by Equation \ref{env_eq:9}, where $\sigma$ is again the deterministic RCS value.
 \begin{equation}
   \label{env_eq:9}
 w_{3,4} = u_1^2 + u_2^2 + u_3^2 + u_4^2 + \sigma - 4
