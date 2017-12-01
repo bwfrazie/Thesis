@@ -11,7 +11,7 @@ TEMPER v3.2 OSG example case
 0             Beam pointing (elevation) angle [deg]
 0             Polarization flag [0=vertical|1=horizontal]
 Antenna pattern (200 char max) (for source flag 1, 2 or 4):
-\Users\frazibw1\APL\TEMPER\temper\lib\pat\Sector.pat
+Sector.pat
 ****  Calculation Parameters  ***************************************************
 1             Propagator type [0=narrow(don't use)|1=wide]
 0             Minimum problem angle required [deg] (0.0 = auto)
@@ -54,7 +54,7 @@ List of table Altitudes [ft|m] (starts on next line):
 ****  Refractivity  *************************************************************
 1             Print refractivity summary in print file? [0=no|1=yes]
 Refractivity profile file (200 char max):
-\Users\frazibw1\APL\TEMPER\temper\lib\ref\stdatm.ref
+stdatm.ref
 1             Extend with standard atmosphere if necessary? [0=no|1=yes]
 ****  Restart Input Information  ************************************************
 0             Restarted Case? [0=no|1=yes]

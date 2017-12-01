@@ -2,6 +2,7 @@ function runTEMPER()
 
 %set the path to TEMPER and the current path
 temper = '/Users/frazibw1/APL/TEMPER/temper/bin/mac64/temper.bin';
+temper = '/Users/benjaminfrazier/Projects/TEMPER/temper/bin/mac64/temper.bin';
 currentPath = pwd;
 
 %get the base path for the Input files
@@ -34,6 +35,14 @@ currentPath = pwd;
 wsInputFileName = sprintf('%s/TEMPER_Inputs/%s',inputPath,'osgInputFile.osgin');
 copyfile(wsInputFileName,currentPath);
 
+%antenna pattern file
+patInputFileName = sprintf('%s/TEMPER_Inputs/%s',inputPath,'Sector.pat');
+copyfile(patInputFileName,currentPath);
+
+%refractivity file
+refInputFileName = sprintf('%s/TEMPER_Inputs/%s',inputPath,'stdatm.ref');
+copyfile(refInputFileName,currentPath);
+
 
 baseFileName = sprintf('%s/TEMPER_Inputs/%s',inputPath,'base_20km_1d_10m_s.in');
 
@@ -41,7 +50,7 @@ baseFileName = sprintf('%s/TEMPER_Inputs/%s',inputPath,'base_20km_1d_10m_s.in');
 filePrefix = '20km_1d_10mps';
 initialSeed = 561894;
 
-numIterations = 10;
+numIterations = 100;
 
 %loop over the requested number of iterations
 for runNumber = 1:numIterations
