@@ -1,8 +1,8 @@
 %function getStatisticsFromFieldFiles(varargin)
-dataPath = 'data';
+dataPath = pwd;
 
-tAlt = [5 10 15 20];
-tRange = [10 15 20];
+tAlt = [5 10 15 18];
+tRange = [5 10 15 20];
 
 %go to the dataPath directory
 cd(dataPath);
@@ -14,10 +14,12 @@ ind = strfind(fileVector,'.fld');
 %loop through the list and separate the individual files
 start = 1;
 fileList = [];
+startIndex = strfind(fileVector,'20km');
+stopIndex = ind + 3;
 for counter = 1:length(ind)
-    stop = ind(counter) + 3;
+    start = startIndex(counter);
+    stop = stopIndex(counter);
     fileList{counter} = fileVector(start:stop);
-    start = stop + 2;
 end
 
 dataCounter = 1;
@@ -29,12 +31,8 @@ for counter = 1:length(fileList)
     Out = tdata31(fileList{counter},1,1,0);
      dataCounter = 1;
     for aCounter = 1:length(tAlt)
-   
         for rCounter = 1:length(tRange)
-            rInd = find(abs(Out.r - tRange(rCounter)) < 0.05E-3);
-            aInd = find(abs(Out.h - tAlt(aCounter)) < 0.05);
-            
-            fdBAvg(counter,dataCounter) = 0.5*(Out.fdb(aInd(1),rInd) + Out.fdb(aInd(2),rInd));
+            fdBAvg(counter,dataCounter) = 10*log10(interpolate2DData(Out.f,Out.h,Out.r,tAlt(aCounter),tRange(rCounter)));
             dataCounter = dataCounter + 1;
 
         end

@@ -9,9 +9,7 @@ def check(oldname,newname,newSeed):
     testLine = "OSG realization random seed (integer)"
     for line in oldfile:
         if testLine in line:
-            print line
             newstring = str(newSeed) + "   " + testLine + "\n"
-            print newstring
             newfile.write(newstring)
         else:
         	newfile.write(line)
@@ -27,14 +25,14 @@ def main():
 
 	call(["ls", "../TEMPER_Inputs/"])
 	dst = os.getcwd()
-	filePrefix = "20km_1d_10mps"
+	filePrefix = "20km_1d_5mps"
 
-	initialSeed = 561889;
+	initialSeed = 56182189;
 	temper = "/Users/benjaminfrazier/Projects/TEMPER/temper/bin/mac64/temper.bin"
 
-	fname = "osgInputFile.osgin"
+	fname = "osgInputFile5.osgin"
 	src = inputFolder + "/" + fname
-	dst = dataFolder + "/"  + fname
+	dst = dataFolder + "/"  + "osgInputFile.osgin"
 	copyfile(src,dst);
 
 	fname = "Sector.pat"
@@ -55,14 +53,13 @@ def main():
 	os.chdir("data")
 	
 	#start loop
-	runNumber = 1
-	newFilename = filePrefix + "_run_" + str(runNumber) + ".in"
+	for runNumber in range(2,101):
+		newFilename = filePrefix + "_run_" + str(runNumber) + ".in"
 	
-	newSeed = int(initialSeed * random.random())
-	check(inputFilename,newFilename,newSeed)
+		newSeed = int(initialSeed * random.random())
+		check(inputFilename,newFilename,newSeed)
 
-	call(["ls", "-l"])
-	call([temper,newFilename])
+		call([temper,newFilename])
 	
 	#end loop
 if __name__ == "__main__": main()
