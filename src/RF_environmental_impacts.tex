@@ -80,6 +80,27 @@ Because an electromagnetic wave consists of a finite bundle of rays rather than 
 Multipath refers to reflections from the surface of the earth resulting in many paths between the transmitter and the target. When these paths are in phase, the signal at the target is amplified. When these paths are out of phase, the signal is reduced and referred to as a multipath null.
 
 \subsection{2-Ray Model}
+The 2-Ray Model for multipath is shown in Figure \ref{env_fig:2a}, using a flat earth geometry to simplify the explanation. In this model, the two rays are the direct path from the transmitter to the target and a single multipath bounce from the surface between the transmitter and target.
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=4in]{../media/multistatic/two_ray_multipath_model.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Two Ray Multipath Model]{Two Ray Multipath Model\label{env_fig:2a}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+The sea surface is characterized by its dielectric constant, $\epsilon_r$ and the height variance, $\sigma_h$, and will have a reflection coefficient, $\Gamma_t$. We can characterize the multipath ray by using the image of the target.
+
+Following \cite{lohrmann_rcs}, we can use superposition and express the combination of the rays as a propagation factor, $F_p$:
+  \begin{equation}
+  \label{env_eq:3b}
+F_p = e^{jkr_1} + \Gamma_te^{jk\left(r_2 + r_3\right)}
+\end{equation}
+
+In both expressions, the result is dependent on the phase difference between the path distances $r_1$ and $r_2 + r_3$. This means we will have a multipath null (destructive interference) whenever $r_1 = 2m\pi(r_2 + r_3)$ and we will have a multipath peak (constructive interference) whenever $r_1 = (2m+1_\pi\lambda(r2+ r_3)$.
+
 \subsection{Reflection Coefficient}
 From \cite{miller_reflection}, we can express the rough sea surface reflection coefficient, $\rho$, by Equation \ref{env_eq:4}. 
   \begin{equation}
