@@ -18,14 +18,14 @@ The RADAR range equation is derived by assuming spherically propagating waves an
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-With spherical waves, the power is spread out over a sphere of radius equal to the slant range, $R$, which gives a scaling factor of $\left( 4\pi R^2 \right)^{-1}$ for propagation. The total projected power is the transmitted power, $P_t$, multiplied by the antenna gain, $G_t$. The RADAR cross section (RCS), $\sigma$, defines the amount of power reflected. The effective area of the antenna is then $\frac{G_t\lambda^2}{4\pi}$.
+With spherical waves, the power is spread out over a sphere of radius equal to the slant range, $R$, which gives a scaling factor of $\left( 4\pi R^2 \right)^{-1}$ for propagation. The total projected power ($P_1$) is the transmitted power, $P_t$, multiplied by the antenna gain, $G_t$. The RADAR cross section (RCS), $\sigma$, defines the amount of power reflected, and the effective area of the antenna is $\frac{G_t\lambda^2}{4\pi}$.
 
-In the monostatic case, $G_t = G_r$ and the RADAR range equation is given in Equation \ref{intro_eq:1} \cite{skolnik_radar}.
+In the monostatic case, $G_t = G_r$ and the RADAR range equation is given in Equation \ref{intro_eq:1} \cite{skolnik_handbook}.
   \begin{equation}
   \label{intro_eq:1}
  P_r = \frac{P_tG_t^2\sigma\lambda^2}{\left(4\pi\right)^3R^4}
   \end{equation}
-In this equation, the antenna gain, $G_t$ is a function of the angle between the antenna boresight and the target. Randomness enters this version of the RADAR range equation through the target RCS, $\sigma$.
+In this equation, the antenna gain, $G_t$ is a function of the angle between the antenna boresight and the target. Randomness enters this version of the RADAR range equation through the target RCS.
 
 In the atmosphere, propagation is a linear operation. Therefore we can leverage superposition to compute the RADAR range equation for each path or scatterer and sum the results.
 
@@ -51,17 +51,16 @@ The bistatic RADAR range equation in terms of SNR is shown in Equation \ref{intr
 \end{equation}
 
 \subsection{Propagation Factors}
-The use of a propagation factor, $F_p$, allows us to include atmospheric effects in the RADAR range equation. These effects can include absorption from atmospheric gases and weather such as rain or snow as well as rollups for the effects of multipath reflections, diffraction from the surface, and clipping by the horizon. The propagation factor is typically implemented as a multiplier to the RADAR range equation and is generally complicated to compute. 
+The use of a propagation factor, $F_p$, allows us to include atmospheric effects in the RADAR range equation. These effects can include absorption from atmospheric gases and weather such as rain or snow as well as rollups for the effects of multipath reflections, diffraction from the surface, and clipping by the horizon. The propagation factor is typically implemented as a multiplier to the RADAR range equation and provides another mechanism to introduce randomness. Because it encompasses a wide variety of environment conditions, it is generally complicated to compute. 
 
-The bistatic RADAR range equation with a propagation factor included in given in Equation \ref{intro_eq:4a}.
+The bistatic RADAR range equation with a propagation factor included is given in Equation \ref{intro_eq:4a}.
   \begin{equation}
   \label{intro_eq:4a}
  P_r = \frac{P_tG_tG_r\sigma_B\lambda^2}{\left(4\pi\right)^3R_1^2R_2^2}F_p
   \end{equation}
-The propagation factor provides another mechanism to introduce randomness.
 
 \section{Bistatic Configurations}
-Because the transmitter and receiver are not colocated in a bistatic configuration, the geometry now becomes an ellipsoid as shown in Figure \ref{intro_fig:2}. Here, $R_1$ is the slant range from the transmitter to the target, $R_2$ is the slant range from the target to the receiver, $\theta_1$ is the one way beam width of the transmitter and $\theta_r$ is the one way beam width of the receiver. The bistatic angle, $\beta$ is the angle between the transmitter and receiver in the plane containing the transmitter, receiver, and target. 
+Because the transmitter and receiver are not colocated in a bistatic configuration, the geometry now becomes ellipsoidal as shown in Figure \ref{intro_fig:2}. Here, $R_1$ is the slant range from the transmitter to the target, $R_2$ is the slant range from the target to the receiver, $\theta_t$ is the one way beam width of the transmitter and $\theta_r$ is the one way beam width of the receiver. The bistatic angle, $\beta$, is the angle between the transmitter and receiver in the plane containing the transmitter, receiver, and target. 
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=4in]{../media/multistatic/Isorange_contours.png}
@@ -72,7 +71,7 @@ Because the transmitter and receiver are not colocated in a bistatic configurati
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-The isorange contours are defined as the contours where the total path length , $R_1 + R_2$ is constant. These form ellipses with the transmitter and receiver at the foci. For the monostatic case, the isorange contours are simply circles. In the bistatic case, the beam width is not symmetric about the isorange contours with results in skewing the impact of clutter.
+The isorange contours are defined as the contours where the total path length, $R_1 + R_2$ is constant . These form ellipses with the transmitter and receiver at the foci as shown in the blue and orange curves in Figure \ref{intro_fig:2}. For the monostatic case, the isorange contours are simply circles and the geometry is simplified as everything is symmetric. In the bistatic case, however, the beam width is not symmetric along the isorange contours, which results in skewing the impact of clutter.
 
 It is often convenient to look at things in terms of SNR. In a bistatic configuration, the loci of constant SNR are known as the ovals of Cassini \cite{willis_bistatic} and an example is shown in Figure \ref{intro_fig:3}.
 \begin{figure}[H]
@@ -85,25 +84,57 @@ It is often convenient to look at things in terms of SNR. In a bistatic configur
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+The ovals of Cassini are a simplification that assumes the target RCS and propagation factors are invariant with respect to angle and range. This is rarely the case, but the ovals of Cassini are useful to quickly represent system constraints.
+
+For large SNR, the ovals of Cassini collapse around the transmitter and receiver and define the transmitter centered and receiver centered regions. The cosite region is defined as when the ovals of Cassini surround both the transmitter and receiver \cite {willis_bistatic}.
+
 \section{Beam Width}
-The beam width of an antenna is defined as the angle between the half power points in the antenna pattern.
+The beam width of an antenna is defined as the angle between the half power points in the antenna pattern. We will use a sinc antenna pattern to demonstrate this concept.
 
 \subsection{One Way}
-The one way antenna beam width, $\theta$, is simply the beam width of the forward propagating beam.
+The one way antenna beam width, $\theta$, is simply the beam width of the forward propagating beam. The electric field amplitude in the far field of a sinc antenna pattern is given by Equation \ref{rb_eq:1} and shown in Figure \ref{rb_fig:4}.
+
+\begin{equation}
+\label{rb_eq:1}
+E(\theta) = \frac{\sin\left(\frac{\pi D}{\lambda}\sin(\theta) \right)}{\frac{\pi D}{\lambda}\sin(\theta)}
+\end{equation}
+
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=4in]{../media/multistatic/sinc_antenna_pattern_one_way.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[One Way Antenna Pattern]{One Way Antenna Pattern\label{rb_fig:4}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection{Two Way}
-The two way antenna beam width, $\theta_2$, is the beam width of the beam propagating in both directions. For the monostatic case, we can compute this as the one way beam width of the square of the antenna pattern. In most cases, $\theta_2 \approx \frac{1}{\sqrt{2}}\theta$.
+The two way antenna beam width, $\theta_2$, is the beam width of the beam propagating in both directions. For the monostatic case, we can compute this as the one way beam width of the square of the antenna pattern. For the sinc pattern, the two way pattern is shown in Figure \ref{rb_fig:5}. In most cases, $\theta_2 \approx \frac{1}{\sqrt{2}}\theta$.
+
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=4in]{../media/multistatic/sinc_antenna_pattern_two_way.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Two Way Antenna Pattern]{Two Way Antenna Pattern\label{rb_fig:5}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+The two way beam width is really only valid for monostatic configurations that assume the forward and backward propagating beams lie directly on top of one another. In a bistatic configuration, the beams overlap differently and need to be explicitly evaluated.
 
 \section{Detection}
 The detection process can be cast as a hypothesis test where the two mutually exclusive hypotheses are that the target is either present or not present \cite{richards_radar}. There are three probabilities that need to be considered. First, the probability of detection, $P_d$, is the probability that a target is both detected and present. Second, the probability of false alarm, $P_{fa}$ is the probability that a target is detected but not actually present. Finally, the probability of miss, $P_m$ is the probability that a target is present but not detected. In most cases, a missed detection is worse than a false alarm.
 
 \subsection{Threshold Testing}
-The detection processes is generally a threshold test applied to the output of a matched filter generated for optimal detection with the threshold, $\hat{T}$ tuned to achieve a specified $P_{fa}$. The received signal consists of thermal noise, potential target returns, and potential interference signals such as clutter or jamming.
+The detection processes is generally a threshold test applied to the output of a matched filter with the threshold, $\hat{T}$ tuned to achieve a specified $P_{fa}$. Matched filters match the filter impulse response to the waveform to maximize the SNR and optimize detection \cite{richards_dsp}. 
 
-Expressions for $P_d$ are complicated but well studied for the cases of standard Gaussian noise and fluctuating targets following Swerling models. In general, $P_d$ is dependent on SNR, so processing is typically geared towards maximizing the SNR. As a general rule of thumb, an SNR of $13$ dB provides a $P_d$ of $\approx 0.94$ and a $P_{fa}$ of $\approx 10^{-6}$.
+The received signal consists of thermal noise, potential target returns, and potential interference signals such as clutter or jamming. Expressions for $P_d$ are complicated but well studied for the cases of standard Gaussian noise and fluctuating targets following Swerling models. As a general rule of thumb, an SNR of $13$ dB provides a $P_d$ of $\approx 0.94$ and a $P_{fa}$ of $\approx 10^{-6}$.
 
 \subsection{Processing Gains}
-To improve the overall SNR and increase the $P_d$, we can take advantage of processing gains by applying the detection strategy to groups of pulses. This is known as pulse integration and we can apply it coherently or noncoherently and can also look at M out of N strategies (binary integration).
+To improve the overall SNR and increase the $P_d$, we can take advantage of processing gains by applying the detection strategy to groups of pulses. This is known as pulse integration and we can apply it coherently or noncoherently. We can also look at binary integration strategies where a detection is asserted for $M$ observations out of $N$ chances.
 
 \subsubsection{Coherent and Noncoherent Integration}
 For coherent integration, we operate in the complex domain and add the magnitude and phase of each pulse. The number of pulses, $N$, that are combined is defined as the Coherent Processing Interval (CPI) and the overall processing gain goes as $N^2$.
@@ -113,3 +144,15 @@ For noncoherent integration, we only sum the magnitudes of each pulse. We now re
 Coherently integration $2$ pulses provides a $6$ dB processing gain while noncoherently integrating $2$ pulses only provides a $3$ dB processing gain.
 
 \subsubsection{Binary Integration}
+Binary integration relies on cumulative probability to improve $P_d$ and reduce $P_{fa}$. For the specific strategies of requiring $M$ positive hits out of $N$ observations to claim a detection, the improvement in probability is given in Equation \ref{rb_eq:2} where $P$ is the resulting $M$ of $N$ probability and $p$ is the single opportunity probability (either $P_d$ or $P_{fa}$ ). 
+
+\begin{equation}
+\label{rb_eq:2}
+P = \sum_{r=M}^N\binom{N}{k}p^k\left(1-p \right)^{N-k}
+\end{equation}
+
+The standard $N$ choose $k$ from Equation \ref{rb_eq:2} is given by:
+\begin{equation}
+\label{rb_eq:3}
+\binom{N}{k} = \frac{N!}{(N-k)!k!}
+\end{equation}

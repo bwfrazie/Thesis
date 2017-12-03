@@ -6,18 +6,40 @@ Before developing a statistical model, we need to understand which environmental
 The earth can be modeled as flat to simplify calculations, as a sphere to capture horizon effects for long range propagation, or as an ellipsoid to provide additional geometric accuracy. In general, the standard model is spherical with the 4/3 earth radius approximation.
 
 \subsection{Flat Earth}
-The flat earth model is valid only for short ranges as there is no concept of the RADAR horizon. The geometry provides a simple planar surface such that the local tangent plane is equivalent at both the transmitter and target. This means that coordinate frame transformations are not necessary.
+The flat earth model is valid only for short ranges as there is no concept of the RADAR horizon. The geometry provides a simple planar surface such that the local tangent plane is equivalent at both the transmitter and target. This model is shown in Figure \ref{env_fig:1}, where $h$ is the altitude of the transmitter, $h_t$ is the altitude of the target, $R$ is the slant range, $\alpha$ is the depression angle, and $\chi$ is the grazing angle. Also shown in this figure is a single multipath bounce off the surface (the direct path between the transmitter and receiver is not shown). 
+
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=4in]{../media/multistatic/flat_earth_geometry.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Flat Earth Geometry]{Flat Earth Geometry\label{env_fig:1}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+Flat earth approximations are typically used for initial back of the envelope calculations but should not be used to assess critical performance characteristics. 
 
 \subsection{Spherical Earth}
-The spherical earth model assumes the earth is a sphere, with a constant radius $r_e = 6370$ km.
+The spherical earth model assumes the earth is a sphere, with a constant radius $r_e = 6370$ km and is shown in Figure \ref{env_fig:2}. In this figure, $r_e'$ represents the effective radius of the earth.
+
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=4in]{../media/multistatic/spherical_earth_geometry.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Spherical Earth Geometry]{Spherical Earth Geometry\label{env_fig:2}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+The curvature of the earth changes the reference planes between the transmitter and target, so that the local tangent planes are not equivalent.
 
 \subsection{WGS-84 Earth}
-The World Geodetic System (WGS) is an earth fixed standard coordinate system developed in 1984 and the current standard is identified as WGS-84 \cite{dod_wgs84}.
-
-The WGS-84 model is not generally used for RADAR calculations as it complicates analysis beyond the spherical earth model and the difference between the models is negligible compared to the uncertainty in the refractive index profile. In cases where we desire the additional geometry accuracy, such as RADAR horizon calculations at a particular location on the earth, we can follow the spherical earth model but use the local radius of curvature from the WGS-84 earth model as $r_e$.
+The World Geodetic System (WGS) is an earth fixed standard coordinate system developed in 1984 and the current standard is identified as WGS-84 \cite{dod_wgs84}. This model is not generally used for RADAR calculations as it complicates analysis beyond the spherical earth model and the difference between the two models is negligible compared to the uncertainty in the refractive index profile. In cases where we desire the additional geometry accuracy, such as RADAR horizon calculations at a particular location on the earth, we can follow the spherical earth model but use the local radius of curvature from the WGS-84 earth model as $r_e$.
 
 \subsection{4/3 Earth Model}
-Due to the refractive index of the atmosphere, the propagation path of an electromagnetic wave will curve. Under the assumption of standard atmospheric conditions, the propagation path can be approximated as a straight line if an effective radius of the earth is used $r_e' = 4/3 r_e$ \cite{blake_radar}, \cite{nathanson_radar}. This is referred to as the 4/3 earth model and is used in most analytical calculations.
+Due to the refractive index of the atmosphere, the propagation path of an electromagnetic wave will curve. Under the assumption of standard atmospheric conditions, the propagation path can be approximated as a straight line if an effective radius of the earth is used, $r_e' = 4/3 r_e$ \cite{blake_radar}, \cite{nathanson_radar}. This is referred to as the 4/3 earth model and is used in most analytical calculations.
 
 As stated above, we can increase geometric accuracy for locality by using the local radius of curvature from the WGS-84 model for $r_e$.
 
@@ -25,13 +47,13 @@ As stated above, we can increase geometric accuracy for locality by using the lo
 The earth model used defines the propagation geometry. The geometric aspects of most importance are the grazing angle, depression angle, and RADAR horizon. The grazing and depression angles are important in computing the reflection coefficients and beam intersection area for both clutter and multipath and the RADAR horizon bounds the propagation range.
 
 \subsection{Grazing and Depression Angles}
-The depression angle, $\alpha$ is the angle from the local horizontal plane and is given by Equation \ref{env_eq:1} \cite{nathanson_radar}.
+The grazing and depression angles are both defined for rays intersecting the earth as shown in Figure \ref{env_fig:2}. The depression angle, $\alpha$ is the angle from the local horizontal plane at the transmitter and is given by Equation \ref{env_eq:1} \cite{nathanson_radar}.
 \begin{equation}
   \label{env_eq:1}
   \alpha = \sin^{-1}\left(\frac{2r_e'h + h^2 + R^2}{2R\left[r_e' + h \right]} \right)
   \end{equation}
   
-The grazing angle, $\chi$, is the angle from the local horizontal plane to the target and is given by Equation \ref{env_eq:2} \cite{nathanson_radar}.
+The grazing angle, $\chi$, is the angle from the local horizontal plane at the target and is given by Equation \ref{env_eq:2} \cite{nathanson_radar}.
   \begin{equation}
   \label{env_eq:2}
   \chi = \sin^{-1}\left(\frac{h}{R}\left[1 + \frac{h}{2r_e'} \right] - \frac{R}{2r_e'} \right)
