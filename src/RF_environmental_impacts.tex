@@ -1,6 +1,6 @@
 \renewcommand{\baselinestretch}{2} \small\normalsize
 \chapter{Environmental Impacts on Electromagnetic Wave Propagation}
-Before developing a statistical model, we need to understand which environmental factors affect propagation. Multipath, clutter, and sea spikes are all induced by reflections from the sea surface while changes in the index of refraction can cause the electromagnetic waves to bend. We will first describe the various earth models that are used, along with the propagation geometry that follows from these models. Next we will discuss refractivity and anomalous propagation before covering the reflective effects of multipath, clutter, and sea spikes. We will close this chapter with a discussion of the RCS of targets.
+Before developing a statistical model, we need to understand which environmental factors affect propagation. Multipath, clutter, and sea spikes are all induced by reflections from the sea surface while changes in the index of refraction cause electromagnetic waves to bend. We will first describe the various earth models that are used along with the propagation geometry that follows from these models. Next we will discuss refractivity and anomalous propagation before covering the reflective effects of multipath, clutter, and sea spikes. We will close this chapter with a discussion of the RCS of targets.
 
 \section{Earth Models}
 The earth can be modeled as flat to simplify calculations, as a sphere to capture horizon effects for long range propagation, or as an ellipsoid to provide additional geometric accuracy. In general, the standard model is spherical with the 4/3 earth radius approximation.
@@ -80,18 +80,18 @@ Because an electromagnetic wave consists of a finite bundle of rays rather than 
 Multipath refers to reflections from the surface of the earth resulting in many paths between the transmitter and the target. When these paths are in phase, the signal at the target is amplified. When these paths are out of phase, the signal is reduced and referred to as a multipath null.
 
 \subsection{2-Ray Model}
-The 2-Ray Model for multipath is shown in Figure \ref{env_fig:2a}, using a flat earth geometry to simplify the explanation. In this model, the two rays are the direct path from the transmitter to the target and a single multipath bounce from the surface between the transmitter and target.
+The 2-Ray Model for multipath is shown in Figure \ref{env_fig:3}, using a flat earth geometry to simplify the explanation. In this model, the two rays are the direct path from the transmitter to the target and a single multipath bounce from the surface between the transmitter and target.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=4in]{../media/multistatic/two_ray_multipath_model.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
-    \caption[Two Ray Multipath Model]{Two Ray Multipath Model\label{env_fig:2a}}
+    \caption[Two Ray Multipath Model]{Two Ray Multipath Model\label{env_fig:3}}
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-The sea surface is characterized by its dielectric constant, $\epsilon_r$ and the height variance, $\sigma_h$, and will have a reflection coefficient, $\Gamma_t$. We can characterize the multipath ray by using the image of the target.
+The sea surface is characterized by its dielectric constant, $\epsilon_r$ and the height variance, $\sigma_h$, which will result in a reflection coefficient, $\Gamma_t$. We can characterize the multipath ray by using the image of the target.
 
 Following \cite{lohrmann_rcs}, we can use superposition and express the combination of the rays as a propagation factor, $F_p$:
   \begin{equation}
@@ -99,7 +99,7 @@ Following \cite{lohrmann_rcs}, we can use superposition and express the combinat
 F_p = e^{jkr_1} + \Gamma_te^{jk\left(r_2 + r_3\right)}
 \end{equation}
 
-In both expressions, the result is dependent on the phase difference between the path distances $r_1$ and $r_2 + r_3$. This means we will have a multipath null (destructive interference) whenever $r_1 = 2m\pi(r_2 + r_3)$ and we will have a multipath peak (constructive interference) whenever $r_1 = (2m+1_\pi\lambda(r2+ r_3)$.
+In both expressions, the result is dependent on the phase difference between the path distances $r_1$ and $r_2 + r_3$. This means we will have a multipath null (destructive interference) whenever $r_1 = (2m+1)\pi(r_2 + r_3)$ and we will have a multipath peak (constructive interference) whenever $r_1 = 2m\pi\lambda(r2+ r_3)$.
 
 \subsection{Reflection Coefficient}
 From \cite{miller_reflection}, we can express the rough sea surface reflection coefficient, $\rho$, by Equation \ref{env_eq:4}. 
@@ -158,33 +158,33 @@ For traditional monostatic RADAR systems, work done by Jess Marcum and Peter Swe
 \end{center}
 \end{table}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-The Chi-squared PDF of degree $2$ covers the case with many randomly distributed small scatterers with none dominant and the Chi-squared PDF of degree $4$ covers the case with a single dominant scatterer and many small scatterers. These PDFs are shown in Figure \ref{env_fig:2}.
+The Chi-squared PDF of degree $2$ covers the case with many randomly distributed small scatterers with none dominant and the Chi-squared PDF of degree $4$ covers the case with a single dominant scatterer and many small scatterers. These PDFs are shown in Figure \ref{env_fig:3}.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=4in]{../media/multistatic/swerling_pdfs.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
-    \caption[Swerling Target Fluctuation Model PDFs]{Swerling Target Fluctuation Model PDFs\label{env_fig:2}}
+    \caption[Swerling Target Fluctuation Model PDFs]{Swerling Target Fluctuation Model PDFs\label{env_fig:3}}
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-The long decorrelation time covers the case where the target RCS can be considered constant over the time the RADAR performs a single scan and the short decorrelation time covers the case where the target RCS changes on a pulse to pulse basis. Modern RADAR systems operate in frequency agile modes where the carrier frequency is changed each pulse, in which case the decorrelation time can be considered to be short. A fluctuating signal can have a significant effect on the $P_d$, as seen in Figure \ref{env_fig:3} which shows $P_d$ as a function of SNR for the nonfluctating case and each of the $4$ Swerling cases. In this figure, we can see that using the wrong PDF can result in significantly overestimating the $P_d$.
+The long decorrelation time covers the case where the target RCS can be considered constant over the time the RADAR performs a single scan and the short decorrelation time covers the case where the target RCS changes on a pulse to pulse basis. Modern RADAR systems operate in frequency agile modes where the carrier frequency is changed each pulse, in which case the decorrelation time can be considered to be short. A fluctuating signal can have a significant effect on $P_d$, as seen in Figure \ref{env_fig:4} which shows $P_d$ as a function of SNR for the nonfluctating case and each of the $4$ Swerling cases. In this figure, we can see that using the wrong PDF can result in significantly overestimating $P_d$.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=4in]{../media/multistatic/swerling_pd.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
-    \caption[Swerling Target Fluctuation Model Probability of Detection]{Swerling Target Fluctuation Model Probability of Detection\label{env_fig:3}}
+    \caption[Swerling Target Fluctuation Model Probability of Detection]{Swerling Target Fluctuation Model Probability of Detection\label{env_fig:4}}
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Figure \ref{env_fig:3} also shows that the $P_d$ is higher with a dominant scatterer than with a collection of uniform scatterers and that it is higher for a short decorrelation time than a long decorrelation time. We can force the decorrelation time to be short by operating in a frequency agile mode, but we generally have no control over the target configuration.
+Figure \ref{env_fig:4} also shows that $P_d$ is higher with a dominant scatterer than with a collection of uniform scatterers and that it is higher for a short decorrelation time than a long decorrelation time. We can force the decorrelation time to be short by operating in a frequency agile mode, but we generally have no control over the target configuration.
 
-Modeling the RCS for a Swerling fluctuating target is straightforward. We can generate random variables following a Chi-squared distribution of degree $n$ by the sum of $n$ squared normally distributed random variables with zero mean and unit variance. The mean of the Chi-squared distribution is equal to the degree, so to force the mean to the deterministic value, we need to add this value and subtract the degree.
+Modeling the RCS for a Swerling fluctuating target is straightforward. We can generate random variables following a Chi-squared distribution of degree $n$ by the sum of $n$ squared normally distributed random variables with zero mean and unit variance. The mean of the Chi-squared distribution is equal to the degree, so to force the mean to a specified deterministic RCS mean, we need to add the deterministic mean and subtract the degree.
 
 Swerling cases 1 and 2 follow a Chi-squared distribution of degree 2. To generate a random variable, $w_{1,2}$, for our RCS, we need to generate 2 normally distributed random variables, $u_1$ and $u_2$. Then, $w_{1,2}$ is given by Equation \ref{env_eq:8}, where $\sigma$ is the deterministic RCS value.
 \begin{equation}

@@ -1,5 +1,5 @@
 \chapter{RADAR Basics}
-This chapter covers some RADAR basics, including the RADAR ranage equation, bistatic configurations, antenna beam widths and a summary of the ideas behind probability of detection.
+This chapter covers some RADAR basics, including the RADAR range equation, bistatic configurations, antenna beam widths and a summary of the ideas behind probability of detection.
 
 \section{RADAR Range Equation} 
 The RADAR range equation provides a deterministic method to calculate received signal levels and is the workhorse for analyzing RADAR system performance. This equation is the first step towards building a statistical model, as it captures the underlying physics.
@@ -18,7 +18,7 @@ The RADAR range equation is derived by assuming spherically propagating waves an
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-With spherical waves, the power is spread out over a sphere of radius equal to the slant range, $R$, which gives a scaling factor of $\left( 4\pi R^2 \right)^{-1}$ for propagation. The total projected power ($P_1$) is the transmitted power, $P_t$, multiplied by the antenna gain, $G_t$. The RADAR cross section (RCS), $\sigma$, defines the amount of power reflected, and the effective area of the antenna is $\frac{G_t\lambda^2}{4\pi}$.
+With spherical waves, the power is spread out over a sphere of radius equal to the slant range, $R$, which gives a scaling factor of $\left( 4\pi R^2 \right)^{-1}$ for propagation. The total projected power, $P_1$, is the transmitted power, $P_t$, multiplied by the antenna gain, $G_t$. The RADAR cross section (RCS), $\sigma$, defines the amount of power reflected, and the effective area of the antenna is $\frac{G_t\lambda^2}{4\pi}$.
 
 In the monostatic case, $G_t = G_r$ and the RADAR range equation is given in Equation \ref{intro_eq:1} \cite{skolnik_handbook}.
   \begin{equation}
@@ -51,7 +51,7 @@ The bistatic RADAR range equation in terms of SNR is shown in Equation \ref{intr
 \end{equation}
 
 \subsection{Propagation Factors}
-The use of a propagation factor, $F_p$, allows us to include atmospheric effects in the RADAR range equation. These effects can include absorption from atmospheric gases and weather such as rain or snow as well as rollups for the effects of multipath reflections, diffraction from the surface, and clipping by the horizon. The propagation factor is typically implemented as a multiplier to the RADAR range equation and provides another mechanism to introduce randomness. Because it encompasses a wide variety of environment conditions, it is generally complicated to compute. 
+The use of a propagation factor, $F_p$, allows us to include atmospheric effects in the RADAR range equation. These effects can include absorption from atmospheric gases and weather such as rain or snow as well as rollups for the effects of multipath reflections, diffraction from the surface, and clipping by the horizon. The propagation factor is typically implemented as a multiplier to the RADAR range equation and provides another mechanism to introduce randomness. Because they encompasses a wide variety of environment conditions, propagation factors are generally complicated to compute. 
 
 The bistatic RADAR range equation with a propagation factor included is given in Equation \ref{intro_eq:4a}.
   \begin{equation}
@@ -71,7 +71,7 @@ Because the transmitter and receiver are not colocated in a bistatic configurati
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-The isorange contours are defined as the contours where the total path length, $R_1 + R_2$ is constant . These form ellipses with the transmitter and receiver at the foci as shown in the blue and orange curves in Figure \ref{intro_fig:2}. For the monostatic case, the isorange contours are simply circles and the geometry is simplified as everything is symmetric. In the bistatic case, however, the beam width is not symmetric along the isorange contours, which results in skewing the impact of clutter.
+The isorange contours are defined as the curves where the total path length, $R_1 + R_2$, is constant . These contours form ellipses with the transmitter and receiver at the foci as shown in the blue and orange curves in Figure \ref{intro_fig:2}. For the monostatic case, the isorange contours are simply circles and the geometry is simplified as everything is symmetric. In the bistatic case, however, the beam width is not symmetric along the isorange contours, which results in skewing the impact of clutter.
 
 It is often convenient to look at things in terms of SNR. In a bistatic configuration, the loci of constant SNR are known as the ovals of Cassini \cite{willis_bistatic} and an example is shown in Figure \ref{intro_fig:3}.
 \begin{figure}[H]
@@ -131,7 +131,7 @@ The detection process can be cast as a hypothesis test where the two mutually ex
 \subsection{Threshold Testing}
 The detection processes is generally a threshold test applied to the output of a matched filter with the threshold, $\hat{T}$ tuned to achieve a specified $P_{fa}$. Matched filters match the filter impulse response to the waveform to maximize the SNR and optimize detection \cite{richards_dsp}. 
 
-The received signal consists of thermal noise, potential target returns, and potential interference signals such as clutter or jamming. Expressions for $P_d$ are complicated but well studied for the cases of standard Gaussian noise and fluctuating targets following Swerling models. As a general rule of thumb, an SNR of $13$ dB provides a $P_d$ of $\approx 0.94$ and a $P_{fa}$ of $\approx 10^{-6}$.
+The received signal consists of thermal noise, potential target returns, and potential interference signals such as clutter or jamming. Expressions for $P_d$ are complicated but well studied for the standard cases of Gaussian noise and fluctuating targets following Swerling models. As a general rule of thumb, an SNR of $13$ dB provides a $P_d$ of $\approx 0.94$ and a $P_{fa}$ of $\approx 10^{-6}$.
 
 \subsection{Processing Gains}
 To improve the overall SNR and increase the $P_d$, we can take advantage of processing gains by applying the detection strategy to groups of pulses. This is known as pulse integration and we can apply it coherently or noncoherently. We can also look at binary integration strategies where a detection is asserted for $M$ observations out of $N$ chances.
@@ -139,12 +139,12 @@ To improve the overall SNR and increase the $P_d$, we can take advantage of proc
 \subsubsection{Coherent and Noncoherent Integration}
 For coherent integration, we operate in the complex domain and add the magnitude and phase of each pulse. The number of pulses, $N$, that are combined is defined as the Coherent Processing Interval (CPI) and the overall processing gain goes as $N^2$.
 
-For noncoherent integration, we only sum the magnitudes of each pulse. We now refer to th e number of pulses combined, $N$, as the Noncoherent Processing Interval (NPI) and the overall processing gain goes as $N$. When using noncoherent integration, sometimes the NPI is still referred to as the CPI.
+For noncoherent integration, we only sum the magnitudes of each pulse. We now refer to the number of pulses combined, $N$, as the Noncoherent Processing Interval (NPI) and the overall processing gain goes as $N$. When using noncoherent integration, sometimes the NPI is still referred to as the CPI.
 
 Coherently integration $2$ pulses provides a $6$ dB processing gain while noncoherently integrating $2$ pulses only provides a $3$ dB processing gain.
 
 \subsubsection{Binary Integration}
-Binary integration relies on cumulative probability to improve $P_d$ and reduce $P_{fa}$. For the specific strategies of requiring $M$ positive hits out of $N$ observations to claim a detection, the improvement in probability is given in Equation \ref{rb_eq:2} where $P$ is the resulting $M$ of $N$ probability and $p$ is the single opportunity probability (either $P_d$ or $P_{fa}$ ). 
+Binary integration relies on cumulative probability to improve $P_d$ and reduce $P_{fa}$. For the specific strategy of requiring $M$ positive hits out of $N$ observations to claim a detection, the improvement in probability is given in Equation \ref{rb_eq:2} where $P$ is the resulting probability and $p$ is the single opportunity probability (either $P_d$ or $P_{fa}$). 
 
 \begin{equation}
 \label{rb_eq:2}
