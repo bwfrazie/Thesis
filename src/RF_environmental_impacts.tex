@@ -113,6 +113,11 @@ Figure \ref{env_fig:3t} shows an example of the propagation factor from the two 
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
+This model for multipath is generated from a flat earth geometry. We can provide a spherical earth correction by modifying the target altitude \cite{blake_radar} such that
+\begin{equation}
+  \label{env_eq:3r}
+h_t' = h+t + \frac{d}{2r_e'}
+\end{equation}
 
 \subsection{Reflection Coefficient}
 From \cite{miller_reflection}, we can express the rough sea surface reflection coefficient, $\rho$, by Equation \ref{env_eq:4}. 
