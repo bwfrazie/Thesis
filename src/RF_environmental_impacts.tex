@@ -99,7 +99,27 @@ Following \cite{lohrmann_rcs}, we can use superposition and express the combinat
 F_p = e^{jkr_1} + \Gamma_te^{jk\left(r_2 + r_3\right)}
 \end{equation}
 
-In both expressions, the result is dependent on the phase difference between the path distances $r_1$ and $r_2 + r_3$. This means we will have a multipath null (destructive interference) whenever $r_1 = (2m+1)\pi(r_2 + r_3)$ and we will have a multipath peak (constructive interference) whenever $r_1 = 2m\pi\lambda(r2+ r_3)$.
+In both expressions, the result is dependent on the phase difference between the path distances $r_1$ and $r_2 + r_3$. This means we will have a multipath null (destructive interference) whenever $k\left(r_1 - r_2 - r_3\right) = (2m + 1)\pi$ and we will have a multipath peak (constructive interference) whenever $k\left(r_1 - r_2 - r_3\right) = 2m\pi$. From geometry, we can see that $r_1 = \sqrt{d^2 + (h-h_t)^2}$ and $r_2 + r_3 = \sqrt{d^2 + (h+h_t)^2}$
+
+This model for multipath is generated from a flat earth geometry. We can provide a spherical earth correction by modifying the target altitude \cite{blake_radar} such that
+\begin{equation}
+  \label{env_eq:3r}
+h_t' = h_t + \frac{d}{2r_e'}
+\end{equation}
+
+Figure \ref{env_fig:3t} shows an example of the propagation factor from the two ray multipath model with the spherical earth correction applied. Here $h = 15m$, $h_t = 15m$, $f = 35$ GHz, and $\Gamma_t = 1$. 
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=4in]{../media/multistatic/two_ray_multipath_results.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Two Ray Multipath Model Results]{Two Ray Multipath Model Results\label{env_fig:3t}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+
 
 \subsection{Reflection Coefficient}
 From \cite{miller_reflection}, we can express the rough sea surface reflection coefficient, $\rho$, by Equation \ref{env_eq:4}. 
