@@ -32,7 +32,7 @@ for counter = 1:length(fileList)
      dataCounter = 1;
     for aCounter = 1:length(tAlt)
         for rCounter = 1:length(tRange)
-            fdBAvg(counter,dataCounter) = 10*log10(interpolate2DData(Out.f,Out.h,Out.r,tAlt(aCounter),tRange(rCounter)));
+            fAvg(counter,dataCounter) = interpolate2DData(Out.f,Out.h,Out.r,tAlt(aCounter),tRange(rCounter));
             dataCounter = dataCounter + 1;
 
         end
