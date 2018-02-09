@@ -2,7 +2,7 @@ function runTEMPER()
 
 %set the path to TEMPER and the current path
 temper = '/Users/frazibw1/APL/TEMPER/temper/bin/mac64/temper.bin';
-temper = '/Users/benjaminfrazier/Projects/TEMPER/temper/bin/mac64/temper.bin';
+%temper = '/Users/benjaminfrazier/Projects/TEMPER/temper/bin/mac64/temper.bin';
 currentPath = pwd;
 
 %get the base path for the Input files
@@ -35,6 +35,9 @@ currentPath = pwd;
 wsInputFileName = sprintf('%s/TEMPER_Inputs/%s',inputPath,'osgInputFile.osgin');
 copyfile(wsInputFileName,currentPath);
 
+%surfacefile
+srfInputFileName = sprintf('%s/TEMPER_Inputs/%s',inputPath,'surfaceinput.srf');
+
 %antenna pattern file
 patInputFileName = sprintf('%s/TEMPER_Inputs/%s',inputPath,'Sector.pat');
 copyfile(patInputFileName,currentPath);
@@ -43,22 +46,37 @@ copyfile(patInputFileName,currentPath);
 refInputFileName = sprintf('%s/TEMPER_Inputs/%s',inputPath,'stdatm.ref');
 copyfile(refInputFileName,currentPath);
 
-
 baseFileName = sprintf('%s/TEMPER_Inputs/%s',inputPath,'base_20km_1d_10m_s.in');
 
 %setup the file prefix and the initial seed
 filePrefix = '20km_1d_10mps';
 initialSeed = 561894;
 
-numIterations = 100;
+numIterations = 1;
+L = 10000;
+N = 20000;
+U10 = 10;
+age = 0.84;
 
 %loop over the requested number of iterations
 for runNumber = 1:numIterations
+    %get the sea surface;
+    [h, k, S, V, x, kp, lambda_p] = generateSeaSurface(L, N, U10, age);
+    %write out the surface data
+    copyfile(srfInputFileName,currentPath);
+    fid = fopen('surfaceinput.srf','a');
+    fprintf(fid,'\n');
+    for i = 1:length(h)
+        fprintf(fid,'%d %d 0 0 0\n',x(i),h(i));
+    end
+    fclose(fid)
 
     %create the new input file
     inputFileName = sprintf('%s_run%d.in',filePrefix,runNumber);
     copyfile(baseFileName,inputFileName);
 
+%     getset_temper_input(inputFileName,'set','srfFile',srfInputFileName);
+    
     %get the new seed and update the file
     newSeed = round(initialSeed*rand(1));
     getset_temper_input(inputFileName,'set','osgSeed',newSeed);
