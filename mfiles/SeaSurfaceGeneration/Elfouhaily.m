@@ -1,4 +1,4 @@
-function S= Elfouhaily(k,U10,age)
+function [S,kp]= Elfouhaily(k,U10,age)
 %S = Elfouhaily(k,U10,age)
 
 %constants
