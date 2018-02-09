@@ -1,0 +1,4 @@
+TEMPER surface parameter file: Base file for surface generation
+0    : Range and height units [0=ft/nmi|1=m/km]
+0    : Ground parameter units [0=perm/cond|1=Re{eps}/Im{eps}]
+range, height, [relative permitivity, conductivity, rms roughness]
