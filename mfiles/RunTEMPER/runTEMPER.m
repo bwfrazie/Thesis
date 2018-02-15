@@ -1,4 +1,4 @@
-function runTEMPER()
+function runTEMPER(varargin)
 
 %set the path to TEMPER and the current path
 temper = '/Users/frazibw1/APL/TEMPER/temper/bin/mac64/temper.bin';
@@ -59,6 +59,8 @@ L = 10000;
 N = 20000;
 U10 = 10;
 age = 0.84;
+
+rng(initialSeed)
 
 %loop over the requested number of iterations
 for runNumber = 1:numIterations
