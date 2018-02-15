@@ -16,7 +16,7 @@ while(~status)
     
     if(counter > 4)
         status = 1;
-        error('Cannot find TEMPER_Inputs file');
+        error('Cannot find TEMPER_Inputs directory');
     end
 end
 
@@ -25,15 +25,18 @@ inputPath = pwd;
 cd(currentPath);
 
 %make a local "data" directory and go to it
-mkdir('data');
+if ~exist('data','dir')
+    mkdir('data');
+end
 cd('data');
 
 %update the current path
 currentPath = pwd;
 
 %handle copying the input files - need the base input and OSG files
-wsInputFileName = sprintf('%s/TEMPER_Inputs/%s',inputPath,'osgInputFile.osgin');
-copyfile(wsInputFileName,currentPath);
+%only needed if testing with TEMPER's OSG mode
+% wsInputFileName = sprintf('%s/TEMPER_Inputs/%s',inputPath,'osgInputFile.osgin');
+% copyfile(wsInputFileName,currentPath);
 
 %surfacefile
 srfInputFileName = sprintf('%s/TEMPER_Inputs/%s',inputPath,'surfaceinput.srf');
@@ -61,25 +64,26 @@ age = 0.84;
 %loop over the requested number of iterations
 for runNumber = 1:numIterations
     %get the sea surface;
-    [h, k, S, V, x, kp, lambda_p] = generateSeaSurface(L, N, U10, age);
+    [h,~, ~, ~, x, ~, ~] = generateSeaSurface(L, N, U10, age);
+    
     %write out the surface data
     copyfile(srfInputFileName,currentPath);
     fid = fopen('surfaceinput.srf','a');
     fprintf(fid,'\n');
     for i = 1:length(h)
-        fprintf(fid,'%d %d 0 0 0\n',x(i),h(i));
+        %need range in km and altitude in m
+        fprintf(fid,'%f %f 0 0 0\n',x(i)/1000,h(i));
     end
     fclose(fid)
 
     %create the new input file
     inputFileName = sprintf('%s_run%d.in',filePrefix,runNumber);
     copyfile(baseFileName,inputFileName);
-
-%     getset_temper_input(inputFileName,'set','srfFile',srfInputFileName);
     
     %get the new seed and update the file
-    newSeed = round(initialSeed*rand(1));
-    getset_temper_input(inputFileName,'set','osgSeed',newSeed);
+    %only needed if testing with TEMPER's OSG mode
+%     newSeed = round(initialSeed*rand(1));
+%     getset_temper_input(inputFileName,'set','osgSeed',newSeed);
 
     %set the command string and run the TEMPER case
     commandString = sprintf('%s %s',temper, inputFileName);

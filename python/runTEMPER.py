@@ -28,7 +28,8 @@ def main():
 	filePrefix = "20km_1d_5mps"
 
 	initialSeed = 56182189;
-	temper = "/Users/benjaminfrazier/Projects/TEMPER/temper/bin/mac64/temper.bin"
+	#temper = "/Users/benjaminfrazier/Projects/TEMPER/temper/bin/mac64/temper.bin"
+	temper = "/Users/frazibw1/APL/TEMPER/temper/bin/mac64/temper.bin"
 
 	fname = "osgInputFile5.osgin"
 	src = inputFolder + "/" + fname
@@ -53,7 +54,7 @@ def main():
 	os.chdir("data")
 	
 	#start loop
-	for runNumber in range(2,101):
+	for runNumber in range(2,502):
 		newFilename = filePrefix + "_run_" + str(runNumber) + ".in"
 	
 		newSeed = int(initialSeed * random.random())

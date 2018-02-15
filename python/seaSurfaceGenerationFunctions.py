@@ -18,13 +18,16 @@ def Elfouhaily(kin, U10, age):
 		alpham = 0.01*(1 + np.log(ustar/cm))
 	else:
 		alpham = 0.01*(1 + 3*np.log(ustar/cm))
+		
+		print"here"
 
 	if (age <= 1):
 		gamma = 1.7
 	else:
 		gamma = 1.7 + 6*np.log(age)
 
-	S = np.ndarray((len(kin)+1,),float)
+	print gamma
+	S = np.empty([len(kin)+1,1],float)
 	for ind in range(0,len(kin)):
 		k = kin[ind]
 		c = np.sqrt((g/k)*(1 + (k/km)**2)) #wave phase speed
@@ -35,5 +38,10 @@ def Elfouhaily(kin, U10, age):
 		Fm = Lpm*Jp*np.exp(-0.25*(k/km - 1)**2) #short-wave side effect function
 		Bl = 0.5*alphap*(cp/c)*Fp
 		Bh = 0.5*alpham*(cm/c)*Fm
+		print ind
+		print Bl
+		print Bh
+		print k
 		S[ind] = (Bl + Bh)/(k**3);
+		print S[ind]
 	return S

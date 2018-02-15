@@ -6,11 +6,11 @@ if(nargin == 1)
     saveFigs = varargin{1};
 end
 
-f = 35e9;
+f = 10e9;
 lambda = 3e8/f;
 
 
-D = 10.19*lambda;
+D = 0.2;%7.5*lambda;
 r = 10000;
 l = lambda;
 theta = linspace(-pi/4,pi/4,1000);
