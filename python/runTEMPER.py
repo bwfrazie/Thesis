@@ -1,5 +1,6 @@
 import os
 import random
+import numpy as np
 from shutil import copyfile
 from subprocess import call
 from generateSeaSurface import generateSeaSurface
@@ -28,6 +29,8 @@ def main():
 	N = 20000;
 	U10 = 10;
 	age = 0.84;
+	initialSeed = 561894;
+	np.random.seed(initialSeed);
 
 	inputFolder = "../TEMPER_Inputs"
 	dataFolder = "data"
@@ -73,10 +76,10 @@ def main():
 	
 	#start loop
 	for runNumber in range(0,numIterations):
-		pString = "Run " + str(runNumber) + " of " + str(numIterations)
-		print pString
 	    h,x = generateSeaSurface(L, N, U10, age)
 	    updateSurfaceFile(srfInputFileName,x,h)
+	    pString = "Run " + str(runNumber) + " of " + str(numIterations)
+	    print pString
 	    
 	    newFilename = filePrefix + "_run_" + str(runNumber) + ".in"
 	    
