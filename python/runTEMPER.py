@@ -1,10 +1,12 @@
 import os
+import sys
 import random
 import numpy as np
 from shutil import copyfile
 from subprocess import call
 from generateSeaSurface import generateSeaSurface
 
+#this function updates the OSG random seed
 def check(oldname,newname,newSeed):
     oldfile = open(oldname,'r')
     newfile = open(newname,'w')
@@ -16,21 +18,54 @@ def check(oldname,newname,newSeed):
         else:
         	newfile.write(line)
 
-def updateSurfaceFile(srfName,x,h):
+#this function handles writing out the new surface file
+#Currently, the main input file is not modified and always looks for the same file name
+#Need to write the surfaces out twice - once for the file used by TEMPER, and once for a
+#file that is updated so that we have a record of the generated surfaces
+def updateSurfaceFile(srfName,newSrfName,x,h):
+	copyfile(srfName,newSrfName);
 	srfFile = open(srfName,'a')
+	srfFile2 = open(newSrfName,'a')
 	srfFile.write("\n")
 	for i in range(0,len(x)):
 		srfString = str(x[i]/1000) + "  " + str(h[i]) + "    0 0 0\n"
 		srfFile.write(srfString)
-            
+		srfFile2.write(srfString)
+		
+	srfFile.close()
+	srfFile2.close()
+
+#main function          
 def main():
 
+#setup default parameters
 	numIterations = 25;
 	L = 10000;
 	N = 20000;
 	U10 = 10;
 	age = 0.84;
 	initialSeed = 561894;
+	
+	nargs = len(sys.argv) - 1;
+	
+	if nargs > 0:
+		L = int(sys.argv[1]);
+	if nargs > 1:
+		N = int(sys.argv[2]);
+	if nargs > 2:
+		U10 = float(sys.argv[3])
+	if nargs > 3:
+		age = float(sys.argv[4])
+	if nargs > 4:
+		numIterations = int(sys.argv[5])
+	if nargs > 5:
+		initialSeed = long(sys.argv[6])
+		
+	printString = "Settings: \nL = " + str(L) + "\nN = " + str(N) + "\nU10 = " + str(U10) + "\nage = " + str(age) + "\nnumIterations = " + str(numIterations) + "\ninitialSeed = " + str(initialSeed) + "\n"
+	
+	print printString
+	
+	#initialize the random number generator
 	np.random.seed(initialSeed);
 
 	inputFolder = "../TEMPER_Inputs"
@@ -78,7 +113,8 @@ def main():
 	#start loop
 	for runNumber in range(0,numIterations):
 	    h,x = generateSeaSurface(L, N, U10, age)
-	    updateSurfaceFile(srfInputFileName,x,h)
+	    newSrfName = filePrefix + "_run_" + str(runNumber) + ".srf"
+	    updateSurfaceFile(srfInputFileName,newSrfName,x,h)
 	    pString = "Run " + str(runNumber) + " of " + str(numIterations)
 	    print pString
 	    
