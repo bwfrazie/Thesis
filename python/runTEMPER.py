@@ -2,6 +2,7 @@ import os
 import random
 from shutil import copyfile
 from subprocess import call
+from generateSeaSurface import generateSeaSurface
 
 def check(oldname,newname,newSeed):
     oldfile = open(oldname,'r')
@@ -14,8 +15,20 @@ def check(oldname,newname,newSeed):
         else:
         	newfile.write(line)
 
+def updateSurfaceFile(srfName,x,h):
+	srfFile = open(srfName,'a')
+	for i in range(0,len(x)):
+		srfString = str(x[i]/1000) + "  " + str(h[i]) + "    0 0 0\n"
+		srfFile.write(srfString)
             
 def main():
+
+	numIterations = 1;
+	L = 10000;
+	N = 20000;
+	U10 = 10;
+	age = 0.84;
+
 	inputFolder = "../TEMPER_Inputs"
 	dataFolder = "data"
 	datapath = os.getcwd() + "/" + dataFolder
@@ -45,6 +58,11 @@ def main():
 	src = inputFolder + "/" + fname
 	dst = dataFolder + "/"  + fname
 	copyfile(src,dst);
+	
+	srfInputFileName = "surfaceinput.srf";
+	src = inputFolder + "/" + srfInputFileName
+	dst = dataFolder + "/"  + srfInputFileName
+	copyfile(src,dst);
 
 	inputFilename = "base_20km_1d_10m_s.in"
 	src = inputFolder + "/" + inputFilename
@@ -54,13 +72,16 @@ def main():
 	os.chdir("data")
 	
 	#start loop
-	for runNumber in range(2,502):
-		newFilename = filePrefix + "_run_" + str(runNumber) + ".in"
+	for runNumber in range(0,numIterations):
 	
-		newSeed = int(initialSeed * random.random())
-		check(inputFilename,newFilename,newSeed)
-
-		call([temper,newFilename])
+	    h,x = generateSeaSurface(L, N, U10, age)
+	    updateSurfaceFile(srfInputFileName,x,h)
+	    
+	    newFilename = filePrefix + "_run_" + str(runNumber) + ".in"
+	    
+	    newSeed = int(initialSeed * random.random())
+	    check(inputFilename,newFilename,newSeed)
+	    call([temper,newFilename])
 	
 	#end loop
 if __name__ == "__main__": main()

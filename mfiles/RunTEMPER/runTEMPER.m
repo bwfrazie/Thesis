@@ -25,9 +25,8 @@ inputPath = pwd;
 cd(currentPath);
 
 %make a local "data" directory and go to it
-if ~exist('data','dir')
-    mkdir('data');
-end
+mkdir('data');
+
 cd('data');
 
 %update the current path
@@ -55,7 +54,7 @@ baseFileName = sprintf('%s/TEMPER_Inputs/%s',inputPath,'base_20km_1d_10m_s.in');
 filePrefix = '20km_1d_10mps';
 initialSeed = 561894;
 
-numIterations = 1;
+numIterations = 50;
 L = 10000;
 N = 20000;
 U10 = 10;
@@ -63,18 +62,26 @@ age = 0.84;
 
 %loop over the requested number of iterations
 for runNumber = 1:numIterations
+    dispstring = sprintf('Run %d of %d ...',runNumber,numIterations);
+    disp(dispstring);
     %get the sea surface;
     [h,~, ~, ~, x, ~, ~] = generateSeaSurface(L, N, U10, age);
     
     %write out the surface data
     copyfile(srfInputFileName,currentPath);
     fid = fopen('surfaceinput.srf','a');
+    srfName = sprintf('%s_run%d.srf',filePrefix,runNumber);
+    copyfile('surfaceinput.srf',srfName);
+    fid1 = fopen(srfName);
     fprintf(fid,'\n');
+    
     for i = 1:length(h)
         %need range in km and altitude in m
         fprintf(fid,'%f %f 0 0 0\n',x(i)/1000,h(i));
+        fprintf(fid1,'%f %f 0 0 0\n',x(i)/1000,h(i));
     end
-    fclose(fid)
+    fclose(fid);
+    fclose(fid1);
 
     %create the new input file
     inputFileName = sprintf('%s_run%d.in',filePrefix,runNumber);
@@ -86,6 +93,6 @@ for runNumber = 1:numIterations
 %     getset_temper_input(inputFileName,'set','osgSeed',newSeed);
 
     %set the command string and run the TEMPER case
-    commandString = sprintf('%s %s',temper, inputFileName);
+    commandString = sprintf('%s %s -b -q',temper, inputFileName);
     system(commandString);
 end

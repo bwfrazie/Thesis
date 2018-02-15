@@ -1,7 +1,11 @@
 function [h, k, S, V, x, kp, lambda_p] = generateSeaSurface(L, N, U10, age, varargin)
 %[h, k, S, V, x, kp, lambda_p] = generateSeaSurface(L, N, U10, age)
+%[h, k, S, V, x, kp, lambda_p] = generateSeaSurface(L, N, U10, age,seed)
 
-if (nargin == 5)
+linearCutOff = 0.5;
+useFilter = false;
+
+if (nargin >= 5)
    seed = varargin{1};
    if (seed > 0)
        rng(seed)
@@ -17,12 +21,14 @@ k = (0:N/2)*dk;
 lambda_p = 2*pi/kp;
 S(1) = 0;
 
-%apply the filter
-Spindex = find(S == max(S));
-S1index = find(S >= 0.5*max(S),1);
-S2index = Spindex + find(S(Spindex:end) <= 0.5*max(S),1);
-S(1:S1index-1) = 0;
-S(S2index+1:end) = 0;
+if useFilter == true
+    %apply the filter
+    Spindex = find(S == max(S));
+    S1index = find(S >= linearCutOff*max(S),1);
+    S2index = Spindex + find(S(Spindex:end) <= linearCutOff*max(S),1);
+    S(1:S1index-1) = 0;
+    S(S2index+1:end) = 0;
+end
 
 %create the random variables
 

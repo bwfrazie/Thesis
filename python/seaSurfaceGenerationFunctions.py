@@ -18,16 +18,13 @@ def Elfouhaily(kin, U10, age):
 		alpham = 0.01*(1 + np.log(ustar/cm))
 	else:
 		alpham = 0.01*(1 + 3*np.log(ustar/cm))
-		
-		print"here"
 
 	if (age <= 1):
 		gamma = 1.7
 	else:
 		gamma = 1.7 + 6*np.log(age)
 
-	print gamma
-	S = np.empty([len(kin)+1,1],float)
+	S = np.zeros([len(kin)+1,1],float)
 	for ind in range(0,len(kin)):
 		k = kin[ind]
 		c = np.sqrt((g/k)*(1 + (k/km)**2)) #wave phase speed
@@ -38,10 +35,24 @@ def Elfouhaily(kin, U10, age):
 		Fm = Lpm*Jp*np.exp(-0.25*(k/km - 1)**2) #short-wave side effect function
 		Bl = 0.5*alphap*(cp/c)*Fp
 		Bh = 0.5*alpham*(cm/c)*Fm
-		print ind
-		print Bl
-		print Bh
-		print k
 		S[ind] = (Bl + Bh)/(k**3);
-		print S[ind]
+
 	return S
+	
+def computeRandomSpectrum(N,S,dk):
+		V = np.zeros(N,complex)
+
+		w = np.random.normal(0,1,N/2)
+		u = np.random.normal(0,1,N/2)
+
+		V[0] = np.sqrt(S[0]*dk)*w[0]
+
+		for i in range(1,N/2):
+			V[i] = 0.5*np.complex(np.sqrt(S[i]*dk),0)*(w[i] + 1j*u[i]);
+
+		V[N/2] = np.sqrt(S[N/2]*dk)*u[0]
+
+		for i in range(N/2+1, N):
+			V[i] = np.conj(V[N-i]);
+			
+		return V

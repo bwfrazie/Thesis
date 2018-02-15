@@ -4,7 +4,7 @@ TEMPER v3.2 Test Input
 1             Units [0=ft & nmi|1=m & km]
 0             Protect old output files? [0=no|1=yes]
 ****  System Parameters  ********************************************************
-10e+09         Frequency [Hz]
+35e+09         Frequency [Hz]
 10            Antenna height [ft|m]
 1             Source flag [0=Sinc|1=User Sym|2=User Antisym|3=Plane|4=User Asym]
 3           Antenna pattern FWHM (3 dB) beamwidth [deg] (for pat flag 0)
@@ -23,7 +23,7 @@ Sector.pat
 0             Earth geometry [0=spherical|1=flat]
 0             Calculation altitude ("Min required max alt.") [ft|m] (0.0 = auto)
 0.05          Maximum altitude increment [ft|m] (0.0 = auto)
-20            Maximum problem range [nmi|km]
+10            Maximum problem range [nmi|km]
 0.0005        Range increment [nmi|km]
 2             Rough surf [-1=angles|0=no|1=const|2=from .srf|3=OSG|4=OSG+const]
 0             Rms surface roughness [ft|m] (for rough surf = 1 or 4)
