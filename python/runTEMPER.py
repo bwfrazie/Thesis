@@ -18,6 +18,7 @@ def check(oldname,newname,newSeed):
 
 def updateSurfaceFile(srfName,x,h):
 	srfFile = open(srfName,'a')
+	srfFile.write("\n")
 	for i in range(0,len(x)):
 		srfString = str(x[i]/1000) + "  " + str(h[i]) + "    0 0 0\n"
 		srfFile.write(srfString)
@@ -39,7 +40,7 @@ def main():
 	if not os.path.exists(dataDir):
 		os.mkdir(dataDir)
 
-	call(["ls", "../TEMPER_Inputs/"])
+	#call(["ls", "../TEMPER_Inputs/"])
 	dst = os.getcwd()
 	filePrefix = "20km_1d_5mps"
 
@@ -82,9 +83,10 @@ def main():
 	    print pString
 	    
 	    newFilename = filePrefix + "_run_" + str(runNumber) + ".in"
-	    
-	    newSeed = int(initialSeed * random.random())
-	    check(inputFilename,newFilename,newSeed)
+	    print newFilename
+	    copyfile(inputFilename,newFilename);
+	    #newSeed = int(initialSeed * random.random())
+	   # check(inputFilename,newFilename,newSeed)
 	    call([temper,newFilename,"-b", "-q"])
 	
 	#end loop
