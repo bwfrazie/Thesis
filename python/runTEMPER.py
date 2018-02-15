@@ -23,7 +23,7 @@ def updateSurfaceFile(srfName,x,h):
             
 def main():
 
-	numIterations = 1;
+	numIterations = 25;
 	L = 10000;
 	N = 20000;
 	U10 = 10;
@@ -73,7 +73,8 @@ def main():
 	
 	#start loop
 	for runNumber in range(0,numIterations):
-	
+		pString = "Run " + str(runNumber) + " of " + str(numIterations)
+		print pString
 	    h,x = generateSeaSurface(L, N, U10, age)
 	    updateSurfaceFile(srfInputFileName,x,h)
 	    
@@ -81,7 +82,7 @@ def main():
 	    
 	    newSeed = int(initialSeed * random.random())
 	    check(inputFilename,newFilename,newSeed)
-	    call([temper,newFilename])
+	    call([temper,newFilename,"-b", "-q"])
 	
 	#end loop
 if __name__ == "__main__": main()
