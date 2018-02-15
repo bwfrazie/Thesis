@@ -1,8 +1,8 @@
-%function getStatisticsFromFieldFiles(varargin)
+function fData = getStatisticsFromFieldFiles(varargin)
 dataPath = pwd;
 
 tAlt = [5 10 15 18];
-tRange = [5 10 15 20];
+tRange = [5 10];
 
 %go to the dataPath directory
 cd(dataPath);
@@ -24,6 +24,8 @@ end
 
 dataCounter = 1;
 
+fData.tRange = tRange;
+fData.tAlt = tAlt;
 %loop over the list and read the data
 for counter = 1:length(fileList)
     dispstring = sprintf('Loading file %d of %d',counter,length(fileList));
@@ -39,3 +41,5 @@ for counter = 1:length(fileList)
     end
     
 end
+
+fData.fAvg = fAvg;
