@@ -17,7 +17,7 @@ end
 dk = 2*pi/L;
 k = (0:N/2)*dk;
 
-[S,kp] = Elfouhaily(k,U10,age);
+[S,kp] = Elfouhaily(k,U10,age,0);%-0.0831);
 lambda_p = 2*pi/kp;
 S(1) = 0;
 

@@ -1,10 +1,12 @@
 import os
 import sys
 import random
+import re
 import numpy as np
 from shutil import copyfile
 from subprocess import call
 from generateSeaSurface import generateSeaSurface
+from multiprocessing import Process, Queue
 
 #this function updates the OSG random seed
 def check(oldname,newname,newSeed):
@@ -19,32 +21,87 @@ def check(oldname,newname,newSeed):
         	newfile.write(line)
 
 #this function handles writing out the new surface file
-#Currently, the main input file is not modified and always looks for the same file name
-#Need to write the surfaces out twice - once for the file used by TEMPER, and once for a
-#file that is updated so that we have a record of the generated surfaces
-def updateSurfaceFile(srfName,newSrfName,x,h):
+def updateSurfaceFile(srfName,newSrfName,x,h,inputFilename,newFilename):
 	copyfile(srfName,newSrfName);
-	srfFile = open(srfName,'a')
-	srfFile2 = open(newSrfName,'a')
+	srfFile = open(newSrfName,'a')
 	srfFile.write("\n")
 	for i in range(0,len(x)):
 		srfString = str(x[i]/1000) + "  " + str(h[i]) + "    0 0 0\n"
 		srfFile.write(srfString)
-		srfFile2.write(srfString)
-		
 	srfFile.close()
-	srfFile2.close()
+	
+	oldfile = open(inputFilename,'r')
+	newfile = open(newFilename,'w')
+	testLine = "Surface param file (200 char max) (ter type 1,2,3; surf type 3; rough surf 2):"
+	newLine = newSrfName + "\n"
+	updateLine = False
+	for line in oldfile:
+		if testLine in line:
+			newfile.write(line)
+			updateLine = True
+		elif updateLine == True:
+			updateLine = False;
+			newfile.write(newLine)
+		else:
+			newfile.write(line)
+	
 
+def runProcess(L,N,U10,age,filePrefix,start,stop,inputFilename,srfInputFileName,initialSeed,id):
+	#initialize the random number generator
+	np.random.seed(initialSeed);
+	temper = "/Users/benjaminfrazier/Projects/TEMPER/temper/bin/mac64/temper.bin"
+	#temper = "/Users/frazibw1/APL/TEMPER/temper/bin/mac64/temper.bin"
+	numIterations = stop - start
+	for runNumber in range(start,stop):
+		newFilename = filePrefix + "_run_" + str(runNumber) + ".in"
+		copyfile(inputFilename,newFilename);
+		h,x = generateSeaSurface(L, N, U10, age)
+		newSrfName = filePrefix + "_run_" + str(runNumber) + ".srf"
+		updateSurfaceFile(srfInputFileName,newSrfName,x,h,inputFilename,newFilename)
+		pString = "Process " + str(id) + " Run " + str(runNumber + 1 - start) + " of " + str(numIterations)
+		print pString
+		#call([temper,newFilename,"-b", "-q"])
+	    #newSeed = int(initialSeed * random.random())
+	    #check(inputFilename,newFilename,newSeed)	    
+
+def computeAngles(tx,tgt,rx1,rx2,d1,d2,d3):
+	theta1 = np.arctan2(tgt[2] - tx[2],tgt[1] - tx[1])
+	N2 = 2*d2
+	N3 = 2*d3
+	theta2 = np.zeros(N2)
+	theta3 = np.zeros(N3)
+	
+	path2 = rx1 - tgt
+	v2 = path2/np.linalg.norm(path2)
+	for i in range(0,N2):
+		p2 = tgt + i*0.5*v2
+		theta2[i] = np.arctan2(p2[2] - tx[2],p2[1] - tx[1]);
+
+	
+	path3 = rx2 - tgt;
+	v3 = path3/np.linalg.norm(path3);
+	for i in range(0,N3):
+		p3 = tgt + i*0.5*v3
+		theta3[i] = np.arctan2(p3[2] - tx[2],p3[1] - tx[1]);
+    
+	print "Angles"	
+	print theta1*180/np.pi
+	print theta2[0]*180/np.pi
+	print theta2[29999]*180/np.pi
+	print theta3[0]*180/np.pi
+	print theta3[29999]*180/np.pi
+    
+	return theta1,theta2,theta3
+		    
 #main function          
 def main():
 
 #setup default parameters
-	numIterations = 25;
+	numIterations = 3;
 	L = 10000;
 	N = 20000;
 	U10 = 10;
 	age = 0.84;
-	initialSeed = 561894;
 	
 	nargs = len(sys.argv) - 1;
 	
@@ -58,15 +115,20 @@ def main():
 		age = float(sys.argv[4])
 	if nargs > 4:
 		numIterations = int(sys.argv[5])
-	if nargs > 5:
-		initialSeed = long(sys.argv[6])
 		
-	printString = "Settings: \nL = " + str(L) + "\nN = " + str(N) + "\nU10 = " + str(U10) + "\nage = " + str(age) + "\nnumIterations = " + str(numIterations) + "\ninitialSeed = " + str(initialSeed) + "\n"
+	printString = "Settings: \nL = " + str(L) + "\nN = " + str(N) + "\nU10 = " + str(U10) + "\nage = " + str(age) + "\nnumIterations = " + str(numIterations) + "\n"
 	
 	print printString
 	
-	#initialize the random number generator
-	np.random.seed(initialSeed);
+	tx = np.array([0, 0, 50]);
+	tgt = np.array([24000, -2000, 30]);
+	rx1 = np.array([16000, 9000, 10]);
+	rx2 = np.array([26000, 8000, 10]);
+	d1 = 25000
+	d2 = 15000
+	d3 = 15000
+	
+	theta1,theta2,theta3 = computeAngles(tx,tgt,rx1,rx2,d1,d2,d3)
 
 	inputFolder = "../TEMPER_Inputs"
 	dataFolder = "data"
@@ -78,10 +140,6 @@ def main():
 	#call(["ls", "../TEMPER_Inputs/"])
 	dst = os.getcwd()
 	filePrefix = "20km_1d_5mps"
-
-	initialSeed = 56182189;
-	#temper = "/Users/benjaminfrazier/Projects/TEMPER/temper/bin/mac64/temper.bin"
-	temper = "/Users/frazibw1/APL/TEMPER/temper/bin/mac64/temper.bin"
 
 	fname = "osgInputFile5.osgin"
 	src = inputFolder + "/" + fname
@@ -110,20 +168,27 @@ def main():
 
 	os.chdir("data")
 	
+	#set up the multiple processes
+	nPerProcess = int(numIterations/3);
+	start1 = 0;
+	stop1 = nPerProcess;
+	start2 = stop1;
+	stop2 = start2 + nPerProcess;
+	start3 = stop2;
+	stop3 = numIterations;
+	
+	seed1 = 561894;
+	seed2 = 785623
+	seed3 = 452352
 	#start loop
-	for runNumber in range(0,numIterations):
-	    h,x = generateSeaSurface(L, N, U10, age)
-	    newSrfName = filePrefix + "_run_" + str(runNumber) + ".srf"
-	    updateSurfaceFile(srfInputFileName,newSrfName,x,h)
-	    pString = "Run " + str(runNumber) + " of " + str(numIterations)
-	    print pString
-	    
-	    newFilename = filePrefix + "_run_" + str(runNumber) + ".in"
-	    print newFilename
-	    copyfile(inputFilename,newFilename);
-	    #newSeed = int(initialSeed * random.random())
-	   # check(inputFilename,newFilename,newSeed)
-	    call([temper,newFilename,"-b", "-q"])
+	p1 = Process(target = runProcess, args =(L,N,U10,age,filePrefix,start1,stop1,inputFilename,srfInputFileName,seed1,1));
+	p2 = Process(target = runProcess, args =(L,N,U10,age,filePrefix,start2,stop2,inputFilename,srfInputFileName,seed2,2));
+	p3 = Process(target = runProcess, args =(L,N,U10,age,filePrefix,start3,stop3,inputFilename,srfInputFileName,seed3,3));
+	
+	p1.start()
+	p2.start()
+	p3.start()
+	
 	
 	#end loop
 if __name__ == "__main__": main()

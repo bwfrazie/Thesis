@@ -1,6 +1,9 @@
-function [S,kp]= Elfouhaily(k,U10,age)
+function [S,kp, PSI]= Elfouhaily(k,U10,age,varargin)
 %S = Elfouhaily(k,U10,age)
-
+phi = 0;
+if nargin == 4
+    phi = varargin{1}
+end
 %constants
 g = 9.81; %gravity acceleration
 Cd10N = 0.00144; %drag coefficient
@@ -35,3 +38,12 @@ Bl = 0.5*alphap*(cp./c).*Fp;
 Bh = 0.5*alpham*(cm./c).*Fm;
 
 S = (Bl + Bh)./(k.^3);
+
+%% compute the spreading function
+a0 = log(2)/2;
+ap = 4;
+am = 0.13*ustar/cm;
+
+Delk = tanh(a0 + ap*(c/cp).^(2.5) + am*(cm./c).^(2.5));
+% PSI = 1*S.*1./k.*1/(2*pi).*(1 + Delk.*cos(2*phi));
+PSI = 1*S.*1/(2).*(1 + Delk.*cos(2*phi));
