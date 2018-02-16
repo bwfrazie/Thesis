@@ -1,14 +1,14 @@
 import numpy as np
 from seaSurfaceGenerationFunctions import *
 
-def generateSeaSurface(L,N,U10,age):
+def generateSeaSurface(L,N,U10,age,phi):
 
 	dk = 2*np.pi/L;
 
 	k = np.arange(dk,N/2);
 	k = k*dk;
 
-	S = Elfouhaily(k,U10,age);
+	S = Elfouhaily(k,U10,age,phi);
 	
 	S[0] = 0;
 	

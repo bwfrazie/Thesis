@@ -1,6 +1,6 @@
 import numpy as np
 
-def Elfouhaily(kin, U10, age):
+def Elfouhaily(kin, U10, age,phi):
 	
 	#constants
 	g = 9.81; #gravity acceleration
@@ -24,7 +24,7 @@ def Elfouhaily(kin, U10, age):
 	else:
 		gamma = 1.7 + 6*np.log(age)
 
-	S = np.zeros([len(kin)+1,1],float)
+	S = np.zeros(len(kin)+1,float)
 	for ind in range(0,len(kin)):
 		k = kin[ind]
 		c = np.sqrt((g/k)*(1 + (k/km)**2)) #wave phase speed
@@ -36,6 +36,14 @@ def Elfouhaily(kin, U10, age):
 		Bl = 0.5*alphap*(cp/c)*Fp
 		Bh = 0.5*alpham*(cm/c)*Fm
 		S[ind] = (Bl + Bh)/(k**3);
+		
+		#compute the spreading function
+		a0 = np.log(2)/2;
+		ap = 4;
+		am = 0.13*ustar/cm;
+		Delk = np.zeros(len(kin)+1,float)
+		Delk = np.tanh(a0 + ap*(c/cp)**(2.5) + am*(cm/c)**(2.5));
+		S = 1*S*1/(2)*(1 + Delk*np.cos(2*phi));
 
 	return S
 	
