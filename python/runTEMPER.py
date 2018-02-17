@@ -49,18 +49,18 @@ def updateSurfaceFile(srfName,newSrfName,x,h,inputFilename,newFilename):
 def runProcess(L,N,U10,age,filePrefix,start,stop,inputFilename,srfInputFileName,initialSeed,id):
 	#initialize the random number generator
 	np.random.seed(initialSeed);
-	temper = "/Users/benjaminfrazier/Projects/TEMPER/temper/bin/mac64/temper.bin"
-	#temper = "/Users/frazibw1/APL/TEMPER/temper/bin/mac64/temper.bin"
+	#temper = "/Users/benjaminfrazier/Projects/TEMPER/temper/bin/mac64/temper.bin"
+	temper = "/Users/frazibw1/APL/TEMPER/temper/bin/mac64/temper.bin"
 	numIterations = stop - start
 	for runNumber in range(start,stop):
 		newFilename = filePrefix + "_run_" + str(runNumber) + ".in"
 		copyfile(inputFilename,newFilename);
-		h,x = generateSeaSurface(L, N, U10, age)
+		h,x = generateSeaSurface(L, N, U10, age,0)
 		newSrfName = filePrefix + "_run_" + str(runNumber) + ".srf"
 		updateSurfaceFile(srfInputFileName,newSrfName,x,h,inputFilename,newFilename)
 		pString = "Process " + str(id) + " Run " + str(runNumber + 1 - start) + " of " + str(numIterations)
 		print pString
-		#call([temper,newFilename,"-b", "-q"])
+		call([temper,newFilename,"-b", "-q"])
 	    #newSeed = int(initialSeed * random.random())
 	    #check(inputFilename,newFilename,newSeed)	    
 
@@ -84,22 +84,15 @@ def computeAngles(tx,tgt,rx1,rx2,d1,d2,d3):
 		p3 = tgt + i*0.5*v3
 		theta3[i] = np.arctan2(p3[2] - tx[2],p3[1] - tx[1]);
     
-	print "Angles"	
-	print theta1*180/np.pi
-	print theta2[0]*180/np.pi
-	print theta2[29999]*180/np.pi
-	print theta3[0]*180/np.pi
-	print theta3[29999]*180/np.pi
-    
 	return theta1,theta2,theta3
 		    
 #main function          
 def main():
 
 #setup default parameters
-	numIterations = 3;
-	L = 10000;
-	N = 20000;
+	numIterations = 100;
+	L = 20000;
+	N = 40000;
 	U10 = 10;
 	age = 0.84;
 	

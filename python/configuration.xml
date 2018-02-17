@@ -1,4 +1,16 @@
 <configuration>
+	<seaSurface>
+		<!-- dx is the spatial sampling increment to be used in meters, the total number of points will be L/dx -->
+		<dx> 0.5 </dx> 
+		<U10> 5 </U10>  <!-- wind speed at 10 m altitude in meters/second -->
+		<age> 0.84 </age> <!-- age of the sea to use (0.84 is fully developed, can be up to 5.0 -->
+		<L> 20000 </L>  <!-- path length to be used in meters-->
+	</seaSurface>
+	<computation>
+		<H> 30 </H> <!-- antenna Height used for TEMPER computation -->
+		<seed> 561894 </seed> <!-- initial seed for the random number generator -->
+		<nIterations> 100 </nIterations> <!-- number of iterations to use -->
+	</computation>
 <geometry>
    <target>
       <xValue> 24000 </xValue>
@@ -21,20 +33,4 @@
       <zValue> 10 </zValue>
    </rx2>
 </geometry>
-<pathInfo>
-	<general>
-		<deltaX> 0.5 </deltaX>
-		<age> 0.84 </age>
-		<U10> 10 </U10>
-	</general>
-	<path1>
-		<L> 25000 </L>
-	</path1>
-	<path2>
-		<L> 15000 </L>
-	</path2>
-	<path3>
-		<L> 15000 </L>
-	</path3>
-</pathInfo>
 </configuration>

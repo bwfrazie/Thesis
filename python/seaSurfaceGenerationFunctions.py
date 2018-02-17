@@ -43,7 +43,7 @@ def Elfouhaily(kin, U10, age,phi):
 		am = 0.13*ustar/cm;
 		Delk = np.zeros(len(kin)+1,float)
 		Delk = np.tanh(a0 + ap*(c/cp)**(2.5) + am*(cm/c)**(2.5));
-		S = 1*S*1/(2)*(1 + Delk*np.cos(2*phi));
+		S1 = 1*S*1/(2)*(1 + Delk*np.cos(2*phi));
 
 	return S
 	
