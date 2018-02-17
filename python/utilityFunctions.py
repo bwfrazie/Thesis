@@ -18,11 +18,17 @@ def getSeaSurfaceConfiguration(inputXMLFile):
 	L = float(srf.find('L').text)
 	U10 = float(srf.find('U10').text)
 	age = float(srf.find('age').text)
+	val = int(srf.find('useFilter').text)
+	
+	if val == 1:
+		useFilter = True
+	else:
+		useFilter = False
 	
 	#compute N
 	N = int(L/dx)
 	
-	return L,N,U10,age
+	return L,N,U10,age,useFilter
 
 #getComputationConfiguration - returns the antenna height, initial seed and number of
 #iterations from a configuration file
@@ -35,8 +41,10 @@ def getComputationConfiguration(inputXMLFile):
 	H = float(comp.find('H').text)
 	seed = int(comp.find('seed').text)
 	nIter = int(comp.find('nIterations').text)
+	temper = comp.find('TEMPER').text
+	freq = float(comp.find('frequency').text)
 
-	return H,seed,nIter
+	return H,seed,nIter,temper,freq
 
 #updateSurfaceFile - this function handles writing out the new surface file
 def updateSurfaceFile(srfName,newSrfName,x,h):
@@ -50,7 +58,7 @@ def updateSurfaceFile(srfName,newSrfName,x,h):
 
 
 #updateTEMPERInputFile - creates a new input file and updates the computed range, antenna height, and surface file
-def updateTEMPERInputFile(baseFilename,newFilename,newSrfname, L, H):
+def updateTEMPERInputFile(baseFilename,newFilename,newSrfname, L, H, dx, frequency):
 	#open the new file and the original file
 	inputFile = open(newFilename,'w')
 	baseFile = open(baseFilename,'r')
@@ -59,10 +67,14 @@ def updateTEMPERInputFile(baseFilename,newFilename,newSrfname, L, H):
 	testLine1 = "Antenna height [ft|m]"
 	testLine2 = "Maximum problem range [nmi|km]"
 	testLine3 = "Surface param file (200 char max) (ter type 1,2,3; surf type 3; rough surf 2):"
-	newLine1 = str(H) + "          " + testLine1 + '\r'
-	newLine2 = str(L/1000) + "          " + testLine2 + '\r'
+	testLine4 = "Range increment [nmi|km]"
+	testLine5 = "Frequency [Hz]"
+	newLine1 = str(H) + "          " + testLine1 + "\n"
+	newLine2 = str(L/1000) + "          " + testLine2 + "\n"
 	newLine3 = newSrfname + "\r"
-	
+	newLine4 = str(dx/1000) + "          " + testLine4 + "\n"
+	newLine5 = str(frequency) + "         " + testLine5 + "\n"
+			
 	#loop over the old file and write to the new file with either the old line or the new line
 	updateLine = False
 	for line in baseFile:
@@ -73,6 +85,10 @@ def updateTEMPERInputFile(baseFilename,newFilename,newSrfname, L, H):
 		elif testLine3 in line:
 			updateLine = True
 			inputFile.write(line)
+		elif testLine4 in line:
+			inputFile.write(newLine4)
+		elif testLine5 in line:
+			inputFile.write(newLine5)
 		elif updateLine == True:
 			updateLine = False
 			inputFile.write(newLine3)
@@ -110,17 +126,20 @@ def divideIterationsPerProcess(nCores,nIterations):
 
 
 #setupRunFolder - this function copies necessary TEMPER input files to the "data" folder
-def setupRunFolder(inputFilename,srfInputFileName,dataFolder):
+def setupRunFolder(inputFilename,srfInputFileName,configFile,dataFolder):
 	inputFolder = "../TEMPER_Inputs"
 	datapath = os.getcwd() + "/" + dataFolder
 	dataDir = os.path.dirname(datapath)
 	if not os.path.exists(dataDir):
 		os.mkdir(dataDir)
+	
+	src = configFile	
+	dst = dataFolder + "/" + configFile;
+	copyfile(src,dst)
 
 	fname = "Sector.pat"
 	src = inputFolder + "/" + fname
 	dst = dataFolder + "/"  + fname
-	
 	copyfile(src,dst);
 
 	fname = "stdatm.ref"
@@ -138,25 +157,26 @@ def setupRunFolder(inputFilename,srfInputFileName,dataFolder):
 
 	os.chdir(dataFolder)
 	
-def runTEMPERProcess(L,N,U10,age,H,seed, filePrefix, inputFilename,srfInputFileName,startIndex, stopIndex, id):
+def runTEMPERProcess(L,N,U10,age,H,frequency,useFilter, seed, filePrefix, inputFilename, srfInputFileName,startIndex, stopIndex, temper, id):
 	#initialize the random number generator
 	np.random.seed(seed);
-	#temper = "/Users/benjaminfrazier/Projects/TEMPER/temper/bin/mac64/temper.bin"
-	temper = "/Users/frazibw1/APL/TEMPER/temper/bin/mac64/temper.bin"
 	numIterations = stopIndex - startIndex
 	
+	dx = L/float(N)
+
 	pStringPrefix = "Process " + str(id)
 	
 	for runNumber in range(startIndex,stopIndex ):
-		pString = pStringPrefix + " Run " + str(runNumber + 1 - startIndex) + " of " + str(numIterations)
+		pString = pStringPrefix + " Run " + str(runNumber + 1 - startIndex) + " of " + str(numIterations) + ", current ID: " + str(runNumber)
 		print pString
 		
 		newFilename = filePrefix + "run_" + str(runNumber) + ".in"
 		newSrfName = filePrefix + "run_" + str(runNumber) + ".srf"
-		updateTEMPERInputFile(inputFilename,newFilename,newSrfName, L, H)
+		updateTEMPERInputFile(inputFilename,newFilename,newSrfName, L, H, dx, frequency)
 		pString = pStringPrefix + " Generating Surface ... "
 		print pString
-		h,x = generateSeaSurface(L, N, U10, age,0)
+		#for now phi = 0, --> downwind only
+		h,x = generateSeaSurface(L, N, U10, age,0, useFilter)
 		
 		updateSurfaceFile(srfInputFileName,newSrfName,x,h)
 		pString = pStringPrefix + " Calling TEMPER ... "
