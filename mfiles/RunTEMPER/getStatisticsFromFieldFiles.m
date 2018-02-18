@@ -56,7 +56,7 @@ function b = checkForIgnoreFile(fname,ignoreFiles)
      b = false;
  else
      for i = 1:size(ignoreFiles,2)
-         if ~isempty(strfind(fname,ignoreFiles{i}))
+         if contains(fname,ignoreFiles{i})
              b = true;
              dispString = sprintf('ignoring file %s',fname);
              disp(dispString)

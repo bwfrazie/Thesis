@@ -39,8 +39,8 @@ end
 function b = checkForIgnoreFile(fname)
 
  b = false;
-    
-    if ~isempty(strfind(fname,'surfaceinput.srf'))
+ 
+    if contains(fname,'surfaceinput.srf')   
              b = true;
              dispString = sprintf('ignoring file %s',fname);
              disp(dispString)
