@@ -3,9 +3,9 @@ function fData = getStatisticsFromFieldFiles(varargin)
 ignoreFiles = [];
 if nargin == 1
     d = varargin{1};
-    ignoreFiles{1} = sprintf('run_%d',d(1));
-    ignoreFiles{2} = sprintf('run_%d',d(2));
-    ignoreFiles{3} = sprintf('run_%d',d(3));
+    for i = 1:size(d)
+        ignoreFiles{i} = sprintf('run_%d',d(i));
+    end
 end
 
 dataPath = pwd;
