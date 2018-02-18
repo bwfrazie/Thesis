@@ -3,7 +3,7 @@ function fData = getStatisticsFromFieldFiles(varargin)
 ignoreFiles = [];
 if nargin == 1
     d = varargin{1};
-    for i = 1:size(d)
+    for i = 1:length(d)
         ignoreFiles{i} = sprintf('run_%d',d(i));
     end
 end
