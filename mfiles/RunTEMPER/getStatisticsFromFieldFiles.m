@@ -8,14 +8,9 @@ if nargin == 1
     end
 end
 
-dataPath = pwd;
-
-
 tAlt = [5 10 15 18];
 tRange = [5 10 15 20];
 
-%go to the dataPath directory
-cd(dataPath);
 
 %get the list of field files
 fileVector = dir('*.fld');
