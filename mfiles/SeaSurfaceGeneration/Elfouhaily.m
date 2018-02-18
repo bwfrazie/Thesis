@@ -2,7 +2,7 @@ function [S,kp, PSI]= Elfouhaily(k,U10,age,varargin)
 %S = Elfouhaily(k,U10,age)
 phi = 0;
 if nargin == 4
-    phi = varargin{1}
+    phi = varargin{1};
 end
 %constants
 g = 9.81; %gravity acceleration
