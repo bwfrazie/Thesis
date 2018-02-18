@@ -1,6 +1,6 @@
 import numpy as np
 
-def Elfouhaily(kin, U10, age,phi):
+def Elfouhaily(k, U10, age,phi):
 	
 	#constants
 	g = 9.81; #gravity acceleration
@@ -24,26 +24,23 @@ def Elfouhaily(kin, U10, age,phi):
 	else:
 		gamma = 1.7 + 6*np.log(age)
 
-	S = np.zeros(len(kin)+1,float)
-	for ind in range(0,len(kin)):
-		k = kin[ind]
-		c = np.sqrt((g/k)*(1 + (k/km)**2)) #wave phase speed
-		Lpm = np.exp(-5/4*(kp/k)**2)  #Pierson-Moskowitz shape spectrum
-		Gam = np.exp(-1/(2*sigma**2)*(np.sqrt(k/kp) - 1 )**2 )
-		Jp = gamma**Gam #JONSWAP peak enhancement or "overshoot" factor
-		Fp = Lpm*Jp*np.exp(-age/np.sqrt(10)*(np.sqrt(k/kp) - 1) ) #long-wave side effect function
-		Fm = Lpm*Jp*np.exp(-0.25*(k/km - 1)**2) #short-wave side effect function
-		Bl = 0.5*alphap*(cp/c)*Fp
-		Bh = 0.5*alpham*(cm/c)*Fm
-		S[ind] = (Bl + Bh)/(k**3);
+
+	c = np.sqrt((g/k)*(1 + (k/km)**2)) #wave phase speed
+	Lpm = np.exp(-5/4.*(kp/k)**2)  #Pierson-Moskowitz shape spectrum
+	Gam = np.exp(-1/(2.*sigma**2)*(np.sqrt(k/kp) - 1 )**2 )
+	Jp = gamma**Gam #JONSWAP peak enhancement or "overshoot" factor
+	Fp = Lpm*Jp*np.exp(-age/np.sqrt(10.)*(np.sqrt(k/kp) - 1) ) #long-wave side effect function
+	Fm = Lpm*Jp*np.exp(-0.25*(k/km - 1)**2) #short-wave side effect function
+	Bl = 0.5*alphap*(cp/c)*Fp
+	Bh = 0.5*alpham*(cm/c)*Fm
+	S = (Bl + Bh)/(k**3);
 		
-		#compute the spreading function
-		a0 = np.log(2)/2;
-		ap = 4;
-		am = 0.13*ustar/cm;
-		Delk = np.zeros(len(kin)+1,float)
-		Delk = np.tanh(a0 + ap*(c/cp)**(2.5) + am*(cm/c)**(2.5));
-		S1 = 1*S*1/(2)*(1 + Delk*np.cos(2*phi));
+	#compute the spreading function
+	a0 = np.log(2)/2.;
+	ap = 4.;
+	am = 0.13*ustar/cm;
+	Delk = np.tanh(a0 + ap*(c/cp)**(2.5) + am*(cm/c)**(2.5));
+	S1 = 1*S*1/(2.)*(1 + Delk*np.cos(2*phi));
 
 	return S
 	

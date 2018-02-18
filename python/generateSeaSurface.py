@@ -5,7 +5,7 @@ def generateSeaSurface(L,N,U10,age,phi,useFilter):
 
 	dk = 2*np.pi/L;
 
-	k = np.arange(dk,N/2);
+	k = np.arange(1e-8,N/2 + 1);
 	k = k*dk;
 
 	S = Elfouhaily(k,U10,age,phi);
@@ -30,7 +30,6 @@ def generateSeaSurface(L,N,U10,age,phi,useFilter):
 		S[0:S1index] = 0
 		S[S2index:len(S)] = 0
  
-
 
 	V = computeRandomSpectrum(N,S,dk);
 
