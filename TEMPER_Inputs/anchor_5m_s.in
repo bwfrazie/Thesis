@@ -5,7 +5,7 @@ TEMPER v3.2 OSG example case
 0             Protect old output files? [0=no|1=yes]
 ****  System Parameters  ********************************************************
 9.4e+09         Frequency [Hz]
-10            Antenna height [ft|m]
+30            Antenna height [ft|m]
 1             Source flag [0=Sinc|1=User Sym|2=User Antisym|3=Plane|4=User Asym]
 3           Antenna pattern FWHM (3 dB) beamwidth [deg] (for pat flag 0)
 0             Beam pointing (elevation) angle [deg]

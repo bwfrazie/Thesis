@@ -37,4 +37,8 @@ def generateSeaSurface(L,N,U10,age,phi,useFilter):
 
 	x = np.arange(0,N)*L/float(N);
 	
+	if useFilter == True:
+		sf = 0.65/np.std(h)
+		h = h*sf
+	
 	return h,x
