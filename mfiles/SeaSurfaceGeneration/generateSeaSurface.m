@@ -2,7 +2,7 @@ function [h, k, S, V, x, kp, lambda_p] = generateSeaSurface(L, N, U10, age, vara
 %[h, k, S, V, x, kp, lambda_p] = generateSeaSurface(L, N, U10, age)
 %[h, k, S, V, x, kp, lambda_p] = generateSeaSurface(L, N, U10, age,seed)
 
-linearCutOff = 0.5;
+linearCutOff = 0.75;
 useFilter = true;
 
 if (nargin >= 5)

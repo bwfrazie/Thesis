@@ -22,7 +22,7 @@ Sector.pat
 0.01          Volume absorption coeff [dB/nmi|dB/km] (for volume abs. type 2)
 0             Earth geometry [0=spherical|1=flat]
 0             Calculation altitude ("Min required max alt.") [ft|m] (0.0 = auto)
-0.05          Maximum altitude increment [ft|m] (0.0 = auto)
+0.0          Maximum altitude increment [ft|m] (0.0 = auto)
 20            Maximum problem range [nmi|km]
 0.0005        Range increment [nmi|km]
 2             Rough surf [-1=angles|0=no|1=const|2=from .srf|3=OSG|4=OSG+const]
