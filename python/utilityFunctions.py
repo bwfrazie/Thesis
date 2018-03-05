@@ -147,6 +147,11 @@ def setupRunFolder(inputFilename,srfInputFileName,configFile,dataFolder):
 	dst = dataFolder + "/"  + fname
 	copyfile(src,dst);
 	
+	fname = "ed20m_neutral.ref"
+	src = inputFolder + "/" + fname
+	dst = dataFolder + "/"  + fname
+	copyfile(src,dst);
+	
 	src = inputFolder + "/" + srfInputFileName
 	dst = dataFolder + "/"  + srfInputFileName
 	copyfile(src,dst);
