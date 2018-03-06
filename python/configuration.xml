@@ -2,7 +2,7 @@
 	<seaSurface>
 		<!-- dx is the spatial sampling increment to be used in meters, the total number of points will be L/dx -->
 		<dx> 0.5 </dx> 
-		<U10> 5 </U10>  <!-- wind speed at 10 m altitude in meters/second -->
+		<U10> 10 </U10>  <!-- wind speed at 10 m altitude in meters/second -->
 		<age> 0.84 </age> <!-- age of the sea to use (0.84 is fully developed, can be up to 5.0 -->
 		<L> 20000 </L>  <!-- path length to be used in meters-->
 		<useFilter> 1 </useFilter> <!-- flag to indicate if spectral filtering is applied -->
