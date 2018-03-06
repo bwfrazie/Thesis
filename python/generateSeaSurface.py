@@ -13,7 +13,7 @@ def generateSeaSurface(L,N,U10,age,phi,useFilter):
 	S[0] = 0;
 	
 	if useFilter == True:
-		co = 0.088
+		co = 0.5
     	#apply the filter
 		maxS = np.max(S)
 

@@ -39,7 +39,7 @@ surfaceinput.srf
 0             Output type [0=magnitude|1=complex]
 0             Minimum .fld output range [nmi|km]
 0             Minimum .fld output altitude [ft|m] (0.0 = auto)
-20           Maximum .fld output altitude [ft|m] (0.0 = auto)
+30           Maximum .fld output altitude [ft|m] (0.0 = auto)
 1             .fld altitude thinning [1=none|2=every other|etc.]
 0             .fld size warning [0=off|1=on]
 0             .fld compression level [-1=no file|0=normal|1=1/2|2=1/4]
@@ -75,7 +75,7 @@ Restart-from .rsf file (200 char max):
 0             .fld file maximum range [nmi|km] (0.0 = auto)
 0             .fld file format [0=fixed record|1=stream]
 0             Extend refractivity below [0=extend gradient bounded|1=unbounded]
-0             Antenna height reference [0=AGL|1=Above MSL]
+1             Antenna height reference [0=AGL|1=Above MSL]
 ****  OSG (Ocean Surface Generator) Inputs  *************************************
 osgInputFile.osgin
 0             OSG realization time (seconds from time zero)

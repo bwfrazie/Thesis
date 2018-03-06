@@ -13,6 +13,12 @@ if (nargin >= 5)
        error('Random Number Seed Must be Nonnegative Integer');
    end
 end
+if (nargin >=6)
+    useFilter = varargin{2};
+end
+if (nargin == 7)
+    linearCutOff = varargin{3};
+end
 
 dk = 2*pi/L;
 k = (0:N/2)*dk;

@@ -30,7 +30,7 @@ dataCounter = 1;
 
 fData.tRange = tRange;
 fData.tAlt = tAlt;
-fAvg = zeros(length(fileList),length(tAlt),length(tRange));
+fValues = zeros(length(fileList),length(tAlt),length(tRange));
 %loop over the list and read the data
 for counter = 1:length(fileList)
     dispstring = sprintf('Loading file %d of %d',counter,length(fileList));
@@ -39,13 +39,13 @@ for counter = 1:length(fileList)
     Out = tdata31(fileName,1,1,0);
     for aCounter = 1:length(tAlt)
         for rCounter = 1:length(tRange)
-            fAvg(counter,aCounter,rCounter) = interpolate2DData(Out.f,Out.h,Out.r,tAlt(aCounter),tRange(rCounter));
+            fValues(counter,aCounter,rCounter) = interpolate2DData(Out.f,Out.h,Out.r,tAlt(aCounter),tRange(rCounter));
         end
     end
 temp = 1;    
 end
 
-fData.fAvg = fAvg;
+fData.fValues = fValues;
 end
 
 function b = checkForIgnoreFile(fname,ignoreFiles)
