@@ -32,7 +32,7 @@ if useFilter == true
     Spindex = find(S == max(S));
     S1index = find(S >= linearCutOff*max(S),1);
     S2index = Spindex + find(S(Spindex:end) <= linearCutOff*max(S),1);
-    S(1:S1index-1) = 0;
+    %S(1:S1index-1) = 0;
     S(S2index+1:end) = 0;
 end
 

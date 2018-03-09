@@ -8,7 +8,7 @@ if nargin == 2
     end
 end
 
-tAlt = 1:.1:19;
+tAlt = 1:.1:30;
 tRange = 1:.1:20;
 
 
@@ -33,16 +33,17 @@ fData.tAlt = tAlt;
 fValues = zeros(length(fileList),length(tAlt),length(tRange));
 %loop over the list and read the data
 for counter = 1:length(fileList)
-    dispstring = sprintf('Loading file %d of %d',counter,length(fileList));
-    disp(dispstring)
+    fprintf('Loading file %d of %d\n',counter,length(fileList));
     fileName = sprintf('%s/%s',dataPath,fileList{counter});
     Out = tdata31(fileName,1,1,0);
+    [xx,yy] = meshgrid(Out.r,Out.h);
+    [xq,yq] = meshgrid(tRange,tAlt);
+    interpData = interp2(xx,yy,Out.f,xq,yq);
     for aCounter = 1:length(tAlt)
         for rCounter = 1:length(tRange)
-            fValues(counter,aCounter,rCounter) = interpolate2DData(Out.f,Out.h,Out.r,tAlt(aCounter),tRange(rCounter));
+            fValues(counter,aCounter,rCounter) = interpData(aCounter,rCounter);%interpolate2DData(Out.f,Out.h,Out.r,tAlt(aCounter),tRange(rCounter));
         end
-    end
-temp = 1;    
+    end  
 end
 
 fData.fValues = fValues;

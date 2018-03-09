@@ -6,7 +6,7 @@ TEMPER v3.2 Test Input
 ****  System Parameters  ********************************************************
 35e+09         Frequency [Hz]
 10            Antenna height [ft|m]
-1             Source flag [0=Sinc|1=User Sym|2=User Antisym|3=Plane|4=User Asym]
+0             Source flag [0=Sinc|1=User Sym|2=User Antisym|3=Plane|4=User Asym]
 3           Antenna pattern FWHM (3 dB) beamwidth [deg] (for pat flag 0)
 0             Beam pointing (elevation) angle [deg]
 0             Polarization flag [0=vertical|1=horizontal]
@@ -54,7 +54,7 @@ List of table Altitudes [ft|m] (starts on next line):
 ****  Refractivity  *************************************************************
 1             Print refractivity summary in print file? [0=no|1=yes]
 Refractivity profile file (200 char max):
-stdatm.ref
+ed20m_neutral.ref
 1             Extend with standard atmosphere if necessary? [0=no|1=yes]
 ****  Restart Input Information  ************************************************
 0             Restarted Case? [0=no|1=yes]

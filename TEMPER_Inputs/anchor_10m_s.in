@@ -6,7 +6,7 @@ TEMPER v3.2 Test Input
 ****  System Parameters  ********************************************************
 35000000000.0         Frequency [Hz]
 30.0          Antenna height [ft|m]
-1             Source flag [0=Sinc|1=User Sym|2=User Antisym|3=Plane|4=User Asym]
+0             Source flag [0=Sinc|1=User Sym|2=User Antisym|3=Plane|4=User Asym]
 3           Antenna pattern FWHM (3 dB) beamwidth [deg] (for pat flag 0)
 0             Beam pointing (elevation) angle [deg]
 0             Polarization flag [0=vertical|1=horizontal]
@@ -23,7 +23,7 @@ Sector.pat
 0             Earth geometry [0=spherical|1=flat]
 0             Calculation altitude ("Min required max alt.") [ft|m] (0.0 = auto)
 0.05          Maximum altitude increment [ft|m] (0.0 = auto)
-20.0          Maximum problem range [nmi|km]
+50.0          Maximum problem range [nmi|km]
 0.0005          Range increment [nmi|km]
 1             Rough surf [-1=angles|0=no|1=const|2=from .srf|3=OSG|4=OSG+const]
 0.65             Rms surface roughness [ft|m] (for rough surf = 1 or 4)
@@ -39,7 +39,7 @@ Surface param file (200 char max) (ter type 1,2,3; surf type 3; rough surf 2):
 0             Output type [0=magnitude|1=complex]
 0             Minimum .fld output range [nmi|km]
 0             Minimum .fld output altitude [ft|m] (0.0 = auto)
-20           Maximum .fld output altitude [ft|m] (0.0 = auto)
+50           Maximum .fld output altitude [ft|m] (0.0 = auto)
 1             .fld altitude thinning [1=none|2=every other|etc.]
 0             .fld size warning [0=off|1=on]
 0             .fld compression level [-1=no file|0=normal|1=1/2|2=1/4]
