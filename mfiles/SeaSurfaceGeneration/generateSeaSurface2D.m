@@ -1,4 +1,4 @@
-function [h, k, S, V, kx, ky] = generateSeaSurface2D(L, N, U10, age, varargin)
+function [h, k, S, V, kx, ky,x,y] = generateSeaSurface2D(L, N, U10, age, varargin)
 %[h, k, S, V, kx, ky] = generateSeaSurface2D(L, N, U10, age)
 
 if (nargin == 6)
@@ -121,3 +121,5 @@ V(:,N/2+1) = Vx2';
 
 % V = V*sqrt(2);
 h = ifft2(V)*length(V)^2;
+x = (0:N-1)*L/N;
+y = (0:N-1)*L/N;
