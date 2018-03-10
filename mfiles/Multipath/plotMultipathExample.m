@@ -8,19 +8,18 @@ end
 
 re = 6371000*4/3;
 h1 = 30;
-h2 = 10;
+h2 = 20;
 r4 = linspace(1000,20000,10000);
 
 h2 = 15 - r4/(2*re);
 
-r1 = sqrt(r4.^2 + (h1-h2).^2);
-r23 = sqrt(r4.^2 + (h1+h2).^2);
+r1 = sqrt(r4.^2 + (h1-h2 - r4/(2*re)).^2);
+r23 = sqrt(r4.^2 + (h1+h2 + r4/(2*re)).^2);
 
 lambda = 3e8/35e9;
 k = 2*pi/lambda;
 
 value = abs(exp(1j*k*r1) + exp(1j*k*(r23)));
-
 
 h = figure;
 plot(r4/1000,value,'LineWidth',2);

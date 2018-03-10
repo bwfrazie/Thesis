@@ -1,7 +1,33 @@
-tx = [0 0 50];
-tgt = [24000 -2000 30];
-rx1 = [16000 9000 10];
-rx2 = [26000 8000 10];
+h = figure('Position',[10 100 2000 800]);
+surf(xq/1000,yq/1000,hq,'FaceLighting','gouraud','FaceColor','interp','AmbientStrength',0.6);
+shading interp
+light('Position',[0 10 5],'Style','local')
+colormap(winter(256))
+hold on
+
+xlabel('X (km)')
+ylabel('Y (km)')
+zlabel('Z (m)')
+
+set(gca,'View',[86 70])
+zlim([-5 40])
+set(gca,'FontSize',36)
+set(gca,'LineWidth',2)
+set(gca,'FontWeight','bold')
+
+figure
+
+offset = [2000 5000 0];
+
+fcolor = 'white';
+fsize = 36;
+fweight = 'bold';
+lw = 3;
+
+tx = [0 0 50] + offset;
+tgt = [24000 -2000 30] + offset;
+rx1 = [16000 9000 10] + offset;
+rx2 = [26000 8000 10] + offset;
 
 %compute the paths
 path1 = tgt - tx;
@@ -9,8 +35,8 @@ path2 = rx1 - tgt;
 path3 = rx2 - tgt;
 
 theta1 = atan2(path1(2),path1(1))*180/pi;
-theta2bound = [atan2(tgt(2) - tx(2), tgt(1) - tx(1)) atan2(rx1(2) - tx(2), rx1(1) - tx(1))]*180/pi
-theta3bound = [atan2(tgt(2) - tx(2), tgt(1) - tx(1)) atan2(rx2(2) - tx(2), rx2(1) - tx(1))]*180/pi
+theta2bound = [atan2(tgt(2) - tx(2), tgt(1) - tx(1)) atan2(rx1(2) - tx(2), rx1(1) - tx(1))]*180/pi;
+theta3bound = [atan2(tgt(2) - tx(2), tgt(1) - tx(1)) atan2(rx2(2) - tx(2), rx2(1) - tx(1))]*180/pi;
 
 d1 = sqrt(sum(path1.^2))/1000;
 d2 = sqrt(sum(path2.^2))/1000;
@@ -34,41 +60,39 @@ xx = [tx(1) tgt(1) rx1(1) rx2(1)];
 yy = [tx(2) tgt(2) rx1(2) rx2(2)];
 zz = [tx(3) tgt(3) rx1(3) rx2(3)];
 
-mSize = 75;
+mSize = 250;
 
-figure
-scatter3(tx(1),tx(2),tx(3),mSize,'filled','b')
+line([tx(1)/1000 tgt(1)/1000],[tx(2)/1000 tgt(2)/1000],[tx(3) tgt(3)],'LineWidth',lw,'Color','green');
 hold on
-scatter3(rx1(1),rx1(2),rx1(3),mSize,'filled','g')
-scatter3(rx2(1),rx2(2),rx2(3),mSize,'filled','g')
-scatter3(tgt(1),tgt(2),tgt(3),mSize,'filled','r')
-line([tx(1) tgt(1)],[tx(2) tgt(2)],[tx(3) tgt(3)],'LineWidth',2);
-line([tgt(1) rx1(1)],[tgt(2) rx1(2)],[tgt(3) rx1(3)],'LineWidth',2);
-line([tgt(1) rx2(1)],[tgt(2) rx2(2)],[tgt(3) rx2(3)],'LineWidth',2);
+line([tgt(1)/1000 rx1(1)/1000],[tgt(2)/1000 rx1(2)/1000],[tgt(3) rx1(3)],'LineWidth',lw,'Color','yellow');
+line([tgt(1)/1000 rx2(1)/1000],[tgt(2)/1000 rx2(2)/1000],[tgt(3) rx2(3)],'LineWidth',lw,'Color','yellow');
+scatter3(tx(1)/1000,tx(2)/1000,tx(3),mSize,'filled','b')
+scatter3(rx1(1)/1000,rx1(2)/1000,rx1(3),mSize,'filled','g')
+scatter3(rx2(1)/1000,rx2(2)/1000,rx2(3),mSize,'filled','g')
+scatter3(tgt(1)/1000,tgt(2)/1000,tgt(3),mSize,'filled','r')
 grid on
-zlim([0 60])
+% zlim([0 60])
 
-text(tx(1)+300,tx(2)+100,tx(3)-2,'Tx','FontWeight','bold','FontSize',12)
-text(tgt(1)+200,tgt(2)+100,tgt(3)+5,'Tgt','FontWeight','bold','FontSize',12)
-text(rx1(1)+100,rx1(2)+150,rx1(3),'Rx_1','FontWeight','bold','FontSize',12)
-text(rx2(1)+100,rx2(2)+150,rx2(3),'Rx_2','FontWeight','bold','FontSize',12)
+text(tx(1)/1000+.3,tx(2)/1000+.5,tx(3)-2,'Tx','FontWeight','bold','FontSize',fsize)
+text(tgt(1)/1000+.2,tgt(2)/1000-3,tgt(3)+5,'Tgt','FontWeight','bold','FontSize',fsize,'Color',fcolor)
+text(rx1(1)/1000+.2,rx1(2)/1000+.5,rx1(3),'Rx_1','FontWeight','bold','FontSize',fsize,'Color',fcolor)
+text(rx2(1)/1000+.2,rx2(2)/1000+.5,rx2(3),'Rx_2','FontWeight','bold','FontSize',fsize,'Color',fcolor)
 
 tstring = sprintf('%0.0f km',d1);
-text(10000,-500,36,tstring,'FontWeight','bold','FontSize',12)
+text(10,-.5,36,tstring,'FontWeight','bold','FontSize',fsize,'Color',fcolor)
 
 tstring = sprintf('%0.0f km',d2);
-text(17500,2500,20,tstring,'FontWeight','bold','FontSize',12)
+text(17.5,5.5,20,tstring,'FontWeight','bold','FontSize',fsize,'Color',fcolor)
 
 tstring = sprintf('%0.0f km',d3);
-text(27000,1500,20,tstring,'FontWeight','bold','FontSize',12)
+text(28,4.5,20,tstring,'FontWeight','bold','FontSize',fsize,'Color',fcolor)
 
-xlabel('X (m)')
-ylabel('Y (m)')
+xlabel('X (km)')
+ylabel('Y (km)')
 zlabel('Z (m)')
 
-set(gca,'View',[77 41])
+set(gca,'View',[86 70])
 
+set(gca,'FontSize',36)
 set(gca,'LineWidth',2)
-set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
-
