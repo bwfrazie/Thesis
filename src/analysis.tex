@@ -14,9 +14,9 @@ The 2-Ray multipath model over a flat earth is given in Figure \ref{mp_fig:1}. I
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-To capture the effects of a spherical earth, the altitude $h_2$ can be modified with a correction factor \cite{blake_radar} dependent on the effective radius of the earth, $r_e = (4/3) 6,371,000$ m.
+To capture the effects of propagating over a spherical earth, the altitude $h_2$ can be modified with a correction factor \cite{blake_radar} dependent on the effective radius of the earth, $r_e = (4/3) 6,371,000$ m.
 \begin{equation}
-h_2' = h_2 + \frac{L^2}{2r_e}
+h_2' = h_2 - \frac{L^2}{2r_e}
 \label{mp_eq:0}
 \end{equation}
 
@@ -43,13 +43,13 @@ We can now look at the phase difference between the two primary paths, $\Delta\v
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-The derivative of the phase difference with respect to range is then
+\noindent The derivative of the phase difference with respect to range is then
 \begin{equation}
 \frac{d\Delta\varphi}{dL}=-\frac{4\pi h_1h_2}{\lambda L^2}
 \label{mp_eq:8}
 \end{equation}
 
-The derivative of the phase shift can be converted from rad/m to rad/sample by multiplying by the spatial sampling distance in range, $\Delta L$. We can insist that this phase shift per sample be smaller than some pre-determined value to provide adequate sampling. It is often convenient to specify a limit in terms of wavelengths and we can enforce the condition that there must be at least $n$ samples per wavelength by letting
+\noindent This can be converted from rad/m to rad/sample by multiplying by the spatial sampling distance in range, $\Delta L$. We can insist that this phase shift per sample be smaller than some pre-determined value to provide adequate sampling. It is often convenient to specify a limit in terms of wavelengths and we can enforce the condition that there must be at least $n$ samples per wavelength by letting
 
 \begin{equation}
 \frac{4\pi h_1h_2\Delta L}{\lambda L^2} \leq \frac{2\pi \lambda}{n}
@@ -77,7 +77,7 @@ To include multiple rays, we must consider the region over which the electromagn
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 
-The path lengths  $L_2$ and $L_3$ can be defined through similar triangles about $x$ and can again be simplified through a binomial expansion. At high altitudes or small sea states, $2h_1s(x) >> s^2(x)$ and we can neglect the $s^2(x)$ term.
+The path lengths  $L_2$ and $L_3$ can be defined through similar triangles around $x$ and can again be simplified through a binomial expansion. At high altitudes or small sea states, $2h_1s(x) >> s^2(x)$ and we can neglect the $s^2(x)$ term.
 \begin{equation}
 \begin{aligned}
 L_2 &= \sqrt{x^2 + \left( h_1 - s(x)\right)^2}  \approx x + \frac{h_1^2-2h_1s(x)}{2x}\\
@@ -99,7 +99,7 @@ L_r &= L_2 + L_3 \\
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Here $L_0$ represents the deterministic component due to reflection from the surface and $L_s$ represents the random component due to reflection from the surface. We are interested in the region $\tilde{x}$ where the electromagnetic wave reflects from the surface, so we can perform a Taylor expansion of $L_0$ about $x_m$.
+Here $L_0$ represents the deterministic component due to reflection from the surface and $L_s$ represents the random component due to reflection from the surface. The reflection point from the 2-ray model, $x_m$, should be a saddle point and provide the dominant contribution. We can therefore perform a Taylor expansion of $L_0$ about $x_m$.
 
 \begin{equation}
 L_0 \approx L_0(x_m) + \frac{1}{2}\frac{d^2L_0}{dx^2}\bigg|_{x_m}(x-x_m)^2
@@ -128,16 +128,21 @@ x_m = \frac{h_1L}{h_1+h_2}
 \label{mp_eq:17}
 \end{equation}
 
-We can then expand $L_0$ as
+This gives the following for the lowest Taylor series terms:
+
+\begin{equation}
+\begin{aligned}
+L_0(x_m) &= \frac{(h_1+h_2)^2}{2L} \\
+\frac{d^2L_0}{dx^2}\big|_{x_m}  &= \frac{(h_1+h_2)^4}{h_1h_2L^3} \\
+L_s(x_m) &= \frac{2s(x)(h_1 + h_2)}{L}\\
+\end{aligned}
+\label{mp_eq:17a}
+\end{equation}
+
+The expansion of $L_0$ is then
 \begin{equation}
 L_0 \approx \frac{(h_1+h_2)^2}{2L} + \frac{(h_1+h_2)^4}{2h_1h_2L^3}(x-x_m)^2
 \label{mp_eq:18}
-\end{equation}
-
-We can also express $L_s$ as
-\begin{equation}
-L_s \approx \frac{2s(x)(h_1 + h_2)}{L}
-\label{mp_eq:19}
 \end{equation}
 
 The propagation factor will now include all the reflections from the surface
@@ -155,7 +160,7 @@ F_p &= e^{ikL_1} + \int_0^Ldx\Gamma  e^{ik(L_2+L_3)}\\
 We have a similar expression to Equation \ref{mp_eq:1b} with the propagation factor from the shortest orbit reflection scaled by contributions from all the other reflected rays. letting $x-x_m \rightarrow \tilde{x}$, we can express the propagation factor as
 
 \begin{equation}
-\boxed{F_p = e^{ikL_1} + \Gamma_1 e^{ikL_{so}}\int_{-x_0}^{x_o}d\tilde{x} \frac{\Gamma}{\Gamma_1}\exp\left[\frac{ikL_0''}{2}\tilde{x}^2 - \frac{i2ks(\tilde{x})(h_1+h_2)}{L}\right]}
+\boxed{F_p = e^{ikL_1} + \Gamma_1 e^{ikL_{so}}\int_{-x_m}^{L-x_m}d\tilde{x} \frac{\Gamma}{\Gamma_1}\exp\left[\frac{ikL_0''}{2}\tilde{x}^2 - \frac{i2ks(\tilde{x})(h_1+h_2)}{L}\right]}
 \label{mp_eq:21}
 \end{equation}
 
