@@ -1,70 +1,85 @@
 
 % [h, ks, S, V, x, kp, lambda_p] = generateSeaSurface(20000, 40000, 10, 0.84,568194,false);
-<<<<<<< HEAD
-% 
-=======
 
->>>>>>> 273b221c3e6a4e69da310f7083389f72a2fd8950
 f = 35e9;
 lambda = 3e8/f;
 k = 2*pi/lambda;
 h1 = 30;
-h2 = 20;%linspace(5,20,100);
+h2 = 10;%linspace(5,20,100);
+
+L = [10000 20000 30000 100000];
+
+re = 4/3*6371000;
+Rh = (sqrt(2*re*h1 + h1^2) + sqrt(2*re*h2 + h2^2));
 
 
-<<<<<<< HEAD
-L = 10000;
-
-Lo = (h1+h2)^4/(2*h1*h2*L^3);
-
-x = linspace(-10000,10000,1000);
-y = exp(1i*k*Lo/2*x.^2);
-
-plot(x/1000,real(y))
+Lo = [];
+y = [];
+x = [];
 
 
-% N = 40000;
-% Gamma = 1;
-% sf = (h1 + h2)^2/(h1*h2);
-% 
-% %loop
-% for counter = 1:N
-%     xx = x(1:counter);
-%     hh = h(1:counter);
-%     
-%     Fs = 1/L*exp(1j*k*L);
-%     Lo = (h1 + h2)^4/(h1*h2*L^3);
-% 
-%     dtest = 1/L*exp(1j*k*Lo/2*xx.^2 - 1j*k*hh*2*(h1 + h2)/L);
-%     test = sum(dtest);
-%     
-%     F(counter) = Fs*(1 + Gamma*sf*test);
-% end
-% 
-% figure
-% plot(x,abs(F),'LineWidth',2)
+for counter = 1:length(L)
+    if L(counter) > Rh
+        L(counter) = Rh;
+    end
 
-=======
-L = linspace(1000,20000,10000);
-L1 = L + (h1-h2).^2./(2*L);
-Lso = L + (h1 + h2).^2./(2*L);
-
-Gamma = 1;
-
-Lo2 = (h1 + h2).^4./(h1*h2*L.^3);
-Lo = (h1 + h2).^2./(2*L);
-
-Fp1 = exp(1i*k*L1) + Gamma*exp(1i*k*Lso);
-Fp2 = exp(1i*k*L1) - Gamma*exp(1i*(k*Lso + pi/4)).*1;%sqrt(2*pi./(k*Lo2));
+    xm(counter) = h1*L(counter)/(h1+h2);
+    Lo(counter) = (h1+h2)^4/(2*h1*h2*L(counter)^3);
+    x(counter,:) = linspace(-2*L(counter)/2,2*L(counter)/2,1000);
+    y(counter,:) = exp(1i*k*Lo(counter)/2*x(counter,:).^2);
+end
 
 figure
-plot(L/1000,abs(Fp1),'LineWidth',2);
 
-hold on
-plot(L/1000,abs(Fp2),'--');
-xlim([4 20])
+ind = 1;
+tstring = sprintf('L = %0.1f km',L(ind)/1000);
+subplot(2,2,ind)
+plot(x(ind,:)/1000,real(y(counter,:)),'LineWidth',2)
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
+grid on
+xlim([-xm(ind)/1000 (L(ind)-xm(ind))/1000])
+xlabel('\textbf{$\mathbf{\tilde{x}}$ (km)}','Interpreter','Latex')
+ylabel('Re\{F\}')
+title(tstring);
 
->>>>>>> 273b221c3e6a4e69da310f7083389f72a2fd8950
+ind = 2;
+tstring = sprintf('L = %0.1f km',L(ind)/1000);
+subplot(2,2,ind)
+plot(x(ind,:)/1000,real(y(counter,:)),'LineWidth',2)
+set(gca,'LineWidth',2)
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+grid on
+xlim([-xm(ind)/1000 (L(ind)-xm(ind))/1000])
+xlabel('\textbf{$\mathbf{\tilde{x}}$ (km)}','Interpreter','Latex')
+ylabel('Re\{F\}')
+title(tstring);
+
+ind = 3;
+tstring = sprintf('L = %0.1f km',L(ind)/1000);
+subplot(2,2,ind)
+plot(x(ind,:)/1000,real(y(counter,:)),'LineWidth',2)
+set(gca,'LineWidth',2)
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+grid on
+xlim([-xm(ind)/1000 (L(ind)-xm(ind))/1000])
+xlabel('\textbf{$\mathbf{\tilde{x}}$ (km)}','Interpreter','Latex')
+ylabel('Re\{F\}')
+title(tstring);
+
+ind = 4;
+tstring = sprintf('L = %0.1f km',L(ind)/1000);
+subplot(2,2,ind)
+plot(x(ind,:)/1000,real(y(counter,:)),'LineWidth',2)
+set(gca,'LineWidth',2)
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+grid on
+xlim([-xm(ind)/1000 (L(ind)-xm(ind))/1000])
+xlabel('\textbf{$\mathbf{\tilde{x}}$ (km)}','Interpreter','Latex')
+ylabel('Re\{F\}')
+title(tstring);
+
