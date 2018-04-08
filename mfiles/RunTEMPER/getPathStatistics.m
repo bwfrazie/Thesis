@@ -9,7 +9,7 @@ if nargin == 2
 end
 
 tAlt = 1:.1:30;
-tRange = 1:.1:20;
+tRange = 1:.1:30;
 
 
 %get the list of field files

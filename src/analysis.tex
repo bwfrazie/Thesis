@@ -71,11 +71,78 @@ To include multiple rays, we must consider the region over which the electromagn
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
-    \caption[Multipath Geometry with Random ]{ Multipath Geometry\label{mp_fig:2}}
+    \caption[Multipath Geometry ]{Multipath Geometry\label{mp_fig:2}}
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
+\subsection{Green's Function for the Reflected Wave}
+To find the Green's function for the reflected wave, we can start with the paraxial wave equation. Following Huygen's principle, we can use every point on the sea surface as a source for the reflected wave with the geometry shown in Figure \ref{mp_fig:2a}. Here $\theta$ is defined as the angle between the direction between the propagation direction ($\hat{x}$) and the direction towards the receiver ($\hat{n}$), and $s$ is the portion of the sea surface from which the wave is reflected.
+
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=3in]{../media/analysis/gf_geometry.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Green's Function Geometry ]{Green's Function Geometry\label{mp_fig:2a}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+To constrain the source to be along $s$, we need to enforce the conditions that $x\rightarrow -s\sin\theta$ and $z\rightarrow s\cos\theta$ to solve for the Green's function.
+
+\begin{equation}
+2jk_o \frac{\partial G}{\partial x} - \frac{\partial^2 G}{\partial z^2} = -\delta(x + s \sin\theta)\delta(z - s \cos\theta)
+\label{mp_eq:11a}
+\end{equation}
+
+We can assume that the Green's function is separable in $x$ and $z$ so that $G = G_xG_z$. We can then solve for $G_x$ by taking the Fourier transform of Equation \ref{mp_eq:11a} along $z$ and letting $\hat{G_z} = \int_{-\infty}^{\infty}\frac{dk}{2\pi}e^{jk(z - s\cos\theta)}$
+
+\begin{equation}
+2jk_o\frac{\partial G_x}{\partial x} -k^2G_x = -\delta(x + s\sin\theta)
+\label{mp_eq:11b}
+\end{equation}
+
+Solving away from the delta function yields the following expression for $G_x$:
+\begin{equation}
+\boxed{G_x = ce^{-\frac{jk^2}{2k_o}(x+s\sin\theta)}}
+\label{mp_eq:11c}
+\end{equation}
+
+To find $G$, we can take the inverse Fourier transform of $\hat{G}$:
+\begin{equation}
+\begin{aligned}
+G &= \mathcal{F}^{-1}\{\hat{G}\} = \frac{c}{2\pi}\int_{-\infty}^{\infty}dk e^{-\frac{jk^2}{2k_o}(x+s\sin\theta)}e^{jk(z-s\cos\theta)} \\
+& = \frac{c}{2\pi}\int_{-\infty}^{\infty}dk e^{-\frac{jk^2}{2k_o}(x+s\sin\theta) +jk(z-s\cos\theta)} \\
+& = \frac{c}{2\pi}\int_{-\infty}^{\infty}dk e^{-\frac{jk^2}{2k_o}x'+jk(z-s\cos\theta)} \\
+\end{aligned}
+\label{mp_eq:11d}
+\end{equation}
+
+To solve this, we need to complete the square with respect to $k$
+\begin{equation}
+\begin{gathered}
+-\frac{jx'}{2k_o}\left[k^2  +2k\frac{k_o}{x'}(s\cos\theta -z)\right]\\
+-\frac{jx'}{2k_o}\left[\left(k  +\frac{k_o}{x'}(s\cos\theta -z)\right)^2 - \frac{k_o^2}{x'^2}(s\cos\theta - z)^2 \right]\\
+-\frac{jx'}{2k_o}\left(k  +k_s\right)^2+ \frac{jk_o}{2x'}(s\cos\theta - z)^2 
+\end{gathered}
+\label{mp_eq:11e}
+\end{equation}
+
+Now we can substitute into Equation \ref{mp_eq:11d}
+\begin{equation}
+\begin{aligned}
+G &= \frac{c}{2\pi}\int_{-\infty}^{\infty}dk e^{-\frac{jx'}{2k_o}\left[\left(k  +k_s\right)^2\right]+ \frac{jk_o}{2x'}(z-s\cos\theta)^2 } \\
+&= \frac{c}{2\pi} \sqrt{\frac{\pi 2k_o}{jx'}}e^{j\frac{k_o}{2x'}(z-s\cos\theta)^2 } \\
+&= c\sqrt{\frac{k_o}{2\pi j(x+s\sin\theta)}}\exp\left[j\frac{k_o(z-s\cos\theta)^2}{2(x+s\sin\theta)} \right]\\
+\end{aligned}
+\label{mp_eq:11f}
+\end{equation}
+
+\subsection{Green's Function for the Forward Path}
+
+\subsection{Approximations}
 
 The path lengths  $L_2$ and $L_3$ can be defined through similar triangles around $x$ and can again be simplified through a binomial expansion. At high altitudes or small sea states, $2h_1s(x) >> s^2(x)$ and we can neglect the $s^2(x)$ term.
 \begin{equation}
@@ -86,6 +153,7 @@ L_3 & = \sqrt{\left(L - x\right)^2 + \left( h_2 - s(x)\right)^2}  \approx L-x + 
 \label{mp_eq:12}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
 
 The path length for a given reflected ray, $L_r$ is then given by
 \begin{equation}

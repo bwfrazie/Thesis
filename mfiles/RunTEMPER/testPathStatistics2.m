@@ -1,5 +1,6 @@
-filepath = '/Volumes/Data/Thesis_Data/10GHz_data/';
+% filepath = '/Volumes/Data/Thesis_Data/10GHz_data/';
 
+filepath ='';
 datapath{1} = 'data_10mps';
 datapath{2} = 'data_5mps';
 
@@ -11,14 +12,20 @@ data2 = tdata31(basefileName2,1,1,0);
 
 varData = [];
 meanData = [];
+rmsData = [];
 
 for i = 1:length(datapath)
     dispstring = sprintf('Parsing directory %d of %d',i,length(datapath));
     disp(dispstring);
     tData = getPathStatistics(strcat(filepath,datapath{i}));
-    rmsData(i,:,:) = rms(tData.fValues,1);
-    varData(i,:,:) = var(tData.fValues,0,1);
-    meanData(i,:,:) = mean(tData.fValues,1);
+    [m,n,p] = size(tData.fValues);
+    rDat = reshape(rms(tData.fValues,1),n,p);
+    vDat = reshape(var(tData.fValues,0,1),n,p);
+    mDat = reshape(mean(tData.fValues,1),n,p);
+
+    rmsData{i} = rDat;
+    varData{i} = vDat;
+    meanData{i} = mDat;
 end
 
 tRange = tData.tRange;
