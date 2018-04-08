@@ -16,7 +16,7 @@ for i = 1:length(datapath)
     dispstring = sprintf('Parsing directory %d of %d',i,length(datapath));
     disp(dispstring);
     tData = getPathStatistics(strcat(filepath,datapath{i}));
-    rmsData(i,:,:) = rms(tData.fValues,0,1);
+    rmsData(i,:,:) = rms(tData.fValues,1);
     varData(i,:,:) = var(tData.fValues,0,1);
     meanData(i,:,:) = mean(tData.fValues,1);
 end
