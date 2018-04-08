@@ -7,7 +7,7 @@ TEMPER v3.2 Test Input
 35e+09         Frequency [Hz]
 10            Antenna height [ft|m]
 0             Source flag [0=Sinc|1=User Sym|2=User Antisym|3=Plane|4=User Asym]
-3           Antenna pattern FWHM (3 dB) beamwidth [deg] (for pat flag 0)
+8           Antenna pattern FWHM (3 dB) beamwidth [deg] (for pat flag 0)
 0             Beam pointing (elevation) angle [deg]
 0             Polarization flag [0=vertical|1=horizontal]
 Antenna pattern (200 char max) (for source flag 1, 2 or 4):
