@@ -5,7 +5,7 @@ lambda = 3e8/f;
 
 %first look at rho vs RMS sea height
 sigma = linspace(0.01,10,1000);
-graz = [0.1 0.2 0.5 1] * pi/180;
+graz = [0.01 0.1 0.2 0.5 1] * pi/180;
 
 rho = [];
 for counter = 1:length(graz)
