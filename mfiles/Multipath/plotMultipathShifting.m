@@ -4,10 +4,10 @@ f = 10e9;
 lambda = 3e8/f;
 k = 2*pi/lambda;
 h1 = 30;
-h2 = linspace(0,50,1000);
+h2 = linspace(0,100,1000);
 L = 5000;%linspace(0,20000,1000);
 
-h2 = h2 - h2.^2/(2*4/3*6371000);
+h2 = h2 - L.^2/(2*4/3*6371000);
 
 
 xm = h1*L./(h1+h2);
@@ -18,8 +18,10 @@ graz = atan2(h1,xm);
 
 gam = abs(getReflectionCoefficient(graz,sigma,lambda));
 
+sf = 1;%(h1+h2)*sqrt(k./(2*pi*L))/4;
+
 F1 = abs(exp(1j*L1) + gam.*exp(1j*k*(L2 + L3)));
-F2 = abs(exp(1j*L1) + gam.*exp(1j*(k*(L2 + L3)+k*pi/4)));
+F2 = abs(exp(1j*L1) + sf.*gam.*exp(1j*(k*(L2 + L3)+k*pi/4)));
 
 rind = find(data1.r == L/1000);
 

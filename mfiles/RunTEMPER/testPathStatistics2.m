@@ -15,10 +15,17 @@ meanData = [];
 rmsData = [];
 
 range = [5 5 5 10 10 10 20 20 20];
-alt = [5 15 30 5 15 30 5 15 30];
+% alt = [5 15 30 5 15 30 5 15 30];
+alt = linspace(5,30,1000);
 
-data10 = getPointStatistics(strcat(filepath,datapath{1}),range,alt);
-data5 = getPointStatistics(strcat(filepath,datapath{2}),range,alt);
+tData10 = getPathStatistics(datapath{1});
+tData5 = getPathStatistics(datapath{2});
+
+% data10 = getPointStatistics(strcat(filepath,datapath{1}),range,alt);
+% data5 = getPointStatistics(strcat(filepath,datapath{2}),range,alt);
+
+% data10 = getAltStatistics(strcat(filepath,datapath{1}),5);
+% data5 = getAltStatistics(strcat(filepath,datapath{2}),5);
 
 % for i = 1:length(datapath)
 %     dispstring = sprintf('Parsing directory %d of %d',i,length(datapath));
