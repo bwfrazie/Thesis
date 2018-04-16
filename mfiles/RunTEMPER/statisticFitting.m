@@ -17,11 +17,21 @@ xm = [];
 graz = [];
 m5 = [];
 x = [];
+F1_10=[];
+F2_10=[];
+F1_5=[];
+F2_5=[];
 h1 = 30;
 f = 10e9;
 lambda = 3e8/f;
 k = 2*pi/lambda;
-
+f = 2.997e8/lambda;
+    
+Re = 64.18/(1 + 3.30523e-21*f^2) + 4.9;
+Im = 3.68972e-9*f/(1 + 3.30523e-21*f^2) + 9.4e10/f;
+    
+epsr = Re + 1j*Im;
+    
 fp = linspace(0,2,1000);
 mdata10 = mean(data10,1);
 mdata5 = mean(data5,1);
@@ -55,9 +65,19 @@ for cnt = 1:9
     gam10(cnt) = abs(getReflectionCoefficient(graz(cnt),0.65,lambda));
     gam5(cnt) = abs(getReflectionCoefficient(graz(cnt),0.16,lambda));
     
+    h2 = h2 - L(cnt).^2/(2*4/3*6371000);
+     
     L1 = L(cnt) + (h1-h2).^2./(2*L(cnt));
-    L2 = xm + h1^2./(2*xm);
-    L3 = L(cnt)-xm + h2.^2./(2*(L(cnt)-xm));
+    L2 = xm(cnt) + h1^2./(2*xm(cnt));
+    L3 = L(cnt)-xm(cnt) + h2.^2./(2*(L(cnt)-xm(cnt)));
+    
+   
+    
+    F1_10(cnt) = abs(exp(1j*L1) + gam10(cnt).*exp(1j*k*(L2 + L3)));
+    F2a_10(cnt) = abs(exp(1j*L1) + gam10(cnt).*exp(1j*(k*(L2 + L3)+k*(pi/4))));
+    F2_10(cnt) = abs(exp(1j*L1) + gam10(cnt).*exp(1j*(k*(L2 + L3)+k*(pi))));
+    F1_5(cnt) = abs(exp(1j*L1) + gam5(cnt).*exp(1j*k*(L2 + L3)));
+    F2_5(cnt) = abs(exp(1j*L1) + gam5(cnt).*exp(1j*(k*(L2 + L3)+k*(pi/4 ))));
 end
 
 figure
@@ -108,6 +128,23 @@ scatter(temp,vdata5,sz,'rs');
 scatter(temp,v5,sz,'r+');
 xlabel('Sample Point')
 ylabel('Value (unitless)')
+grid on
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+set(gca,'LineWidth',2)
+
+figure
+sz = 400;
+temp = [5 15 30];
+tind = [1 2 3];
+scatter(temp,S21_10(tind),sz,'filled','bo');
+hold on
+% scatter(temp,F2a_10(tind),sz,'filled','rs');
+scatter(temp,F2_10(tind),sz,'filled','rs');
+
+legend('Fit','Predicted - \pi')
+xlabel('Altitude')
+ylabel('|S_{21}| (unitless)')
 grid on
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')

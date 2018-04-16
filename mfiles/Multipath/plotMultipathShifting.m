@@ -21,7 +21,8 @@ gam = abs(getReflectionCoefficient(graz,sigma,lambda));
 sf = 1;%(h1+h2)*sqrt(k./(2*pi*L))/4;
 
 F1 = abs(exp(1j*L1) + gam.*exp(1j*k*(L2 + L3)));
-F2 = abs(exp(1j*L1) + sf.*gam.*exp(1j*(k*(L2 + L3)+k*pi/4)));
+F2 = abs(exp(1j*L1) + sf.*gam.*exp(1j*(k*(L2 + L3)+k*(pi/4))));
+F2a = abs(exp(1j*L1) + sf.*gam.*exp(1j*(k*(L2 + L3)+k*(pi))));
 
 rind = find(data1.r == L/1000);
 
@@ -38,3 +39,5 @@ set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 xlim([0 50])
+
+plotDiffractionPhaseShift;
