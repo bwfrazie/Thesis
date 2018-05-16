@@ -19,6 +19,7 @@ def getSeaSurfaceConfiguration(inputXMLFile):
 	U10 = float(srf.find('U10').text)
 	age = float(srf.find('age').text)
 	val = int(srf.find('useFilter').text)
+	phi = int(srf.find('phi').text)
 	
 	if val == 1:
 		useFilter = True
@@ -28,7 +29,7 @@ def getSeaSurfaceConfiguration(inputXMLFile):
 	#compute N
 	N = int(L/dx)
 	
-	return L,N,U10,age,useFilter
+	return L,N,U10,age,phi,useFilter
 
 #getComputationConfiguration - returns the antenna height, initial seed and number of
 #iterations from a configuration file
@@ -162,7 +163,7 @@ def setupRunFolder(inputFilename,srfInputFileName,configFile,dataFolder):
 
 	os.chdir(dataFolder)
 	
-def runTEMPERProcess(L,N,U10,age,H,frequency,useFilter, seed, filePrefix, inputFilename, srfInputFileName,startIndex, stopIndex, temper, id):
+def runTEMPERProcess(L,N,U10,phi,age,H,frequency,useFilter, seed, filePrefix, inputFilename, srfInputFileName,startIndex, stopIndex, temper, id):
 	#initialize the random number generator
 	np.random.seed(seed);
 	numIterations = stopIndex - startIndex
