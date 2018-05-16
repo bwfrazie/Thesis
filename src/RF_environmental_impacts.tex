@@ -1,5 +1,5 @@
 \renewcommand{\baselinestretch}{2} \small\normalsize
-\chapter{Environmental Impacts on Electromagnetic Wave Propagation}
+\chapter{Environmental Impacts}
 Before developing a statistical model, we need to understand which environmental factors affect propagation. Multipath, clutter, and sea spikes are all induced by reflections from the sea surface while changes in the index of refraction cause electromagnetic waves to bend. We will first describe the various earth models that are used along with the propagation geometry that follows from these models. Next we will discuss refractivity and anomalous propagation before covering the reflective effects of multipath, clutter, and sea spikes. We will close this chapter with a discussion of the RCS of targets.
 
 \section{Earth Models}
@@ -93,11 +93,13 @@ The 2-Ray Model for multipath is shown in Figure \ref{env_fig:3}, using a flat e
 \renewcommand{\baselinestretch}{2} \small\normalsize
 The sea surface is characterized by its dielectric constant, $\epsilon_r$ and the height variance, $\sigma_h$, which will result in a reflection coefficient, $\Gamma_t$. We can characterize the multipath ray by using the image of the target.
 
-Following \cite{lohrmann_rcs}, we can use superposition and express the combination of the rays as a propagation factor, $F_p$:
+Using plane waves and following \cite{lohrmann_rcs}, we can use superposition and express the combination of the rays as a propagation factor, $F_p$:
   \begin{equation}
   \label{env_eq:3b}
 F_p = e^{jkr_1} + \Gamma_te^{jk\left(r_2 + r_3\right)}
 \end{equation}
+
+This is a simplified approach that captures the "effect" of going through multipath peaks and nulls, but does not include cylindrical spreading of the wavefront as it propagates. A more detailed analytical approach for both the simple 2-ray model and a more complicated multiple ray model that includes cylindrical spreading is provided in Chapter\ref{analytical_propagation}.
 
 In both expressions, the result is dependent on the phase difference between the path distances $r_1$ and $r_2 + r_3$. This means we will have a multipath null (destructive interference) whenever $k\left(r_1 - r_2 - r_3\right) = (2m + 1)\pi$ and we will have a multipath peak (constructive interference) whenever $k\left(r_1 - r_2 - r_3\right) = 2m\pi$. From geometry, we can see that $r_1 = \sqrt{d^2 + (h-h_t)^2}$ and $r_2 + r_3 = \sqrt{d^2 + (h+h_t)^2}$
 
