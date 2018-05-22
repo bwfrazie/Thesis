@@ -102,6 +102,22 @@ As long as $\mathbf{r}'$ is in the volume $V$, we can use the sifting property o
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
+When there are no boundary conditions (as in free space propagation), the normal derivatives are all zero and we are left with only the following.
+
+\begin{equation}
+\varphi = -\int\limits_{V}d^3r' Gf
+\label{gf_eq:11aa}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+In the simplest condition, $f$ is a delta function ($\delta(r'-r_o)$), so that
+
+\begin{equation}
+\varphi = -G(r,r_o)
+\label{gf_eq:11aa}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
 \section{Boundary Conditions}
 There are two traditional types of boundary conditions: Dirichlet, where $\varphi$ is specified on the boundary, or Neuman, where the normal derivative of $\varphi$ is specified on the boundary. There is a third type of boundary condition, known as the Robin condition, that is a weighted combination of Dirichlet and Neuman boundary conditions.
 
@@ -202,7 +218,7 @@ G\left(\mathbf{r},\mathbf{r}' \right) = G\left(\mathbf{r}',\mathbf{r} \right)
 This property is known as reciprocity and it tells us that the impulse reponse for a propagating wave is the same in both directions. Reciprocity is commonly used in antenna radiation analysis as it allows us to analyze an antenna considering it as either a transmitter or a receiver.
 
 \subsection{Continuity} \label{gf_sec:continuity}
-A necessary condition for reciprocity is that Green's functions must be continuous in all space except $\mathbf{r} = \mathbf{r}'$. In general, Green's functions are discontinuous at $\mathbf{r} = \mathbf{r}'$.
+A necessary condition for reciprocity is that Green's functions must be continuous in all space. However, the derivative will generally have a discontinuity at $\mathbf{r} = \mathbf{r}'$.
 
 \subsection{General Forms}
 Because Green's functions are the spatial impulse response of the system, we can expect them to be used in a convolution integral. With that in mind, Green's functions usually take the form:
@@ -622,7 +638,50 @@ G_o\left(\boldsymbol{\rho},0,t\right) = \frac{H\left(t -\frac{\rho}{c}\right)}{2
 \subsubsection{Example of Use}
 The 2-dimensional free space Green's function is commonly used to describe scattering from wires.
 
+\section{Green's Function for the Paraxial Wave Equation}
+In this section we derive the Green's function for the paraxial wave equation.
 
+\subsection{Deriviation of the Paraxial Wave Equation}
+We can derive the paraxial from the Helmholtz equation by assuming a plane wave propagating in the $x$ direction of the form $U(x,z) = A(x,z)e^{-jkx}$.
+
+ \begin{equation}
+ \begin{gathered}
+ \left[ \nabla^2 + k_o^2\right]U = 0 \\
+\left[\frac{\partial^2 }{\partial x^2} + \frac{\partial^2 }{\partial z^2} + k_o^2\right]U = 0 \\
+\frac{\partial }{\partial x}\left(\frac{\partial U}{\partial x} \right) + \frac{\partial^2 U}{\partial z^2} + k_o^2 U = 0 \\
+\frac{\partial }{\partial x}\left(-jkAe^{-jk_ox}+e^{-jk_ox}\frac{\partial A}{\partial x} \right) + e^{-jk_ox}\frac{\partial^2 A}{\partial z^2} + k_o^2 Ae^{-jk_ox} = 0 \\
+-k_o^2Ae^{-jk_ox} -2jk_oe^{-jk_ox}\frac{\partial A}{\partial x}+e^{-jk_ox}\frac{\partial^2 A}{\partial x^2} + e^{-jk_ox}\frac{\partial^2 A}{\partial z^2} + k_o^2 Ae^{-jk_ox} = 0 \\
+e^{-jk_ox}\left( -2jk_o\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partial x^2} + \frac{\partial^2 A}{\partial z^2}\right) = 0 \\
+\end{gathered}
+\label{gf_eq:41}
+\end{equation}
+ \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
+This gives us an equation dependent only on the amplitude, $A$
+ \begin{equation}
+-2jk_o\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partial x^2} + \frac{\partial^2 A}{\partial z^2} = 0 \\
+\label{gf_eq:42}
+\end{equation}
+ \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
+ We can now apply the paraxial approximation which states that the change in the modulation function along the propagation direction is negligible over a wavelength. This can be expressed mathematically as
+  \begin{equation}
+k_o\frac{\partial A}{\partial x} >> \frac{\partial^2 A}{\partial^2 x}
+\label{gf_eq:43}
+\end{equation}
+ \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
+ With this approximation we can neglect the 2nd derivative in $x$ and write the paraxial equation as
+   \begin{equation}
+\boxed{-2jk_o\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} = 0} \\
+\label{gf_eq:44}
+\end{equation}
+ \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
+Since we have reduced the original Helmholtz equation for the full propagating wave to one that is only dependent on the modulation function, we will need to scale the Green's function by $e^{-jk_ox}$ to get the full propagating wave solution.
+ 
+\subsection{Green's Function Derivation}
+ 
 \section{Dyadic Green's Functions}
 
 
