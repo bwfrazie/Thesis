@@ -103,16 +103,10 @@ Following Huygen's principle, we can use every point on the sea surface as a sou
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-The projection of $s$ along $\hat{\eta}$ and $\hat{\xi}$ is $-s\sin\theta$ and $s\cos\theta$ respectively. The Green's function can then be computed through the paraxial wave equation with the source constrained along $s$.
+The projection of $s$ along $\hat{\eta}$ and $\hat{\xi}$ is $-s\sin\theta$ and $s\cos\theta$ respectively. The Green's function for the paraxial wave equation was derived in Section \ref{gf_sec:paraxial} as
 
 \begin{equation}
-2jk_o \frac{\partial G}{\partial \eta} - \frac{\partial^2 G}{\partial \xi^2} = -\delta(\eta + s \sin\theta)\delta(\xi - s \cos\theta)
-\label{mp_eq:11a}
-\end{equation}
-
-We can apply a coordinate transformation of $\eta' = \eta + s\sin\theta$ and $\xi' = \xi - s\cos\theta$
-\begin{equation}
-2jk_o \frac{\partial G}{\partial \eta'} - \frac{\partial^2 G}{\partial \xi'^2} = -\delta(\eta')\delta(\xi')
+G= \sqrt{\frac{j}{8\pi k_o(x-x')}}\exp\left[-jk_o\left(x -x' + \frac{k_o(z-z')^2}{2(x-x')}\right) \right]
 \label{mp_eq:11aa}
 \end{equation}
 
