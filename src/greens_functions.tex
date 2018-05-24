@@ -754,15 +754,18 @@ G_p &= \frac{1}{2jk_o}\frac{1}{2\pi}\int_{-\infty}^{\infty}dk e^{\frac{jx}{2k_o}
 \label{mp_eq:11f}
 \end{equation}
 
-Multiplying by $e^{-jk_ox}$ and letting $x\rightarrow x-x'$ and $x\rightarrow z-z'$ yields the full Green's function.
+Multiplying by $e^{-jk_ox}$ yields the full Green's function.
 \begin{equation}
-\begin{gathered}
-G= \sqrt{\frac{j}{8\pi k_o(x-x')}}\exp\left[-j\frac{k_o(z-z')^2}{2(x-x')} \right]e^{-jk_o(x-x')}\\
-\boxed{G= \sqrt{\frac{j}{8\pi k_o(x-x')}}\exp\left[-jk_o\left(x-x' + \frac{k_o(z-z')^2}{2(x-x')}\right) \right]}\\
-\end{gathered}
+G= \sqrt{\frac{j}{8\pi k_o(x-x')}}\exp\left[-j\frac{k_o(z-z')^2}{2(x-x')} \right]e^{-jk_o(x-x')}
 \label{mp_eq:11fa}
 \end{equation}
  
+We can let $x\rightarrow x-x'$ and $x\rightarrow z-z'$ to represent the Green's function as traditionally shown.
+\begin{equation}
+\boxed{G\left(\boldsymbol{x},\boldsymbol{x}',\boldsymbol{z},\boldsymbol{z}' \right)= \sqrt{\frac{j}{8\pi k_o(x-x')}}\exp\left[-jk_o\left(x-x' + \frac{(z-z')^2}{2(x-x')}\right) \right]}\\
+\label{mp_eq:11fb}
+\end{equation}
+
 \section{Dyadic Green's Functions}
 
 
