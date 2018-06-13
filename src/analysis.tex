@@ -373,12 +373,11 @@ The phase of the integrand oscillates rapidly as shown by the real part of the i
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Even with low altitudes, the phase oscillations will be rapid as $\tilde{x}$ goes past the limits of integration and will cancel out, so we can use the principle of stationary phase and let the limits of integration go to $\pm\infty$. Since the integrand is an even function, we can then take the limit from $0$ to $+\infty$ and multiply by 2.
+Even with low altitudes, the phase oscillations will be rapid as $\tilde{x}$ goes past the limits of integration and will cancel out, so we can use the principle of stationary phase and let the positive limit extend to $\infty$.
 
 \begin{equation}
 \begin{aligned}
-I&=\int\limits_{-\infty}^{\infty}dx\gamma(x)\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2\right]\\
-&=2\int\limits_{0}^{\infty}dx\gamma(x)\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2\right]
+I&=\int\limits_{0}^{\infty}dx\gamma(x)\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2\right]\\
 \end{aligned}
 \label{mp_eq:23}
 \end{equation}
@@ -386,7 +385,7 @@ I&=\int\limits_{-\infty}^{\infty}dx\gamma(x)\exp\left[\frac{-jk_oL_0''}{2}(x-x_m
 To solve this equation, we can work in the complex plane as shown in Figure \ref{mp_fig:6}. The contour along the real axis, $\mathcal{C}_1$, is deformed to ensure we do not cross through the singular point at $\tilde{x} = L-x_m$ as given in Equation \ref{mp_eq:13} for the initial expression of $L_0$. From Jordan's Lemma, the contour along the arc $\mathcal{C}_2$ will be $0$. Since there are no singular points enclosed by the contour, the sum of the integrals along the contours is $0$ so that
 
 \begin{equation}
-I = -2\int_{\mathcal{C}_3}d\tilde{x} \gamma(\tilde{x})\exp\left[\frac{-jk_oL_0''}{2}\tilde{x}^2\right]
+I = -\int_{\mathcal{C}_3}d\tilde{x} \gamma(\tilde{x})\exp\left[\frac{-jk_oL_0''}{2}\tilde{x}^2\right]
 \label{mp_eq:24}
 \end{equation}
 
@@ -405,35 +404,46 @@ To ensure we take the path of steepest descent, we can transform $\tilde{x}$ to 
 
 \begin{equation}
 \begin{gathered}
-I = -2\int_{\mathcal{C}_3}d\tilde{z}e^{-j\pi/4} \gamma(\tilde{x})\exp\left[\frac{-k_oL_0''}{2}\tilde{z}^2\right]  \\
-= 2e^{-j\pi/4}\int_{0}^{\infty}d\tilde{z}\gamma(\tilde{x})\exp\left[\frac{-k_oL_0''}{2}\tilde{z}^2\right]  \\
-= 2e^{-j\pi/4}\gamma(x_m)\sqrt{\frac{2\pi}{k_oL_o''}}
+I = -\int_{\mathcal{C}_3}d\tilde{z}e^{-j\pi/4} \gamma(\tilde{x})\exp\left[\frac{-k_oL_0''}{2}\tilde{z}^2\right]  \\
+= e^{-j\pi/4}\int_{0}^{\infty}d\tilde{z}\gamma(\tilde{x})\exp\left[\frac{-k_oL_0''}{2}\tilde{z}^2\right]  \\
+= e^{-j\pi/4}\gamma(x_m)\sqrt{\frac{2\pi}{k_oL_o''}} \\
 \end{gathered}
 \label{mp_eq:25}
 \end{equation}
 
-This yields an asymptotic approximation for the deterministic component of equation \ref{mp_eq:21}.
+This yields an asymptotic approximation for the deterministic component of the integral as
 \begin{equation}
 \begin{gathered}
-F_p= \frac{1}{2jk_o}\Biggl[\sqrt{\frac{k_o}{2\pi jL}}e^{-jk_oL_1}\\ + 2e^{-j\left(k_oL_{so}+\pi/4\right)}\Gamma_1 \sqrt{\frac{k_o}{2\pi jx_m}}\sqrt{\frac{k_o}{2\pi j (L-x_m)}}\frac{h_2}{L-x_m}\sqrt{\frac{2\pi}{k_oL_o''}}\Biggr]
+I = e^{-j\left(k_oL_{so}+\pi/4\right)}\Gamma_1 \sqrt{\frac{k_o}{2\pi jx_m}}\sqrt{\frac{k_o}{2\pi j (L-x_m)}}\frac{h_2}{L-x_m}\sqrt{\frac{2\pi}{k_oL_o''}} 
 \end{gathered}
 \label{mp_eq:26}
 \end{equation}
 
-We can simplify this expression by normalizing by the direct path amplitude and substituting in for $x_m$ and $L_0''$
+We can simplify this expression by substituting in for $x_m$ and $L_0''$
 \begin{equation}
 \begin{gathered}
-F_p= e^{-jk_oL_1}+ 2\Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}\\ \times \sqrt{\frac{2\pi j L}{k_o}} \sqrt{\frac{k_o}{2\pi j\frac{h_1L}{h_1+h_2}}}\sqrt{\frac{k_o}{2\pi j (L-\frac{h_1L}{h_1+h_2})}}\frac{h_2}{L-\frac{h_1L}{h_1+h_2}}\sqrt{\frac{2\pi}{k_o\frac{(h_1+h_2)^4}{h_1h_2L^3}}} \\
-F_p= e^{-jk_oL_1}+ 2\Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}\\ \times \sqrt{\frac{2\pi j L}{k_o}} \sqrt{\frac{k_o(h_1+h_2)}{2\pi jh_1L}}\sqrt{\frac{k_o(h_1+h_2)}{2\pi jLh_2}}\frac{h_2(h_1+h_2)}{Lh_2}\sqrt{\frac{2\pi h_1h_2L^3}{k_o(h_1+h_2)^4}} \\
-F_p= e^{-jk_oL_1}+ 2\Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}\\ \times  \sqrt{\frac{h_1+h_2}{h_1}}\sqrt{\frac{k_o}{2\pi j L}}\sqrt{\frac{h_1+h_2}{h_2}}\frac{h_1+h_2}{L}\sqrt{\frac{2\pi h_1h_2L^3}{k_o(h_1+h_2)^4}} \\
+I= \Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}\sqrt{\frac{k_o}{2\pi j\frac{h_1L}{h_1+h_2}}}\sqrt{\frac{k_o}{2\pi j (L-\frac{h_1L}{h_1+h_2})}}\frac{h_2}{L-\frac{h_1L}{h_1+h_2}}\sqrt{\frac{2\pi}{k_o\frac{(h_1+h_2)^4}{h_1h_2L^3}}} \\
+= \Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)} \sqrt{\frac{k_o(h_1+h_2)}{2\pi jh_1L}}\sqrt{\frac{k_o(h_1+h_2)}{2\pi jLh_2}}\frac{h_2(h_1+h_2)}{Lh_2}\sqrt{\frac{2\pi h_1h_2L^3}{k_o(h_1+h_2)^4}} \\
+= \Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}  \sqrt{\frac{h_1+h_2}{h_1}}\sqrt{\frac{k_o}{2\pi j L}}\sqrt{\frac{h_1+h_2}{h_2}}\frac{h_1+h_2}{L}\sqrt{\frac{2\pi h_1h_2L^3}{k_o(h_1+h_2)^4}} \\
+= \Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}\sqrt{\frac{k_o}{2\pi jL}} \\
 \end{gathered}
 \label{mp_eq:27}
 \end{equation}
 
-This results in the final expression for the propagation factor
+The full propagation factor is then given as
 \begin{equation}
 \begin{gathered}
-\boxed{F_p= e^{-jk_oL_1}+ \frac{2\Gamma_1}{\sqrt{j}}e^{-j\left(k_oL_{so}+\pi/4\right)}}
+F_p= \frac{1}{2jk_o}\sqrt{\frac{k_0}{2\pi jL}}\left[e^{-jkL_1} + \Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}\right] \\
 \end{gathered}
 \label{mp_eq:27}
 \end{equation}
+
+And can be normalized to the final result
+\begin{equation}
+\begin{gathered}
+\boxed{F_p= e^{-jkL_1} + \Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}} \\
+\end{gathered}
+\label{mp_eq:28}
+\end{equation}
+
+The asymptotic solution to the normalized propagation factor is the same expression as the 2 ray model but with an added phase shift.
