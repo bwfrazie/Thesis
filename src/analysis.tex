@@ -1,4 +1,4 @@
-\chapter{Analytical Propagation}
+\chapter{Analytical Propagation Model}
 \label{analytical_propagation}
 
 \section{2-Ray Model}
@@ -64,7 +64,10 @@ This yields a constraint for the maximum allowable spatial sampling step to ensu
 \end{equation}
 
 \section{Multiple Ray Model}
-To include multiple rays, we must consider the region over which the electromagnetic wave reflects from the surface, $\tilde{x}$, as shown in Figure \ref{mp_fig:2}. This figure extends Figure \ref{mp_fig:1}, and  $L_2$ and $L_3$ are the path lengths for the various reflected rays and $s(x)$ is the altitude of the sea surface at $x$. 
+The multiple ray model is more complicated than the 2 ray model and would be applied when we need a step up in fidelity from "back of the envelope" calculations.
+
+\subsection{Geometry}
+To include multiple rays, we must consider the region over which the electromagnetic wave reflects from the surface, $\tilde{x}$, as shown in Figure \ref{mp_fig:2}, which extends Figure \ref{mp_fig:1}. Here, $L_2$ and $L_3$ are the path lengths for the various reflected rays and $s(x)$ is the altitude of the sea surface at $x$. 
 
 \begin{figure}[H]
   \begin{center}
@@ -80,96 +83,161 @@ To include multiple rays, we must consider the region over which the electromagn
 The path lengths  $L_2$ and $L_3$ for the reflected ray can be defined through similar triangles around $x$ and can again be simplified through a binomial expansion. At high altitudes or small sea states, $2h_1s(x) >> s^2(x)$ and we can neglect the $s^2(x)$ term.
 \begin{equation}
 \begin{aligned}
-L_2 &= \sqrt{x^2 + \left( h_1 - s(x)\right)^2}  \approx x + \frac{h_1-s(x))^2}{2x}\\
-L_3 & = \sqrt{\left(L - x\right)^2 + \left( h_2 - s(x)\right)^2}  \approx L-x + \frac{h_2 - s(x))^2}{2\left(L-x\right)}\\
+L_2 &= \sqrt{x^2 + \left( h_1 - s(x)\right)^2}  \approx x + \frac{(h_1-s(x))^2}{2x}\\
+L_3 & = \sqrt{\left(L - x\right)^2 + \left( h_2 - s(x)\right)^2}  \approx L-x + \frac{(h_2 - s(x))^2}{2\left(L-x\right)}\\
 \end{aligned}
 \label{mp_eq:12}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+To derive an expression for the fields at an arbitrary point, we will leverage Green's functions.
 
-To solve the propagation problem in the geometry of Figure \ref{mp_fig:2a}, we will find the Green's function for the path from the surface to the receiver and then leverage reciprocity to find the Green's function for the forward path.
+\subsection{Solution Through Green's Functions}
+The Green's function for the paraxial wave equation is derived in Section \ref{gf_sec:paraxial} as
+\begin{equation}
+G\left(x,x',z,z' \right)= \sqrt{\frac{j}{8\pi k_o(x-x')}}\exp\left[-jk_o\left(x -x' + \frac{(z-z')^2}{2(x-x')}\right) \right]
+\label{mp_eq:11aa}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+Where the source is located at $(x',z')$ and the observation point is located at $(x,z)$.
 
-\subsection{Green's Function Derivation}
-Following Huygen's principle, we can use every point on the sea surface as a source for the reflected wave with the geometry shown in Figure \ref{mp_fig:2a}. Here $\theta$ is defined as the angle between the propagation direction ($\hat{\eta}$) and the direction towards the receiver ($\hat{r}$), and $s$ is the portion of the sea surface that acts as a source. We are assuming here that the region around the reflection point is linear. We are using $\eta$ and $\xi$ as coordinates to prevent confusion with $x$ and $z$ when we introduce them later.
+\subsubsection{Direct Path}
+The solution to the scalar wave equation at $P_2$ for the direct path can be found by using the Green's function from equation \ref{mp_eq:11aa} with a delta function at $P_1$ ($x' = 0, z' = h_1$) representing a point source.
+
+\begin{equation}
+\begin{gathered}
+U_1(P_2) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}dx' dz' G\left(x,x',z,z' \right) f(x',z') \\
+U_1(P_2) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}dx' dz' G\left(x,x',z,z' \right)\delta(x') \delta(z'- (h_1-s)) \\
+U_1(P_2) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}dx' dz' \sqrt{\frac{j}{8\pi k_o(x-x')}}\exp\left[-jk_o\left(x -x' + \frac{(z-z')^2}{2(x-x')}\right) \right] \\
+\times \delta(x') \delta(z'- (h_1-s)) \\
+U_1(P_2) = \frac{1}{2jk_o}\sqrt{\frac{k_o}{2\pi jx}}\exp\left[-jk_o\left(x + \frac{(z-(h_1-s))^2}{2(x)}\right) \right]\\
+\end{gathered}
+\label{mp_eq:11ab}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+At $P_2$, $x = L$ and $z = h_2-s$, so the direct path can be written as
+\begin{equation}
+\begin{gathered}
+U_1(P_2) = \frac{1}{2jk_o}\sqrt{\frac{k_o}{2\pi jL}}\exp\left[-jk_o\left(L + \frac{((h_2-s)-(h_1-s))^2}{2L}\right) \right]\\
+U_1(P_2)\approx \frac{1}{2jk_o} \sqrt{\frac{k_o}{2\pi jL}}\exp\left[-jk_oL_1 \right]\\
+\end{gathered}
+\label{mp_eq:11ac}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\subsubsection{Rayleigh-Sommerfeld Diffraction Integral}
+Following Huygen's principle, we can use every point on the sea surface as a source for the reflected wave. We will follow \cite{goodman_fourier} and treat diffraction from the sea surface similarly to diffraction from a planar screen. 
+
+The scalar solution from the Green's function method is derived in Section \ref{gf_sec:method} as
+\begin{equation}
+U = \oint\limits_{S}\left[G\frac{\partial U}{\partial n}dS - U\frac{\partial G}{\partial n} \right] -\int\limits_{V}d^3r' Gf
+\label{mp_eq:11aaa}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+We will focus here on the homogeneous solution, $f=0$, and let the surface normal direction, $\hat{n}$, be along $z$. In order to ensure the integral over the surface vanishes at far distances, we need to apply the Sommerfeld radiation condition on the disturbance $U$
+\begin{equation}
+ \lim_{x\to\infty} x\left(\frac{\partial U}{\partial n} -jkU \right) = 0.
+\label{mp_eq:11aaaa}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+In order the simplify the surface integral in Equation \ref{mp_eq:11aaa}, we can choose an alternative Green's function that is generated by a pair of mirrored point sources as shown in Figure \ref{mp_fig:2a}. This configuration will ensure that the Green's function vanishes on the surface provided that the assumption of small altitude deviations along the surface holds.
 
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=3in]{../media/analysis/gf_geometry.png}
+\includegraphics[width=5in]{../media/analysis/multipath_layout.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
-    \caption[Green's Function Geometry ]{Green's Function Geometry\label{mp_fig:2a}}
+    \caption[Rayleigh-Sommerfeld Green's Function Geometry]{Rayleigh-Sommerfeld Green's Function Geometry\label{mp_fig:2a}}
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-The projection of $s$ along $\hat{\eta}$ and $\hat{\xi}$ is $-s\sin\theta$ and $s\cos\theta$ respectively. The Green's function for the paraxial wave equation was derived in Section \ref{gf_sec:paraxial} as
+This Greens function, $G\_$, is then be given as
 
 \begin{equation}
-G\left(\boldsymbol{x},\boldsymbol{x}',\boldsymbol{z},\boldsymbol{z}' \right)= \sqrt{\frac{j}{8\pi k_o(x-x')}}\exp\left[-jk_o\left(x -x' + \frac{(z-z')^2}{2(x-x')}\right) \right]
-\label{mp_eq:11aa}
+G\_= \sqrt{\frac{j}{8\pi k_ox}}\exp\left[-jk_o\left(x + \frac{z^2}{2x}\right) \right] - \sqrt{\frac{j}{8\pi k_ox_1}}\exp\left[-jk_o\left(x_1 + \frac{z_1^2}{2x_1}\right) \right]
+\label{mp_eq:11aab}
 \end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
-Through reciprocity, the Green's function derived in Equation \ref{mp_eq:11fa} can represent the propagation either to the surface or from the surface. With the appropriate selection of $\eta$, $\xi$, and $\theta$, Green's functions for both the forward and reflected paths can be derived. The full Green's function will then be the product of the Green's functions for the individual paths.
-
-\subsection{Solution of the Wave Equation}
-To solve the wave equation, we can make the assumption that the sea surface $s$ is small compared to the altitudes, $h_1$ and $h_2$. This means that $s$ will affect the height of the reflection point but have a negligible impact on the surface normal. Therefore we can integrate over $x$ and apply a Dirichlet boundary condition on $G: G|_s = 0$. Since our Greens' function also satisfies the Sommerfeld radiation condition ($\lim_{r\rightarrow\infty} r\left(\frac{\partial G}{\partial r} -ik_oG\right)= 0$) and the outward surface normal is $-\hat{\xi}$
-
-\begin{equation}
-U(\bar{r}) = -\int d\eta U(0) \hat{n} \cdot \nabla G = \int d\eta U(0) \frac{\partial G}{\partial \xi}
-\label{mp_eq:12a}
-\end{equation}
-
-We can take the derivative with respect to $\xi$ of $G$
+The normal derivative $\partial G\_/\partial n$, is then given as
 \begin{equation}
 \begin{aligned}
-\frac{\partial G}{\partial \xi} &= \frac{j}{2k_o}\sqrt{\frac{k_o}{j2\pi(\eta+s\sin\theta)}}\frac{jk_o2(\xi-s\cos\theta)}{2(\eta+s\sin\theta)}\exp\left[\frac{jk_o(\xi-s\cos\theta)^2}{2(\eta+s\sin\theta)}\right]\\
-&= -\sqrt{\frac{k_o}{j2\pi(\eta+s\sin\theta)}}\frac{(\xi-s\cos\theta)}{2(\eta+s\sin\theta)}\exp\left[\frac{jk_o(\xi-s\cos\theta)^2}{2(\eta+s\sin\theta)}\right]\\
+\frac{\partial G\_}{\partial n}= &-\frac{jk_oz}{x}\sqrt{\frac{j}{8\pi k_ox}}\exp\left[-jk_o\left(x + \frac{z^2}{2x}\right) \right] \\
+&+\frac{jk_oz_1}{x_1}\sqrt{\frac{j}{8\pi k_ox_1}}\exp\left[-jk_o\left(x_1 + \frac{z_1^2}{2x_1}\right) \right]
 \end{aligned}
-\label{mp_eq:12b}
+\label{mp_eq:11aac}
 \end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
-For the first path, we can let the source at $0$ be a plane wave so that $U(0) = e^{jk_o\eta}$
-\begin{equation}
-U_1(\bar{r}) =  -\int_{0} ^{x_m} d\eta e^{jk_o\eta} \sqrt{\frac{k_o}{j2\pi(\eta+s\sin\theta)}}\frac{(\xi-s\cos\theta)}{2(\eta+s\sin\theta)}\exp\left[\frac{jk_o(\xi-s\cos\theta)^2}{2(\eta+s\sin\theta)}\right]
-\label{mp_eq:12c}
-\end{equation}
-
-Now we can simplify this expression. In the paraxial approximation, $\cos\theta \approx 1$ and $\sin\theta \approx 0$ and for the first path, $\xi \rightarrow h_1$ and $\eta\rightarrow x$.
-\begin{equation}
-U_1(\bar{r}) =  -\int_{0} ^{x_m} dx e^{jk_ox} \sqrt{\frac{k_o}{j2\pi x}}\frac{(h_1-s)}{2x}\exp\left[\frac{jk_o(h_1-s)^2}{2x}\right]
-\label{mp_eq:12d}
-\end{equation}
-
-To add the second path, we will use $U_1$ as the source and add the reflection coefficient from the surface, $\Gamma$.
-\begin{equation}
-U(\bar{r}) =  -\int_{x_m}^L d\eta \Gamma U_1e^{jk_o\eta} \sqrt{\frac{k_o}{j2\pi(\eta+s\sin\theta)}}\frac{(\xi-s\cos\theta)}{2(\eta+s\sin\theta)}\exp\left[\frac{jk_o(\xi-s\cos\theta)^2}{2(\eta+s\sin\theta)}\right]
-\label{mp_eq:12e}
-\end{equation}
-
-As in Equation \ref{mp_eq:12d}, for the second path, $\xi \rightarrow h_2$ and $\eta\rightarrow L-x$.
-\begin{equation}
-U(\bar{r}) =  -\int_{x_m}^L dx \Gamma U_1 e^{jk_o(L-x)}\sqrt{\frac{k_o}{j2\pi(L-x)}}\frac{(h_2-s)}{2(L-x)}\exp\left[\frac{jk_o(h_2-s)^2}{2(L-x)}\right]
-\label{mp_eq:12e}
-\end{equation}
-
-Expanding and simplifying yields
+On the surface, $x_1 = x$ and $z_1 = -z$ so that
 \begin{equation}
 \begin{gathered}
-U(\bar{r}) =  -\int_{x_m}^L dx \Gamma\left(-\int_{0} ^{x_m} dx e^{jk_ox} \sqrt{\frac{k_o}{j2\pi x}}\frac{(h_1-s)}{2x}\exp\left[\frac{jk_o(h_1-s)^2}{2x}\right]\right)  \\e^{jk_o(L-x)}\sqrt{\frac{k_o}{j2\pi(L-x)}}\frac{(h_2-s)}{2(L-x)}\exp\left[\frac{jk_o(h_2-s)^2}{2(L-x)}\right]\\
-U(\bar{r}) =  \int_{0}^L dx \Gamma e^{jk_oL} \sqrt{\frac{k_o}{j2\pi x}}\frac{(h_1-s)}{2x}\exp\left[\frac{jk_o(h_1-s)^2}{2x}\right]  \\\sqrt{\frac{k_o}{j2\pi(L-x)}}\frac{(h_2-s)}{2(L-x)}\exp\left[\frac{jk_o(h_2-s)^2}{2(L-x)}\right]\\
+\frac{\partial G\_}{\partial n} = -2\frac{\partial G}{\partial n} \\
+\frac{\partial G\_}{\partial n} = -2jk_o\frac{z}{x}G
 \end{gathered}
-\label{mp_eq:12f}
+\label{mp_eq:11aad}
 \end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
-We can use the definitions for $L_2$ and $L_3$ from Equation \ref{mp_eq:12} to reduce this further and provide the final integral for $U(\bar{r})$.
+With this Green's function in hand, we can rewrite the solution as
 \begin{equation}
-\boxed{U(\bar{r}) =  \int_{0}^L dx \Gamma \sqrt{\frac{k_o}{j2\pi x}}\sqrt{\frac{k_o}{j2\pi(L-x)}}\frac{(h_1-s)}{2x}\frac{(h_2-s)}{2(L-x)}e^{jk(L_2+L_3)}}
-\label{mp_eq:12g}
+\begin{gathered}
+U(P_2) = -\oint\limits_{S}U(P_1)\frac{\partial G\_}{\partial n}ds\\
+= 2jk_o\oint\limits_{S}U(P_1)G\frac{z}{x}ds
+\end{gathered}
+\label{mp_eq:11aae}
 \end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
-\subsection{Approximations}
-The path length for a given reflected ray, $L_r$ is then given by
+\subsubsection{Reflected Path}
+The reflected wave will be identified as $U_2$ and we can use Equation \ref{mp_eq:11aae} to express the solution at $P_2$ as
+
+\begin{equation}
+\begin{gathered}
+U_2(P_2) = 2jk_o\int\limits_{-\infty}^{\infty}dx\Gamma U(s)\frac{z}{x}\sqrt{\frac{j}{8\pi k_o x}}\exp\left[-jk_o\left(x +\frac{z^2}{2x} \right) \right] \\
+= \int\limits_{-\infty}^{\infty}dx\Gamma U(s)\frac{z}{x}\sqrt{\frac{k_o}{2\pi j x}}\exp\left[-jk_o\left(x +\frac{z^2}{2x} \right) \right] \\
+\end{gathered}
+\label{mp_eq:11aaf}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+From the geometry in Figure \ref{mp_fig:2}, we are shifting the starting point for the return path and we need to let $x \rightarrow L-x$ and $z \rightarrow h_2-s$ so that we now have
+
+\begin{equation}
+\begin{gathered}
+U_2(P_2) = \int\limits_{0}^{L}dx\Gamma U(s)\frac{h_2-s}{L-x}\sqrt{\frac{k_o}{2\pi j (L-x)}}\exp\left[-jk_o\left(L-x +\frac{(h_2-s)^2}{2(L-x)} \right) \right] \\
+= \int\limits_{0}^{L}dx\Gamma U(s)\frac{h_2-s}{L-x}\sqrt{\frac{k_o}{2\pi j (L-x)}}\exp\left[-jk_oL_3\right] \\
+\end{gathered}
+\label{mp_eq:11aag}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+The reflected wave solution at the sea surface,$U_2(s)$, follows from the solution to the direct path, with $x = x$ and $z = 0$ at the sea surface.
+\begin{equation}
+\begin{gathered}
+U_2(s) = \sqrt{\frac{j}{8\pi k_ox}}\exp\left[-jk_o\left(x + \frac{(h_1-s)^2}{2x}\right) \right]\\
+= \frac{1}{2jk_o}\sqrt{\frac{k_o}{2\pi jx}}\exp\left[-jk_oL_2\right]
+\end{gathered}
+\label{mp_eq:11ae}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+This yields the full solution for the reflected wave as 
+\begin{equation}
+\begin{gathered}
+U_2(P_2) = \int\limits_{0}^{L}dx\Gamma \frac{1}{2jk_o}\sqrt{\frac{k_o}{2\pi jx}}\exp\left[-jk_oL_2\right]\frac{h_2-s}{L-x}\sqrt{\frac{k_o}{2\pi j (L-x)}}\exp\left[-jk_oL_3 \right]  \\
+= \frac{1}{2jk_o}\int\limits_{0}^{L}dx\Gamma \sqrt{\frac{k_o}{2\pi jx}}\sqrt{\frac{k_o}{2\pi j (L-x)}}\frac{h_2-s}{L-x}\exp\left[-jk_o\left( L_2 + L_3\right) \right]  \\
+\label{mp_eq:12g}
+\end{gathered}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\subsection{Path Approximations and Expansions}
+The path length for a given reflected ray, $L_r$ is given by
 \begin{equation}
 \begin{aligned}
 L_r &= L_2 + L_3 \\
@@ -211,11 +279,10 @@ x_m = \frac{h_1L}{h_1+h_2}
 \end{equation}
 
 This gives the following for the lowest Taylor series terms:
-
 \begin{equation}
 \begin{aligned}
 L_0(x_m) &= \frac{(h_1+h_2)^2}{2L} \\
-\frac{d^2L_0}{dx^2}\big|_{x_m}  &= \frac{(h_1+h_2)^4}{h_1h_2L^3} \\
+L_0''\frac{d^2L_0}{dx^2}\bigg|_{x_m}  &= \frac{(h_1+h_2)^4}{h_1h_2L^3} \\
 L_s(x_m) &= \frac{2s(x)(h_1 + h_2)}{L}\\
 \end{aligned}
 \label{mp_eq:17a}
@@ -227,33 +294,51 @@ L_0 \approx \frac{(h_1+h_2)^2}{2L} + \frac{(h_1+h_2)^4}{2h_1h_2L^3}(x-x_m)^2
 \label{mp_eq:18}
 \end{equation}
 
-The propagation factor will now include all the reflections from the surface
+\subsection{Propagation Factor}
+The propagation factor is then the sum of the two solutions and will include all the reflected paths from the surface
+\begin{equation}
+\begin{gathered}
+F_p= \frac{1}{2jk_o}\Biggl[\sqrt{\frac{k_o}{2\pi jL}}\exp\left[-jk_oL_1 \right]\\+ \int\limits_{0}^{L}dx\Gamma \sqrt{\frac{k_o}{2\pi jx}}\sqrt{\frac{k_o}{2\pi j (L-x)}}\frac{h_2-s}{L-x}\exp\left[-jk_o\left( L_2 + L_3\right) \right]\Biggr]
+\label{mp_eq:12h}
+\end{gathered}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
+We will first focus on simplifying the exponential term, $\kappa$, in Equation \ref{mp_eq:12h}.
 \begin{equation}
 \begin{aligned}
-F_p &= e^{ikL_1} + \int_0^Ldx\Gamma  e^{ik(L_2+L_3)}\\
-&= e^{ikL_1} + \int_0^Ldx\Gamma  e^{ik(L+L_0-L_s)}\\
-&= e^{ikL_1} +  \Gamma_1e^{ik(L+\frac{(h_1+h_2)^2}{2L})}\int_0^Ldx\frac{\Gamma}{\Gamma_1} e^{ik(\frac{L_0''}{2}(x-x_m)^2-L_s)}\\
-&= e^{ikL_1} + \Gamma_1e^{ikL_{so}}\int_0^Ldx\frac{\Gamma}{\Gamma_1} \exp\left[\frac{ikL_0''}{2}(x-x_m)^2 - \frac{i2ks(x)(h_1+h_2)}{L}\right]\\
+\kappa&= \exp\left[-jk_o\left( L_2 + L_3\right) \right] \\
+&= \exp\left[-jk_o\left( L+L_0-L_s\right) \right]\\
+&= \exp\left[-jk_o\left( L+L_0(x_m) + \frac{L_0''}{2}(x-x_m)^2-L_s\right) \right]\\
+&= \exp\left[-jk_o\left( L+\frac{(h_1+h_2)^2}{2L} + \frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
+&=\exp\left[-jk_o\left(L_{so}+\frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
+&=\exp\left[-jk_oL_{so}\right]\exp\left[-jk_o\left(\frac{L_0''}{2}(x-x_m)^2-\frac{2s(h_1+h_2)}{L}\right)\right]\\
+&=\exp\left[-jk_oL_{so}\right]\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2+\frac{j2k_os(h_1+h_2)}{L}\right]\\
+\label{mp_eq:12i}
 \end{aligned}
-\label{mp_eq:20}
 \end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
-We have a similar expression to Equation \ref{mp_eq:1b} with the propagation factor from the shortest orbit reflection scaled by contributions from all the other reflected rays. letting $x-x_m \rightarrow \tilde{x}$, we can express the propagation factor as
-
+Because $L_{so}$ is not dependent on $x$, it can come outside of the integral and the propagation factor can be written as
 \begin{equation}
-\boxed{F_p = e^{ikL_1} + \Gamma_1 e^{ikL_{so}}\int_{-x_m}^{L-x_m}d\tilde{x} \frac{\Gamma(\tilde{x})}{\Gamma_1}\exp\left[\frac{ikL_0''}{2}\tilde{x}^2 - \frac{i2ks(\tilde{x})(h_1+h_2)}{L}\right]}
+\begin{gathered}
+F_p= \frac{1}{2jk_o}\Biggl[\sqrt{\frac{k_o}{2\pi jL}}\exp\left[-jk_oL_1 \right]\\+ \exp\left[-jk_oL_{so}\right]\int\limits_{0}^{L}dx\Gamma \sqrt{\frac{k_o}{2\pi jx}}\sqrt{\frac{k_o}{2\pi j (L-x)}}\frac{h_2-s}{L-x}\\ \times\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2+\frac{j2k_os(h_1+h_2)}{L}\right]\Biggr]
 \label{mp_eq:21}
+\end{gathered}
 \end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
-\section{Asymptotic Approach for Deterministic Component}
-For the deterministic component, we wish to solve the integral given by
+\subsubsection{Asymptotic Solution for Deterministic Component}
+For the deterministic component, $s = 0$, and we wish to solve the integral given by
 \begin{equation}
-I = \int_{-x_m}^{L-x_m}d\tilde{x} \frac{\Gamma(\tilde{x})}{\Gamma_1}\exp\left[\frac{ikL_0''}{2}\tilde{x}^2\right]
+\begin{gathered}
+I = \int\limits_{0}^{L}dx\Gamma \sqrt{\frac{k_o}{2\pi jx}}\sqrt{\frac{k_o}{2\pi j (L-x)}}\frac{h_2}{L-x}\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2\right] \\
+= \int\limits_{0}^{L}dx\gamma(x)\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2\right] \\
+\end{gathered}
 \label{mp_eq:22}
 \end{equation}
 
-The phase of the integrand oscillates rapidly as shown by the real part of the integrand in Figure \ref{mp_fig:3} with a 10m altitude target, Figure \ref{mp_fig:4} with a 20m altitude target and Figure \ref{mp_fig:5} with a 50m altitude target. Each subplot shows the impact of increasing the ground distance, $L$, with the lower right subplot showing the horizon limit.
+The phase of the integrand oscillates rapidly as shown by the real part of the integrand in Figure \ref{mp_fig:3} with a 10m altitude target, Figure \ref{mp_fig:4} with a 20m altitude target and Figure \ref{mp_fig:5} with a 50m altitude target. Each subplot shows the impact of increasing the ground distance, $L$, with the lower right subplot showing the horizon limit. For the $x$ axis in these plots, $\tilde{x} = x-x_m$.
 
 \begin{figure}[H]
   \begin{center}
@@ -291,20 +376,23 @@ The phase of the integrand oscillates rapidly as shown by the real part of the i
 Even with low altitudes, the phase oscillations will be rapid as $\tilde{x}$ goes past the limits of integration and will cancel out, so we can use the principle of stationary phase and let the limits of integration go to $\pm\infty$. Since the integrand is an even function, we can then take the limit from $0$ to $+\infty$ and multiply by 2.
 
 \begin{equation}
-I = \int_{-\infty}^{\infty}d\tilde{x} \frac{\Gamma(\tilde{x})}{\Gamma_1}\exp\left[\frac{ikL_0''}{2}\tilde{x}^2\right] = 2\int_{0}^{\infty}d\tilde{x} \frac{\Gamma(\tilde{x})}{\Gamma_1}\exp\left[\frac{ikL_0''}{2}\tilde{x}^2\right] 
+\begin{aligned}
+I&=\int\limits_{-\infty}^{\infty}dx\gamma(x)\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2\right]\\
+&=2\int\limits_{0}^{\infty}dx\gamma(x)\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2\right]
+\end{aligned}
 \label{mp_eq:23}
 \end{equation}
 
 To solve this equation, we can work in the complex plane as shown in Figure \ref{mp_fig:6}. The contour along the real axis, $\mathcal{C}_1$, is deformed to ensure we do not cross through the singular point at $\tilde{x} = L-x_m$ as given in Equation \ref{mp_eq:13} for the initial expression of $L_0$. From Jordan's Lemma, the contour along the arc $\mathcal{C}_2$ will be $0$. Since there are no singular points enclosed by the contour, the sum of the integrals along the contours is $0$ so that
 
 \begin{equation}
-I = -2\int_{\mathcal{C}_3}d\tilde{x} \frac{\Gamma(\tilde{x})}{\Gamma_1}\exp\left[\frac{ikL_0''}{2}\tilde{x}^2\right]  
+I = -2\int_{\mathcal{C}_3}d\tilde{x} \gamma(\tilde{x})\exp\left[\frac{-jk_oL_0''}{2}\tilde{x}^2\right]
 \label{mp_eq:24}
 \end{equation}
 
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=5in]{../media/path_contour-figure0.pdf}
+\includegraphics[width=5in]{../media/path_contour-figure1.pdf}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
@@ -313,19 +401,39 @@ I = -2\int_{\mathcal{C}_3}d\tilde{x} \frac{\Gamma(\tilde{x})}{\Gamma_1}\exp\left
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-To ensure we take the path of steepest descent, we can transform $\tilde{x}$ to the complex variable $z$ by applying a phase shift of $\pi/4$. Now we can approximate the integral as
+To ensure we take the path of steepest descent, we can transform $\tilde{x}$ to the complex variable $z$ by applying a phase shift of $-\pi/4$, $\tilde{x} = z\exp[-j\pi/4]$. Now we can approximate the integral as
 
 \begin{equation}
 \begin{gathered}
-I = -2\int_{\mathcal{C}_3}d\tilde{z}e^{i\pi/4} \frac{\Gamma(x_m)}{\Gamma_1}\exp\left[\frac{-kL_0''}{2}\tilde{z}^2\right]  \\
-= 2e^{i\pi/4}\int_{0}^{\infty}d\tilde{z}\frac{\Gamma_1}{\Gamma_1}\exp\left[\frac{-kL_0''}{2}\tilde{z}^2\right]  \\
-= 2e^{i\pi/4}\sqrt{\frac{2\pi}{kL_o''}}
+I = -2\int_{\mathcal{C}_3}d\tilde{z}e^{-j\pi/4} \gamma(\tilde{x})\exp\left[\frac{-k_oL_0''}{2}\tilde{z}^2\right]  \\
+= 2e^{-j\pi/4}\int_{0}^{\infty}d\tilde{z}\gamma(\tilde{x})\exp\left[\frac{-k_oL_0''}{2}\tilde{z}^2\right]  \\
+= 2e^{-j\pi/4}\gamma(x_m)\sqrt{\frac{2\pi}{k_oL_o''}}
 \end{gathered}
 \label{mp_eq:25}
 \end{equation}
 
 This yields an asymptotic approximation for the deterministic component of equation \ref{mp_eq:21}.
 \begin{equation}
-\boxed{F_p = e^{ikL_1} +2\Gamma_1 e^{i\left(kL_{so} + \pi/4\right)}\sqrt{\frac{2\pi}{kL_o''}}}
+\begin{gathered}
+F_p= \frac{1}{2jk_o}\Biggl[\sqrt{\frac{k_o}{2\pi jL}}e^{-jk_oL_1}\\ + 2e^{-j\left(k_oL_{so}+\pi/4\right)}\Gamma_1 \sqrt{\frac{k_o}{2\pi jx_m}}\sqrt{\frac{k_o}{2\pi j (L-x_m)}}\frac{h_2}{L-x_m}\sqrt{\frac{2\pi}{k_oL_o''}}\Biggr]
+\end{gathered}
 \label{mp_eq:26}
+\end{equation}
+
+We can simplify this expression by normalizing by the direct path amplitude and substituting in for $x_m$ and $L_0''$
+\begin{equation}
+\begin{gathered}
+F_p= e^{-jk_oL_1}+ 2\Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}\\ \times \sqrt{\frac{2\pi j L}{k_o}} \sqrt{\frac{k_o}{2\pi j\frac{h_1L}{h_1+h_2}}}\sqrt{\frac{k_o}{2\pi j (L-\frac{h_1L}{h_1+h_2})}}\frac{h_2}{L-\frac{h_1L}{h_1+h_2}}\sqrt{\frac{2\pi}{k_o\frac{(h_1+h_2)^4}{h_1h_2L^3}}} \\
+F_p= e^{-jk_oL_1}+ 2\Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}\\ \times \sqrt{\frac{2\pi j L}{k_o}} \sqrt{\frac{k_o(h_1+h_2)}{2\pi jh_1L}}\sqrt{\frac{k_o(h_1+h_2)}{2\pi jLh_2}}\frac{h_2(h_1+h_2)}{Lh_2}\sqrt{\frac{2\pi h_1h_2L^3}{k_o(h_1+h_2)^4}} \\
+F_p= e^{-jk_oL_1}+ 2\Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}\\ \times  \sqrt{\frac{h_1+h_2}{h_1}}\sqrt{\frac{k_o}{2\pi j L}}\sqrt{\frac{h_1+h_2}{h_2}}\frac{h_1+h_2}{L}\sqrt{\frac{2\pi h_1h_2L^3}{k_o(h_1+h_2)^4}} \\
+\end{gathered}
+\label{mp_eq:27}
+\end{equation}
+
+This results in the final expression for the propagation factor
+\begin{equation}
+\begin{gathered}
+\boxed{F_p= e^{-jk_oL_1}+ \frac{2\Gamma_1}{\sqrt{j}}e^{-j\left(k_oL_{so}+\pi/4\right)}}
+\end{gathered}
+\label{mp_eq:27}
 \end{equation}

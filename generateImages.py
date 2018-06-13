@@ -16,6 +16,8 @@ os.chdir('..')
 call(["cp", "src/path_contour.tex","build/path_contour.tex"])
 os.chdir('build')
 call(["pdflatex", "-shell-escape","path_contour.tex"])
+call(["cp", "path_contour-figure0.pdf", "../media/path_contour-figure0.pdf"])
+call(["cp", "path_contour-figure1.pdf", "../media/path_contour-figure1.pdf"])
 
 while os.path.isfile('path_contour-figure0.pdf') == False:
 	print('Waiting ...')
