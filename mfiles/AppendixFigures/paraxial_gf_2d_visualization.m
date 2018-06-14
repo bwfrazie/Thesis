@@ -1,4 +1,4 @@
-function h = free_space_gf_2d_visualization(varargin)
+function h = paraxial_gf_2d_visualization(varargin)
 
 fontSize = 14;
 saveFigs = 0;
