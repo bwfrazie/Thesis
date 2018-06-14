@@ -1,4 +1,4 @@
-\chapter{Analytical Propagation Model}
+\chapter{Analytical Multipath Propagation Model}
 \label{analytical_propagation}
 
 \section{2-Ray Model}
@@ -33,38 +33,12 @@ L_{so} & = \sqrt{L^2 + (h_1+h_2)^2}  \approx L + \frac{(h_1 + h_2)^2}{2L}\\
 
 From Huygen's principle, the propagation factor for the 2-ray model is the sum of plane waves traveling along the paths $L_1$ and $L_{so}$. Here $\Gamma_1$ is the reflection coefficient from the sea surface, $\Gamma_1 = \Gamma(x_m)$.
 \begin{equation}
-\boxed{F_p = e^{ikL_1} + \Gamma_1e^{ikL_{so}}}
+\boxed{F_p = e^{jkL_1} + \Gamma_1e^{jkL_{so}}}
 \label{mp_eq:1b}
 \end{equation}
 
-We can now look at the phase difference between the two primary paths, $\Delta\varphi = k\left[ L_1 - L_{so}\right]$.
-\begin{equation}
-\boxed{\Delta\varphi = -\frac{4\pi h_1h_2}{\lambda L}}
-\label{mp_eq:7}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-\noindent The derivative of the phase difference with respect to range is then
-\begin{equation}
-\frac{d\Delta\varphi}{dL}=-\frac{4\pi h_1h_2}{\lambda L^2}
-\label{mp_eq:8}
-\end{equation}
-
-\noindent This can be converted from rad/m to rad/sample by multiplying by the spatial sampling distance in range, $\Delta L$. We can insist that this phase shift per sample be smaller than some pre-determined value to provide adequate sampling. It is often convenient to specify a limit in terms of wavelengths and we can enforce the condition that there must be at least $n$ samples per wavelength by letting
-
-\begin{equation}
-\frac{4\pi h_1h_2\Delta L}{\lambda L^2} \leq \frac{2\pi \lambda}{n}
-\label{mp_eq:10}
-\end{equation}
-
-This yields a constraint for the maximum allowable spatial sampling step to ensure $n$ samples per wavelength.
-\begin{equation}
-\boxed{\Delta L \leq \frac{\lambda^2 L^2}{2nh_1h_2}}
-\label{mp_eq:11}
-\end{equation}
-
-\section{Multiple Ray Model}
-The multiple ray model is more complicated than the 2 ray model and would be applied when we need a step up in fidelity from "back of the envelope" calculations.
+\section{Paraxial Wave Model}
+This section derives the solution for the multiple ray model in the paraxial assumption and demonstrates that it is asymptotically equivalent to the 2 ray model.
 
 \subsection{Geometry}
 To include multiple rays, we must consider the region over which the electromagnetic wave reflects from the surface, $\tilde{x}$, as shown in Figure \ref{mp_fig:2}, which extends Figure \ref{mp_fig:1}. Here, $L_2$ and $L_3$ are the path lengths for the various reflected rays and $s(x)$ is the altitude of the sea surface at $x$. 
@@ -94,7 +68,7 @@ To derive an expression for the fields at an arbitrary point, we will leverage G
 \subsection{Solution Through Green's Functions}
 The Green's function for the paraxial wave equation is derived in Section \ref{gf_sec:paraxial} as
 \begin{equation}
-G\left(x,x',z,z' \right)= \sqrt{\frac{j}{8\pi k_o(x-x')}}\exp\left[-jk_o\left(x -x' + \frac{(z-z')^2}{2(x-x')}\right) \right]
+G\left(x,x',z,z' \right)= \sqrt{\frac{j}{8\pi k_o|x-x'|}}\exp\left[-jk_o\left(|x -x'| + \frac{|z-z'|^2}{2|x-x'|}\right) \right]
 \label{mp_eq:11aa}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -107,7 +81,7 @@ The solution to the scalar wave equation at $P_2$ for the direct path can be fou
 \begin{gathered}
 U_1(P_2) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}dx' dz' G\left(x,x',z,z' \right) f(x',z') \\
 U_1(P_2) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}dx' dz' G\left(x,x',z,z' \right)\delta(x') \delta(z'- (h_1-s)) \\
-U_1(P_2) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}dx' dz' \sqrt{\frac{j}{8\pi k_o(x-x')}}\exp\left[-jk_o\left(x -x' + \frac{(z-z')^2}{2(x-x')}\right) \right] \\
+U_1(P_2) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}dx' dz' \sqrt{\frac{j}{8\pi k_o|x-x'|}}\exp\left[-jk_o\left(|x -x'| + \frac{|z-z'|^2}{2|x-x'|}\right) \right] \\
 \times \delta(x') \delta(z'- (h_1-s)) \\
 U_1(P_2) = \frac{1}{2jk_o}\sqrt{\frac{k_o}{2\pi jx}}\exp\left[-jk_o\left(x + \frac{(z-(h_1-s))^2}{2(x)}\right) \right]\\
 \end{gathered}
@@ -119,7 +93,7 @@ At $P_2$, $x = L$ and $z = h_2-s$, so the direct path can be written as
 \begin{equation}
 \begin{gathered}
 U_1(P_2) = \frac{1}{2jk_o}\sqrt{\frac{k_o}{2\pi jL}}\exp\left[-jk_o\left(L + \frac{((h_2-s)-(h_1-s))^2}{2L}\right) \right]\\
-U_1(P_2)\approx \frac{1}{2jk_o} \sqrt{\frac{k_o}{2\pi jL}}\exp\left[-jk_oL_1 \right]\\
+=\frac{1}{2jk_o} \sqrt{\frac{k_o}{2\pi jL}}\exp\left[-jk_oL_1 \right]\\
 \end{gathered}
 \label{mp_eq:11ac}
 \end{equation}
@@ -137,7 +111,7 @@ U = \oint\limits_{S}\left[G\frac{\partial U}{\partial n}dS - U\frac{\partial G}{
 
 We will focus here on the homogeneous solution, $f=0$, and let the surface normal direction, $\hat{n}$, be along $z$. In order to ensure the integral over the surface vanishes at far distances, we need to apply the Sommerfeld radiation condition on the disturbance $U$
 \begin{equation}
- \lim_{x\to\infty} x\left(\frac{\partial U}{\partial n} -jkU \right) = 0.
+ \lim_{x\to\infty} x\left(\frac{\partial U}{\partial z} -jkzU \right) = 0.
 \label{mp_eq:11aaaa}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -155,8 +129,7 @@ In order the simplify the surface integral in Equation \ref{mp_eq:11aaa}, we can
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-This Greens function, $G\_$, is then be given as
-
+This Greens function, $G\_$, is then given as
 \begin{equation}
 G\_= \sqrt{\frac{j}{8\pi k_ox}}\exp\left[-jk_o\left(x + \frac{z^2}{2x}\right) \right] - \sqrt{\frac{j}{8\pi k_ox_1}}\exp\left[-jk_o\left(x_1 + \frac{z_1^2}{2x_1}\right) \right]
 \label{mp_eq:11aab}
@@ -166,8 +139,8 @@ G\_= \sqrt{\frac{j}{8\pi k_ox}}\exp\left[-jk_o\left(x + \frac{z^2}{2x}\right) \r
 The normal derivative $\partial G\_/\partial n$, is then given as
 \begin{equation}
 \begin{aligned}
-\frac{\partial G\_}{\partial n}= &-\frac{jk_oz}{x}\sqrt{\frac{j}{8\pi k_ox}}\exp\left[-jk_o\left(x + \frac{z^2}{2x}\right) \right] \\
-&+\frac{jk_oz_1}{x_1}\sqrt{\frac{j}{8\pi k_ox_1}}\exp\left[-jk_o\left(x_1 + \frac{z_1^2}{2x_1}\right) \right]
+\frac{\partial G\_}{\partial n}&-\frac{jk_oz}{x}\sqrt{\frac{j}{8\pi k_ox}}\exp\left[-jk_o\left(x + \frac{z^2}{2x}\right) \right] \\
+&-\frac{jk_oz_1}{x_1}\sqrt{\frac{j}{8\pi k_ox_1}}\exp\left[-jk_o\left(x_1 + \frac{z_1^2}{2x_1}\right) \right]
 \end{aligned}
 \label{mp_eq:11aac}
 \end{equation}
@@ -216,7 +189,7 @@ U_2(P_2) = \int\limits_{0}^{L}dx\Gamma U(s)\frac{h_2-s}{L-x}\sqrt{\frac{k_o}{2\p
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-The reflected wave solution at the sea surface,$U_2(s)$, follows from the solution to the direct path, with $x = x$ and $z = 0$ at the sea surface.
+The reflected wave solution at the sea surface, $U_2(s)$, follows from the solution to the direct path.
 \begin{equation}
 \begin{gathered}
 U_2(s) = \sqrt{\frac{j}{8\pi k_ox}}\exp\left[-jk_o\left(x + \frac{(h_1-s)^2}{2x}\right) \right]\\
@@ -304,7 +277,7 @@ F_p= \frac{1}{2jk_o}\Biggl[\sqrt{\frac{k_o}{2\pi jL}}\exp\left[-jk_oL_1 \right]\
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-We will first focus on simplifying the exponential term, $\kappa$, in Equation \ref{mp_eq:12h}.
+To simplify this expression, we will first focus on simplifying the exponential term, $\kappa$, in Equation \ref{mp_eq:12h}.
 \begin{equation}
 \begin{aligned}
 \kappa&= \exp\left[-jk_o\left( L_2 + L_3\right) \right] \\
@@ -424,8 +397,9 @@ We can simplify this expression by substituting in for $x_m$ and $L_0''$
 \begin{gathered}
 I= \Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}\sqrt{\frac{k_o}{2\pi j\frac{h_1L}{h_1+h_2}}}\sqrt{\frac{k_o}{2\pi j (L-\frac{h_1L}{h_1+h_2})}}\frac{h_2}{L-\frac{h_1L}{h_1+h_2}}\sqrt{\frac{2\pi}{k_o\frac{(h_1+h_2)^4}{h_1h_2L^3}}} \\
 = \Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)} \sqrt{\frac{k_o(h_1+h_2)}{2\pi jh_1L}}\sqrt{\frac{k_o(h_1+h_2)}{2\pi jLh_2}}\frac{h_2(h_1+h_2)}{Lh_2}\sqrt{\frac{2\pi h_1h_2L^3}{k_o(h_1+h_2)^4}} \\
-= \Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}  \sqrt{\frac{h_1+h_2}{h_1}}\sqrt{\frac{k_o}{2\pi j L}}\sqrt{\frac{h_1+h_2}{h_2}}\frac{h_1+h_2}{L}\sqrt{\frac{2\pi h_1h_2L^3}{k_o(h_1+h_2)^4}} \\
-= \Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}\sqrt{\frac{k_o}{2\pi jL}} \\
+= \Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}  \sqrt{\frac{h_1+h_2}{h_1}}\sqrt{\frac{k_o}{2\pi j L}}\sqrt{\frac{h_1+h_2}{h_2}}\frac{h_1+h_2}{L}\sqrt{\frac{2\pi h_1h_2L^3}{k_o(h_1+h_2)^4}}\frac{1}{\sqrt{j}} \\
+= \Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}\sqrt{\frac{k_o}{2\pi jL}}e^{-j\pi/4} \\
+= \Gamma_1e^{-j\left(k_oL_{so}+\pi/2\right)}\sqrt{\frac{k_o}{2\pi jL}} \\
 \end{gathered}
 \label{mp_eq:27}
 \end{equation}
@@ -433,7 +407,7 @@ I= \Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}\sqrt{\frac{k_o}{2\pi j\frac{h_1L}{
 The full propagation factor is then given as
 \begin{equation}
 \begin{gathered}
-F_p= \frac{1}{2jk_o}\sqrt{\frac{k_0}{2\pi jL}}\left[e^{-jkL_1} + \Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}\right] \\
+F_p= \frac{1}{2jk_o}\sqrt{\frac{k_0}{2\pi jL}}\left[e^{-jkL_1} + \Gamma_1e^{-j\left(k_oL_{so}+\pi/2\right)}\right] \\
 \end{gathered}
 \label{mp_eq:27}
 \end{equation}
@@ -441,9 +415,11 @@ F_p= \frac{1}{2jk_o}\sqrt{\frac{k_0}{2\pi jL}}\left[e^{-jkL_1} + \Gamma_1e^{-j\l
 And can be normalized to the final result
 \begin{equation}
 \begin{gathered}
-\boxed{F_p= e^{-jkL_1} + \Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}} \\
+\boxed{F_p= e^{-jkL_1} + \Gamma_1e^{-j\left(k_oL_{so}+\pi/2\right)}} \\
 \end{gathered}
 \label{mp_eq:28}
 \end{equation}
 
 The asymptotic solution to the normalized propagation factor is the same expression as the 2 ray model but with an added phase shift.
+
+\subsection{Cylindrical Wave Model}
