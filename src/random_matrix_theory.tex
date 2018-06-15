@@ -1,2 +1,23 @@
+
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
 \chapter{Random Matrix Theory}
+
+\[\textbf{S}=
+\begin{tikzpicture}[baseline=-\the\dimexpr\fontdimen22\textfont2\relax ]
+
+\matrix (m)[matrix of math nodes,left delimiter=(,right delimiter=)]
+{
+S_{11} & S_{12} & \dots & S_{1n}\\
+S_{21} & S_{22} & \dots & S_{2n}\\
+\vdots & \vdots & \ddots & \vdots\\
+S_{n1} & S_{n2} & \dots & S_{nn}\\
+};
+
+\equation (e)[]{};
+\begin{pgfonlayer}{myback}
+\fhighlight[blue!20]{m-1-1}{m-4-1}
+\end{pgfonlayer}
+
+\end{tikzpicture}
+\]

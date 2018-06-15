@@ -5,7 +5,7 @@ f = 35e9;
 lambda = 3e8/f;
 k = 2*pi/lambda;
 h1 = 30;
-h2 = 10;%linspace(5,20,100);
+h2 = 50;%linspace(5,20,100);
 
 L = [10000 20000 30000 100000];
 
@@ -40,8 +40,8 @@ set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 grid on
 xlim([-xm(ind)/1000 (L(ind)-xm(ind))/1000])
-xlabel('\textbf{$\mathbf{\tilde{x}}$ (km)}','Interpreter','Latex')
-ylabel('Re\{F\}')
+xlabel('\textbf{$\mathbf{x-x_m}$ (km)}','Interpreter','Latex')
+ylabel('Re\{K\}')
 title(tstring);
 
 ind = 2;
@@ -53,8 +53,8 @@ set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 grid on
 xlim([-xm(ind)/1000 (L(ind)-xm(ind))/1000])
-xlabel('\textbf{$\mathbf{\tilde{x}}$ (km)}','Interpreter','Latex')
-ylabel('Re\{F\}')
+xlabel('\textbf{$\mathbf{x-x_m}$ (km)}','Interpreter','Latex')
+ylabel('Re\{K\}')
 title(tstring);
 
 ind = 3;
@@ -66,8 +66,8 @@ set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 grid on
 xlim([-xm(ind)/1000 (L(ind)-xm(ind))/1000])
-xlabel('\textbf{$\mathbf{\tilde{x}}$ (km)}','Interpreter','Latex')
-ylabel('Re\{F\}')
+xlabel('\textbf{$\mathbf{x-x_m}$ (km)}','Interpreter','Latex')
+ylabel('Re\{K\}')
 title(tstring);
 
 ind = 4;
@@ -79,7 +79,7 @@ set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 grid on
 xlim([-xm(ind)/1000 (L(ind)-xm(ind))/1000])
-xlabel('\textbf{$\mathbf{\tilde{x}}$ (km)}','Interpreter','Latex')
-ylabel('Re\{F\}')
+xlabel('\textbf{$\mathbf{x-x_m}$ (km)}','Interpreter','Latex')
+ylabel('Re\{K\}')
 title(tstring);
 

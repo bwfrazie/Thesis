@@ -1,8 +1,7 @@
-\chapter{Analytical Multipath Propagation Model}
+\chapter{Paraxial Wave Multipath Propagation Model}
 \label{analytical_propagation}
 
-\section{2-Ray Model}
-The 2-Ray multipath model over a flat earth is given in Figure \ref{mp_fig:1}. In this figure, $P_1$ and $P_2$ are the two points we are interested in propagating between and $P_2'$ is the mirror image of $P_2$. $L_1$ is then the direct path and $L_{so}$ represents the shortest orbit reflection from the sea surface. The altitudes of the two points from the mean sea surface are $h_1$ and $h_2$, the total downrange distance is $L$, and the distance to the reflection point is $x_m$.
+This section derives the solution for the multiple ray model in the paraxial assumption and demonstrates that it is asymptotically equivalent to the 2 ray model. The 2-Ray multipath model over a flat earth is given in Figure \ref{mp_fig:1}. In this figure, $P_1$ and $P_2$ are the two points we are interested in propagating between and $P_2'$ is the mirror image of $P_2$. $L_1$ is then the direct path and $L_{so}$ represents the shortest orbit reflection from the sea surface. The altitudes of the two points from the mean sea surface are $h_1$ and $h_2$, the total downrange distance is $L$, and the distance to the reflection point is $x_m$.
 
 \begin{figure}[H]
   \begin{center}
@@ -37,10 +36,7 @@ From Huygen's principle, the propagation factor for the 2-ray model is the sum o
 \label{mp_eq:1b}
 \end{equation}
 
-\section{Paraxial Wave Model}
-This section derives the solution for the multiple ray model in the paraxial assumption and demonstrates that it is asymptotically equivalent to the 2 ray model.
-
-\subsection{Geometry}
+\section{Geometry}
 To include multiple rays, we must consider the region over which the electromagnetic wave reflects from the surface, $\tilde{x}$, as shown in Figure \ref{mp_fig:2}, which extends Figure \ref{mp_fig:1}. Here, $L_2$ and $L_3$ are the path lengths for the various reflected rays and $s(x)$ is the altitude of the sea surface at $x$. 
 
 \begin{figure}[H]
@@ -63,9 +59,66 @@ L_3 & = \sqrt{\left(L - x\right)^2 + \left( h_2 - s(x)\right)^2}  \approx L-x + 
 \label{mp_eq:12}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-To derive an expression for the fields at an arbitrary point, we will leverage Green's functions.
 
-\subsection{Solution Through Green's Functions}
+\section{Path Approximations and Expansions}
+The path length for a given reflected ray, $L_r$ is given by
+\begin{equation}
+\begin{aligned}
+L_r &= L_2 + L_3 \\
+& = x + \frac{h_1^2-2h_1s(x)}{2x} +  L-x + \frac{h_2^2 - 2h_2s(x)}{2\left(L-x\right)} \\
+& = L + \frac{1}{2}\left[\frac{h_1^2}{x} + \frac{h_2^2}{L-x} \right] - s(x)\left[ \frac{h_1}{x} + \frac{h_2}{L-x}\right] \\
+&= L + L_0 - L_s
+\end{aligned}
+\label{mp_eq:13}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Here $L_0$ represents the deterministic component due to reflection from the surface and $L_s$ represents the random component due to reflection from the surface. The reflection point from the 2-ray model, $x_m$, should be a saddle point and provide the dominant contribution. We can therefore perform a Taylor expansion of $L_0$ about $x_m$.
+
+\begin{equation}
+L_0 \approx L_0(x_m) + \frac{1}{2}\frac{d^2L_0}{dx^2}\bigg|_{x_m}(x-x_m)^2
+\label{mp_eq:14}
+\end{equation}
+
+\begin{equation}
+\frac{dL_0}{dx} = \frac{1}{2}\left[\frac{-h_1^2}{x^2} + \frac{h_2^2}{(L-x)^2} \right]
+\label{mp_eq:15}
+\end{equation}
+
+\begin{equation}
+\frac{d^2L_0}{dx^2} = \frac{h_1^2}{x^3} + \frac{h_2^2}{(L-x)^3} 
+\label{mp_eq:16}
+\end{equation}
+
+Since $\frac{dL_0}{dx}\big|_{x_m} = 0$, we can solve for $x_m$
+\begin{equation}
+\begin{gathered}
+\frac{-h_1^2}{x_m^2} + \frac{h_2^2}{(L-x_m)^2} = 0\\
+\frac{-h_1}{x_m} + \frac{h_2}{L-x_m} = 0\\
+\frac{h_1}{x_m} = \frac{h_2}{L-x_m}\\
+h_1(L-x_m) = h_2x_m\\
+x_m = \frac{h_1L}{h_1+h_2}
+\end{gathered}
+\label{mp_eq:17}
+\end{equation}
+
+This gives the following for the lowest Taylor series terms:
+\begin{equation}
+\begin{aligned}
+L_0(x_m) &= \frac{(h_1+h_2)^2}{2L} \\
+L_0''\frac{d^2L_0}{dx^2}\bigg|_{x_m}  &= \frac{(h_1+h_2)^4}{h_1h_2L^3} \\
+L_s(x_m) &= \frac{2s(x)(h_1 + h_2)}{L}\\
+\end{aligned}
+\label{mp_eq:17a}
+\end{equation}
+
+The expansion of $L_0$ is then
+\begin{equation}
+L_0 \approx \frac{(h_1+h_2)^2}{2L} + \frac{(h_1+h_2)^4}{2h_1h_2L^3}(x-x_m)^2
+\label{mp_eq:18}
+\end{equation}
+
+\section{Solution Through Green's Functions}
 The Green's function for the paraxial wave equation is derived in Section \ref{gf_sec:paraxial} as
 \begin{equation}
 G\left(x,x',z,z' \right)= \sqrt{\frac{j}{8\pi k_o|x-x'|}}\exp\left[-jk_o\left(|x -x'| + \frac{|z-z'|^2}{2|x-x'|}\right) \right]
@@ -74,7 +127,7 @@ G\left(x,x',z,z' \right)= \sqrt{\frac{j}{8\pi k_o|x-x'|}}\exp\left[-jk_o\left(|x
 \renewcommand{\baselinestretch}{2} \small\normalsize
 Where the source is located at $(x',z')$ and the observation point is located at $(x,z)$.
 
-\subsubsection{Direct Path}
+\subsection{Direct Path}
 The solution to the scalar wave equation at $P_2$ for the direct path can be found by using the Green's function from equation \ref{mp_eq:11aa} with a delta function at $P_1$ ($x' = 0, z' = h_1$) representing a point source.
 
 \begin{equation}
@@ -99,7 +152,7 @@ U_1(P_2) = \frac{1}{2jk_o}\sqrt{\frac{k_o}{2\pi jL}}\exp\left[-jk_o\left(L + \fr
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\subsubsection{Rayleigh-Sommerfeld Diffraction Integral}
+\subsection{Rayleigh-Sommerfeld Diffraction Integral}
 Following Huygen's principle, we can use every point on the sea surface as a source for the reflected wave. We will follow \cite{goodman_fourier} and treat diffraction from the sea surface similarly to diffraction from a planar screen. 
 
 The scalar solution from the Green's function method is derived in Section \ref{gf_sec:method} as
@@ -166,7 +219,7 @@ U(P_2) = -\oint\limits_{S}U(P_1)\frac{\partial G\_}{\partial n}ds\\
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\subsubsection{Reflected Path}
+\subsection{Reflected Path}
 The reflected wave will be identified as $U_2$ and we can use Equation \ref{mp_eq:11aae} to express the solution at $P_2$ as
 
 \begin{equation}
@@ -209,78 +262,10 @@ U_2(P_2) = \int\limits_{0}^{L}dx\Gamma \frac{1}{2jk_o}\sqrt{\frac{k_o}{2\pi jx}}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\subsection{Path Approximations and Expansions}
-The path length for a given reflected ray, $L_r$ is given by
+To simplify this expression, we will first focus on simplifying the exponential term, $K(x)$.
 \begin{equation}
 \begin{aligned}
-L_r &= L_2 + L_3 \\
-& = x + \frac{h_1^2-2h_1s(x)}{2x} +  L-x + \frac{h_2^2 - 2h_2s(x)}{2\left(L-x\right)} \\
-& = L + \frac{1}{2}\left[\frac{h_1^2}{x} + \frac{h_2^2}{L-x} \right] - s(x)\left[ \frac{h_1}{x} + \frac{h_2}{L-x}\right] \\
-&= L + L_0 - L_s
-\end{aligned}
-\label{mp_eq:13}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-Here $L_0$ represents the deterministic component due to reflection from the surface and $L_s$ represents the random component due to reflection from the surface. The reflection point from the 2-ray model, $x_m$, should be a saddle point and provide the dominant contribution. We can therefore perform a Taylor expansion of $L_0$ about $x_m$.
-
-\begin{equation}
-L_0 \approx L_0(x_m) + \frac{1}{2}\frac{d^2L_0}{dx^2}\bigg|_{x_m}(x-x_m)^2
-\label{mp_eq:14}
-\end{equation}
-
-\begin{equation}
-\frac{dL_0}{dx} = \frac{1}{2}\left[\frac{-h_1^2}{x^2} + \frac{h_2^2}{(L-x)^2} \right]
-\label{mp_eq:15}
-\end{equation}
-
-\begin{equation}
-\frac{d^2L_0}{dx^2} = \frac{h_1^2}{x^3} + \frac{h_2^2}{(L-x)^3} 
-\label{mp_eq:16}
-\end{equation}
-
-Since $\frac{dL_0}{dx}\big|_{x_m} = 0$, we can solve for $x_m$
-\begin{equation}
-\begin{gathered}
-\frac{-h_1^2}{x_m^2} + \frac{h_2^2}{(L-x_m)^2} = 0\\
-\frac{-h_1}{x_m} + \frac{h_2}{L-x_m} = 0\\
-\frac{h_1}{x_m} = \frac{h_2}{L-x_m}\\
-h_1(L-x_m) = h_2x_m\\
-x_m = \frac{h_1L}{h_1+h_2}
-\end{gathered}
-\label{mp_eq:17}
-\end{equation}
-
-This gives the following for the lowest Taylor series terms:
-\begin{equation}
-\begin{aligned}
-L_0(x_m) &= \frac{(h_1+h_2)^2}{2L} \\
-L_0''\frac{d^2L_0}{dx^2}\bigg|_{x_m}  &= \frac{(h_1+h_2)^4}{h_1h_2L^3} \\
-L_s(x_m) &= \frac{2s(x)(h_1 + h_2)}{L}\\
-\end{aligned}
-\label{mp_eq:17a}
-\end{equation}
-
-The expansion of $L_0$ is then
-\begin{equation}
-L_0 \approx \frac{(h_1+h_2)^2}{2L} + \frac{(h_1+h_2)^4}{2h_1h_2L^3}(x-x_m)^2
-\label{mp_eq:18}
-\end{equation}
-
-\subsection{Propagation Factor}
-The propagation factor is then the sum of the two solutions and will include all the reflected paths from the surface
-\begin{equation}
-\begin{gathered}
-F_p= \frac{1}{2jk_o}\Biggl[\sqrt{\frac{k_o}{2\pi jL}}\exp\left[-jk_oL_1 \right]\\+ \int\limits_{0}^{L}dx\Gamma \sqrt{\frac{k_o}{2\pi jx}}\sqrt{\frac{k_o}{2\pi j (L-x)}}\frac{h_2-s}{L-x}\exp\left[-jk_o\left( L_2 + L_3\right) \right]\Biggr]
-\label{mp_eq:12h}
-\end{gathered}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-To simplify this expression, we will first focus on simplifying the exponential term, $\kappa$, in Equation \ref{mp_eq:12h}.
-\begin{equation}
-\begin{aligned}
-\kappa&= \exp\left[-jk_o\left( L_2 + L_3\right) \right] \\
+K(x)&= \exp\left[-jk_o\left( L_2 + L_3\right) \right] \\
 &= \exp\left[-jk_o\left( L+L_0-L_s\right) \right]\\
 &= \exp\left[-jk_o\left( L+L_0(x_m) + \frac{L_0''}{2}(x-x_m)^2-L_s\right) \right]\\
 &= \exp\left[-jk_o\left( L+\frac{(h_1+h_2)^2}{2L} + \frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
@@ -292,26 +277,27 @@ To simplify this expression, we will first focus on simplifying the exponential 
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Because $L_{so}$ is not dependent on $x$, it can come outside of the integral and the propagation factor can be written as
+Because $L_{so}$ is not dependent on $x$, it can come outside of the integral and Equation \ref{mp_eq:12g} can be written as
 \begin{equation}
 \begin{gathered}
-F_p= \frac{1}{2jk_o}\Biggl[\sqrt{\frac{k_o}{2\pi jL}}\exp\left[-jk_oL_1 \right]\\+ \exp\left[-jk_oL_{so}\right]\int\limits_{0}^{L}dx\Gamma \sqrt{\frac{k_o}{2\pi jx}}\sqrt{\frac{k_o}{2\pi j (L-x)}}\frac{h_2-s}{L-x}\\ \times\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2+\frac{j2k_os(h_1+h_2)}{L}\right]\Biggr]
+U_2(P-2)= \frac{1}{2jk_o}\exp\left[-jk_oL_{so}\right]\int\limits_{0}^{L}dx\Gamma \sqrt{\frac{k_o}{2\pi jx}}\sqrt{\frac{k_o}{2\pi j (L-x)}}\frac{h_2-s}{L-x}\\ \times\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2+\frac{j2k_os(h_1+h_2)}{L}\right]
 \label{mp_eq:21}
 \end{gathered}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\subsubsection{Asymptotic Solution for Deterministic Component}
+\subsection{Asymptotic Solution for Deterministic Component}
 For the deterministic component, $s = 0$, and we wish to solve the integral given by
 \begin{equation}
 \begin{gathered}
 I = \int\limits_{0}^{L}dx\Gamma \sqrt{\frac{k_o}{2\pi jx}}\sqrt{\frac{k_o}{2\pi j (L-x)}}\frac{h_2}{L-x}\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2\right] \\
 = \int\limits_{0}^{L}dx\gamma(x)\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2\right] \\
+= \int\limits_{0}^{L}dx\gamma(x)K(x) 
 \end{gathered}
 \label{mp_eq:22}
 \end{equation}
 
-The phase of the integrand oscillates rapidly as shown by the real part of the integrand in Figure \ref{mp_fig:3} with a 10m altitude target, Figure \ref{mp_fig:4} with a 20m altitude target and Figure \ref{mp_fig:5} with a 50m altitude target. Each subplot shows the impact of increasing the ground distance, $L$, with the lower right subplot showing the horizon limit. For the $x$ axis in these plots, $\tilde{x} = x-x_m$.
+The phase of the integrand oscillates rapidly as shown by the real part of $K(x)$ in Figure \ref{mp_fig:3} with a 10m altitude target, Figure \ref{mp_fig:4} with a 20m altitude target and Figure \ref{mp_fig:5} with a 50m altitude target. Each subplot shows the impact of increasing the ground distance, $L$, with the lower right subplot showing the horizon limit.
 
 \begin{figure}[H]
   \begin{center}
@@ -346,7 +332,7 @@ The phase of the integrand oscillates rapidly as shown by the real part of the i
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Even with low altitudes, the phase oscillations will be rapid as $\tilde{x}$ goes past the limits of integration and will cancel out, so we can use the principle of stationary phase and let the positive limit extend to $\infty$.
+Even with low altitudes, the phase oscillations will be rapid as $\tilde{x}$ goes past the limits of integration and will cancel out, so we can use the principle of stationary phase and let the positive limit extend to $\infty$. For each case shown, the carrier frequency of the electromagnetic wave was set to 35 GHz. Lower frequencies will have fewer oscillations, but the pricinple of stationary phase will still apply.
 
 \begin{equation}
 \begin{aligned}
@@ -404,12 +390,24 @@ I= \Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}\sqrt{\frac{k_o}{2\pi j\frac{h_1L}{
 \label{mp_eq:27}
 \end{equation}
 
+The asymptotic solution for the reflected wave in the paraxial assumption is then
+\begin{equation}
+\begin{gathered}
+U_2(P-2)= \frac{1}{2jk_o}\sqrt{\frac{k_0}{2\pi jL}} \Gamma_1e^{-j\left(k_oL_{so}+\pi/2\right)} \\]
+\label{mp_eq:27a}
+\end{gathered}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\section{Propagation Factor}
+The propagation factor is then the sum of the two solutions and will include all the reflected paths from the surface
+
 The full propagation factor is then given as
 \begin{equation}
 \begin{gathered}
 F_p= \frac{1}{2jk_o}\sqrt{\frac{k_0}{2\pi jL}}\left[e^{-jkL_1} + \Gamma_1e^{-j\left(k_oL_{so}+\pi/2\right)}\right] \\
 \end{gathered}
-\label{mp_eq:27}
+\label{mp_eq:27b}
 \end{equation}
 
 And can be normalized to the final result
@@ -421,5 +419,3 @@ And can be normalized to the final result
 \end{equation}
 
 The asymptotic solution to the normalized propagation factor is the same expression as the 2 ray model but with an added phase shift.
-
-\subsection{Cylindrical Wave Model}

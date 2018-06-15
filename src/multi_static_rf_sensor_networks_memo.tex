@@ -30,6 +30,27 @@
 \usepackage{subfigure}
 \usepackage{standalone}
 
+\usepackage{xparse}
+\usepackage{tikz}
+\usetikzlibrary{fit}
+\usetikzlibrary{matrix,backgrounds}
+\pgfdeclarelayer{myback}
+\pgfsetlayers{myback,background,main}
+\tikzset{mycolor/.style = {line width=1bp,color=#1}}%
+\tikzset{myfillcolor/.style = {draw,fill=#1}}%
+
+\NewDocumentCommand{\highlight}{O{blue!40} m m}{%
+\draw[mycolor=#1] (#2.north west)rectangle (#3.south east);
+}
+
+\NewDocumentCommand{\fhighlight}{O{blue!40} m m}{%
+\draw[myfillcolor=#1,rounded corners] (#2.north west)rectangle (#3.south east);
+}
+
+\tikzset{%
+  highlight/.style={rectangle,rounded corners,fill=red!15,draw,
+    fill opacity=0.5,thick,inner sep=0pt}
+}
 
 \newcommand{\tbsp}{\rule{0pt}{18pt}} %used to get a vertical distance after \hline
 \renewcommand{\baselinestretch}{2}
