@@ -1,18 +1,23 @@
 sig1 = 1;
-sig2 = sig1;
+sig2 = 0.25*sig1;
 
 f = 10e9;
 lambda = 3e8/f;
 k = 2*pi/lambda;
 
 
-R = 10000;%4*lambda;
-L = 100;%2*lambda;%1000;
-x1 = -1/2*L;
-x2 = 1/2*L;
+R = 1000;
+L = [1 2 5 10];
+
+figure;
+
+for (testCounter = 1:length(L))
+    
+x1 = -1/2*L(testCounter)*lambda;
+x2 = 1/2*L(testCounter)*lambda;
 y1 = 0;
 y2 = 0;
-theta = linspace(0,360,500);
+theta = linspace(0,360,2000);
 
 
 x3 = R*cos(theta*pi/180);
@@ -33,5 +38,13 @@ p2 = exp(-1j*2*k*d2);
 
 s = abs(sqrt(sig1).*p1 + sqrt(sig2).*p2).^2;
 
-figure
-h = polarplot(theta*pi/180,s);
+subplot(2,2,testCounter)
+h = polarplot(theta*pi/180,s,'LineWidth',2);
+grid on
+set(gca,'LineWidth',2)
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+tstring = sprintf('%d Wavelength Spacing',L(testCounter));
+title(tstring);
+end
+
