@@ -1,5 +1,5 @@
-\chapter{RADAR Basics}
-This chapter covers some RADAR basics, including the RADAR range equation, bistatic configurations, antenna beam widths and a summary of the ideas behind probability of detection.
+\chapter{RADAR Basics}\label{chapter_radar_basics}
+This chapter covers some RADAR basics, including the RADAR range equation, propagation factors, and bistatic configurations.
 
 \section{RADAR Range Equation} 
 The RADAR range equation provides a deterministic method to calculate received signal levels and is the workhorse for analyzing RADAR system performance. This equation is the first step towards building a statistical model, as it captures the underlying physics.
@@ -18,18 +18,18 @@ The RADAR range equation is derived by assuming spherically propagating waves an
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-With spherical waves, the power is spread out over a sphere of radius equal to the slant range, $R$, which gives a scaling factor of $\left( 4\pi R^2 \right)^{-1}$ for propagation. The total projected power, $P_1$, is the transmitted power, $P_t$, multiplied by the antenna gain, $G_t$. The RADAR cross section (RCS), $\sigma$, defines the amount of power reflected, and the effective area of the antenna is $\frac{G_t\lambda^2}{4\pi}$.
+With spherical waves, the power is spread out over a sphere of radius equal to the slant range, $R$, which gives a scaling factor of $\left( 4\pi R^2 \right)^{-1}$ for propagation. The total projected power, $P_1$, is the transmitted power, $P_t$, multiplied by the antenna gain, $G_t$. The RCS, $\sigma$, defines the amount of power reflected, and the effective area of the antenna is $G_t\lambda^2(4\pi)^{-1}$.
 
-In the monostatic case, $G_t = G_r$ and the RADAR range equation is given in Equation \ref{intro_eq:1} \cite{skolnik_handbook}.
+In the monostatic case, $G_t = G_r$ and the RADAR range equation is then \cite{skolnik_handbook}.
   \begin{equation}
   \label{intro_eq:1}
  P_r = \frac{P_tG_t^2\sigma\lambda^2}{\left(4\pi\right)^3R^4}
   \end{equation}
-In this equation, the antenna gain, $G_t$ is a function of the angle between the antenna boresight and the target. Randomness enters this version of the RADAR range equation through the target RCS.
+In this equation, the antenna gain, $G_t$ is a function of the angle between the antenna boresight and the target. Randomness enters this version of the RADAR range equation through the target RCS as there is otherwise no term to account for environmental fluctuations.
 
 In the atmosphere, propagation is a linear operation. Therefore we can leverage superposition to compute the RADAR range equation for each path or scatterer and sum the results.
 
-We can divide Equation \ref{intro_eq:1} by the noise power to represent the RADAR range equation in terms of signal to noise ratio (SNR) as shown in Equation \ref{intro_eq:2} \cite{skolnik_handbook}.
+We can divide Equation \ref{intro_eq:1} by the noise power to represent the RADAR range equation in terms of signal to noise ratio (SNR) \cite{skolnik_handbook}.
 \begin{equation}
     \label{intro_eq:2}
 \text{SNR} = \frac{P_r}{P_n} = \frac{P_tG_t^2\sigma\lambda^2}{\left(4\pi\right)^3 R^4k_BTBF_n}
@@ -58,6 +58,29 @@ The bistatic RADAR range equation with a propagation factor included is given in
   \label{intro_eq:4a}
  P_r = \frac{P_tG_tG_r\sigma_B\lambda^2}{\left(4\pi\right)^3R_1^2R_2^2}F_p
   \end{equation}
+  
+To visualize the propagation factors, Figure \ref{intro_fig:1a} shows the propagation factors for standard atmosphere and Figure \ref{intro_fig:1b} shows the propagation factors with a 20 m duct. With standard atmosphere, we can see the impact of the horizon as well as the periodic multipath peaks and nulls. With a 20 m duct, the atmosphere acts as a waveguide (described in detail in Chapter \ref{chapter_env}) so that propagation extends past the horizon.
+  \begin{figure}[H]
+  \begin{center}
+\includegraphics[width=4in]{../media/multistatic/std_atmos_pf.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Propagation Factors for Standard Atmosphere]{Propagation Factors for Standard Atmosphere \label{intro_fig:1a}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=4in]{../media/multistatic/20m_duct_pf.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Propagation Factors for a 20 m Duct]{Propagation Factors for a 20 m Duct \label{intro_fig:1b}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
 \section{Bistatic Configurations}
 Because the transmitter and receiver are not colocated in a bistatic configuration, the geometry now becomes ellipsoidal as shown in Figure \ref{intro_fig:2}. Here, $R_1$ is the slant range from the transmitter to the target, $R_2$ is the slant range from the target to the receiver, $\theta_t$ is the one way beam width of the transmitter and $\theta_r$ is the one way beam width of the receiver. The bistatic angle, $\beta$, is the angle between the transmitter and receiver in the plane containing the transmitter, receiver, and target. 

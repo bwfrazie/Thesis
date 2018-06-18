@@ -4,7 +4,7 @@ Analysis of RADAR systems in maritime environments is complicated by the fact th
 When we look at cases where the transmitter and receiver are not colocated, we have a bistatic configuration and analyzing performance becomes even more difficult \cite{willis_bistatic}. We cannot leverate reciprocity as the paths are no longer constant, and the effects of multipath and clutter are often skewed due to geometric differences.  In addition, the receiver observes the target from a different aspect angle than it was illuminated with, resulting in a different radiation pattern. With multiple receivers or transmitters, the configuration is termed multistatic as there are multiple bistatic elements.
 
 \section{Objective}
-The objective of this work is to evaluate the performance of multistatic Radio Frequency (RF) sensor networks and demonstrate that Random Matrix Theory (RMT) allows prediction of the signal statistics. This will be accomplished in three phases. First, the ocean surface will be modeled in 2-dimensions to ensure that the appropriate sea wave statistics are captured in both the down range and cross range directions. Second, a Monte Carlo study will be performed to generate signal statistics. This study will be executed by generating a series of sea surfaces and then numerically propagating a signal through a Parabolic Wave Equation (PWE) solver. The study will cover multiple sea states and geometric configurations. Finally, RMT will be used to generate a statistical model that encompasses the results.
+The objective of this work is to evaluate the performance of multistatic Radio Frequency (RF) sensor networks and demonstrate that Random Matrix Theory (RMT) allows prediction of the signal statistics. This will be accomplished in three phases. First, the ocean surface will be modeled in 2-dimensions to ensure that the appropriate sea wave statistics are captured in both the down range and cross range directions. Second, a Monte Carlo study will be performed to generate signal statistics. This study will be executed by generating a series of sea surfaces and then numerically propagating a signal through a Parabolic Wave Equation (PWE) solver. Finally, RMT will be used to generate a statistical model that encompasses the results.
 
 \section{Multistatic RF Sensor Network Concept}
 An example multistatic RF sensor network in a maritime environment is shown in Figure \ref{ms_fig:1}. In this concept, a single transmitter illuminates a target and the echo signal is captured by a pair of receivers. The received signal will fluctuate due to multipath reflections from the surface and relative motion of the target.
@@ -19,3 +19,34 @@ An example multistatic RF sensor network in a maritime environment is shown in F
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
+\section{Sources of Uncertainty}
+There are 3 primary sources for randomness in propagating through a maritime environment: the configuration of the target ship, the refractivity of the atmosphere, and the sea surface.
+
+The configuration of the target ship drives the RADAR Cross Section (RCS). As shown in Figure \ref{rmt_fig:1}, the RCS signature is complicated and highly aspect dependent. 
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=4in]{../media/multistatic/shipconfig.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Ship Configuration RCS]{Ship Configuration RCS\label{rmt_fig:1}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+The RCS is also impacted by how the specific ship is configured; what it has or doesn't have and how components are arranged on the deck. Because there are many programs applying significant effort into modeling the behavior of ship RCS signatures, RCS fluctuations will be considered out of scope for the purposes of this work.
+
+The next source of uncertainty is the refractive index profile of the atmosphere, which can vary significantly as described in Chapter \ref{chapter_env}. As shown in Figure \ref{rmt_fig:2}, a transmitted ray will refract in the atmosphere and follow a curved path. If we use a 4/3 earth model, we can approximate the propagation path as linear and simplify calculations. This approximation no longer holds in the presence of a duct, where the atmosphere acts as a waveguide and extends propagation beyond the horizon, providing a different curve for the ray trajectory.
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=4in]{../media/multistatic/earth_refractivity.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[4/3 Earth Model and Rectilinear Propagation]{4/3 Earth Model and Rectilinear Propagation\label{rmt_fig:2}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+Large scale variations in refractivity occur on the order of several minutes to hours and will not significantly impact the signal statistics over a few pulses or a Coherent Processing Interval (CPI). We will treat refractive index fluctuations these as affecting average signal levels rather than variance.
+
+The final source of uncertainty is variations due to the sea surface, which manifest through multipath and clutter. Multipath is due to interference from forward specular reflections and clutter is due to backscatter from the surface. These will both be described in detail in Chapter \ref{chapter_env} and are the primary sources of randomness to be modeled in this work. 

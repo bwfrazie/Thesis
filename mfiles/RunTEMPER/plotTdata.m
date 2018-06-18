@@ -15,8 +15,8 @@ set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 title('Propagation Factors (dB)')
-xlim([5 25])
-caxis([-10 0])
+xlim([0 50])
+caxis([-80 3])
 % axis square
 
 % subplot(1,2,2)

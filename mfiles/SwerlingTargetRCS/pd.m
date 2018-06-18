@@ -20,16 +20,16 @@ TdB = db(T,'power');
 [pd4,pfa4] = getSwerlingPd(SNRdB,N,4,TdB);
 
 h = figure;
-h0 = plot(SNRdB,pd0,'--');
+h0 = plot(SNRdB,pd0,'--','LineWidth',2);
 hold on
-h1 = plot(SNRdB,pd1);
+h1 = plot(SNRdB,pd1,'LineWidth',2);
 set(h1,'Marker','x');
 set(h1,'MarkerSize',6);
-h2 = plot(SNRdB,pd2);
-h3 = plot(SNRdB,pd3);
+h2 = plot(SNRdB,pd2,'LineWidth',2);
+h3 = plot(SNRdB,pd3,'LineWidth',2);
 set(h3,'Marker','o');
 set(h3,'MarkerSize',6);
-h4 = plot(SNRdB,pd4);
+h4 = plot(SNRdB,pd4,'LineWidth',2);
 xlim([-2 15])
 legend('Nonfluctuating','Swerling 1','Swerling 2', 'Swerling 3', 'Swerling 4')
 grid on
@@ -37,3 +37,6 @@ xlabel('SNR (dB)')
 ylabel('Probability of Detection')
 tstring = sprintf('Threshold = %0.1f dB, Pfa = %0.3e, N = %d',TdB,Pfa, N);
 title(tstring);
+set(gca,'LineWidth',2)
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')

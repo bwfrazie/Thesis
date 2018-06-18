@@ -79,5 +79,8 @@ h(2) = scatter(R(rx2)/1000,psi(px2),1,'filled','o','MarkerEdgeColor','black','Ma
 h(3) = scatter(R(rx3)/1000,psi(px3),1,'filled','o','MarkerEdgeColor','magenta','MarkerFaceColor','magenta');
 h(4) = scatter(R(rx4)/1000,psi(px4),1,'filled','o','MarkerEdgeColor','red','MarkerFaceColor','red');
 legend(h,'12dB','6dB','3dB','0dB');
-tstring = sprintf('Signal to Clutter Ratio (dB) at %0.0f GHz, Sea State %d, %0.1f%c BW %d dBsm Target',f,SS,bw, char(176),tgt);
+tstring = sprintf('SCR (dB) at %0.0f GHz, Sea State %d, %0.1f%c BW %d dBsm Target',f,SS,bw, char(176),tgt);
 title(tstring);
+set(gca,'LineWidth',2)
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
