@@ -164,13 +164,13 @@ The total reflection coefficient, $\Gamma_t$ is then the product of the rough an
 Clutter is the backscattered signal from the sea surface and the unwanted signal strength can be found from the RADAR range equation using the product of the backscatter cross section, $\sigma^0$ and the clutter cell area, $A_c$. The area will depend on if the signal is beam limited or pulse limited. The Signal to Clutter Ratio (SCR) is the ratio of the power received from the signal to the power received from clutter and is a good indicator of overall performance.
 
 \subsection{NRL Model for $\sigma^0$}
-There are many models for estimating the backscatter cross section at various sea states \cite{blake_radar} \cite{richards_radar} \cite{nathanson_radar}. In 2012, an empirical model was developed by NRL that minimized differences with the extensive experimental database \cite{gregers-hansen_clutter} and that model will be presented here. Equation \ref{env_eq:7a} provides the model for $\sigma^0$ and Table \ref{env_tab:0} lists the various constants used in the equation with $f$ the radar frequency in GHz, $SS$ the sea state, and $\alpha$ the grazing angle in degrees.
+There are many models for estimating the backscatter cross section at various sea states \cite{blake_radar} \cite{richards_radar} \cite{nathanson_radar}. In 2012, an empirical model was developed by NRL that minimized differences with the extensive experimental database \cite{gregers-hansen_clutter} and which will be presented here. Equation \ref{env_eq:7a} provides the model for $\sigma^0$ where $f$ is the radar frequency in GHz, $SS$ is the sea state, and $\Psi$ is the grazing angle in degrees. Table \ref{env_tab:0} lists the various constants used in the equation for both horizontal and vertical polarization.
 
 \begin{equation}
 \begin{gathered}
-  \sigma^0 = c_1 + c_2 \log_{10}(\sin(\alpha))+\frac{\left(27.5 + c_3\alpha\right)\log_{10}(f)}{1+0.95\alpha}+\\
-  c_4\left(1 + SS \right)^{1/\left(2+0.085\alpha + 0.033SS\right)}
- + c_5\alpha^2 
+  \sigma^0 = c_1 + c_2 \log_{10}(\sin(\Psi))+\frac{\left(27.5 + c_3\Psi\right)\log_{10}(f)}{1+0.95\Psi}+\\
+  c_4\left(1 + SS \right)^{1/\left(2+0.085\Psi + 0.033SS\right)}
+ + c_5\Psi^2 
  \end{gathered}
  \label{env_eq:7a}
   \end{equation}
@@ -231,10 +231,9 @@ A target consisting of a single isotropic scatterer is the simplest implementati
 \subsection{Mulitple Scatterer Targets}
 The next step in fidelity is to create a target out of multiple isotropic scatterers so that the RCS is the vector sum of all the scatterers. In this case, the RCS will show dependence on both aspect angle and wave motion. The aspect angle dependence will be highly dependent on the number of scatters and the spacing between them. Figure \ref{env_fig:3y} shows the aspect dependence for a pair of scatterers spaced 1, 2, 5, and 10 wavelengths apart. Without having many scatterers present to densely fill the signature, these models tend to produce large multipath lobing and RCS oscillations as artifacts.
 
-Figure \ref{env_fig:3y} 
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=4in]{../media/multistatic/target_rcs_2_point.png}
+\includegraphics[width=5in]{../media/multistatic/target_rcs_2_point.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
