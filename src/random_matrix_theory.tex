@@ -1,18 +1,18 @@
 \renewcommand{\baselinestretch}{2} \small\normalsize
 \chapter{Random Matrix Theory Overview}
-Eugene Wigner developed Random Matrix Theory (RMT) to describe the statistics of energy levels of large nuclei. He found that if he replaced the Hamiltonian of the systems with a random matrix, the statistical properties of the eigenvalues were in agreement (provided the random matrix was chosen from an appropriate distribution) \cite{ott_chaos}.
+Eugene Wigner developed RMT to describe the statistics of energy levels of large nuclei. He found that if he replaced the Hamiltonian of the systems with a random matrix, the statistical properties of the eigenvalues were in agreement (provided the random matrix was chosen from an appropriate distribution) \cite{ott_chaos}.
 
 Since then, RMT has become extremely useful in characterizing chaotic systems that are extremely complicated and highly sensitive to small changes, such as the propagation of electromagnetic waves in dense scattering environments.
 
 \section{Wave Chaotic Systems}
-The wave equation is linear, so solutions can not be chaotic. However, in the semi-classical limiti where the wavelength is much smaller than the characteristic length scale ($\lambda << L$), these solutions can be described by rays with chaotic trajectories. This is also known as the random plane wave hypothesis where we can treat the chaotic propagation problem as a random superposition of plane waves.
+The wave equation is linear, so solutions can not be chaotic. However, in the semi-classical limit where the wavelength is much smaller than the characteristic length scale ($\lambda << L$), these solutions can be described by rays with chaotic trajectories. This is also known as the random plane wave hypothesis where we can treat the chaotic propagation problem as a random superposition of plane waves.
 
 For the purposes of this work, the propagation has Time Reversal Symmetry (TRS), so the probability distribution of the Hamiltonian will be invariant under orthogonal transformations, $P(H) = P(O^THO)$ for any orthogonal matrix $O$ \cite{ott_chaos}. This is referred to as the Gaussian Orthogonal Ensemble (GOE) case. Because the matrix $O$ is orthogonal, the elements of the random matrix will be real, independent, and identically distributed Gaussian random variables with the variance of the diagonal elements equal to twice the variance of the off-diagonal elements.
 
-Wave chaotic systems have both universal and system specific properties. The system specific features are due to the short orbit trajectories (the paths with few bounces between the ports) and the universal features are due to the chaotic nature of the system itself \cite{bohigas}. RMT works extremely well at predicting the statistical properties of the universal fluctuations; however, short orbit trajectories have a significant impact on the overall scattering statistics and should be included in any model \cite{hart_so}. One such model that includes both universal and system specific features is the Random Coupling Model (RCM) which normalizes the impedance matrix by the system specific impedance to separate the universal and system specific features  \cite{hemmady_review} \cite{gradoni_review}.
+Wave chaotic systems have both universal and system specific properties. The system specific features are due to the short orbit trajectories (the paths with few bounces between the ports) and the universal features are due to the chaotic nature of the system itself \cite{bohigas}. RMT works extremely well at predicting the statistical properties of the universal fluctuations; however, short orbit trajectories have a significant impact on the overall scattering statistics and should be included \cite{hart_so} \cite{yeh_universal}. One such model that includes both universal and system specific features is the Random Coupling Model (RCM) which normalizes the impedance matrix by the system specific impedance to separate the universal and system specific features  \cite{zheng_single} \cite{zheng_multiple} \cite{hemmady_review} \cite{gradoni_review}.
 
 \section{Multi-static Configuration}
-The scattering matrix, $S$, contains all the information for the various propagation paths through the system with each transmitter and receiver considered as a port. The scattering matrix then determines the relationship between voltages at the output of a port, $\textbf{V}^o$, to voltages input at input of all the ports, $\textbf{V}^i$
+The scattering matrix, $S$, contains all the information for the various propagation paths through the system with each transmitter and receiver considered as a port. This matrix then determines the relationship between voltages at the output of a port, $\textbf{V}^o$, to voltages at the input of all the ports, $\textbf{V}^i$ \cite{pozar_microwave}.
 \begin{equation}
 \textbf{V}^o = \textbf{S} \textbf{V}^i
 \label{rmt_eq:0}
@@ -40,9 +40,19 @@ S_{n1} & S_{n2} & \dots & S_{nn}\\
 \]
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-For a single transmitter, only the 1st column of $\textbf{S}$ is necessary to describe the statistics. The individual elements can be expressed through the RADAR range equation (derived in Chapter \ref{chapter_radar_basics}) where the complex propagation factor, $F_p$, captures all the environment impacts, both configuration dependent and chaotic.
+For a single transmitter, only the 1st column of $\textbf{S}$ is necessary to describe the statistics. The additional columns can be used to inject disturbance signals such as jammers. 
+
+The individual elements of $\textbf{S}$ can be expressed through the RADAR range equation (derived in Chapter \ref{chapter_radar_basics}) where the complex propagation factor, $F_p$, captures all the environment impacts, both configuration dependent and chaotic.
 \begin{equation}
 S_{n1} = \sqrt{\left|\frac{P_tG_tG_{rn}\lambda^2\sigma_{Bn}F_{p1}F_{pn}}{(4\pi)^3R_1^2R_n^2} \right|}
 \label{rmt_eq:2}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
+To utilize a model such as the RCM, we need to transform the scattering matrix to the impedance matrix, $\textbf{Z}$ \cite{yeh_first_principles}.
+\begin{equation}
+\textbf{Z} = \textbf{Z}_o(1+\textbf{S})(1-\textbf{S})^{-1}
+\label{rmt_eq:3}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+Here $\textbf{Z}_o$ is a diagonal matrix that captures the characteristicimpedance of transmission lines connected to the ports.

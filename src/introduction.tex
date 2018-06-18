@@ -34,7 +34,7 @@ The configuration of the target ship drives the RADAR Cross Section (RCS). As sh
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-The RCS is also impacted by how the specific ship is configured; what it has or doesn't have and how components are arranged on the deck. Because there are many programs applying significant effort into modeling the behavior of ship RCS signatures, RCS fluctuations will be considered out of scope for the purposes of this work.
+The RCS is also impacted by how the specific ship is configured; what it has or doesn't have and how components are arranged on the deck. There are many programs applying significant effort into modeling the behavior of ship RCS signatures, so RCS fluctuations will be considered out of scope for the purposes of this work.
 
 The next source of uncertainty is the refractive index profile of the atmosphere, which can vary significantly as described in Chapter \ref{chapter_env}. As shown in Figure \ref{rmt_fig:2}, a transmitted ray will refract in the atmosphere and follow a curved path. If we use a 4/3 earth model, we can approximate the propagation path as linear and simplify calculations. This approximation no longer holds in the presence of a duct, where the atmosphere acts as a waveguide and extends propagation beyond the horizon, providing a different curve for the ray trajectory.
 \begin{figure}[H]
@@ -47,6 +47,6 @@ The next source of uncertainty is the refractive index profile of the atmosphere
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-Large scale variations in refractivity occur on the order of several minutes to hours and will not significantly impact the signal statistics over a few pulses or a Coherent Processing Interval (CPI). We will treat refractive index fluctuations these as affecting average signal levels rather than variance.
+Large scale variations in refractivity occur on the order of several minutes to hours and will not significantly impact the signal statistics over a few pulses or a Coherent Processing Interval (CPI). We will treat refractive index fluctuations as affecting average signal levels rather than variance.
 
 The final source of uncertainty is variations due to the sea surface, which manifest through multipath and clutter. Multipath is due to interference from forward specular reflections and clutter is due to backscatter from the surface. These will both be described in detail in Chapter \ref{chapter_env} and are the primary sources of randomness to be modeled in this work. 

@@ -72,11 +72,11 @@ In this equation, $h_1$ is the altitude of the transmitter and $h_2$ is the alti
 Because an electromagnetic wave consists of a finite bundle of rays rather than a single ray, the physical clipping by the horizon is gradual rather than instantaneous. The impact of the horizon should be modeled by a smooth rolloff rather than a step function.
   
 \section{Anomalous Refraction Effects}
-As stated previously, electromagnetic wave propagate along a curved path which we can approximate as linear under standard atmosphere and the 4/3 earth model. The refractive index gradient is negative in this case (the index of refraction decreases with increasing altitude); when the gradient changes, the linear approximation is no longer valid and we have anomalous propagation. 
+As stated previously, electromagnetic waves propagate along a curved path which we can approximate as linear under the assumption of standard atmosphere and the 4/3 earth model. The refractive index gradient is negative in this case (the index of refraction decreases with increasing altitude); when the gradient changes, the linear approximation is no longer valid and we have anomalous propagation. 
 
-There are 3 classes of anomalous propagation, subrefraction (when the gradient of the index of refraction becomes positive so that rays bend upwards), superrefraction (when the gradient of the index of refraction becomes more negative so that rays bend more strongly downwards), and ducting (the gradient of the index of refraction becomes negative enough to hit a critical point where the radius of curvature of the ray becomes less than the radius of curvature of the earth and the ray becomes trapped as in a waveguide) \cite{blake_radar}.
+There are 3 classes of anomalous propagation: subrefraction (the gradient of the index of refraction becomes positive so that rays bend upwards), superrefraction (the gradient of the index of refraction becomes more negative so that rays bend more strongly downwards), and ducting (the gradient of the index of refraction becomes negative enough to hit a critical point where the radius of curvature of the ray becomes less than the radius of curvature of the earth and the ray becomes trapped as if it were in a waveguide) \cite{blake_radar}.
 
-Because an atmospheric duct acts like a waveguide, electromagnetic waves can propagate significantly beyond the horizon in the presence of a duct. Figure \ref{env_fig:2z} shows how the difference in how the propagation factor is impacted by standard atmosphere and a 20 m duct.
+Because an atmospheric duct acts like a waveguide, electromagnetic waves can propagate significantly beyond the horizon in the presence of a duct. Figure \ref{env_fig:2z} shows the difference in how the propagation factor is impacted by standard atmosphere and a 20 m duct.
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=5in]{../media/multistatic/multipath.png}
@@ -154,24 +154,27 @@ The smooth reflection coefficient depends on the polarization of the incident wa
 In these equations, $\epsilon_r$ is the relative permittivity of the ocean and is given by Equation \ref{env_eq:7} at $20^{\circ}$ C and $3.6\%$ salinity for an electromagnetic wave with temporal frequency $f$. 
   
 \begin{equation}
+\begin{aligned}
   \label{env_eq:7}
-\epsilon_r = \left[\frac{64.18}{1 + 3.30523\times 10^{-21}f^2} + 4.9 \right] + j\left[\frac{3.689792\times 10^{-9}f}{1 + 3.30523\times 10^{-21}f^2} + \frac{9.4\times 10^{10}}{f} \right]
+\epsilon_r &= \left[\frac{64.18}{1 + 3.30523\times 10^{-21}f^2} + 4.9 \right] \\
+&+ j\left[\frac{3.689792\times 10^{-9}f}{1 + 3.30523\times 10^{-21}f^2} + \frac{9.4\times 10^{10}}{f} \right]
+\end{aligned}
   \end{equation}
   
 The total reflection coefficient, $\Gamma_t$ is then the product of the rough and smooth reflection coefficients, $\Gamma_t = \rho\Gamma_h$ or $\Gamma_t = \rho\Gamma_v$.
 
 \section{Clutter}
-Clutter is the backscattered signal from the sea surface and the unwanted signal strength can be found from the RADAR range equation using the product of the backscatter cross section, $\sigma^0$ and the clutter cell area, $A_c$. The area will depend on if the signal is beam limited or pulse limited. The Signal to Clutter Ratio (SCR) is the ratio of the power received from the signal to the power received from clutter and is a good indicator of overall performance.
+Clutter is the backscattered signal from the sea surface and its signal strength can be found from the RADAR range equation using the product of the backscatter cross section, $\sigma^0$ and the clutter cell area, $A_c$ as the target RCS. The area will depend on whether the signal is beam limited or pulse limited. The Signal to Clutter Ratio (SCR) is the ratio of the power received from the signal to the power received from clutter and is a good indicator of overall performance.
 
 \subsection{NRL Model for $\sigma^0$}
-There are many models for estimating the backscatter cross section at various sea states \cite{blake_radar} \cite{richards_radar} \cite{nathanson_radar}. In 2012, an empirical model was developed by NRL that minimized differences with the extensive experimental database \cite{gregers-hansen_clutter} and which will be presented here. Equation \ref{env_eq:7a} provides the model for $\sigma^0$ where $f$ is the radar frequency in GHz, $SS$ is the sea state, and $\Psi$ is the grazing angle in degrees. Table \ref{env_tab:0} lists the various constants used in the equation for both horizontal and vertical polarization.
+There are many models for estimating the backscatter cross section at various sea states \cite{blake_radar} \cite{richards_radar} \cite{nathanson_radar}. In 2012, an empirical model was developed by NRL that minimized differences with the extensive existing experimental databases \cite{gregers-hansen_clutter} and which will be presented here. Equation \ref{env_eq:7a} provides the model for $\sigma^0$ where $f$ is the radar frequency in GHz, $SS$ is the sea state, and $\Psi$ is the grazing angle in degrees. Table \ref{env_tab:0} lists the various constants used in the equation for both horizontal and vertical polarization.
 
 \begin{equation}
-\begin{gathered}
-  \sigma^0 = c_1 + c_2 \log_{10}(\sin(\Psi))+\frac{\left(27.5 + c_3\Psi\right)\log_{10}(f)}{1+0.95\Psi}+\\
-  c_4\left(1 + SS \right)^{1/\left(2+0.085\Psi + 0.033SS\right)}
- + c_5\Psi^2 
- \end{gathered}
+\begin{aligned}
+  \sigma^0 &= c_1 + c_2 \log_{10}(\sin(\chi))+\frac{\left(27.5 + c_3\chi\right)\log_{10}(f)}{1+0.95\chi}\\
+  &+c_4\left(1 + SS \right)^{1/\left(2+0.085\chi + 0.033SS\right)}
+ + c_5\chi^2 
+ \end{aligned}
  \label{env_eq:7a}
   \end{equation}
   
@@ -195,11 +198,11 @@ There are many models for estimating the backscatter cross section at various se
 \renewcommand{\baselinestretch}{2} \small\normalsize
   
 \subsection{Beam Limited Case}
-In the beam limited case, the pulse width is large compared to the projection of the beamwidth on the surface and $A_c$ is then only limited by the geometric illuminated area of the beam. Here, $A_c$ is given by Equation \ref{env_eq:7b} where $\phi_2$ is the two-way beamwidth  in elevation and $\Psi$ is the grazing angle.
+In the beam limited case, the pulse width is large compared to the projection of the beamwidth on the surface and $A_c$ is then only limited by the geometric illuminated area of the beam. Here, $A_c$ is given by Equation \ref{env_eq:7b} where $theta_2$ is the two-way beamwidth in azimuth, $\phi_2$ is the two-way beamwidth in elevation, and $\chi$ is the grazing angle.
 
 \begin{equation}
 \label{env_eq:7b}
-A_c = \pi R^2\tan\left(\frac{\theta_2}{2}\right)\tan\left(\frac{\phi_2}{2}\right)\csc(\Psi)
+A_c = \pi R^2\tan\left(\frac{\theta_2}{2}\right)\tan\left(\frac{\phi_2}{2}\right)\csc(\chi)
 \end{equation}
 
 Figure \ref{env_fig:3z} shows an example of the SCR with the beamlimited case. Here the crossover points are also identified where the signal is 12dB, 6dB, 3dB, and 0dB larger than the clutter.
@@ -215,11 +218,11 @@ Figure \ref{env_fig:3z} shows an example of the SCR with the beamlimited case. H
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection{Pulse Limited Case}
-In the pulse limited case, the pulse width is short compared to the projection of the beamwidth on the surface and $A_c$ is then limited by the projected pulse width. Here, $A_c$ is given by Equation \ref{env_eq:7c} where $\phi_2$ is the two-way beamwidth  in elevation, $\tau$ is the pulse width, and $\Psi$ is the grazing angle.
+In the pulse limited case, the pulse width is short compared to the projection of the beamwidth on the surface and $A_c$ is then limited by the projected pulse width. Here, $A_c$ is given by Equation \ref{env_eq:7c} where $tau$ is the pulse width, $theta_2$ is the two-way beamwidth in azimuth, $\phi_2$ is the two-way beamwidth in elevation, and $\chi$ is the grazing angle.
 
 \begin{equation}
 \label{env_eq:7c}
-A_c = 2R\frac{c\tau}{2}\tan\left(\frac{\theta_2}{2}\right)\sec(\Psi)
+A_c = 2R\frac{c\tau}{2}\tan\left(\frac{\theta_2}{2}\right)\sec(\chi)
 \end{equation}
 
 \section{Target RCS}
@@ -229,11 +232,11 @@ Modeling the RCS signature of ships is an extremely complicated process that is 
 A target consisting of a single isotropic scatterer is the simplest implementation. However, since the target is a single point, the scatterer RCS is invariant under translation and rotation and the overall target RCS will not have dependence on aspect angle or wave motion. We can utilize a fluctuating RCS model as described in Section \ref{env_fluctuating_target_rcs} to account for wave motion but will not be able to capture the aspect dependence.
 
 \subsection{Mulitple Scatterer Targets}
-The next step in fidelity is to create a target out of multiple isotropic scatterers so that the RCS is the vector sum of all the scatterers. In this case, the RCS will show dependence on both aspect angle and wave motion. The aspect angle dependence will be highly dependent on the number of scatters and the spacing between them. Figure \ref{env_fig:3y} shows the aspect dependence for a pair of scatterers spaced 1, 2, 5, and 10 wavelengths apart. Without having many scatterers present to densely fill the signature, these models tend to produce large multipath lobing and RCS oscillations as artifacts.
+The next step in fidelity is to create a target out of multiple isotropic scatterers so that the RCS is the vector sum of all the scatterers. In this case, the RCS is no longer invariant under translation or rotation and will show dependence on both aspect angle and wave motion. The aspect angle dependence is a function of the number of scatterers and the spacing between them. Figure \ref{env_fig:3y} shows the aspect dependence for a pair of scatterers spaced 1, 2, 5, and 10 wavelengths apart. Without having many scatterers present to densely fill the signature, these models tend to produce significant amounts of multipath lobing and RCS oscillations as artifacts. Caution should be taken to prevent spurious results.
 
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=5in]{../media/multistatic/target_rcs_2_point.png}
+\includegraphics[width=5.5in]{../media/multistatic/target_rcs_2_point.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
@@ -248,7 +251,7 @@ The next step up in fidelity and complexity is to utilize component models (flat
 \subsection{Fluctuating Target Models}\label{env_fluctuating_target_rcs}
 Fluctuating target RCS models were developed to describe the fluctuations observed in RCS due to motion of the ship in the waves. These models should only be applied to single point targets, as multi-scatterer targets will inherently include the dependence on motion and aspect angle.
 
-\subsubsection{Target RCS PDF}
+\subsubsection{Target RCS PDFs}
 For traditional monostatic RADAR systems, work done by Jess Marcum and Peter Swerling provided statistical models for the RCS of targets in the ocean\cite{richards_radar}. There are $4$ Swerling cases that are generally considered, using $2$ different decorrelation time lengths and $2$ different PDFs as shown in Table \ref{env_tab:1}. 
 
 \begin{table}[H]
