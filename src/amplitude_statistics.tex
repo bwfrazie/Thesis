@@ -1,9 +1,9 @@
 \renewcommand{\baselinestretch}{2} \small\normalsize
 \chapter{Propagation Statistics}
-This chapter describes the propagation factor statistics after numerically propagating over independent random sea surface realizations in a Monte Carlo fashion.
+This chapter describes the propagation factor statistics after numerically propagating over independent random sea surface realizations in a Monte Carlo fashion. First we will discuss sampling constraints needed to capture the statistics appropriately and then look at the Monte Carlo run setup and provide some example data before finally fitting to the PDFs.
 
 \section{Sampling Constraints}
-The initial set of runs was performed at Ka-Band (35 GHz). The mean and standard deviation for a 100 run Monte Carlo set are shown in Figure \ref{stat_fig:1}. This data set took over 48 hours to complete running on a laptop and the results were washed out at near range (Figure \ref{stat_fig:1} is clipped at 10 km downrange).
+The initial set of runs was performed at Ka-Band (35 GHz) and the mean and standard deviation for a 100 run Monte Carlo set are shown in Figure \ref{stat_fig:1}. This data set took over 48 hours to complete running on a laptop and the results were washed out at near range (Figure \ref{stat_fig:1} is clipped at 10 km in near range).
 
 \begin{figure}[H]
   \begin{center}
@@ -28,34 +28,38 @@ Figure \ref{stat_fig:2} shows the mean and standard deviation for a 100 run Mont
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-These results indicate that spatial sampling constraints from numerical propagation are important for obtaining accurate statistics, so we need to understand those impacts. From the propagation factor for the 2 ray model, $F_p = e^{jkL_1} + \Gamma_1e^{jkL_{so}}$, we can look at the phase difference between the two primary paths, $\Delta\varphi = k\left[ L_1 - L_{so}\right]$.
+These results indicate that spatial sampling constraints from numerical propagation are important for obtaining accurate statistics, so we need to understand those impacts. We can look at the phase difference between the two primary paths from the propagation factor for the 2 ray model, $F_p = e^{jkL_1} + \Gamma_1e^{jkL_{so}}$. 
+
 \begin{equation}
-\boxed{\Delta\varphi = -\frac{4\pi h_1h_2}{\lambda L}}
+\begin{gathered}
+\Delta\varphi = k\left[ L_1 - L_{so}\right] \\
+\Delta\varphi = -\frac{4\pi h_1h_2}{\lambda L}
 \label{stat_eq:1}
+\end{gathered}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \noindent The derivative of the phase difference with respect to range is then
 \begin{equation}
-\frac{d\Delta\varphi}{dL}=-\frac{4\pi h_1h_2}{\lambda L^2}
+\frac{d\Delta\varphi}{dL}=\frac{4\pi h_1h_2}{\lambda L^2}
 \label{stat_eq:2}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\noindent This can be converted from rad/m to rad/sample by multiplying by the spatial sampling distance in range, $\Delta L$. We can insist that this phase shift per sample be smaller than some pre-determined value to provide adequate sampling. It is often convenient to specify a limit in terms of wavelengths and we can enforce the condition that there must be at least $n$ samples per wavelength by letting
+\noindent This equation can be converted from rad/m to rad/sample by multiplying by the spatial sampling distance in range, $\Delta r$. We can insist that this phase shift per sample be smaller than some pre-determined value to provide adequate sampling. It is often convenient to specify a limit in terms of wavelengths and we can enforce the condition that there must be at least $n$ samples per wavelength by letting
 
 \begin{equation}
-\frac{4\pi h_1h_2\Delta L}{\lambda L^2} \leq \frac{2\pi \lambda}{n}
+\frac{4\pi h_1h_2\Delta r}{\lambda L^2} \leq \frac{2\pi \lambda}{n}
 \label{stat_eq:3}
 \end{equation}
 
 This yields a constraint for the maximum allowable spatial sampling step to ensure $n$ samples per wavelength.
 \begin{equation}
-\boxed{\Delta L \leq \frac{\lambda^2 L^2}{2nh_1h_2}}
+\boxed{\Delta r \leq \frac{\lambda^2 L^2}{2nh_1h_2}}
 \label{stat_eq:4}
 \end{equation}
 
-This sampling constraint is shown in Figure \ref{stat_fig:3} for both the 10 and 35 GHz cases, with $n = 20$ and $\delta r = 0.5$.
+This sampling constraint is shown in Figure \ref{stat_fig:3} for both the 10 and 35 GHz cases, with $n = 20$ and $\Delta r = 0.5$.
 
 \begin{figure}[H]
   \begin{center}
@@ -68,9 +72,36 @@ This sampling constraint is shown in Figure \ref{stat_fig:3} for both the 10 and
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
+\section{Monte Carlo Run Results}
+Table \ref{stat_tab:0} shows the inputs that were used in the Monte Carlo runs. The presence of a duct at 20 m should impact the mean value but not the variance or amplitude probability distribution.
+\begin{table}[H]
+  \begin{center}
+      \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Propagation Monte Carlo Inputs]{Propagation Monte Carlo Inputs\label{stat_tab:0}}
+  \end{quote}
+  \begin{tabular} {|c | c |}
+    \hline
+  \bf{Parameter} & \bf{Value}\\ \hline
+  Frequency & 10 GHz \\ \hline
+  Transmitter Height & 20 m  \\ \hline
+  Antenna Pattern & Sinc  \\ \hline
+  Antenna Beamwidth & $8^{\circ}$  \\ \hline
+  Maximum Range & 20 km  \\ \hline
+  Range Step & 0.5 m  \\ \hline
+  Maximum Altitude & 30 m \\ \hline
+  Wind Speed & 10 m/s \\ \hline
+  Inverse Age Parameter & 0.84 (fully developed) \\ \hline
+  Refractivity & Duct at 20 m \\ \hline
+  Number of Runs & 500 \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+
 Figure \ref{stat_fig:1a} and Figure \ref{stat_fig:1b} show example propagation factors from two specific sea surface realizations.
 
-\section{Monte Carlo Run Results}
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=5in]{../media/statistics/pf_1.png}
@@ -98,7 +129,7 @@ As shown in \cite{yeh_first_principles} and \cite{yeh_fading}, we expect the sta
 
 \begin{equation}
 P = \frac{x}{\sigma^2}\exp\left[\frac{-(x^2 + \nu^2}{2\sigma^2} \right]I_0\left(\frac{x\nu}{\sigma} \right)
-\label{stat_eq:3}
+\label{stat_eq:5}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 

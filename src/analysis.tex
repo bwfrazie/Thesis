@@ -280,7 +280,7 @@ K(x)&= \exp\left[-jk_o\left( L_2 + L_3\right) \right] \\
 Because $L_{so}$ is not dependent on $x$, it can come outside of the integral and Equation \ref{mp_eq:12g} can be written as
 \begin{equation}
 \begin{gathered}
-U_2(P-2)= \frac{1}{2jk_o}\exp\left[-jk_oL_{so}\right]\int\limits_{0}^{L}dx\Gamma \sqrt{\frac{k_o}{2\pi jx}}\sqrt{\frac{k_o}{2\pi j (L-x)}}\frac{h_2-s}{L-x}\\ \times\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2+\frac{j2k_os(h_1+h_2)}{L}\right]
+U_2(P_2)= \frac{1}{2jk_o}\exp\left[-jk_oL_{so}\right]\int\limits_{0}^{L}dx\Gamma \sqrt{\frac{k_o}{2\pi jx}}\sqrt{\frac{k_o}{2\pi j (L-x)}}\frac{h_2-s}{L-x}\\ \times\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2+\frac{j2k_os(h_1+h_2)}{L}\right]
 \label{mp_eq:21}
 \end{gathered}
 \end{equation}
@@ -393,13 +393,13 @@ I= \Gamma_1e^{-j\left(k_oL_{so}+\pi/4\right)}\sqrt{\frac{k_o}{2\pi j\frac{h_1L}{
 The asymptotic solution for the reflected wave in the paraxial assumption is then
 \begin{equation}
 \begin{gathered}
-U_2(P-2)= \frac{1}{2jk_o}\sqrt{\frac{k_0}{2\pi jL}} \Gamma_1e^{-j\left(k_oL_{so}+\pi/2\right)} \\]
+U_2(P-2)= \frac{1}{2jk_o}\sqrt{\frac{k_0}{2\pi jL}} \Gamma_1e^{-j\left(k_oL_{so}+\pi/2\right)}
 \label{mp_eq:27a}
 \end{gathered}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\section{Propagation Factor}
+\subsubsection{Propagation Factor}
 The propagation factor is then the sum of the two solutions and will include all the reflected paths from the surface
 
 The full propagation factor is then given as
@@ -409,6 +409,7 @@ F_p= \frac{1}{2jk_o}\sqrt{\frac{k_0}{2\pi jL}}\left[e^{-jkL_1} + \Gamma_1e^{-j\l
 \end{gathered}
 \label{mp_eq:27b}
 \end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
 And can be normalized to the final result
 \begin{equation}
@@ -417,5 +418,86 @@ And can be normalized to the final result
 \end{gathered}
 \label{mp_eq:28}
 \end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
 The asymptotic solution to the normalized propagation factor is the same expression as the 2 ray model but with an added phase shift.
+
+\subsection{Random Component}
+For the random component, $s \neq 0$ and the exponential term in the integral of Equation \ref{mp_eq:21} is
+\begin{equation}
+\begin{gathered}
+K(x) = \exp\left[-jkL_{so}\right]\exp\left[-jk\left(\frac{L_0''}{2}\left(x-x_m\right)^2 \right) -L_s\right] \\
+=\exp\left[-jkL_{so}\right]\exp\left[-jk\frac{L_0''}{2}\left(x-x_m\right)^2\right]\exp\left[jkL_s\right] \\
+\end{gathered}
+\label{mp_eq:29}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+All the random terms are contained in $L_s$, so we will let $x-x_m = \tilde{x}$ and work with $K_r(\tilde{x}) = \exp\left[jkL_s \right]$. If we assume that $L_s$ is locally sinusoidal with amplitude $\sigma$, frequency $k_{\omega}$, and phase $\theta$, we can approximate $K_r$ as 
+\begin{equation}
+\begin{gathered}
+K_r(\tilde{x}) = \exp\left[jkL_s\right] =\exp\left[j\sigma \sin\left(k_{\omega} \tilde{x} + \theta\right) \right]
+\end{gathered}
+\label{mp_eq:30}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+We can then use the Jacobi-Anger expansion \cite{gbur_math} to convert the exponential term on the far right hand side into sum involving Bessel functions.
+\begin{equation}
+\begin{gathered}
+K_r(\tilde{x}) =\exp\left[j\sigma \sin\left(k_{\omega} \tilde{x} + \theta\right) \right] \\ =\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl(k_{\omega}\tilde{x} + \theta) \right] \\
+=\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\exp\left[jlk_{\omega}\tilde{x}\right] 
+\end{gathered}
+\label{mp_eq:31}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+The Bessel functions only depend on the random amplitude, $\sigma$ and not $\tilde{x}$, so they will come outside of the integral in Equation \ref{mp_eq:21}. We can express $K(\tilde{x})$ as
+\begin{equation}
+\begin{gathered}
+K(\tilde{x}) = \exp\left[-jkL_{so}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\exp\left[jlk_{\omega}\tilde{x}-\frac{jkL_0''}{2}\tilde{x}^2\right] 
+\end{gathered}
+\label{mp_eq:32}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+We can simplify the last exponential term by completing the square
+\begin{equation}
+\begin{gathered}
+\kappa = jlk_{\omega}\tilde{x}-\frac{jkL_0''}{2}\tilde{x}^2\\
+= -\frac{jkL_0''}{2}\left[\tilde{x}^2 - \frac{2lk_{\omega}}{kL_0''}\tilde{x} \right]\\
+= -\frac{jkL_0''}{2}\left[\left(\tilde{x} - \frac{lk_{\omega}}{kL_0''} \right)^2 -\left(\frac{lk_{\omega}}{kL_0''} \right)^2\right]\\
+= -\frac{jkL_0''}{2}\left(\tilde{x} - \frac{lk_{\omega}}{kL_0''} \right)^2 + \frac{jl^2k_{\omega}^2}{2kL_0''}\\
+\end{gathered}
+\label{mp_eq:33}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+We can now express Equation \ref{mp_eq:21} as
+\begin{equation}
+\begin{gathered}
+U_2(P_2)= \frac{1}{2jk_o}\exp\left[-jk_oL_{so}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\int\limits_{0}^{L}dx\Gamma \sqrt{\frac{k_o}{2\pi jx}}\sqrt{\frac{k_o}{2\pi j (L-x)}}\\ \times\frac{h_2-s}{L-x}\exp\left[-\frac{jkL_0''}{2}\left(\tilde{x} - \frac{lk_{\omega}}{kL_0''} \right)^2 + \frac{jl^2k_{\omega}^2}{2kL_0''}\right]
+\label{mp_eq:34}
+\end{gathered}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Following the contour integral approach for the deterministic component yields the asymptotic solution
+\begin{equation}
+\begin{gathered}
+U_2(P_2)= \frac{1}{2jk_o}\exp\left[-j\left(k_oL_{so}+\pi/4\right)\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\Gamma_1 \sqrt{\frac{k_o}{2\pi jx_m}}\sqrt{\frac{k_o}{2\pi j (L-x_m)}}\\ \times\frac{h_2-s}{L-x_m}\sqrt{\frac{2\pi}{k_oL_0''}}
+\label{mp_eq:35}
+\end{gathered}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Substituting in for $x_m$ and $L_0''$ and letting $s = 0$ for the amplitude term provides the final result for the reflected path
+\begin{equation}
+\begin{gathered}
+\boxed{U_2(P_2)= \frac{1}{2jk_o}\sqrt{\frac{k_0}{2\pi jL}}\Gamma_1 e^{-j\left(k_oL_{so}+\pi/2\right)}\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]} 
+\label{mp_eq:36}
+\end{gathered}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+The random component is now contained in the sum of Bessel functions which acts as a scale factor on the deterministic component and is otherwiseidentical to Equation \ref{mp_eq:27a}.
