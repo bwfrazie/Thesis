@@ -1,6 +1,6 @@
 \renewcommand{\baselinestretch}{2} \small\normalsize
 \chapter{Propagation Statistics}
-This chapter describes the propagation factor statistics after numerically propagating over independent random sea surface realizations in a Monte Carlo fashion. First we will discuss sampling constraints needed to capture the statistics appropriately and then look at the Monte Carlo run setup and provide some example data before finally fitting to the PDFs.
+This chapter describes the propagation factor statistics after numerically propagating over independent random sea surface realizations in a Monte Carlo fashion. First we will discuss the sampling constraints needed to capture the statistics appropriately and then look at the Monte Carlo run setup and provide some example data before finally fitting the PDFs.
 
 \section{Sampling Constraints}
 The initial set of runs was performed at Ka-Band (35 GHz) and the mean and standard deviation for a 100 run Monte Carlo set are shown in Figure \ref{stat_fig:1}. This data set took over 48 hours to complete running on a laptop and the results were washed out at near range (Figure \ref{stat_fig:1} is clipped at 10 km in near range).
@@ -28,7 +28,9 @@ Figure \ref{stat_fig:2} shows the mean and standard deviation for a 100 run Mont
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-These results indicate that spatial sampling constraints from numerical propagation are important for obtaining accurate statistics, so we need to understand those impacts. We can look at the phase difference between the two primary paths from the propagation factor for the 2 ray model, $F_p = e^{jkL_1} + \Gamma_1e^{jkL_{so}}$. 
+These results indicate that spatial sampling constraints from numerical propagation are important for obtaining accurate statistics, so we need to understand those impacts. This does not mean the numerical propagation method is inaccurate, but that the solution is locally oscillatory so we need finer sampling to correctly capture variations.
+
+We can look at the phase difference between the two primary paths from the propagation factor for the 2 ray model, $F_p = e^{jkL_1} + \Gamma_1e^{jkL_{so}}$. 
 
 \begin{equation}
 \begin{gathered}
@@ -80,31 +82,31 @@ Table \ref{stat_tab:0} shows the inputs that were used in the Monte Carlo runs. 
   \begin{quote}
     \caption[Propagation Monte Carlo Inputs]{Propagation Monte Carlo Inputs\label{stat_tab:0}}
   \end{quote}
-  \begin{tabular} {|c | c |}
+  \begin{tabular} {|c | c | c|}
     \hline
-  \bf{Parameter} & \bf{Value}\\ \hline
-  Frequency & 10 GHz \\ \hline
-  Transmitter Height & 20 m  \\ \hline
-  Antenna Pattern & Sinc  \\ \hline
-  Antenna Beamwidth & $8^{\circ}$  \\ \hline
-  Maximum Range & 20 km  \\ \hline
-  Range Step & 0.5 m  \\ \hline
-  Maximum Altitude & 30 m \\ \hline
-  Wind Speed & 10 m/s \\ \hline
-  Inverse Age Parameter & 0.84 (fully developed) \\ \hline
-  Refractivity & Duct at 20 m \\ \hline
-  Number of Runs & 500 \\ \hline
+  \bf{Parameter} & \bf{Value for Run 1} & \bf{Value for Run 2}\\ \hline
+  Frequency & 10 GHz  & 10 GHz\\ \hline
+  Transmitter Height & 20 m & 20 m   \\ \hline
+  Antenna Pattern & Sinc  & Sinc \\ \hline
+  Antenna Beamwidth & $8^{\circ}$ & $8^{\circ}$  \\ \hline
+  Maximum Range & 20 km & 20 km  \\ \hline
+  Range Step & 0.5 m  & 0.5 m \\ \hline
+  Maximum Altitude & 30 m  & 30 m\\ \hline
+  Wind Speed & 10 m/s & 10 m/s \\ \hline
+  Inverse Age Parameter & 0.84 (fully developed) & 0.84 (fully developed) \\ \hline
+  Refractivity & Duct at 20 m  & Standard atmosphere\\ \hline
+  Number of Runs & 500  & 500\\ \hline
 \end{tabular}
 \end{center}
 \end{table}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 
-Figure \ref{stat_fig:1a} and Figure \ref{stat_fig:1b} show example propagation factors from two specific sea surface realizations.
+Figure \ref{stat_fig:1a} and Figure \ref{stat_fig:1b} show example propagation factors from two specific sea surface realizations with a 20 m duct.
 
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=5in]{../media/statistics/pf_1.png}
+\includegraphics[width=4in]{../media/statistics/pf_1.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
@@ -115,7 +117,7 @@ Figure \ref{stat_fig:1a} and Figure \ref{stat_fig:1b} show example propagation f
 
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=5in]{../media/statistics/pf_2.png}
+\includegraphics[width=4in]{../media/statistics/pf_2.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
@@ -133,9 +135,11 @@ P = \frac{x}{\sigma^2}\exp\left[\frac{-(x^2 + \nu^2}{2\sigma^2} \right]I_0\left(
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
+This distribution has been previously shown to be applicable to modeling the amplitude statistics of multipath fading in communication systems with a strong direct line of sight path.
+
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=5in]{../media/statistics/constant_range_fit.png}
+\includegraphics[width=4in]{../media/statistics/constant_range_fit.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
@@ -146,7 +150,7 @@ P = \frac{x}{\sigma^2}\exp\left[\frac{-(x^2 + \nu^2}{2\sigma^2} \right]I_0\left(
 
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=5in]{../media/statistics/constant_altitude_fit.png}
+\includegraphics[width=4in]{../media/statistics/constant_altitude_fit.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}

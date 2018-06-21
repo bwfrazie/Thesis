@@ -1,0 +1,91 @@
+\chapter{Cylindrical Wave Propagation Model}
+\label{cylindrical_propagation}
+This section derives the solution for the multiple ray model using cylindrical waves and leverages the results from Chapter \ref{analytical_propagation} for the paraxial wave cases. Because the geometry previously discussed is located in the $x,z$ plane, we will let $z \rightarrow y$ for the purposes of polar coordinate transformations.
+
+\section{Solutions through Green's Functions}
+The Green's function for the cylindrical wave was derived in Section \ref{gf_sec:2d} as
+\begin{equation}
+G\left(\boldsymbol{\rho},\boldsymbol{\rho}'\right) = -\frac{j}{4}H_0^{(2)}\left(k_o|\boldsymbol{\rho} - \boldsymbol{\rho}' | \right)
+\label{cyl_eq:1}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+The source is located at $\boldsymbol{\rho}'$ and the observation point is located at $\boldsymbol{\rho}$. 
+
+\subsection{Direct Path}
+Assuming a point source located at $\boldsymbol{\rho}' = 0$, we can compute the direct path as the volume integral of the product of the Green's function and the source. The delta function in cylindrical coordinates will need to be scaled by the differential volume element to ensure the integral of the delta function is $1$.  
+
+\begin{equation}
+\begin{aligned}
+U_1(P_2) & = \int_{-\infty}^{\infty}\int_0^{2\pi} d\rho' \rho' d\theta' G\frac{\delta(\rho')\delta(\theta')}{\rho'}\\
+&-= \int_{-\infty}^{\infty}\int_0^{2\pi} d\rho' \rho' d\theta' \frac{j}{4}H_0^{(2)}\left(k_o|\boldsymbol{\rho} - \boldsymbol{\rho}' | \right)\frac{\delta(\rho')\delta(\theta')}{\rho'}\\
+&=-\frac{j}{4}H_0^{(2)}\left(k_o|\boldsymbol{\rho}| \right)
+\label{cyl_eq:2}
+\end{aligned}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+For the direct path, $|\boldsymbol{\rho}'| = L_1$ so the  solution is
+\begin{equation}
+U_1(P_2) =-\frac{j}{4}H_0^{(2)}\left(k_oL_1 \right)
+\label{cyl_eq:3}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+The asymptotic approximation for the Hankel functions were derived in Appendix \ref{appendix_saddle_point_method} for large arguments
+\begin{equation}
+H_{\nu}^{(2)}(k_oL) \approx \sqrt{\frac{2}{\pi k_o L}}e^{-j\left[k_oL - \nu\frac{\pi}{2} - \frac{\pi}{4}\right]}
+\label{cyl_eq:4}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+For any case of interest, $kL_1$ will be large so we can safely approximate Equation \ref{cyl_eq:4} as
+\begin{equation}
+\begin{aligned}
+U_1(P_2) &=-\frac{j}{4}\sqrt{\frac{2}{\pi k_o L_1}}e^{-j(k_oL_1 - \frac{\pi}{4})}\\
+&=-\frac{j}{4}\sqrt{\frac{2}{j\pi k_o}}\frac{1}{\sqrt{L_1}}e^{-jk_oL_1 }\\
+&=\frac{\alpha}{\sqrt{L_1}}e^{-jk_oL_1 }\\
+\label{cyl_eq:5}
+\end{aligned}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+Here, we are using a normalization factor, $\alpha$ to take out the common scaling terms when computing the propagation factor. The $1/\sqrt{L_1}$ scale factor introduces the cylindrical spreading.
+
+\subsection{Reflected Path}
+For the reflected path, we can again use the Rayleigh-Sommerfeld Diffraction Integral with the solution at the sea surface, $U(s)$, given as $-\frac{j}{4}H_0^{(2)}\left(k_oL_2 \right)$
+\begin{equation}
+\begin{aligned}
+U_2(P_2) &= -2\oint_s ds U_2(s)\hat{n}\cdot\nabla G\\
+&= -2\int_0^L dx \Gamma U_2(s)\cos(\phi)\frac{\partial G}{\partial \rho}\\
+\end{aligned}
+\label{cyl_eq:6}
+\end{equation}
+
+From Equation \ref{cyl_eq:5}, $U_2(s) = \alpha/\sqrt{L_2} e^{-jkL_2}$ and we can use the fact that $\partial H_0^{(2)}(k_o\rho)/\partial \rho = -k_oH_1^{(2)}(k_o\rho)$ and $\cos(\phi) = h2/L_3$ to solve for $U_2(P_2)$.
+\begin{equation}
+\begin{aligned}
+U_2(P_2) &= -2\int_0^L dx \Gamma\frac{\alpha}{\sqrt{L_2}}e^{-jk_oL_2}(-k_o)\frac{h_2}{L_3}H_1^{(2)}(k_oL_3)\\
+&= -\frac{j}{4}\alpha 2k_o\int_0^L dx \Gamma\frac{h_2}{L_3}\frac{1}{\sqrt{L_2}}e^{-jk_oL_2}\sqrt{\frac{2}{\pi k_o L_3}}e^{-j(k_oL_3-3\pi /4)}\\
+&=-\frac{j\alpha h_2k_o }{2}\sqrt{\frac{2}{\pi k_o}}\int_0^L dx\Gamma \frac{1}{L_3\sqrt{L_2L_3}}e^{-jk_o(L_2+L_3)}e^{j3\pi/4}\\
+&= \frac{\alpha h_2k_o}{2}\sqrt{\frac{2j}{\pi k_o}}\int_0^L dx\Gamma \frac{h_2}{L_3} \frac{1}{L_3\sqrt{L_2L_3}}e^{-jk_o(L_2+L_3)}\\
+&= \alpha h_2\sqrt{\frac{j k_o}{2\pi}}\int_0^L dx \Gamma\frac{1}{L_3\sqrt{L_2L_3}}e^{-jk_o(L_2+L_3)}\\
+\end{aligned}
+\label{cyl_eq:7}
+\end{equation}
+
+We can use the contour integral approach again to get the following solution for the deterministic component where $L_2$ and $L_3$ now imply the values at $x_m$.
+\begin{equation}
+\begin{aligned}
+U_2(P_2) &=\frac{\alpha h_2\Gamma_1}{L_3\sqrt{L_2L_3}}\sqrt{\frac{j k_o}{2\pi}}\sqrt{\frac{2\pi}{j k_oL_0''}}e^{-jk_oL_{so}}\\
+&=\frac{\alpha h_2\Gamma_1}{L_3\sqrt{L_2L_3}}\sqrt{\frac{L^3}{(h_1+h_2)^4}}
+e^{-jk_oL_{so} }\end{aligned}
+\label{cyl_eq:8}
+\end{equation}
+
+The normalized propagation factor is then
+\begin{equation}
+\begin{aligned}
+\boxed{F_p =e^{-jk_oL_1} + \frac{h_2\Gamma_1\sqrt{L_1}}{L_3\sqrt{L_2L_3}}\sqrt{\frac{L^3}{(h_1+h_2)^4}}e^{-jk_oL_{so} }}
+\end{aligned}
+\label{cyl_eq:9}
+\end{equation}
