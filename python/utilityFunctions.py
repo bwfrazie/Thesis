@@ -19,7 +19,7 @@ def getSeaSurfaceConfiguration(inputXMLFile):
 	U10 = float(srf.find('U10').text)
 	age = float(srf.find('age').text)
 	val = int(srf.find('useFilter').text)
-	phi = int(srf.find('phi').text)
+	phi = float(srf.find('phi').text)
 	
 	if val == 1:
 		useFilter = True
