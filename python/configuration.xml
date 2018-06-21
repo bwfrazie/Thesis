@@ -5,17 +5,17 @@
 		<U10> 10 </U10>  <!-- wind speed at 10 m altitude in meters/second -->
 		<age> 0.84 </age> <!-- age of the sea to use (0.84 is fully developed, can be up to 5.0 -->
 		<L> 20000 </L>  <!-- path length to be used in meters-->
-		<phi> 0</phi> <!-- Angle (in radians) away from wind direction (0 is directly in line with the wind) -->
-		<useFilter> 1 </useFilter> <!-- flag to indicate if spectral filtering is applied -->
+		<phi> 0.3142</phi> <!-- Angle (in radians) away from wind direction (0 is directly in line with the wind) -->
+		<useFilter> 0 </useFilter> <!-- flag to indicate if spectral filtering is applied -->
 	</seaSurface>
 	<computation>
 		<H> 30 </H> <!-- antenna Height used for TEMPER computation -->
 		<seed> 561894 </seed> <!-- initial seed for the random number generator -->
-		<nIterations> 100 </nIterations> <!-- number of iterations to use -->
-		<frequency> 35e9 </frequency> <!-- frequency to use for EM propagation -->
+		<nIterations> 500 </nIterations> <!-- number of iterations to use -->
+		<frequency> 10e9 </frequency> <!-- frequency to use for EM propagation -->
 		<!-- Path to TEMPER Executable -->
-		<TEMPER>/Users/frazibw1/APL/TEMPER/temper/bin/mac64/temper.bin</TEMPER>
-		<!--<TEMPER>/Users/benjaminfrazier/Projects/TEMPER/temper/bin/mac64/temper.bin</TEMPER>-->
+		<!--<TEMPER>/Users/frazibw1/APL/TEMPER/temper/bin/mac64/temper.bin</TEMPER>-->
+		<TEMPER>/Users/benjaminfrazier/Projects/TEMPER/temper/bin/mac64/temper.bin</TEMPER>
 	</computation>
 <geometry>
    <target>
