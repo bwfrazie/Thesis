@@ -1,8 +1,8 @@
 \chapter{Cylindrical Wave Propagation Model}
 \label{cylindrical_propagation}
-This section derives the solution for the multiple ray model using cylindrical waves and leverages the results from Chapter \ref{analytical_propagation} for the paraxial wave cases. Because the geometry previously discussed is located in the $x,z$ plane, we will let $z \rightarrow y$ for the purposes of polar coordinate transformations.
+This section derives the solution for the multiple ray model using cylindrical waves and leverages the results from Chapter \ref{analytical_propagation} for the paraxial wave case.
 
-\section{Solutions through Green's Functions}
+\section{Solution through Green's Functions}
 The Green's function for the cylindrical wave was derived in Section \ref{gf_sec:2d} as
 \begin{equation}
 G\left(\boldsymbol{\rho},\boldsymbol{\rho}'\right) = -\frac{j}{4}H_0^{(2)}\left(k_o|\boldsymbol{\rho} - \boldsymbol{\rho}' | \right)
@@ -10,10 +10,10 @@ G\left(\boldsymbol{\rho},\boldsymbol{\rho}'\right) = -\frac{j}{4}H_0^{(2)}\left(
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-The source is located at $\boldsymbol{\rho}'$ and the observation point is located at $\boldsymbol{\rho}$. 
+\noindent The source is located at $\boldsymbol{\rho}'$ and the observation point is located at $\boldsymbol{\rho}$. 
 
 \subsection{Direct Path}
-Assuming a point source located at $\boldsymbol{\rho}' = 0$, we can compute the direct path as the volume integral of the product of the Green's function and the source. The delta function in cylindrical coordinates will need to be scaled by the differential volume element to ensure the integral of the delta function is $1$.  
+Assuming a point source located at $\boldsymbol{\rho}' = (\rho,\theta) = (0,0)$, we can compute the direct path as the volume integral of the product of the Green's function and the source. The delta function in cylindrical coordinates needs to be scaled by the differential volume element to ensure the delta function is properly normalized so its volume integral is equal to $1$.  
 
 \begin{equation}
 \begin{aligned}
@@ -25,7 +25,7 @@ U_1(P_2) & = \int_{-\infty}^{\infty}\int_0^{2\pi} d\rho' \rho' d\theta' G\frac{\
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-For the direct path, $|\boldsymbol{\rho}'| = L_1$ so the  solution is
+\noindent For the direct path, $|\boldsymbol{\rho}'| = L_1$, so the  solution is
 \begin{equation}
 U_1(P_2) =-\frac{j}{4}H_0^{(2)}\left(k_oL_1 \right)
 \label{cyl_eq:3}
@@ -39,7 +39,7 @@ H_{\nu}^{(2)}(k_oL) \approx \sqrt{\frac{2}{\pi k_o L}}e^{-j\left[k_oL - \nu\frac
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-For any case of interest, $kL_1$ will be large so we can safely approximate Equation \ref{cyl_eq:4} as
+\noindent For any case of interest, $kL_1$ will be large so we can safely approximate Equation \ref{cyl_eq:3} as
 \begin{equation}
 \begin{aligned}
 U_1(P_2) &=-\frac{j}{4}\sqrt{\frac{2}{\pi k_o L_1}}e^{-j(k_oL_1 - \frac{\pi}{4})}\\

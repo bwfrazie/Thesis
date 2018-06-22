@@ -14,13 +14,13 @@ This section derives the solution for the multiple ray model in the paraxial ass
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-To capture the effects of propagating over a spherical earth, the altitude $h_2$ can be modified with a correction factor \cite{blake_radar} dependent on the effective radius of the earth, $r_e = (4/3) 6,371,000$ m.
+To capture the effects of propagating over a spherical earth, the altitude $h_2$ can be modified with a correction factor dependent on the effective radius of the earth, $r_e = (4/3) 6,371,000$ m \cite{blake_radar}.
 \begin{equation}
 h_2' = h_2 - \frac{L^2}{2r_e}
 \label{mp_eq:0}
 \end{equation}
 
-The path lengths are given by geometry and simplified through a binomial expansion.
+\noindent The path lengths are given by geometry and can be simplified through a binomial expansion.
 \begin{equation}
 \begin{aligned}
 L_1 & = \sqrt{L^2 + (h_1-h_2)^2}  \approx L + \frac{(h_1 - h_2)^2}{2L}\\
@@ -30,7 +30,7 @@ L_{so} & = \sqrt{L^2 + (h_1+h_2)^2}  \approx L + \frac{(h_1 + h_2)^2}{2L}\\
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-From Huygen's principle, the propagation factor for the 2-ray model is the sum of plane waves traveling along the paths $L_1$ and $L_{so}$. Here $\Gamma_1$ is the reflection coefficient from the sea surface, $\Gamma_1 = \Gamma(x_m)$.
+The propagation factor for the 2-ray model is the sum of plane waves traveling along the paths $L_1$ and $L_{so}$. Here $\Gamma_1$ is the reflection coefficient from the sea surface at $x_m$, $\Gamma_1 = \Gamma(x_m)$.
 \begin{equation}
 \boxed{F_p = e^{jkL_1} + \Gamma_1e^{jkL_{so}}}
 \label{mp_eq:1b}
@@ -90,7 +90,7 @@ L_0 \approx L_0(x_m) + \frac{1}{2}\frac{d^2L_0}{dx^2}\bigg|_{x_m}(x-x_m)^2
 \label{mp_eq:16}
 \end{equation}
 
-Since $\frac{dL_0}{dx}\big|_{x_m} = 0$, we can solve for $x_m$
+\noindent Since $\frac{dL_0}{dx}\big|_{x_m} = 0$, we can solve for $x_m$
 \begin{equation}
 \begin{gathered}
 \frac{-h_1^2}{x_m^2} + \frac{h_2^2}{(L-x_m)^2} = 0\\
@@ -102,7 +102,7 @@ x_m = \frac{h_1L}{h_1+h_2}
 \label{mp_eq:17}
 \end{equation}
 
-This gives the following for the lowest Taylor series terms:
+\noindent This gives the following for the lowest Taylor series terms:
 \begin{equation}
 \begin{aligned}
 L_0(x_m) &= \frac{(h_1+h_2)^2}{2L} \\
@@ -112,7 +112,7 @@ L_s(x_m) &= \frac{2s(x)(h_1 + h_2)}{L}\\
 \label{mp_eq:17a}
 \end{equation}
 
-The expansion of $L_0$ is then
+\noindent The expansion of $L_0$ is then
 \begin{equation}
 L_0 \approx \frac{(h_1+h_2)^2}{2L} + \frac{(h_1+h_2)^4}{2h_1h_2L^3}(x-x_m)^2
 \label{mp_eq:18}
@@ -125,14 +125,21 @@ G\left(x,x',z,z' \right)= \sqrt{\frac{j}{8\pi k_o|x-x'|}}\exp\left[-jk_o\left(|x
 \label{mp_eq:11aa}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-Where the source is located at $(x',z')$ and the observation point is located at $(x,z)$.
+In this equation the source is located at $(x',z')$ and the observation point is located at $(x,z)$.
+
+The scalar solution from the Green's function method is derived in Section \ref{gf_sec:method} as
+\begin{equation}
+U = \oint\limits_{S}\left[G\frac{\partial U}{\partial n}dS - U\frac{\partial G}{\partial n} \right] -\int\limits_{V}d^3r' Gf
+\label{mp_eq:11aaa}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection{Direct Path}
-The solution to the scalar wave equation at $P_2$ for the direct path can be found by using the Green's function from equation \ref{mp_eq:11aa} with a delta function at $P_1$ ($x' = 0, z' = h_1$) representing a point source.
+The solution to the scalar wave equation at $P_2$ for the direct path can be found by using the Green's function from equation \ref{mp_eq:11aa} with a delta function at $P_1$ ($x' = 0, z' = h_1$) representing a point source, $f = -\delta(x') \delta(z'- (h_1-s)) $.
 
 \begin{equation}
 \begin{aligned}
-U_1(P_2) &= \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}dx' dz' G\left(x,x',z,z' \right) f(x',z') \\
+U_1(P_2) &= -\int_{-\infty}^{\infty} \int_{-\infty}^{\infty}dx' dz' G\left(x,x',z,z' \right) f(x',z') \\
 &= \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}dx' dz' G\left(x,x',z,z' \right)\delta(x') \delta(z'- (h_1-s)) \\
 &= \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}dx' dz' \sqrt{\frac{j}{8\pi k_o|x-x'|}}\exp\left[-jk_o\left(|x -x'| + \frac{|z-z'|^2}{2|x-x'|}\right) \right] \\
 &\times \delta(x') \delta(z'- (h_1-s)) \\
@@ -153,23 +160,14 @@ U_1(P_2) &= \frac{1}{2jk_o}\sqrt{\frac{k_o}{2\pi jL}}\exp\left[-jk_o\left(L + \f
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection{Rayleigh-Sommerfeld Diffraction Integral}
-Following Huygen's principle, we can use every point on the sea surface as a source for the reflected wave. We will follow \cite{goodman_fourier} and treat diffraction from the sea surface similarly to diffraction from a planar screen. 
-
-The scalar solution from the Green's function method is derived in Section \ref{gf_sec:method} as
-\begin{equation}
-U = \oint\limits_{S}\left[G\frac{\partial U}{\partial n}dS - U\frac{\partial G}{\partial n} \right] -\int\limits_{V}d^3r' Gf
-\label{mp_eq:11aaa}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-We will focus here on the homogeneous solution, $f=0$, and let the surface normal direction, $\hat{n}$, be along $z$. In order to ensure the integral over the surface vanishes at far distances, we need to apply the Sommerfeld radiation condition on the disturbance $U$
+Following Huygen's principle, we can use every point on the sea surface as a source for the reflected wave. We will follow \cite{goodman_fourier} and treat diffraction from the sea surface similarly to diffraction from a planar screen. We will focus here on the homogeneous solution, $f=0$, and let the surface normal direction, $\hat{n}$, be along $z$. In order to ensure the integral over the surface vanishes at far distances, we need to apply the Sommerfeld radiation condition on the disturbance $U$
 \begin{equation}
  \lim_{x\to\infty} x\left(\frac{\partial U}{\partial z} -jkzU \right) = 0.
 \label{mp_eq:11aaaa}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-In order to simplify the surface integral in Equation \ref{mp_eq:11aaa}, we can choose an alternative Green's function that is generated by a pair of mirrored point sources as shown in Figure \ref{mp_fig:2a}. This configuration will ensure that the Green's function vanishes on the surface provided that the assumption of small altitude deviations along the surface holds.
+In order to simplify the surface integral in Equation \ref{mp_eq:11aaa}, we can choose an alternative Green's function that is generated by a pair of mirrored point sources as shown in Figure \ref{mp_fig:2a}. This configuration will ensure that the Green's function vanishes on the surface provided that the assumption of small altitude deviations along the surface holds \cite{goodman_fourier}.
 
 \begin{figure}[H]
   \begin{center}
@@ -182,14 +180,14 @@ In order to simplify the surface integral in Equation \ref{mp_eq:11aaa}, we can 
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-This Greens function, $G\_$, is then given as
+\noindent This Greens function, $G\_$, is then given as
 \begin{equation}
 G\_= \sqrt{\frac{j}{8\pi k_ox}}\exp\left[-jk_o\left(x + \frac{z^2}{2x}\right) \right] - \sqrt{\frac{j}{8\pi k_ox_1}}\exp\left[-jk_o\left(x_1 + \frac{z_1^2}{2x_1}\right) \right]
 \label{mp_eq:11aab}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-The normal derivative $\partial G\_/\partial n$, is then given as
+\noindent The normal derivative $\partial G\_/\partial n$, is then given as
 \begin{equation}
 \begin{aligned}
 \frac{\partial G\_}{\partial n}&-\frac{jk_oz}{x}\sqrt{\frac{j}{8\pi k_ox}}\exp\left[-jk_o\left(x + \frac{z^2}{2x}\right) \right] \\
@@ -199,7 +197,7 @@ The normal derivative $\partial G\_/\partial n$, is then given as
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-On the surface, $x_1 = x$ and $z_1 = -z$ so that
+\noindent On the surface, $x_1 = x$ and $z_1 = -z$ so that
 \begin{equation}
 \begin{gathered}
 \frac{\partial G\_}{\partial n} = -2\frac{\partial G}{\partial n} \\
@@ -209,7 +207,7 @@ On the surface, $x_1 = x$ and $z_1 = -z$ so that
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-With this Green's function in hand, we can rewrite the solution as
+\noindent With this Green's function in hand, we can rewrite the solution as
 \begin{equation}
 \begin{gathered}
 U_2(P_2) = -\oint\limits_{S}U_2(P_1)\frac{\partial G\_}{\partial n}dS\\
@@ -232,7 +230,6 @@ U_2(P_2) &= 2jk_o\int\limits_{-\infty}^{\infty}dx\Gamma U(s)\frac{z}{x}\sqrt{\fr
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 From the geometry in Figure \ref{mp_fig:2}, we are shifting the starting point for the return path and we need to let $x \rightarrow L-x$ and $z \rightarrow h_2-s$ so that we now have
-
 \begin{equation}
 \begin{aligned}
 U_2(P_2) &= \int\limits_{0}^{L}dx\Gamma U(s)\frac{h_2-s}{L-x}\sqrt{\frac{k_o}{2\pi j (L-x)}}\exp\left[-jk_o\left(L-x +\frac{(h_2-s)^2}{2(L-x)} \right) \right] \\
@@ -252,7 +249,7 @@ U_2(s) &= \sqrt{\frac{j}{8\pi k_ox}}\exp\left[-jk_o\left(x + \frac{(h_1-s)^2}{2x
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-This yields the full solution for the reflected wave as 
+\noindent This yields the full solution for the reflected wave as 
 \begin{equation}
 \begin{aligned}
 U_2(P_2) &= \int\limits_{0}^{L}dx\Gamma \frac{1}{2jk_o}\sqrt{\frac{k_o}{2\pi jx}}\exp\left[-jk_oL_2\right]\frac{h_2-s}{L-x}\sqrt{\frac{k_o}{2\pi j (L-x)}}\exp\left[-jk_oL_3 \right]  \\
@@ -263,7 +260,7 @@ U_2(P_2) &= \int\limits_{0}^{L}dx\Gamma \frac{1}{2jk_o}\sqrt{\frac{k_o}{2\pi jx}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-To simplify this expression, we will first expand the exponential term, $K(x)$.
+\noindent To simplify this expression, we will first expand the exponential term, $K(x)$.
 \begin{equation}
 \begin{aligned}
 K(x)&= \exp\left[-jk_o\left( L_2 + L_3\right) \right] \\
@@ -333,7 +330,7 @@ The phase of the integrand oscillates rapidly as shown by the real part of $K(x)
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Even with low altitudes, the phase oscillations will be rapid as $\tilde{x}$ goes past the limits of integration and will cancel out, so we can use the principle of stationary phase and let the limits extend to $\pm\infty$. For each case shown, the carrier frequency of the electromagnetic wave was set to 35 GHz. Lower frequencies will have fewer oscillations, but the pricinple of stationary phase will still apply.
+Even with low altitudes, the phase oscillations will be rapid as $\tilde{x}$ goes past the limits of integration and will cancel out, so we can use the principle of stationary phase to extend the limits to $\pm\infty$. For each case shown, the carrier frequency of the electromagnetic wave was set to 35 GHz. Lower frequencies will have fewer oscillations, but the principle of stationary phase will still apply. This assumption now yields the following expression for $I$.
 
 \begin{equation}
 \begin{aligned}
@@ -342,7 +339,7 @@ I&=\int\limits_{-\infty}^{\infty}dx\gamma(x)\exp\left[\frac{-jk_oL_0''}{2}(x-x_m
 \label{mp_eq:23}
 \end{equation}
 
-We can solve this equation using the saddle point method as described in Appendix \ref{appendix_saddle_point_method}, where we musst deform the contour to ensure it doesn't pass through the critical point at $x=x_m$. The solution to Equation \ref{mp_eq:23} is then
+We can solve this equation using the saddle point method as described in Appendix \ref{appendix_saddle_point_method}, where we must deform the contour to ensure it doesn't pass through the singular point of $\gamma (x)$ at $x=x_m$. The solution to Equation \ref{mp_eq:23} is then
 \begin{equation}
 \begin{aligned}
 I&=\gamma(x_m)\sqrt{\frac{2\pi}{jk_oL_0''}}\\
@@ -351,7 +348,7 @@ I&=\gamma(x_m)\sqrt{\frac{2\pi}{jk_oL_0''}}\\
 \label{mp_eq:23a}
 \end{equation}
 
-The deterministic component of the reflected wave is now
+\noindent The deterministic component of the reflected wave is now
 \begin{equation}
 \begin{aligned}
 U_2(P_2)=\frac{1}{2jk_o}\exp[-jk_oL_{so}]\Gamma_1 \sqrt{\frac{k_o}{2\pi jx_m}}\sqrt{\frac{k_o}{2\pi j (L-x_m)}}\frac{h_2}{L-x_m}\sqrt{\frac{2\pi}{jk_oL_o''}}\\
@@ -359,7 +356,7 @@ U_2(P_2)=\frac{1}{2jk_o}\exp[-jk_oL_{so}]\Gamma_1 \sqrt{\frac{k_o}{2\pi jx_m}}\s
 \label{mp_eq:24}
 \end{equation}
 
-We can simplify this expression by substituting in for $x_m$ and $L_0''$
+\noindent We can simplify this expression by substituting in for $x_m$ and $L_0''$
 \begin{equation}
 \begin{aligned}
 U_2(P_2)&= \frac{1}{2jk_o}\Gamma_1e^{-j\left(k_oL_{so}\right)}\sqrt{\frac{k_o(h_1+h_2)}{2\pi j h_1L}}\sqrt{\frac{k_o(h_1+h_2)}{2\pi j h_2L}}\frac{h_1+h_2}{L}\sqrt{\frac{2\pi h_1h_2L^3}{jk_o(h_1+h_2)^4}}\\
@@ -371,9 +368,7 @@ U_2(P_2)&= \frac{1}{2jk_o}\Gamma_1e^{-j\left(k_oL_{so}\right)}\sqrt{\frac{k_o(h_
 \end{equation}
 
 \subsubsection{Propagation Factor}
-The propagation factor is then the sum of the two solutions and will include all the reflected paths from the surface
-
-The full propagation factor is then given as
+The propagation factor is then the sum of the two solutions and will include all the reflected paths from the surface and is then given as
 \begin{equation}
 \begin{gathered}
 F_p= \frac{1}{2jk_o}\sqrt{\frac{k_0}{2\pi jL}}\left[e^{-jkL_1} + \Gamma_1e^{-j\left(k_oL_{so}+\pi/2\right)}\right] \\
@@ -382,23 +377,23 @@ F_p= \frac{1}{2jk_o}\sqrt{\frac{k_0}{2\pi jL}}\left[e^{-jkL_1} + \Gamma_1e^{-j\l
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-And can be normalized to the final result
+\noindent It can be normalized to the final result
 \begin{equation}
 \begin{gathered}
-\boxed{F_p= e^{-jkL_1} + \Gamma_1e^{-j\left(k_oL_{so}+\pi/2\right)}} \\
+\boxed{F_p= e^{-jk_oL_1} + \Gamma_1e^{-j\left(k_oL_{so}+\pi/2\right)}} \\
 \end{gathered}
 \label{mp_eq:28}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-The asymptotic solution to the normalized propagation factor is the same expression as the 2 ray model but with an added $pi/2$ phase shift.
+The asymptotic solution to the normalized propagation factor is the same expression as the 2 ray model but with an added $\pi/2$ phase shift.
 
 \subsection{Random Component}
 For the random component, $s \neq 0$ and the exponential term in the integral of Equation \ref{mp_eq:21} is
 \begin{equation}
 \begin{aligned}
-K(x) &= \exp\left[-jkL_{so}\right]\exp\left[-jk\left(\frac{L_0''}{2}\left(x-x_m\right)^2 \right) -L_s\right] \\
-&=\exp\left[-jkL_{so}\right]\exp\left[-jk\frac{L_0''}{2}\left(x-x_m\right)^2\right]\exp\left[jkL_s\right] \\
+K(x) &= \exp\left[-jk_oL_{so}\right]\exp\left[-jk_o\left(\frac{L_0''}{2}\left(x-x_m\right)^2 \right) -L_s\right] \\
+&=\exp\left[-jk_oL_{so}\right]\exp\left[-jk_o\frac{L_0''}{2}\left(x-x_m\right)^2\right]\exp\left[jkL_s\right] \\
 \end{aligned}
 \label{mp_eq:29}
 \end{equation}
@@ -407,13 +402,22 @@ K(x) &= \exp\left[-jkL_{so}\right]\exp\left[-jk\left(\frac{L_0''}{2}\left(x-x_m\
 All the random terms are contained in $L_s$, so we will let $x-x_m = \tilde{x}$ and work with $K_r(\tilde{x}) = \exp\left[jkL_s \right]$. If we assume that $L_s$ is locally sinusoidal with amplitude $\sigma$, frequency $k_{\omega}$, and phase $\theta$, we can approximate $K_r$ as 
 \begin{equation}
 \begin{aligned}
-K_r(\tilde{x}) = \exp\left[jkL_s\right] =\exp\left[j\sigma \sin\left(k_{\omega} \tilde{x} + \theta\right) \right]
+K_r(\tilde{x}) = \exp\left[jk_oL_s\right] =\exp\left[j\sigma \sin\left(k_{\omega} \tilde{x} + \theta\right) \right]
 \end{aligned}
 \label{mp_eq:30}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-We can then use the Jacobi-Anger expansion \cite{gbur_math} to convert the exponential term on the far right hand side into sum involving Bessel functions.
+\noindent Here the random amplitude, $\sigma$, is given by
+\begin{equation}
+\begin{aligned}
+\sigma = k_oL_s = \frac{2k_os(h_1+h_2)}{L}
+\end{aligned}
+\label{mp_eq:30a}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+We can then use the Jacobi-Anger expansion \cite{gbur_math} to convert the exponential term on the far right hand side into an infinite sum of Bessel functions.
 \begin{equation}
 \begin{aligned}
 K_r(\tilde{x}) &=\exp\left[j\sigma \sin\left(k_{\omega} \tilde{x} + \theta\right) \right] \\ &=\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl(k_{\omega}\tilde{x} + \theta) \right] \\
@@ -423,7 +427,7 @@ K_r(\tilde{x}) &=\exp\left[j\sigma \sin\left(k_{\omega} \tilde{x} + \theta\right
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-The Bessel functions only depend on the random amplitude, $\sigma$ and not $\tilde{x}$, so they will come outside of the integral in Equation \ref{mp_eq:21}. We can express $K(\tilde{x})$ as
+The Bessel functions only depend on $\sigma$ and not $\tilde{x}$, so they will come outside of the integral in Equation \ref{mp_eq:21}. We can express $K(\tilde{x})$ as
 \begin{equation}
 \begin{gathered}
 K(\tilde{x}) = \exp\left[-jkL_{so}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\exp\left[jlk_{\omega}\tilde{x}-\frac{jkL_0''}{2}\tilde{x}^2\right] 
@@ -432,7 +436,7 @@ K(\tilde{x}) = \exp\left[-jkL_{so}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\ex
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-We can simplify the last exponential term by completing the square
+\noindent We can simplify the last exponential term by completing the square
 \begin{equation}
 \begin{aligned}
 \kappa &= jlk_{\omega}\tilde{x}-\frac{jkL_0''}{2}\tilde{x}^2\\
@@ -444,7 +448,7 @@ We can simplify the last exponential term by completing the square
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-We can now express Equation \ref{mp_eq:21} as
+\noindent We can now express Equation \ref{mp_eq:21} as
 \begin{equation}
 \begin{aligned}
 U_2(P_2)&= \frac{1}{2jk_o}\exp\left[-jk_oL_{so}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\int\limits_{0}^{L}dx\Gamma \sqrt{\frac{k_o}{2\pi jx}}\sqrt{\frac{k_o}{2\pi j (L-x)}}\\ &\times\frac{h_2-s}{L-x}\exp\left[-\frac{jkL_0''}{2}\left(\tilde{x} - \frac{lk_{\omega}}{kL_0''} \right)^2 + \frac{jl^2k_{\omega}^2}{2kL_0''}\right]

@@ -6,20 +6,16 @@ hold on
 grid on
 xlabel('Altitude (m)')
 ylabel('Propagation Factor Variance')
-% plot(tAlt,varData(2,:,end),'LineWidth',2)
-legend('10 mps','5 mps')
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 
 figure
-plot(tAlt,rmsData(1,:,end).^2,'LineWidth',2)
+plot(tAlt,rmsData(1,:,end),'LineWidth',2)
 hold on
 grid on
 xlabel('Altitude (m)')
-ylabel('Propagation Factor Variance No Mean')
-% plot(tAlt,rmsData(2,:,end).^2,'LineWidth',2)
-legend('10 mps','5 mps')
+ylabel('Propagation Factor RMS')
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
@@ -30,9 +26,41 @@ hold on
 grid on
 xlabel('Altitude (m)')
 ylabel('Propagation Factor Mean')
-% plot(tAlt,meanData(2,:,end),'LineWidth',2)
-legend('10 mps','5 mps')
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
+
+v = varData(1,end,:);
+figure
+plot(tRange,v(:),'LineWidth',2)
+hold on
+grid on
+xlabel('Downrange (km)')
+ylabel('Propagation Factor Variance')
+set(gca,'LineWidth',2)
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+
+vr = rmsData(1,end,:);
+figure
+plot(tRange,vr(:),'LineWidth',2)
+hold on
+grid on
+xlabel('Downrange (km)')
+ylabel('Propagation Factor RMS')
+set(gca,'LineWidth',2)
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+
+m = meanData(1,end,:);
+figure
+plot(tRange,m(:),'LineWidth',2)
+hold on
+grid on
+xlabel('Downrange (km)')
+ylabel('Propagation Factor Mean')
+set(gca,'LineWidth',2)
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+
 

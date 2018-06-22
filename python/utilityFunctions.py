@@ -182,7 +182,7 @@ def runTEMPERProcess(L,N,U10,phi,age,H,frequency,useFilter, seed, filePrefix, in
 		pString = pStringPrefix + " Generating Surface ... "
 		print pString
 		#for now phi = 0, --> downwind only
-		h,x = generateSeaSurface(L, N, U10, age,0, useFilter)
+		h,x = generateSeaSurface(L, N, U10, age,phi, useFilter)
 		
 		updateSurfaceFile(srfInputFileName,newSrfName,x,h)
 		pString = pStringPrefix + " Calling TEMPER ... "

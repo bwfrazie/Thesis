@@ -9,7 +9,7 @@ if nargin == 2
 end
 
 tAlt = 1:.1:30;
-tRange = 1:.1:30;
+tRange = 1:.1:20;
 
 
 %get the list of field files
@@ -41,9 +41,10 @@ for counter = 1:length(fileList)
     interpData = interp2(xx,yy,Out.f,xq,yq);
     for aCounter = 1:length(tAlt)
         for rCounter = 1:length(tRange)
-            fValues(counter,aCounter,rCounter) = interpData(aCounter,rCounter);%interpolate2DData(Out.f,Out.h,Out.r,tAlt(aCounter),tRange(rCounter));
+            fValues(counter,aCounter,rCounter) = interpData(aCounter,rCounter); 
         end
-    end  
+    end
+     fValues(fValues <= 0 ) = 1e-8; 
 end
 
 fData.fValues = fValues;

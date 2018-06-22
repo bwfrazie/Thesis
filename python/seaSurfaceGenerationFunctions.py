@@ -34,13 +34,12 @@ def Elfouhaily(k, U10, age,phi):
 	Bl = 0.5*alphap*(cp/c)*Fp
 	Bh = 0.5*alpham*(cm/c)*Fm
 	S = (Bl + Bh)/(k**3);
-		
 	#compute the spreading function
 	a0 = np.log(2)/2.;
 	ap = 4.;
 	am = 0.13*ustar/cm;
 	Delk = np.tanh(a0 + ap*(c/cp)**(2.5) + am*(cm/c)**(2.5));
-	S1 = 1*S*1/(2.)*(1 + Delk*np.cos(2*phi));
+	S = 1*S*1/(2.)*(1 + Delk*np.cos(2*phi));
 
 	return S
 	
