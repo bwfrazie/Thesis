@@ -28,9 +28,9 @@ Figure \ref{stat_fig:2} shows the mean and standard deviation for a 100 run Mont
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-These results indicate that spatial sampling constraints from numerical propagation are important for obtaining accurate statistics, so we need to understand those impacts. This does not mean the numerical propagation method is inaccurate, but that the solution is locally oscillatory so we need finer sampling to correctly capture variations.
+These results indicate that spatial sampling constraints from numerical propagation are important for obtaining accurate statistics. This does not mean the numerical propagation method is inaccurate, but that the solution is locally oscillatory so we need finer sampling to correctly capture variations.
 
-We can look at the phase difference between the two primary paths from the propagation factor for the 2 ray model, $F_p = e^{jkL_1} + \Gamma_1e^{jkL_{so}}$. 
+To investigate the sampling constraints, we can look at the phase difference between the two primary paths from the propagation factor for the 2 ray model, $F_p = e^{jkL_1} + \Gamma_1e^{jkL_{so}}$. 
 
 \begin{equation}
 \begin{gathered}
@@ -40,15 +40,14 @@ We can look at the phase difference between the two primary paths from the propa
 \end{gathered}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-
-\noindent The derivative of the phase difference with respect to range is then
+The derivative of the phase difference with respect to range is then
 \begin{equation}
 \frac{d\Delta\varphi}{dL}=\frac{4\pi h_1h_2}{\lambda L^2}
 \label{stat_eq:2}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\noindent This equation can be converted from rad/m to rad/sample by multiplying by the spatial sampling distance in range, $\Delta r$. We can insist that this phase shift per sample be smaller than some pre-determined value to provide adequate sampling. It is often convenient to specify a limit in terms of wavelengths and we can enforce the condition that there must be at least $n$ samples per wavelength by letting
+\noindent This equation can be converted from rad/m to rad/sample by multiplying by the spatial sampling distance in range, $\Delta r$. We can insist that this phase shift per sample be smaller than some pre-determined value to provide adequate sampling. It is often convenient to specify a limit in terms of wavelengths and we can enforce the condition that there must be at least $n$ samples per wavelength of phase difference by letting
 
 \begin{equation}
 \frac{4\pi h_1h_2\Delta r}{\lambda L^2} \leq \frac{2\pi \lambda}{n}
@@ -61,7 +60,7 @@ This yields a constraint for the maximum allowable spatial sampling step to ensu
 \label{stat_eq:4}
 \end{equation}
 
-This sampling constraint is shown in Figure \ref{stat_fig:3} for both the 10 and 35 GHz cases, with $n = 20$ and $\Delta r = 0.5$.
+This equation matches the observation with $n\approx 10$ for the mean values and $n\approx 20$ for the standard deviations. The sampling constraint is shown in Figure \ref{stat_fig:3} for both the 10 and 35 GHz cases, with $n = 20$ and $\Delta r = 0.5$.
 
 \begin{figure}[H]
   \begin{center}
@@ -75,34 +74,59 @@ This sampling constraint is shown in Figure \ref{stat_fig:3} for both the 10 and
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \section{Monte Carlo Run Results}
-Table \ref{stat_tab:0} shows the inputs that were used in the Monte Carlo runs. The presence of a duct at 20 m should impact the mean value but not the variance or amplitude probability distribution.
+\subsection{Input Parameters}
+Table \ref{stat_tab:0} shows the common inputs that were used in all of the Monte Carlo runs.
 \begin{table}[H]
   \begin{center}
       \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
-    \caption[Propagation Monte Carlo Inputs]{Propagation Monte Carlo Inputs\label{stat_tab:0}}
+    \caption[Common Monte Carlo Input Settings]{Common Monte Carlo Input Settings\label{stat_tab:1}}
   \end{quote}
-  \begin{tabular} {|c | c | c|}
+  \begin{tabular} {|c | c |}
     \hline
-  \bf{Parameter} & \bf{Value for Run 1} & \bf{Value for Run 2}\\ \hline
-  Frequency & 10 GHz  & 10 GHz\\ \hline
-  Transmitter Height & 20 m & 20 m   \\ \hline
-  Antenna Pattern & Sinc  & Sinc \\ \hline
-  Antenna Beamwidth & $8^{\circ}$ & $8^{\circ}$  \\ \hline
-  Maximum Range & 20 km & 20 km  \\ \hline
-  Range Step & 0.5 m  & 0.5 m \\ \hline
-  Maximum Altitude & 30 m  & 30 m\\ \hline
-  Wind Speed & 10 m/s & 10 m/s \\ \hline
-  Inverse Age Parameter & 0.84 (fully developed) & 0.84 (fully developed) \\ \hline
-  Refractivity & Duct at 20 m  & Standard atmosphere\\ \hline
-  Number of Runs & 500  & 500\\ \hline
+  \bf{Parameter} & \bf{Value} \\ \hline
+  Frequency & 10 GHz \\ \hline
+  Transmitter Height & 30 m \\ \hline
+  Antenna Pattern & Sinc \\ \hline
+  Antenna Beamwidth & $8^{\circ}$  \\ \hline
+  Maximum Range & 20 km \\ \hline
+  Range Step & 0.5 m  \\ \hline
+  Maximum Altitude & 30 m \\ \hline
+  Inverse Age Parameter & 0.84 (fully developed) \\ \hline
+  Number of Runs & 500\\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Table \ref{stat_tab:1} shows the run matrix with the values that were allowed to vary across the Monte Carlo runs
+\begin{table}[H]
+  \begin{center}
+      \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Monte Carlo Propagation Run Matrix]{Monte Carlo Propagation Run Matrix\label{stat_tab:0}}
+  \end{quote}
+  \begin{tabular} {|c | c | c| c |}
+    \hline
+  \bf{Dataset ID} & \bf{Wind Speed} & \bf{Wind Direction} & \bf{Refractivity}  \\ \hline
+  1 & 10 m/s & $0^{\circ}$ & Standard Atmosphere \\ \hline
+  2 & 10 m/s & $18^{\circ}$ & Standard Atmosphere \\ \hline
+  3 & 10 m/s & $36^{\circ}$ & Standard Atmosphere \\ \hline
+  4 & 10 m/s & $54^{\circ}$ & Standard Atmosphere \\ \hline
+  5 & 10 m/s & $72^{\circ}$ & Standard Atmosphere \\ \hline
+  6 & 10 m/s & $90^{\circ}$ & Standard Atmosphere \\ \hline
+  7 & 5 m/s & $0^{\circ}$ & Standard Atmosphere \\ \hline
+  8 & 8 m/s & $0^{\circ}$ & Standard Atmosphere \\ \hline
+  9 & 12 m/s & $0^{\circ}$ & Standard Atmosphere \\ \hline
+  10 & 15 m/s & $0^{\circ}$ & Standard Atmosphere \\ \hline
 \end{tabular}
 \end{center}
 \end{table}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 
-Figure \ref{stat_fig:1a} and Figure \ref{stat_fig:1b} show example propagation factors from two specific sea surface realizations with a 20 m duct.
+\subsection{Example Results}
+Figure \ref{stat_fig:1a} and Figure \ref{stat_fig:1b} show example propagation factors from two specific sea surface realizations from dataset $1$ (10 m/s, $0^{\circ}$, standard atmosphere).
 
 \begin{figure}[H]
   \begin{center}
@@ -128,7 +152,6 @@ Figure \ref{stat_fig:1a} and Figure \ref{stat_fig:1b} show example propagation f
 
 \section{PDF Fitting Results}
 As shown in \cite{yeh_first_principles} and \cite{yeh_fading}, we expect the statistics to follow a Rician distribution
-
 \begin{equation}
 P = \frac{x}{\sigma^2}\exp\left[\frac{-(x^2 + \nu^2}{2\sigma^2} \right]I_0\left(\frac{x\nu}{\sigma} \right)
 \label{stat_eq:5}
@@ -137,6 +160,7 @@ P = \frac{x}{\sigma^2}\exp\left[\frac{-(x^2 + \nu^2}{2\sigma^2} \right]I_0\left(
 
 This distribution has been previously shown to be applicable to modeling the amplitude statistics of multipath fading in communication systems with a strong direct line of sight path.
 
+\subsection{Example Fitting Metrics}
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=4in]{../media/statistics/constant_range_fit.png}

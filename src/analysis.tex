@@ -171,7 +171,7 @@ In order to simplify the surface integral in Equation \ref{mp_eq:11aaa}, we can 
 
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=5in]{../media/analysis/multipath_layout.png}
+\includegraphics[width=5in]{../media/analysis/rayleigh_sommerfeld_gf_geometry.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
@@ -367,27 +367,6 @@ U_2(P_2)&= \frac{1}{2jk_o}\Gamma_1e^{-j\left(k_oL_{so}\right)}\sqrt{\frac{k_o(h_
 \label{mp_eq:27}
 \end{equation}
 
-\subsubsection{Propagation Factor}
-The propagation factor is then the sum of the two solutions and will include all the reflected paths from the surface and is then given as
-\begin{equation}
-\begin{gathered}
-F_p= \frac{1}{2jk_o}\sqrt{\frac{k_0}{2\pi jL}}\left[e^{-jkL_1} + \Gamma_1e^{-j\left(k_oL_{so}+\pi/2\right)}\right] \\
-\end{gathered}
-\label{mp_eq:27b}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-\noindent It can be normalized to the final result
-\begin{equation}
-\begin{gathered}
-\boxed{F_p= e^{-jk_oL_1} + \Gamma_1e^{-j\left(k_oL_{so}+\pi/2\right)}} \\
-\end{gathered}
-\label{mp_eq:28}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-The asymptotic solution to the normalized propagation factor is the same expression as the 2 ray model but with an added $\pi/2$ phase shift.
-
 \subsection{Random Component}
 For the random component, $s \neq 0$ and the exponential term in the integral of Equation \ref{mp_eq:21} is
 \begin{equation}
@@ -430,7 +409,7 @@ K_r(\tilde{x}) &=\exp\left[j\sigma \sin\left(k_{\omega} \tilde{x} + \theta\right
 The Bessel functions only depend on $\sigma$ and not $\tilde{x}$, so they will come outside of the integral in Equation \ref{mp_eq:21}. We can express $K(\tilde{x})$ as
 \begin{equation}
 \begin{gathered}
-K(\tilde{x}) = \exp\left[-jkL_{so}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\exp\left[jlk_{\omega}\tilde{x}-\frac{jkL_0''}{2}\tilde{x}^2\right] 
+K(\tilde{x}) = \exp\left[-jk_oL_{so}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\exp\left[jlk_{\omega}\tilde{x}-\frac{jk_oL_0''}{2}\tilde{x}^2\right] 
 \end{gathered}
 \label{mp_eq:32}
 \end{equation}
@@ -439,10 +418,10 @@ K(\tilde{x}) = \exp\left[-jkL_{so}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\ex
 \noindent We can simplify the last exponential term by completing the square
 \begin{equation}
 \begin{aligned}
-\kappa &= jlk_{\omega}\tilde{x}-\frac{jkL_0''}{2}\tilde{x}^2\\
-&= -\frac{jkL_0''}{2}\left[\tilde{x}^2 - \frac{2lk_{\omega}}{kL_0''}\tilde{x} \right]\\
-&= -\frac{jkL_0''}{2}\left[\left(\tilde{x} - \frac{lk_{\omega}}{kL_0''} \right)^2 -\left(\frac{lk_{\omega}}{kL_0''} \right)^2\right]\\
-&= -\frac{jkL_0''}{2}\left(\tilde{x} - \frac{lk_{\omega}}{kL_0''} \right)^2 + \frac{jl^2k_{\omega}^2}{2kL_0''}\\
+\kappa &= jlk_{\omega}\tilde{x}-\frac{jk_oL_0''}{2}\tilde{x}^2\\
+&= -\frac{jk_oL_0''}{2}\left[\tilde{x}^2 - \frac{2lk_{\omega}}{k_oL_0''}\tilde{x} \right]\\
+&= -\frac{jk_oL_0''}{2}\left[\left(\tilde{x} - \frac{lk_{\omega}}{k_oL_0''} \right)^2 -\left(\frac{lk_{\omega}}{k_oL_0''} \right)^2\right]\\
+&= -\frac{jk_oL_0''}{2}\left(\tilde{x} - \frac{lk_{\omega}}{k_oL_0''} \right)^2 + \frac{jl^2k_{\omega}^2}{2k_oL_0''}\\
 \end{aligned}
 \label{mp_eq:33}
 \end{equation}
@@ -451,19 +430,41 @@ K(\tilde{x}) = \exp\left[-jkL_{so}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\ex
 \noindent We can now express Equation \ref{mp_eq:21} as
 \begin{equation}
 \begin{aligned}
-U_2(P_2)&= \frac{1}{2jk_o}\exp\left[-jk_oL_{so}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\int\limits_{0}^{L}dx\Gamma \sqrt{\frac{k_o}{2\pi jx}}\sqrt{\frac{k_o}{2\pi j (L-x)}}\\ &\times\frac{h_2-s}{L-x}\exp\left[-\frac{jkL_0''}{2}\left(\tilde{x} - \frac{lk_{\omega}}{kL_0''} \right)^2 + \frac{jl^2k_{\omega}^2}{2kL_0''}\right]
+U_2(P_2)&= \frac{1}{2jk_o}\exp\left[-jk_oL_{so}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\int\limits_{0}^{L}dx\Gamma \sqrt{\frac{k_o}{2\pi jx}}\sqrt{\frac{k_o}{2\pi j (L-x)}}\\ &\times\frac{h_2-s}{L-x}\exp\left[-\frac{jk_oL_0''}{2}\left(\tilde{x} - \frac{lk_{\omega}}{k_oL_0''} \right)^2 + \frac{jl^2k_{\omega}^2}{2k_oL_0''}\right] \\
+&= \frac{1}{2jk_o}\exp\left[-jk_oL_{so}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\exp\left[\frac{jl^2k_{\omega}^2}{2k_oL_0''}\right]\int\limits_{0}^{L}dx\Gamma \sqrt{\frac{k_o}{2\pi jx}}\sqrt{\frac{k_o}{2\pi j (L-x)}}\\ &\times\frac{h_2-s}{L-x}\exp\left[-\frac{jk_oL_0''}{2}\left(\tilde{x} - \frac{lk_{\omega}}{k_oL_0''} \right)^2\right] \\
 \label{mp_eq:34}
 \end{aligned}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Following the approach for the deterministic component yields the asymptotic solution
+Following the approach for the deterministic component and using the substitution $\phi_l = l^2k_{\omega}^2/(2k_oL_0'')$ yields the asymptotic solution
 \begin{equation}
 \begin{aligned}
-\boxed{U_2(P_2) = \frac{1}{2jk_o}\sqrt{\frac{k_o}{2\pi jL}}e^{-j\left(k_oL_{so}+\pi/2\right)}\Gamma_1\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]}
+\boxed{U_2(P_2) = \frac{1}{2jk_o}\sqrt{\frac{k_o}{2\pi jL}}e^{-j\left(k_oL_{so}+\pi/2\right)}\Gamma_1\sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}}
 \label{mp_eq:35}
 \end{aligned}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 The random component is now contained in the sum of Bessel functions which acts as a scale factor on the deterministic component and is otherwise identical to Equation \ref{mp_eq:27}.
+
+\section{Propagation Factor}
+The propagation factor is the sum of the two solutions and will include all the reflected paths from the surface. For the deterministic component, the propagation factor is given as
+\begin{equation}
+\begin{gathered}
+F_p= \frac{1}{2jk_o}\sqrt{\frac{k_0}{2\pi jL}}\left[e^{-jkL_1} + \Gamma_1e^{-j\left(k_oL_{so}+\pi/2\right)}\right] \\
+\end{gathered}
+\label{mp_eq:27b}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent It can be normalized to the final result
+\begin{equation}
+\begin{gathered}
+\boxed{F_p= e^{-jk_oL_1} + \Gamma_1e^{-j\left(k_oL_{so}+\pi/2\right)}} \\
+\end{gathered}
+\label{mp_eq:28}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+The asymptotic solution to the normalized propagation factor is the same expression as the 2 ray model but with an added $\pi/2$ phase shift.

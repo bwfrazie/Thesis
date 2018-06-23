@@ -5,7 +5,7 @@
 		<U10> 10 </U10>  <!-- wind speed at 10 m altitude in meters/second -->
 		<age> 0.84 </age> <!-- age of the sea to use (0.84 is fully developed, can be up to 5.0 -->
 		<L> 20000 </L>  <!-- path length to be used in meters-->
-		<phi> 0.3142</phi> <!-- Angle (in radians) away from wind direction (0 is directly in line with the wind) -->
+		<phi> 0.9425</phi> <!-- Angle (in radians) away from wind direction (0 is directly in line with the wind) -->
 		<useFilter> 0 </useFilter> <!-- flag to indicate if spectral filtering is applied -->
 	</seaSurface>
 	<computation>

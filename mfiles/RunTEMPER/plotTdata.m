@@ -3,7 +3,7 @@ function plotTdata(tdata)
 figure
 % subplot(1,2,1)
 
-imagesc(tdata.h,tdata.r,tdata.fdb);
+imagesc(tdata.r,tdata.h,tdata.fdb);
 grid on
 xlabel('Range (km)')
 ylabel('Altitude (m)')

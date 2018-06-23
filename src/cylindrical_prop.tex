@@ -49,7 +49,7 @@ U_1(P_2) &=-\frac{j}{4}\sqrt{\frac{2}{\pi k_o L_1}}e^{-j(k_oL_1 - \frac{\pi}{4})
 \end{aligned}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-Here, we are using a normalization factor, $\alpha$ to take out the common scaling terms when computing the propagation factor. The $1/\sqrt{L_1}$ scale factor introduces the cylindrical spreading.
+Here, we are using a normalization factor, $\alpha$ to take out the common scaling terms when computing the propagation factor. The $1/\sqrt{L_1}$ scale factor accounts for the cylindrical spreading of the wave.
 
 \subsection{Reflected Path}
 For the reflected path, we can again use the Rayleigh-Sommerfeld Diffraction Integral with the solution at the sea surface, $U(s)$, given as $-\frac{j}{4}H_0^{(2)}\left(k_oL_2 \right)$
@@ -77,15 +77,25 @@ We can use the contour integral approach again to get the following solution for
 \begin{equation}
 \begin{aligned}
 U_2(P_2) &=\frac{\alpha h_2\Gamma_1}{L_3\sqrt{L_2L_3}}\sqrt{\frac{j k_o}{2\pi}}\sqrt{\frac{2\pi}{j k_oL_0''}}e^{-jk_oL_{so}}\\
-&=\frac{\alpha h_2\Gamma_1}{L_3\sqrt{L_2L_3}}\sqrt{\frac{L^3}{(h_1+h_2)^4}}
+&=\frac{\alpha h_2\Gamma_1}{L_3\sqrt{L_2L_3L_0''}}
 e^{-jk_oL_{so} }\end{aligned}
 \label{cyl_eq:8}
 \end{equation}
 
-The normalized propagation factor is then
+\noindent The normalized propagation factor is then
 \begin{equation}
 \begin{aligned}
-\boxed{F_p =e^{-jk_oL_1} + \frac{h_2\Gamma_1\sqrt{L_1}}{L_3\sqrt{L_2L_3}}\sqrt{\frac{L^3}{(h_1+h_2)^4}}e^{-jk_oL_{so} }}
+\boxed{F_p =e^{-jk_oL_1} + \frac{h_2\Gamma_1\sqrt{L_1}}{L_3\sqrt{L_2L_3L_0''}}e^{-jk_oL_{so} }}
 \end{aligned}
 \label{cyl_eq:9}
 \end{equation}
+
+\noindent The random component can be derived as in Chapter \ref{analytical_propagation} to be
+\begin{equation}
+\begin{aligned}
+U_2(P_2) = \frac{\alpha h_2\Gamma_1}{L_3\sqrt{L_2L_3L_0''}}\sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}
+\label{cyl_eq:10}
+\end{aligned}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+

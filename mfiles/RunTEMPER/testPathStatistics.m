@@ -34,7 +34,7 @@ for i = 1:length(name)
     datapath{i} = strcat(filepath,'/',name{i});
 end
 
-for i = 1:1%length(datapath)
+for i = 2:2%length(datapath)
     dataset = [];
     
     dispstring = sprintf('Parsing directory %d of %d',i,length(datapath));
