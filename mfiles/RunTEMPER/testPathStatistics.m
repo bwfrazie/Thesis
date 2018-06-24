@@ -34,14 +34,19 @@ for i = 1:length(name)
     datapath{i} = strcat(filepath,'/',name{i});
 end
 
-for i = 2:2%length(datapath)
+
+for i = 1:length(datapath)
+
     dataset = [];
     
-    dispstring = sprintf('Parsing directory %d of %d',i,length(datapath));
+    dispstring = sprintf('Parsing directory %d of %d, %s',i,length(datapath),name{i});
     disp(dispstring);
     
+    sname = strcat(name{i},'.mat');
+    load(sname);
+    
     dataset.info = datainfo{i};
-    dataset.tData = getPathStatistics(datapath{i});
+%     dataset.tData = getPathStatistics(datapath{i});
     dataset.varData = var(dataset.tData.fValues,0,1);
     dataset.rmsData = std(dataset.tData.fValues,0,1);
     dataset.meanData= mean(dataset.tData.fValues,1);
@@ -54,7 +59,11 @@ for i = 2:2%length(datapath)
         for r = 1:length(dataset.tData.tRange)
             d = dataset.tData.fValues(:,a,r);
             d(d<=0) = 1e-8;
-            [dataset.sigma(a,r), dataset.v(a,r), dataset.alpha(a,r)] = statisticFitting2(d(:),dataset.tData.tRange,dataset.tData.tAlt,dataset.tData.tRange(r),dataset.tData.tAlt(a),0);
+            [dataset.sigma(a,r), dataset.v(a,r), dataset.alpha(a,r), dataset.gsigma(a,r), dataset.gmean(a,r), dataset.ricianValidFlag(a,r)] = statisticFitting2(d(:),dataset.tData.tRange,dataset.tData.tAlt,dataset.tData.tRange(r),dataset.tData.tAlt(a),0);
+            if dataset.ricianValidFlag(a,r) == 0
+                dispstring = sprintf('Unable to fit Rician Distribution for element (%d,%d), %0.1f m altitude, %0.1f km downrange',a,r,dataset.tData.tAlt(a),dataset.tData.tRange(r));
+                disp(dispstring);
+            end
         end
     end
     

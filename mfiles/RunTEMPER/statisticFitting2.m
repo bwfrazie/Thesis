@@ -1,7 +1,8 @@
 
-function [sigma, v, alpha] = statisticFitting2(dataSet,rangeVec,altVec,range,alt,varargin)
+function [sigma, v, alpha, gsigma,gmean, flag] = statisticFitting2(dataSet,rangeVec,altVec,range,alt,varargin)
 
 plotData = 1;
+flag = 1;
 
 if nargin == 6
     plotData = varargin{1};
@@ -12,12 +13,23 @@ rInd = find(rangeVec == range);
 fp = linspace(0,2,1000);
 
 % dataSet = data (:,aInd,rInd);
-dist = fitdist(dataSet,'rician');
-params = dist.ParameterValues;
-sigma = params(2);
-v = params(1);
-alpha = 1/(8*pi*params(2)^2);
+distg = fitdist(dataSet,'normal');
+paramsg = distg.ParameterValues;
+gsigma = paramsg(2);
+gmean = paramsg(1);
 
+try
+    dist = fitdist(dataSet,'rician');
+    params = dist.ParameterValues;
+    sigma = params(2);
+    v = params(1);
+    alpha = 1/(8*pi*params(2)^2);
+catch
+    flag = 0;
+    sigma = 0;
+    v = 0;
+    alpha = 0;
+end
 
 if plotData == 1
     disp(dist);
