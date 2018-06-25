@@ -35,18 +35,15 @@ for i = 1:length(name)
 end
 
 
-for i = 1:length(datapath)
+for i = 6:6%length(datapath)
 
     dataset = [];
     
     dispstring = sprintf('Parsing directory %d of %d, %s',i,length(datapath),name{i});
     disp(dispstring);
     
-    sname = strcat(name{i},'.mat');
-    load(sname);
-    
     dataset.info = datainfo{i};
-%     dataset.tData = getPathStatistics(datapath{i});
+    dataset.tData = getPathStatistics(datapath{i});
     dataset.varData = var(dataset.tData.fValues,0,1);
     dataset.rmsData = std(dataset.tData.fValues,0,1);
     dataset.meanData= mean(dataset.tData.fValues,1);

@@ -1,7 +1,7 @@
-function [h, k, S, V, kx, ky,x,y] = generateSeaSurface2D(L, N, U10, age, varargin)
-%[h, k, S, V, kx, ky] = generateSeaSurface2D(L, N, U10, age)
+function [h, k, S, V, kx, ky,x,y] = generateSeaSurface2D(L, N, U10, age,phi, t,varargin)
+%[h, k, S, V, kx, ky] = generateSeaSurface2D(L, N, U10, age,phi,t)
 
-if (nargin == 6)
+if (nargin == 7)
    seed = varargin{1};
    if (seed > 0)
        rng(seed)
@@ -21,7 +21,15 @@ kxx = ifftshift(kxx);
 kyy = ifftshift(kyy);
 
 %convert to polar coordinates
-[phi,k] = cart2pol(kxx,kyy);
+[~,k] = cart2pol(kxx,kyy);
+
+%compute the dispersion relations
+km = 370.0;
+g = 9.81;
+k1 = (0:N/2)*dk;
+omega = sqrt(g*k1 +(k1/km).^2);
+omegax = sqrt(g*abs(kxx) +(kxx/km).^2)*cos(phi);
+omegay = sqrt(g*abs(kyy) +(kyy/km).^2)*sin(phi);
 
 %% Spectral Representation
 %get the elfouhaily spectrum
@@ -51,8 +59,8 @@ for u = 1:N/2-1
         va = v+1;
         ub = u + 1;
         vb = v + N/2 + 1;
-        Va(u,v) = 1/2*sqrt(S(ua,va)*dk^2)*(W1(u,v) + 1i*W2(u,v));
-        Vb(u,v) = 1/2*sqrt(S(ub,vb)*dk^2)*(W3(u,v) + 1i*W4(u,v));
+        Va(u,v) = 1/2*sqrt(S(ua,va)*dk^2)*(W1(u,v) + 1i*W2(u,v)).*exp(-1i*(omegax(u,v)+omegay(u,v))*t);
+        Vb(u,v) = 1/2*sqrt(S(ub,vb)*dk^2)*(W3(u,v) + 1i*W4(u,v)).*exp(-1i*(omegax(u,v)+omegay(u,v))*t);
     end
 end
 
@@ -77,8 +85,8 @@ VyN2 = [];
 Vx0(1) = 0;
 Vy0(1) = 0;
 for(j = 2:N/2)
-    Vx0(j) = 1/2*sqrt(S(1,j)*dk^2)*(w1(j) + 1i*u1(j));
-    Vy0(j) = 1/2*sqrt(S(j,1)*dk^2)*(w2(j) + 1i*u2(j));
+    Vx0(j) = 1/2*sqrt(S(1,j)*dk^2)*(w1(j) + 1i*u1(j)).*exp(-1i*omega(j)*cos(phi)*t);
+    Vy0(j) = 1/2*sqrt(S(j,1)*dk^2)*(w2(j) + 1i*u2(j)).*exp(-1i*omega(j)*sin(phi)*t);
 end
 Vx0(N/2+1) = sqrt(S(1,N/2+1)*dk^2)*u1(1);
 Vy0(N/2+1) = sqrt(S(N/2+1,1)*dk^2)*u2(1);
@@ -103,8 +111,8 @@ Vx2(1) = sqrt(S(N/2+1,1)*dk^2)*w3(1);
 Vy2(1) = sqrt(S(1,N/2+1)*dk^2)*w4(1);
 
 for(j = 2:N/2)
-    Vx2(j) = 1/2*sqrt(S(N/2+1,j)*dk^2)*(w3(j) + 1i*u3(j));
-    Vy2(j) = 1/2*sqrt(S(j,N/2+1)*dk^2)*(w4(j) + 1i*u4(j));
+    Vx2(j) = 1/2*sqrt(S(N/2+1,j)*dk^2)*(w3(j) + 1i*u3(j)).*exp(-1i*omega(j)*cos(phi)*t);
+    Vy2(j) = 1/2*sqrt(S(j,N/2+1)*dk^2)*(w4(j) + 1i*u4(j)).*exp(-1i*omega(j)*sin(phi)*t);
 end
 
 Vx2(N/2+1) = sqrt(S(N/2+1,N/2+1)*dk^2)*u4(1);

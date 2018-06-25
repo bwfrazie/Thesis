@@ -41,7 +41,7 @@ varVec = [];
         disp(dispstring);
         
         %generate the surface
-        [h, k, S, V] = generateSeaSurface(L, N, U10, age);
+        [h, k, S, V] = generateSeaSurface(L, N, U10, age,0);
         
         %get the next file name
         fname = sprintf('%s%d.h5',fileNamePrefix,counter);
