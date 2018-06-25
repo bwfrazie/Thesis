@@ -702,7 +702,7 @@ For the $L = 7.5$ km, $N = 2L$, and $U_{10} = 10$ m/s case, Figure \ref{os_fig:1
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \section{Time Varying Surfaces}
-To add in the time dependence and create ocean surfaces that vary in the time domain, we can use the shifting property of the Fourier transform and multiply the spatial frequency domain random sequences by $e^{-j\omega t}$. We will use the dispersion relation given in Equation \ref{os_eq:5aa}, $\omega^2 = gk\left[1 +(k/k_m)^2 \right]$, to relate the temporal frequency to the spatial frequency. There are two additional steps we need to be careful to follow to get the correct temporal variation. First, because we need to maintain Hermitian symmetry in the spatial frequency domain, the complex conjugate pairs will be multiplied by either $e^{-j\omega t}$ or $e^{+j\omega t}$. Second, in order to include wind direction, we need to scale $\omega$ by $\cos(\phi)$ where $\phi$ is the angle of the wind direction relative to the propagation path.
+To add in the time dependence and create ocean surfaces that vary in the time domain, we can use the shifting property of the Fourier transform and multiply the spatial frequency domain random sequences by $e^{-j\omega t}$. We will use the dispersion relation given in Equation \ref{os_eq:5aa}, $\omega^2 = gk\left[1 +(k/k_m)^2 \right]$, to relate the temporal frequency to the spatial frequency. Because we need to maintain Hermitian symmetry in the spatial frequency domain, the complex conjugate pairs will be multiplied by either $e^{-j\omega t}$ or $e^{+j\omega t}$.
 
 \subsection{1-D Time Varying Surfaces}
 For the 1-D case, we can replace Equation \ref{os_eq:8} with the following to generate the Hermitian sequence $V_n$.
