@@ -18,7 +18,7 @@ plot(x,h1,'LineWidth',2);
 plot(x,h2,'LineWidth',2);
 plot(x,h3,'LineWidth',2);
 grid on
-xlim([0 500]);
+xlim([0 100]);
 xlabel('Down Range Distance (m)')
 ylabel('Wave Height')
 legend('0 sec','1 sec','2 sec','3 sec','Location','SouthWest');

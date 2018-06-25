@@ -31,7 +31,7 @@ dk = 2*pi/L;
 U10 = 10;
 age = 0.84;
 
-[h,k,S,V,kx,ky] = generateSeaSurface2D(L, N, U10, age);
+[h,k,S,V,kx,ky] = generateSeaSurface2D(L, N, U10, age,0);
 
 x = (0:N-1)*dx;
 y = (0:N-1)*dx;
@@ -101,17 +101,15 @@ p = linspace(-3,4,1000);
 k1 = 10.^p;
 hh(2) = figure('pos',[50 50 872 641]);
 
-Sx = Elfouhaily2D(k1,zeros(size(k1)),U10,age);
-Sy = Elfouhaily2D(k1,pi/2*ones(size(k1)),U10,age);
-S1 = Elfouhaily(k1,U10,age);
+Sx = Elfouhaily2D(k1,0,U10,age);
+Sy = Elfouhaily2D(k1,pi/2,U10,age);
 
-%estimate the power spectrum, need to scale by 1/2pi to convert from
+%estimate the power spectrum, need to scale by 1/(2pi) to convert from
 %spatial frequency to k-space
 Psi = fftshift(fft2(h))/((2*pi));
 Psi = 2*dx^2/N^2*abs(Psi).^2;
 Psiy = Psi(N/2+1,:);
 Psix = Psi(:,N/2+1);
-
 
 subplot(2,2,1)
 plot(x,h(N/2+1,:),'LineWidth',2);

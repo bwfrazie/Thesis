@@ -1,4 +1,4 @@
-function [S,kp, PSI]= Elfouhaily(k,U10,age,varargin)
+function [S,kp]= Elfouhaily(k,U10,age,varargin)
 %S = Elfouhaily(k,U10,age)
 phi = 0;
 if nargin == 4
@@ -45,5 +45,4 @@ ap = 4;
 am = 0.13*ustar/cm;
 
 Delk = tanh(a0 + ap*(c/cp).^(2.5) + am*(cm./c).^(2.5));
-% PSI = 1*S.*1./k.*1/(2*pi).*(1 + Delk.*cos(2*phi));
-PSI = 1*S.*1/(2).*(1 + Delk.*cos(2*phi));
+S = 1*S.*1/(2).*(1 + Delk.*cos(2*phi));

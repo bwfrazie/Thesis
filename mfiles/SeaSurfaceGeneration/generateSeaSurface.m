@@ -3,7 +3,7 @@ function [h, k, S, V, x, kp, lambda_p] = generateSeaSurface(L, N, U10, age, phi,
 %[h, k, S, V, x, kp, lambda_p] = generateSeaSurface(L, N, U10, age,phi,t,seed)
 
 linearCutOff = 0.75;
-useFilter = true;
+useFilter = false;
 
 if (nargin >= 7)
    seed = varargin{1};
@@ -49,7 +49,7 @@ u = randn(1,N/2);
 
 V(1) = sqrt(S(1)*dk)*w(1);
 for(j = 2:N/2)
-    V(j) = 1/2*sqrt(S(j)*dk)*(w(j) + 1i*u(j))*exp(-1i*omega(j)*cos(phi)*t);
+    V(j) = 1/2*sqrt(S(j)*dk)*(w(j) + 1i*u(j))*exp(-1i*omega(j)*t);
 end
 V(N/2+1) = sqrt(S(N/2+1)*dk)*u(1);
 

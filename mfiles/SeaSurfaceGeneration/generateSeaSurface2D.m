@@ -1,7 +1,7 @@
-function [h, k, S, V, kx, ky,x,y] = generateSeaSurface2D(L, N, U10, age,phi, t,varargin)
-%[h, k, S, V, kx, ky] = generateSeaSurface2D(L, N, U10, age,phi,t)
+function [h, k, S, V, kx, ky,x,y] = generateSeaSurface2D(L, N, U10, age, t,varargin)
+%[h, k, S, V, kx, ky] = generateSeaSurface2D(L, N, U10,age,t)
 
-if (nargin == 7)
+if (nargin == 6)
    seed = varargin{1};
    if (seed > 0)
        rng(seed)
@@ -21,15 +21,14 @@ kxx = ifftshift(kxx);
 kyy = ifftshift(kyy);
 
 %convert to polar coordinates
-[~,k] = cart2pol(kxx,kyy);
+[phi,k] = cart2pol(kxx,kyy);
 
 %compute the dispersion relations
 km = 370.0;
 g = 9.81;
 k1 = (0:N/2)*dk;
-omega = sqrt(g*k1 +(k1/km).^2);
-omegax = sqrt(g*abs(kxx) +(kxx/km).^2)*cos(phi);
-omegay = sqrt(g*abs(kyy) +(kyy/km).^2)*sin(phi);
+omega1 = sqrt(g*k1 +(k1/km).^2);
+omega = sqrt(g*abs(k) +(k/km).^2);
 
 %% Spectral Representation
 %get the elfouhaily spectrum
@@ -59,8 +58,8 @@ for u = 1:N/2-1
         va = v+1;
         ub = u + 1;
         vb = v + N/2 + 1;
-        Va(u,v) = 1/2*sqrt(S(ua,va)*dk^2)*(W1(u,v) + 1i*W2(u,v)).*exp(-1i*(omegax(u,v)+omegay(u,v))*t);
-        Vb(u,v) = 1/2*sqrt(S(ub,vb)*dk^2)*(W3(u,v) + 1i*W4(u,v)).*exp(-1i*(omegax(u,v)+omegay(u,v))*t);
+        Va(u,v) = 1/2*sqrt(S(ua,va)*dk^2)*(W1(u,v) + 1i*W2(u,v)).*exp(-1i*omega(u,v)*t);
+        Vb(u,v) = 1/2*sqrt(S(ub,vb)*dk^2)*(W3(u,v) + 1i*W4(u,v)).*exp(-1i*omega(u,v)*t);
     end
 end
 
@@ -77,16 +76,14 @@ w2 = randn(1,N/2);
 u2 = randn(1,N/2);
 
 Vx0 = [];
-VxN2 = [];
 Vy0 = [];
-VyN2 = [];
 
 %build the zero frequency lines
 Vx0(1) = 0;
 Vy0(1) = 0;
 for(j = 2:N/2)
-    Vx0(j) = 1/2*sqrt(S(1,j)*dk^2)*(w1(j) + 1i*u1(j)).*exp(-1i*omega(j)*cos(phi)*t);
-    Vy0(j) = 1/2*sqrt(S(j,1)*dk^2)*(w2(j) + 1i*u2(j)).*exp(-1i*omega(j)*sin(phi)*t);
+    Vx0(j) = 1/2*sqrt(S(1,j)*dk^2)*(w1(j) + 1i*u1(j)).*exp(-1i*omega1(j)*t);
+    Vy0(j) = 1/2*sqrt(S(j,1)*dk^2)*(w2(j) + 1i*u2(j)).*exp(-1i*omega1(j)*t);
 end
 Vx0(N/2+1) = sqrt(S(1,N/2+1)*dk^2)*u1(1);
 Vy0(N/2+1) = sqrt(S(N/2+1,1)*dk^2)*u2(1);
@@ -96,7 +93,8 @@ Vx0(j) = conj(Vx0(N-j + 2));
 Vy0(j) = conj(Vy0(N-j + 2));
 end
 
-%place the zero frequency lines in V
+%place the zero frequency lines in V - rows are y, columns are x (need to
+%transpose to a column vector)
 V(1,:) = Vy0 ;
 V(:,1) = Vx0';
 
@@ -111,8 +109,8 @@ Vx2(1) = sqrt(S(N/2+1,1)*dk^2)*w3(1);
 Vy2(1) = sqrt(S(1,N/2+1)*dk^2)*w4(1);
 
 for(j = 2:N/2)
-    Vx2(j) = 1/2*sqrt(S(N/2+1,j)*dk^2)*(w3(j) + 1i*u3(j)).*exp(-1i*omega(j)*cos(phi)*t);
-    Vy2(j) = 1/2*sqrt(S(j,N/2+1)*dk^2)*(w4(j) + 1i*u4(j)).*exp(-1i*omega(j)*sin(phi)*t);
+    Vx2(j) = 1/2*sqrt(S(N/2+1,j)*dk^2)*(w3(j) + 1i*u3(j)).*exp(-1i*omega1(j)*t);
+    Vy2(j) = 1/2*sqrt(S(j,N/2+1)*dk^2)*(w4(j) + 1i*u4(j)).*exp(-1i*omega1(j)*t);
 end
 
 Vx2(N/2+1) = sqrt(S(N/2+1,N/2+1)*dk^2)*u4(1);
@@ -123,7 +121,8 @@ Vx2(j) = conj(Vx2(N-j + 2));
 Vy2(j) = conj(Vy2(N-j + 2));
 end
 
-%now place the N/2 frequency lines
+%now place the N/2 frequency lines - rows are y, columns are x (need to
+%transpose to a column vector)
 V(N/2+1,:) = Vy2;
 V(:,N/2+1) = Vx2';
 

@@ -25,8 +25,8 @@ dx3 = L1/N3;
 x1 = (0:N1-1)*dx1;
 x3 = (0:N3-1)*dx3;
 
-[h1,k1,S1,V1] = generateSeaSurface(L1, N1, U10, age);
-[h3, k3, S3,V1] = generateSeaSurface(L1, N3, U10, age);
+[h1,k1,S1,V1] = generateSeaSurface(L1, N1, U10, age,0,0);
+[h3, k3, S3,V1] = generateSeaSurface(L1, N3, U10, age,0,0);
 
 dk2 = 2*pi/L2;
 dx2 = L2/N2;
@@ -35,8 +35,8 @@ dx4 = L2/N4;
 x2 = (0:N2-1)*dx2;
 x4 = (0:N4-1)*dx4;
 
-[h2, k2, S2,V2] = generateSeaSurface(L2, N2, U10, age);
-[h4, k4, S4,V4] = generateSeaSurface(L2, N4, U10, age);
+[h2, k2, S2,V2] = generateSeaSurface(L2, N2, U10, age,0,0);
+[h4, k4, S4,V4] = generateSeaSurface(L2, N4, U10, age,0,0);
 
 p = linspace(-3,4,1000);
 k = 10.^p;
