@@ -29,6 +29,7 @@
 \usepackage{supertabular}
 \usepackage{subfigure}
 \usepackage{standalone}
+\usepackage{etoolbox}
 
 \usepackage{xparse}
 \usepackage{tikz}
@@ -38,6 +39,11 @@
 \pgfsetlayers{myback,background,main}
 \tikzset{mycolor/.style = {line width=1bp,color=#1}}%
 \tikzset{myfillcolor/.style = {draw,fill=#1}}%
+
+\newtoggle{separate_ocean_surface}
+\togglefalse{separate_ocean_surface}
+\newtoggle{separate_greens_functions}
+\togglefalse{separate_greens_functions}
 
 \NewDocumentCommand{\highlight}{O{blue!40} m m}{%
 \draw[mycolor=#1] (#2.north west)rectangle (#3.south east);
