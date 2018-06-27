@@ -1,27 +1,27 @@
-\iftoggle{separate_greens_functions}{\chapter{Introduction}}{\chapter{Green's Functions}}
-In 1828, an English mathematician named George Green published "An Essay on the Application of Mathematical Analysis to the Theories of Electricity and Magnetism" with a theorem that is now used extensively to solve differential equations in electromagnetics, quantum mechanics, and applied mathematics \cite{green_phys_today}. Today, Green's functions are a useful tool in solving inhomogeneous differential equations and can be thought of as the impulse response for the differential equation. There are many excellent references for Green's functions from the mathematical perspective \cite{bender_orszag}, \cite{arfken_weber}, \cite{gbur_math}, \cite{guenther_partial_de}, \cite{duffy_green}, and for their application to electromagnetics \cite{jackson_classical_em}, \cite{zangwill_modern_em}, \cite{balanis_advanced}, \cite{goodman_fourier}, \cite{smith_radiation}. Unfortunately, these references tend to skip over many steps, define Green's functions without using them, or use them without adequately defining them. The purpose of this report is to work through derivations of the canonical free space Green's functions and demonstrate how they can be utilized in propagation problems involving diffraction.
+\iftoggle{separate_greens_functions}{\section{Introduction}}{\section{Green's Functions}}
+In 1828, an English mathematician named George Green published "An Essay on the Application of Mathematical Analysis to the Theories of Electricity and Magnetism" with a theorem that is now used extensively to solve differential equations in electromagnetics, quantum mechanics, and applied mathematics \cite{green_phys_today}. Today, Green's functions are a useful tool in solving inhomogeneous differential equations and can be thought of as the impulse response for the differential equation. There are many references for Green's functions from the mathematical perspective \cite{bender_orszag}, \cite{arfken_weber}, \cite{gbur_math}, \cite{guenther_partial_de}, \cite{duffy_green}, and for their application to electromagnetics \cite{jackson_classical_em}, \cite{zangwill_modern_em}, \cite{balanis_advanced}, \cite{goodman_fourier}, \cite{smith_radiation}. Unfortunately, these references have different conventions for propagation direction and normalization. In addition, they tend to skip over many steps, and either define Green's functions without really using them, or use them without really defining them. The purpose of this document is to work through derivations of the canonical free space Green's functions and demonstrate how they can be utilized in electromagnetic propagation problems where diffraction becomes important.
 
 
-\iftoggle{separate_greens_functions}{\chapter}{\section} {Time Dependence Sign Convention} \label{gf_sec:time_dependence}
-Before getting started, we need to define the sign convention used for time dependence. We  assume harmonic propagating waves that follow the typical Engineering literature with time dependence going as $e^{j\omega t}$. This means we can represent a vector wave $\mathbf{A}(\mathbf{r},t)$ as:
+\section{Time Dependence Sign Convention} \label{gf_sec:time_dependence}
+Before getting started, we need to define the sign convention used for time dependence. We  assume harmonic propagating waves that follow the typical Engineering literature with time dependence going as $e^{j\omega t}$. This means we can represent a vector wave $\mathbf{C}(\mathbf{r},t)$ as:
 
 \begin{equation}
-\mathbf{A}\left(\mathbf{r},t\right) = \mathbf{A}\left(\mathbf{r}\right)e^{j\omega t}
+\mathbf{C}\left(\mathbf{r},t\right) = \mathbf{C}\left(\mathbf{r}\right)e^{j\omega t}
 \label{gf_eq:0a}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 As we will see shortly, this choice of time dependence drives the sign of the spatial phase dependence and defines the forward and reverse Fourier transforms in the temporal domain.
 
-\iftoggle{separate_greens_functions}{\chapter}{\section} {Green's Identities}
+\section {Green's Identities}
 The two identities named for George Green will be derived here, starting from the divergence theorem:
 
 \begin{equation}
-\oint\limits_{S} \mathbf{A} \cdot \hat{n} dS = \int\limits_{V}d^3r'\nabla \cdot \mathbf{A}
+\oint\limits_{S} \mathbf{C} \cdot \hat{n} dS = \int\limits_{V}d^3r'\nabla \cdot \mathbf{C}
 \label{gf_eq:1}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-By replacing the vector $\mathbf{A}$ with a function of two arbitrary scalar variables, $\mathbf{A}=\varphi\nabla\psi$, we get:
+By replacing the vector $\mathbf{C}$ with a function of two arbitrary scalar variables, $\mathbf{C}=\varphi\nabla\psi$, we get:
 
 \begin{equation}
 \oint\limits_{S} \varphi\nabla\psi \cdot \hat{n} dS = \int\limits_{V}d^3r'\nabla \cdot \varphi\nabla\psi
@@ -37,7 +37,7 @@ Using the identity $\nabla\psi\cdot \hat{n} = \partial \psi/\partial n$ and expa
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-If we had flipped the order of the scalar variables and instead let $\mathbf{A}=\psi\nabla\varphi$, Green's first identity would be expressed as:
+If we had flipped the order of the scalar variables and instead let $\mathbf{C}=\psi\nabla\varphi$, Green's first identity would be expressed as:
 \begin{equation}
 \oint\limits_{S} \psi\frac{\partial \varphi}{\partial n} dS = \int\limits_{V}d^3r' \left[ \nabla\psi \cdot \nabla\varphi +\psi \nabla^2 \varphi\right]
 \label{gf_eq:4}
@@ -50,7 +50,7 @@ If we had flipped the order of the scalar variables and instead let $\mathbf{A}=
 \label{gf_eq:5}
 \end{equation}
 
-\iftoggle{separate_greens_functions}{\chapter}{\section} {Method of Green's Functions} \label{gf_sec:method}
+\section {Method of Green's Functions} \label{gf_sec:method}
 For the purposes of this document, we are interested in time varying propagation problems. Therefore, we would like to apply the method of Green's functions to the scalar wave equation  to solve for the scalar field $\varphi$ as a function of space and time with an arbitrary driving function, $f$, that is also a function of space and time:
 
 \begin{equation}
@@ -82,7 +82,7 @@ The Green's function for this problem can be found by replacing the driving func
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Equation \ref{gf_eq:9} shows that the Green's function is the solution to the differential equation for a spatial impulse and therefore represents the impulse response of the system. In electromagnetics, the driving force often has a negative sign as in the Laplace equation, $\nabla^2\varphi = -\rho/\epsilon_o$, so we typically chose a matching sign for the delta function. With this convention, we will need to make sure the driving force is applied with a negative sign when utilizing a Green's function found in this manner.
+Equation \ref{gf_eq:9} shows that the Green's function is the solution to the differential equation for a spatial impulse and therefore represents the impulse response of the system. In electromagnetics, the driving force often has a negative sign as seen in the Laplace equation, $\nabla^2\varphi = -\rho/\epsilon_o$, so we typically chose a matching sign for the delta function as shown in Equation \ref{gf_eq:9}. With this convention, we need to make sure the driving force has a negative sign when utilizing a Green's function found in this manner.
 
 The general method to find Green's functions is to solve the homogeneous differential equation (away from the delta function source) and then integrate over a small region that includes the delta function for normalization. Some authors, such as \cite{jackson_classical_em}, include a $4\pi$ scale factor with the delta function to absorb this normalization term into the differential equation rather than the Green's function.
 
@@ -92,16 +92,17 @@ Equations \ref{gf_eq:8} and \ref{gf_eq:9} can be rearranged to solve for the Lap
 \begin{gathered}
 \oint\limits_{S} \left[ \varphi\frac{\partial G}{\partial n} - G\frac{\partial \varphi}{\partial n} \right]dS = \int\limits_{V}d^3r' \left[ \varphi\nabla^2G- G \nabla^2 \varphi\right] \\
 \oint\limits_{S} \left[ \varphi\frac{\partial G}{\partial n} - G\frac{\partial \varphi}{\partial n} \right]dS = \int\limits_{V}d^3r' \left[ \varphi \left(-\delta\left(\mathbf{r}-\mathbf{r}' \right) - k^2G\right)- G \left(f - k^2\varphi \right)\right] \\
-\int\limits_{V}d^3r'\varphi\delta\left(\mathbf{r}-\mathbf{r}' \right) = \oint\limits_{S}\left[G\frac{\partial \varphi}{\partial n} - \varphi\frac{\partial G}{\partial n} \right] +\int\limits_{V}d^3r'\left[ Gk^2\varphi - \varphi k^2G-k^2G - Gf \right] \\
-\int\limits_{V}d^3r'\varphi\delta\left(\mathbf{r}-\mathbf{r}' \right) = \oint\limits_{S}\left[G\frac{\partial \varphi}{\partial n} - \varphi\frac{\partial G}{\partial n} \right] -\int\limits_{V}d^3r' Gf
+\int\limits_{V}d^3r'\varphi\delta\left(\mathbf{r}-\mathbf{r}' \right) = \oint\limits_{S}\left[G\frac{\partial \varphi}{\partial n} - \varphi\frac{\partial G}{\partial n} \right]dS +\int\limits_{V}d^3r'\left[ Gk^2\varphi - \varphi k^2G-k^2G - Gf \right] \\
+\int\limits_{V}d^3r'\varphi\delta\left(\mathbf{r}-\mathbf{r}' \right) = \oint\limits_{S}\left[G\frac{\partial \varphi}{\partial n} - \varphi\frac{\partial G}{\partial n} \right]dS -\int\limits_{V}d^3r' Gf
 \end{gathered}
 \label{gf_eq:10}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 As long as $\mathbf{r}'$ is in the volume $V$, we can use the sifting property of the delta function to provide an explicit representation for $\varphi$:
+
 \begin{equation}
-\boxed{\varphi = \oint\limits_{S}\left[G\frac{\partial \varphi}{\partial n} - \varphi\frac{\partial G}{\partial n} \right] -\int\limits_{V}d^3r' Gf}
+\boxed{\varphi = \oint\limits_{S}dS\left[G\frac{\partial \varphi}{\partial n} - \varphi\frac{\partial G}{\partial n} \right] -\int\limits_{V}d^3r' Gf}
 \label{gf_eq:11}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -122,10 +123,10 @@ In the simplest case, $f$ is a delta function with a scalar amplitude, $ f = -\a
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\iftoggle{separate_greens_functions}{\chapter}{\section} {Boundary Conditions}
+\section {Boundary Conditions}
 There are two traditional types of boundary conditions: Dirichlet, where $\varphi$ is specified on the boundary, or Neuman, where the normal derivative of $\varphi$ is specified on the boundary. There is a third type of boundary condition, known as the Robin condition, that is a weighted combination of Dirichlet and Neuman boundary conditions.
 
-\iftoggle{separate_greens_functions}{\section}{\subsection} {Dirichlet Boundary Conditions}
+\subsection {Dirichlet Boundary Conditions}
 For Dirichlet boundary conditions, the solution is specified on the surface, $\varphi\left(\mathbf{r}\right) |_{S} = \varphi\left(\mathbf{r}_S \right) = a\left(\mathbf{r}_s\right)$. To simplify Equation \ref{gf_eq:11}, we can enforce the following condition on the Green's function:
 
 \begin{equation}
@@ -134,14 +135,14 @@ G\left(\mathbf{r},\mathbf{r}' \right)\bigg|_{S}=0
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Green's functions specified in this manner are often called Green's functions of the first kind. Substituting Equation \ref{gf_eq:12} into Equation \ref{gf_eq:11} results in the following equation for $\varphi$:
+Green's functions specified in this manner are sometimes called Green's functions of the first kind. Substituting Equation \ref{gf_eq:12} into Equation \ref{gf_eq:11} results in the following equation for $\varphi$ in the presence of Dirichlet boundary conditions.
 \begin{equation}
-\boxed{\varphi = -\oint\limits_{S} \varphi\frac{\partial G}{\partial n} -\int\limits_{V}d^3r' Gf}
+\boxed{\varphi = -\oint\limits_{S}dS \varphi\frac{\partial G}{\partial n} -\int\limits_{V}d^3r' Gf}
 \label{gf_eq:13}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\iftoggle{separate_greens_functions}{\section}{\subsection} {Neuman Boundary Conditions}
+\subsection {Neuman Boundary Conditions}
 For Neuman boundary conditions, the normal derivative of the field is specified on the surface, $\frac{\partial\varphi\left(\mathbf{r}\right)}{\partial n}|_{S} = b\left(\mathbf{r}_s\right)$. As described in \cite{jackson_classical_em}, \cite{zangwill_modern_em}, and \cite{balanis_advanced}, we cannot simply set the normal derivative of $G$ to $0$. This can be demonstrated by integrating Equation \ref{gf_eq:9} over a volume and then applying the divergence theorem:
 
 \begin{equation}
@@ -170,22 +171,22 @@ Equation \ref{gf_eq:15} indicates that there is a discontinuity in the normal de
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Equation \ref{gf_eq:16} demonstrates the jump condition for the normal derivative of the Green's function. Note that when the surface is taken out to infinity that $\partial G/\partial n = 0$. Green's functions specified in this manner are often called Green's functions of the second kind. Substituting Equation \ref{gf_eq:16} into Equation \ref{gf_eq:11} results in the following equation for $\varphi$:
+Equation \ref{gf_eq:16} demonstrates the jump condition for the normal derivative of the Green's function. Note that when the surface is taken out to infinity that $\partial G/\partial n = 0$. Green's functions specified in this manner are sometimes called Green's functions of the second kind. Substituting Equation \ref{gf_eq:16} into Equation \ref{gf_eq:11} results in the following equation for $\varphi$ in the presence of Neuman boundary conditions.
 
 \begin{equation}
-\boxed{\varphi = \oint\limits_{S}\left[G\frac{\partial \varphi}{\partial n} + \frac{\varphi}{S} \right] -\int\limits_{V}d^3r' Gf}
+\boxed{\varphi = \oint\limits_{S}dS\left[G\frac{\partial \varphi}{\partial n} + \frac{\varphi}{S} \right] -\int\limits_{V}d^3r' Gf}
 \label{gf_eq:17}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 We can rewrite Equation \ref{gf_eq:17} as in \cite{jackson_classical_em}, using the average value of the solution over the surface, $\left< \varphi\right> = \frac{1}{S}\oint\limits_{S}\varphi dS$:
 \begin{equation}
-\boxed{\varphi = \left<\varphi \right> + \oint\limits_{S}G\frac{\partial \varphi}{\partial n}  -\int\limits_{V}d^3r' Gf}
+\boxed{\varphi = \left<\varphi \right> + \oint\limits_{S}dSG\frac{\partial \varphi}{\partial n}  -\int\limits_{V}d^3r' Gf}
 \label{gf_eq:18}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\iftoggle{separate_greens_functions}{\section}{\subsection} {Robin Boundary Conditions}
+\subsection {Robin Boundary Conditions}
 For Robin boundary conditions, a weighted linear combination of the solution and its derivative are specified on the surface, $\frac{\partial\varphi\left(\mathbf{r}\right)}{\partial n}|_{S} +\alpha\varphi\left(\mathbf{r}\right) |_{S}= c\left(\mathbf{r}_s\right)$. 
 
 We can generally set $c=0$ so that the Robin boundary condition relates the Green's function on the surface to its normal derivative on the surface.
@@ -195,12 +196,20 @@ We can generally set $c=0$ so that the Robin boundary condition relates the Gree
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
+Substituting Equation \ref{gf_eq:18aa} into Equation \ref{gf_eq:11} results in the following equation for $\varphi$ in the presence of Robin boundary conditions.
+
+\begin{equation}
+\boxed{\varphi = \oint\limits_{S}dS\left[\frac{\partial \varphi}{\partial n} + \alpha\varphi \right] -\int\limits_{V}d^3r' Gf}
+\label{gf_eq:18aabb}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
 Robin boundary conditions are commonly found in propagation problems with mixed polarization. They generally do not allow simple solutions are usually solved numerically.
 
-\iftoggle{separate_greens_functions}{\chapter}{\section} {Properties of Green's Functions} \label{gf_sec:properties}
+\section {Properties of Green's Functions} \label{gf_sec:properties}
 We have already discussed the fact that Green's functions represent the spatial impulse response of the differential equation. This section introduces some other properties of Green's functions, including causality, reciprocity, continuity, and general forms.
 
-\iftoggle{separate_greens_functions}{\section}{\subsection} {Causality} \label{gf_sec:causality}
+\subsection {Causality} \label{gf_sec:causality}
 For a system to be causal, it may only depend on past or present inputs and not on future inputs. Any physically realizable system, such as an electromagnetic wave must be causal, as something that has not yet happened cannot have an impact on the current output. We can relate the causality condition through the phase with the restriction that the phase can be delayed but not advanced. This tells us that for propagating waves, we need to look for solutions in the form of $g\left(\pm\left[\omega t - kr\right]\right)$, as solutions in the form of $g\left(\pm\left[\omega t + kr\right]\right)$ advance the phase and are not physically realizable. With the time dependence as specified in Section \ref{gf_sec:time_dependence}, our solutions must have the following form:
 
 \begin{equation}
@@ -212,14 +221,14 @@ G\left(r,t\right) \sim g\left(\omega t - kr\right)
 With this restriction, our vector waves from Equation \ref{gf_eq:0a} must take the form:
 
 \begin{equation}
-\mathbf{A}\left(\mathbf{r},t\right) = \mathbf{A}e^{j\left(\omega t - \mathbf{k} \cdot \mathbf{r} \right)}
+\mathbf{C}\left(\mathbf{r},t\right) = \mathbf{C}e^{j\left(\omega t - \mathbf{k} \cdot \mathbf{r} \right)}
 \label{gf_eq:18b}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 Since the Green's functions represent the impulse response, they will have the same spatial dependence as Equation \ref{gf_eq:18b}.
 
-\iftoggle{separate_greens_functions}{\section}{\subsection} {Reciprocity} \label{gf_sec:reciprocity}
+\subsection {Reciprocity} \label{gf_sec:reciprocity}
 Green's functions must be symmetric with respect to $\mathbf{r}$ (the vector to the observer) and $\mathbf{r}'$ (the vector to the source), so that:
 
 \begin{equation}
@@ -230,11 +239,11 @@ G\left(\mathbf{r},\mathbf{r}' \right) = G\left(\mathbf{r}',\mathbf{r} \right)
 
 This property is known as reciprocity and it tells us that the impulse reponse for a propagating wave is the same in both directions. Reciprocity is commonly used in antenna radiation analysis as it allows us to analyze an antenna considering it as either a transmitter or a receiver.
 
-\iftoggle{separate_greens_functions}{\section}{\subsection} {Continuity} \label{gf_sec:continuity}
+\subsection {Continuity} \label{gf_sec:continuity}
 A necessary condition for reciprocity is that Green's functions must be continuous in all space. However, they are typically singular so the derivative will generally have a discontinuity at $\mathbf{r} = \mathbf{r}'$.
 
-\iftoggle{separate_greens_functions}{\section}{\subsection} {General Forms}
-Because Green's functions are the spatial impulse response of the system, we can expect them to be used in a convolution integral. With that in mind, Green's functions usually take the form:
+\subsection {General Forms}
+Because a Green's function is the spatial impulse response of the system, we can expect it to be used in a convolution integral. With that in mind, Green's functions usually take the form:
 \begin{equation}
 G\left(\mathbf{r},\mathbf{r}' \right) = g\left( \mathbf{r} - \mathbf{r}'\right)
 \label{gf_eq:18d}
@@ -249,8 +258,8 @@ G\left(\mathbf{r},\mathbf{r}',t \right) = g\left(\omega t - k| \mathbf{r} - \mat
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\iftoggle{separate_greens_functions}{\chapter}{\section} {Free Space Green's Functions}
-This section demonstrates solving for the free space Green's functions for the Helmholtz equation (Equation \ref{gf_eq:9}) in both 3-dimensions and 2-dimensions. In the 2-dimensional case, we will also derive the Green's function for the Paraxial wave equation. In free space, there are no boundaries, so we can let $r\rightarrow \infty$ and use Dirichlet boundary conditions at $\infty$. Without loss of generality, we can place the delta function at the origin, so that $\delta\left(\mathbf{r}-\mathbf{r}' \right) \rightarrow \delta \left(\mathbf{r} \right)$. To find the Green's function, we need to solve the homogeneous equation away from the delta function and then integrate over a small region around the origin for normalization. The homogenous equation to solve is:
+\section {Free Space Green's Functions}
+This section derives the free space Green's functions for the Helmholtz equation (Equation \ref{gf_eq:9}) in both 3-dimensions and 2-dimensions. In the 2-dimensional case, we will also derive the Green's function for the Paraxial wave equation. In free space, there are no boundaries, so we can let $r\rightarrow \infty$ and use Dirichlet boundary conditions at $\infty$. Without loss of generality, we can place the delta function at the origin, so that $\delta\left(\mathbf{r}-\mathbf{r}' \right) \rightarrow \delta \left(\mathbf{r} \right)$. To find the Green's function, we need to solve the homogeneous equation away from the delta function and then integrate over a small region around the origin for normalization. The homogenous equation to solve is:
 
 \begin{equation}
 \nabla^2G+ k^2G = 0
@@ -260,11 +269,11 @@ This section demonstrates solving for the free space Green's functions for the H
 
 Because the delta function is rotationally symmetric, the Green's function must also be rotationally symmetric.
 
-\iftoggle{separate_greens_functions}{\section}{\subsection} {3-Dimensions}\label{gf_sec:3d}
+\subsection {3-Dimensions}\label{gf_sec:3d}
 This section derives the free space Green's function for the Helmholtz equation in 3-dimensional space. Because we used the Fourier transform to remove the time dependence from the wave equation (Equation 
 \ref{gf_eq:6}), we will first work in the frequency domain and then transform the result back to the time domain.
 
-\iftoggle{separate_greens_functions}{\subsection}{\subsubsection} {Deriviation in the Frequency Domain}
+\subsubsection {Deriviation in the Frequency Domain}
 In 3-dimensions,  rotational symmetry means that  $\partial G/\partial\theta = \partial G/\partial\phi=0$. Therefore we can expand the Laplacian of Equation \ref{gf_eq:19} in spherical coordinates and neglect the $\theta$ and $\phi$ components:
 
 \begin{equation}
@@ -274,6 +283,7 @@ In 3-dimensions,  rotational symmetry means that  $\partial G/\partial\theta = \
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 Expanding the derivatives in Equation \ref{gf_eq:20} along with a little algebraic manipulation allows us to rewrite this into something more manageable:
+
 \begin{equation}
 \begin{gathered}
 \frac{1}{r^2}\left[2r\frac{\partial G}{\partial r}+ r^2\frac{\partial^2 G}{\partial r^2}  \right] + k^2G = 0 \\
@@ -344,8 +354,9 @@ G_o\left(\mathbf{r},\mathbf{r}'\right)  = \frac{e^{-jk|\mathbf{r} - \mathbf{r}'|
 \label{gf_eq:27}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+\noindent In this case, the $4\pi$ scale factor would then appear in Equation \ref{gf_eq:11}.
 
-To help visualize this Green's function, the magnitude and phase is shown in Figure \ref{gf_fig:1} and the real and imaginary components are shown in Figure \ref{gf_fig:2}. These figures constrain the Green's function to the $x-y$ plane for visualization.
+To help visualize this Green's function, the magnitude and phase is shown in Figure \ref{gf_fig:1} and the real and imaginary components are shown in Figure \ref{gf_fig:2}. These figures constrain the Green's function to the $x-y$ plane ar $z=0$ for visualization.
 
 \begin{figure}[H]
 \begin{center}
@@ -373,7 +384,7 @@ To help visualize this Green's function, the magnitude and phase is shown in Fig
 \renewcommand{\baselinestretch}{2}
 \small\normalsize
 
-\iftoggle{separate_greens_functions}{\subsection}{\subsubsection} {Conversion to the Time Domain}
+\subsubsection {Conversion to the Time Domain}
 The Green's function in Equation \ref{gf_eq:26} is still in Fourier space. We can clearly express the frequency dependence as:
 
 \begin{equation}
@@ -388,6 +399,7 @@ To determine the Green's function in the time domain, we need to take the invers
 \label{gf_eq:28a}
 x(t) = \mathcal{F}^{-1}\{X(\omega)\} = \frac{1}{2\pi}\int_{-\infty}^\infty X(\omega)e^{j\omega t}d\omega
 \end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
 With this definition, we can compute the Green's function in the time domain:
 
@@ -402,14 +414,16 @@ G_o\left(\mathbf{r},\mathbf{r}',t\right) = \frac{1}{4\pi |\mathbf{r}-\mathbf{r}'
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Recognizing that the Fourier transform of the delta function is:
+\noindent Recognizing that the Fourier transform of the delta function is:
+
 \begin{equation}
 \delta(t-t_0) = \frac{1}{2\pi}\int\limits_{-\infty}^{\infty}d\omega e^{-j\omega \left(t-t_0\right)}
 \label{gf_eq:30}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-We can write the free space Green's function in the temporal domain as:
+\noindent We can write the free space Green's function in the temporal domain as:
+
 \begin{equation}
 \boxed{G_o\left(\mathbf{r},\mathbf{r}',t\right) = \frac{\delta\left(t-\frac{|\mathbf{r}-\mathbf{r}'|}{c} \right)}{4\pi |\mathbf{r}-\mathbf{r}'|}}
 \label{gf_eq:31}
@@ -417,6 +431,7 @@ We can write the free space Green's function in the temporal domain as:
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 Equation \ref{gf_eq:31} assumes the source is turned on at time $0$. If we let the source be turned on at an arbitrary time, $t'$, a more general expression is:
+
 \begin{equation}
 G_o\left(\mathbf{r},\mathbf{r}',t,t'\right) = \frac{\delta\left(|t-t'|-\frac{|\mathbf{r}-\mathbf{r}'|}{c} \right)}{4\pi |\mathbf{r}-\mathbf{r}'|}
 \label{gf_eq:32}
@@ -425,10 +440,10 @@ G_o\left(\mathbf{r},\mathbf{r}',t,t'\right) = \frac{\delta\left(|t-t'|-\frac{|\m
 
 In the time domain, we generally refer to $G_o\left(\mathbf{r},\mathbf{r}',t, t'\right)$ as the retarded wave solution because an observer will experience the source as if it acted at an earlier (retarded) time, $t_1=|t-t'|-\frac{|\mathbf{r}-\mathbf{r}'|}{c}$.
 
-\iftoggle{separate_greens_functions}{\section}{\subsection} {2-Dimensions}\label{gf_sec:2d}
+\subsection {2-Dimensions}\label{gf_sec:2d}
 This section derives the free space Green's function for the Helmholtz equation in 2-dimensional space. Because we used the Fourier transform to remove the time dependence from the wave equation (Equation \ref{gf_eq:6}), we will first work in the frequency domain and then transform the result back to the time domain.
 
-\iftoggle{separate_greens_functions}{\subsection}{\subsubsection} {Deriviation in the Frequency Domain}
+\subsubsection {Deriviation in the Frequency Domain}
 In 2-dimensions,  rotational symmetry means that  $\partial G/\partial\phi =0$. Therefore we can expand the Laplacian of Equation \ref{gf_eq:19} in polar coordinates and neglect the $\phi$ components:
 
 \begin{equation}
@@ -445,6 +460,7 @@ In 2-dimensions,  rotational symmetry means that  $\partial G/\partial\phi =0$. 
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \noindent The general solution to Equation \ref{gf_eq:33} is 
+
 \begin{equation}
 G = c_1J_0\left(k\rho\right) + c_2N_0\left(k\rho\right)
 \label{gf_eq:35}
@@ -454,6 +470,7 @@ G = c_1J_0\left(k\rho\right) + c_2N_0\left(k\rho\right)
 Here $J_0$ is a Bessel function of the first kind, and $N_0$ is a Bessel function of the second kind. Since the delta function is singular at the origin, we cannot demand that $G$ be finite at the origin. This means that $c_2 \neq 0$ and we have one equation with two unknowns.
 
 When working with propagating waves, it is sometimes more useful to work with Hankel functions than Bessel functions. The Hankel functions are:
+
 \begin{equation}
 \begin{gathered}
 H_0^{(1)}(k\rho) = J_0(k\rho) + jN_0(k\rho) \\
@@ -464,6 +481,7 @@ H_0^{(2)}(k\rho) = J_0(k\rho) - jN_0(k\rho)
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 The Hankel functions behave asymptotically like waves as can be seen by their behavior for large arguments \cite{abramowitz_stegun}, which can be derived from the integral representation through the saddle point method as shown in Appendix \ref{appendix_saddle_point_method}:
+
 \begin{equation}
 \begin{gathered}
 H_0^{(1)}(k\rho) \approx \sqrt{\frac{2}{\pi k\rho}}e^{j\left(k\rho - \frac{\pi}{4}\right)}\\
@@ -474,6 +492,7 @@ H_0^{(2)}(k\rho) \approx \sqrt{\frac{2}{\pi k\rho}}e^{-j\left(k\rho - \frac{\pi}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 We can now represent the solution to Equation \ref{gf_eq:33} in terms of Hankel functions as:
+
 \begin{equation}
 G = c_1H_0^{(1)}\left(k\rho\right) +c_2H_0^{(2)}\left(k\rho\right) 
 \label{gf_eq:37}
@@ -541,7 +560,7 @@ To help visualize this Green's function, the magnitude and phase is shown in Fig
 \renewcommand{\baselinestretch}{2}
 \small\normalsize
 
-\iftoggle{separate_greens_functions}{\subsection}{\subsubsection} {Conversion to the Time Domain}
+\subsubsection {Conversion to the Time Domain}
 As in Section \ref{gf_sec:3d}, the Green's function in Equation \ref{gf_eq:40} is still in Fourier space. We can clearly express the frequency dependence as:
 
 \begin{equation}
@@ -562,15 +581,15 @@ G_o\left(\boldsymbol{\rho},\boldsymbol{\rho}',t\right) = -\frac{j}{4}\frac{1}{2\
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 We can use a representation of $H_0^{(2)}$ that is related to the Mehler-Sonine integral representation \cite{nist_handbook}:
+
 \begin{equation}
 H_o^{(2)}\left(z\right) = -\frac{1}{j\pi}\int\limits_{-\infty}^{\infty}e^{-jz\cosh(\tau)}d\tau = -\frac{2}{j\pi}\int\limits_{0}^{\infty}e^{-jz\cosh(\tau)}d\tau
 \label{gf_eq:40c}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\noindent Equation \ref{gf_eq:40c} is valid for $z>0$ . Since $k| \boldsymbol{\rho} - \boldsymbol{\rho}'| > 0$, this condition is satisfied. \\
+\noindent Equation \ref{gf_eq:40c} is valid for $z>0$ . Since $k| \boldsymbol{\rho} - \boldsymbol{\rho}'| > 0$, this condition is satisfied. Letting $\rho' \rightarrow 0$ for simplification yields:
 
-\noindent Letting $\rho' \rightarrow 0$ for simplification yields:
 \begin{equation}
 G_o\left(\boldsymbol{\rho},0,t\right) = \frac{1}{4\pi^2}\int\limits_{-\infty}^{\infty}d\omega e^{j\omega t} \int\limits_{0}^{\infty}e^{-j\frac{\omega}{c}\rho\cosh(\tau)}d\tau\\
 \label{gf_eq:40d}
@@ -578,6 +597,7 @@ G_o\left(\boldsymbol{\rho},0,t\right) = \frac{1}{4\pi^2}\int\limits_{-\infty}^{\
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \noindent We can bring the integral over $\omega$ inside the integral over $\tau$:
+
 \begin{equation}
 \begin{gathered}
 G_o\left(\boldsymbol{\rho},0,t\right) = \frac{1}{4\pi^2}\int\limits_{0}^{\infty}d\tau\int\limits_{-\infty}^{\infty}d\omega e^{j\omega t} e^{-j\frac{\omega}{c}\rho\cosh(\tau)}\\
@@ -589,6 +609,7 @@ G_o\left(\boldsymbol{\rho},0,t\right) = \frac{1}{4\pi^2}\int\limits_{0}^{\infty}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \noindent Again using the definition of the delta function from Equation \ref{gf_eq:30} yields:
+
 \begin{equation}
 G_o\left(\boldsymbol{\rho},0,t\right) = \frac{1}{2\pi}\int\limits_{0}^{\infty}d\tau \delta\left(t - \frac{\rho \cosh(\tau)}{c}\right)\\
 \label{gf_eq:40f}
@@ -596,6 +617,7 @@ G_o\left(\boldsymbol{\rho},0,t\right) = \frac{1}{2\pi}\int\limits_{0}^{\infty}d\
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 For $G_o\left(\boldsymbol{\rho},0,t\right)$ to be nonzero, $t - \rho \cosh(\tau)/c > 0$ for all values of $\tau$. This means $t > \rho/c$ and we can enforce this condition on $t$ through the Heaviside step function, $H\left(t -\rho/c\right)$:
+
  \begin{equation}
 G_o\left(\boldsymbol{\rho},0,t\right) = \frac{1}{2\pi}\int\limits_{0}^{\infty}d\tau H\left(t -\frac{\rho}{c}\right) \delta\left(t - \frac{\rho \cosh(\tau)}{c}\right)
 \label{gf_eq:40g}
@@ -603,13 +625,15 @@ G_o\left(\boldsymbol{\rho},0,t\right) = \frac{1}{2\pi}\int\limits_{0}^{\infty}d\
  \renewcommand{\baselinestretch}{2} \small\normalsize
  
 Because the argument of the delta function is a complicated function of $t$, we need to use the composition property of the delta function \cite{arfken_weber}, \cite{gbur_math}:
+
  \begin{equation}
 \delta\left(g(x) \right) = \sum_{\substack{a \\g(a)=0}}\frac{\delta(x-a)}{|g'(a)|}
 \label{gf_eq:40h}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
  
-From Equation \ref{gf_eq:40g}, $g(x) = g(\tau) = t - \rho\cosh(\tau)/c$ and the only zero  is $\tau = \cosh^{-1}\left(ct/\rho\right)$. We can now rewrite the delta function from Equation \ref{gf_eq:40g} as:
+From Equation \ref{gf_eq:40g}, $g(\tau) = t - \rho\cosh(\tau)/c$ and the only zero  is $\tau = \cosh^{-1}\left(ct/\rho\right)$. We can now rewrite the delta function from Equation \ref{gf_eq:40g} as:
+
  \begin{equation}
 \delta\left(t - \frac{\rho \cosh(\tau)}{c}\right) = \frac{\delta\left(\tau -\cosh^{-1}\left(\frac{ct}{\rho} \right) \right)}{\rho\sinh\left(\cosh^{-1}\left(\frac{ct}{\rho} \right) \right)}
 \label{gf_eq:40i}
@@ -617,6 +641,7 @@ From Equation \ref{gf_eq:40g}, $g(x) = g(\tau) = t - \rho\cosh(\tau)/c$ and the 
  \renewcommand{\baselinestretch}{2} \small\normalsize
  
 \noindent We can now rewrite Equation \ref{gf_eq:40g} as:
+
  \begin{equation}
  \begin{gathered}
 G_o\left(\boldsymbol{\rho},0,t\right) = \frac{1}{2\pi}\int\limits_{0}^{\infty}d\tau H\left(t -\frac{\rho}{c}\right)  \frac{c\delta\left(\tau -\cosh^{-1}\left(\frac{ct}{\rho} \right) \right)}{\rho\sinh\left(\cosh^{-1}\left(\frac{ct}{\rho} \right) \right)}\\
@@ -639,16 +664,17 @@ G_o\left(\boldsymbol{\rho},0,t\right) = \frac{H\left(t -\frac{\rho}{c}\right)}{2
  \renewcommand{\baselinestretch}{2} \small\normalsize
  
 \noindent Letting $t\rightarrow |t-t'|$ and $\rho \rightarrow |\boldsymbol{\rho} - \boldsymbol{\rho}'|$ yields the final result:
+
  \begin{equation}
 \boxed{G_o\left(\boldsymbol{\rho},\boldsymbol{\rho}',t,t'\right) = \frac{H\left(|t-t'| -\frac{|\boldsymbol{\rho} - \boldsymbol{\rho}'|}{c}\right)}{2\pi \sqrt{|t-t'|^2 -\left(\frac{|\boldsymbol{\rho} - \boldsymbol{\rho}'|}{c}\right)^2 }     }}
 \label{gf_eq:40l}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\iftoggle{separate_greens_functions}{\section}{\subsection} {Paraxial Wave Equation} \label{gf_sec:paraxial}
+\subsection {Paraxial Wave Equation} \label{gf_sec:paraxial}
 In this section we derive the Green's function for the paraxial wave equation.
 
-\iftoggle{separate_greens_functions}{\subsection}{\subsubsection} {Derivation of the Paraxial Wave Equation}
+\subsubsection {Derivation of the Paraxial Wave Equation}
 We can derive the paraxial from the Helmholtz equation by assuming a plane wave propagating in the $x$ direction of the form $U(x,z) = A(x,z)e^{-jkx}$.
 
  \begin{equation}
@@ -656,7 +682,7 @@ We can derive the paraxial from the Helmholtz equation by assuming a plane wave 
  \left[ \nabla^2 + k_o^2\right]U = 0 \\
 \left[\frac{\partial^2 }{\partial x^2} + \frac{\partial^2 }{\partial z^2} + k_o^2\right]U = 0 \\
 \frac{\partial }{\partial x}\left(\frac{\partial U}{\partial x} \right) + \frac{\partial^2 U}{\partial z^2} + k_o^2 U = 0 \\
-\frac{\partial }{\partial x}\left(-jkAe^{-jk_ox}+e^{-jk_ox}\frac{\partial A}{\partial x} \right) + e^{-jk_ox}\frac{\partial^2 A}{\partial z^2} + k_o^2 Ae^{-jk_ox} = 0 \\
+\frac{\partial }{\partial x}\left(-jk_oAe^{-jk_ox}+e^{-jk_ox}\frac{\partial A}{\partial x} \right) + e^{-jk_ox}\frac{\partial^2 A}{\partial z^2} + k_o^2 Ae^{-jk_ox} = 0 \\
 -k_o^2Ae^{-jk_ox} -2jk_oe^{-jk_ox}\frac{\partial A}{\partial x}+e^{-jk_ox}\frac{\partial^2 A}{\partial x^2} + e^{-jk_ox}\frac{\partial^2 A}{\partial z^2} + k_o^2 Ae^{-jk_ox} = 0 \\
 e^{-jk_ox}\left( -2jk_o\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partial x^2} + \frac{\partial^2 A}{\partial z^2}\right) = 0 \\
 \end{gathered}
@@ -664,7 +690,8 @@ e^{-jk_ox}\left( -2jk_o\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partia
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
  
-This gives us an equation dependent only on the amplitude, $A$
+\noindent This gives us an equation dependent only on the amplitude, $A$
+
  \begin{equation}
 -2jk_o\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partial x^2} + \frac{\partial^2 A}{\partial z^2} = 0 \\
 \label{gf_eq:42}
@@ -672,6 +699,7 @@ This gives us an equation dependent only on the amplitude, $A$
  \renewcommand{\baselinestretch}{2} \small\normalsize
  
  We can now apply the paraxial approximation which states that the change in the modulation function along the propagation direction is negligible over a wavelength. This can be expressed mathematically as
+ 
   \begin{equation}
 k_o\frac{\partial A}{\partial x} >> \frac{\partial^2 A}{\partial^2 x}
 \label{gf_eq:43}
@@ -679,43 +707,50 @@ k_o\frac{\partial A}{\partial x} >> \frac{\partial^2 A}{\partial^2 x}
  \renewcommand{\baselinestretch}{2} \small\normalsize
  
  With this approximation we can neglect the 2nd derivative in $x$ and write the paraxial equation as
-   \begin{equation}
+ 
+\begin{equation}
 \boxed{-2jk_o\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} = 0} \\
 \label{gf_eq:44}
 \end{equation}
- \renewcommand{\baselinestretch}{2} \small\normalsize
+\renewcommand{\baselinestretch}{2} \small\normalsize
+ 
 The paraxial wave equation is a parabolic differential equation with the same structure as the diffusion equation. 
 
 Since we have reduced the original Helmholtz equation for the full propagating wave to one that is only dependent on the modulation function, we will need to scale the Green's function by $e^{-jk_ox}$ to get the full propagating wave solution.
  
-\iftoggle{separate_greens_functions}{\subsection}{\subsubsection} {Green's Function Derivation in the Frequency Domain}
+\subsubsection {Green's Function Derivation in the Frequency Domain}
 As stated in the previous section, the Green's function for the paraxial wave equation, $G_p$, will only define the amplitude modulation. To get the full Green's function, we will need to scale by the plane wave, $G= G_p e^{-jk_ox}$. We can start with substituting the Greens function into equation \ref{gf_eq:44}.
 
 \begin{equation}
 -2jk_o\frac{\partial G_p}{\partial x} + \frac{\partial^2 G_p}{\partial z^2} = -\delta(x)
 \label{gf_eq:44a}
 \end{equation}
-
+ \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
 We can then take the Fourier transform of Equation \ref{gf_eq:44a} along $z$ and multiply both sides by $-1$.
 
 \begin{equation}
 2jk_o\frac{\partial \hat{G_p}}{\partial x} +k^2\hat{G_p} = \delta(x)
 \label{gf_eq:45}
 \end{equation}
-
+ \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
 Solving away from the delta function yields the following expression for $\hat{G_p}$:
 \begin{equation}
 \hat{G_p}= ce^{\frac{jk^2}{2k_o}x}
 \label{gf_eq:46}
 \end{equation}
-
+ \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
 To find $c$, we can integrate Equation \ref{gf_eq:45} over a small region $\pm\epsilon$ and take the limit as $x\rightarrow 0$.
+
 \begin{equation}
-\lim_{x\rightarrow 0}\int_{-\epsilon}^{\epsilon}dx\left[2jk_o\frac{\partial\hat{G_p}}{\partial x}+ k^2\hat{G_p} \right] = \lim_{\eta'\rightarrow 0}\int_{-\epsilon}^{\epsilon}dx\delta(x)\\
+\lim_{x\rightarrow 0}\int_{-\epsilon}^{\epsilon}dx\left[2jk_o\frac{\partial\hat{G_p}}{\partial x}+ k^2\hat{G_p} \right] = \lim_{x\rightarrow 0}\int_{-\epsilon}^{\epsilon}dx\delta(x)\\
 \label{gf_eq:47}
 \end{equation}
-
-$\hat{G_p}$ must be continuous, so the integral over the $k^2\hat{G_p}$ term must be 0.
+ \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
+\noindent $\hat{G_p}$ must be continuous, so the integral over the $k^2\hat{G_p}$ term must be 0.
 \begin{equation}
 \begin{gathered}
 \lim_{x\rightarrow 0}2jk_o\int_{-\epsilon}^{\epsilon}dx\frac{\partial\hat{G_p}}{\partial x}= 1\\
@@ -723,57 +758,70 @@ $\hat{G_p}$ must be continuous, so the integral over the $k^2\hat{G_p}$ term mus
 \lim_{x\rightarrow 0}2jk_oce^{\frac{jk^2}{2k_o}x} = 1\\
 c = \frac{1}{j2k_o}\\
 \end{gathered}
-\label{mp_eq:11cb}
+\label{gf_eq:11cb}
 \end{equation}
+ \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
+\noindent This yields the final expression for $\hat{G}$:
 
-This yields the final expression for $\hat{G}$:
 \begin{equation}
 \boxed{\hat{G_p}= \frac{1}{2jk_o}e^{\frac{jk^2}{2k_o}x}}
-\label{mp_eq:11cc}
+\label{gf_eq:11cc}
 \end{equation}
+ \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
+\noindent To find $G_p$, we can take the inverse Fourier transform of $\hat{G_p}$:
 
-To find $G_p$, we can take the inverse Fourier transform of $\hat{G_p}$:
 \begin{equation}
 \begin{aligned}
 G_p &= \mathcal{F}^{-1}\{\hat{G_p}\} = \frac{1}{2jk_o}\frac{1}{2\pi}\int_{-\infty}^{\infty}dk e^{\frac{jk^2}{2k_o}x}e^{-jkz} \\
 & = \frac{1}{2jk_o}\frac{1}{2\pi}\int_{-\infty}^{\infty}dk e^{\frac{jk^2}{2k_o}x-jkz} \\
 \end{aligned}
-\label{mp_eq:11d}
+\label{gf_eq:11d}
 \end{equation}
+ \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
+\noindent To solve this, we need to complete the square with respect to $k$
 
-To solve this, we need to complete the square with respect to $k$
 \begin{equation}
 \begin{gathered}
 \frac{jx}{2k_o}\left[k^2  -2k\frac{k_oz}{x}\right]\\
 \frac{jx}{2k_o}\left[\left(k - \frac{k_oz}{x}\right)^2 - \frac{k_o^2z^2}{x^2} \right]\\
 \frac{jx}{2k_o}\left(k - \frac{k_oz}{x}\right)^2 - \frac{jk_oz^2}{x}\\
 \end{gathered}
-\label{mp_eq:11e}
+\label{gf_eq:11e}
 \end{equation}
+ \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
+\noindent Now we can substitute into Equation \ref{gf_eq:11d}
 
-Now we can substitute into Equation \ref{mp_eq:11d}
 \begin{equation}
 \begin{aligned}
 G_p &= \frac{1}{2jk_o}\frac{1}{2\pi}\int_{-\infty}^{\infty}dk e^{\frac{jx}{2k_o}\left(k  -\frac{k_oz}{x}\right)^2- \frac{jk_o}{2x}z^2 } \\
-&= \frac{1}{2jk_o}\frac{1}{2\pi} \sqrt{\frac{\pi 2k_o}{j\eta'}}e^{-j\frac{k_o}{2x}z^2 } \\
+&= \frac{1}{2jk_o}\frac{1}{2\pi} \sqrt{\frac{\pi 2k_o}{jx}}e^{-j\frac{k_o}{2x}z^2 } \\
 &= \frac{1}{2jk_o}\sqrt{\frac{k_o}{2\pi jx}}\exp\left[-j\frac{k_oz^2}{2x} \right]\\
 &= \sqrt{\frac{j}{8\pi k_ox}}\exp\left[-j\frac{k_oz^2}{2x} \right]\\
 \end{aligned}
-\label{mp_eq:11f}
+\label{gf_eq:11f}
 \end{equation}
+ \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
+\noindent Multiplying by $e^{-jk_ox}$ yields the full Green's function.
 
-Multiplying by $e^{-jk_ox}$ yields the full Green's function.
 \begin{equation}
 G= \sqrt{\frac{j}{8\pi k_ox}}\exp\left[-j\frac{k_oz^2}{2x} \right]e^{-jk_ox}
-\label{mp_eq:11fa}
+\label{gf_eq:11fa}
 \end{equation}
- 
+  \renewcommand{\baselinestretch}{2} \small\normalsize
+  
 We can let $x\rightarrow |x-x'|$ and $x\rightarrow |z-z'|$ to represent the Green's function as traditionally shown.
+
 \begin{equation}
 \boxed{G\left(x,x',z,z' \right)= \sqrt{\frac{j}{8\pi k_o|x-x'|}}\exp\left[-jk_o\left(|x-x'| + \frac{|z-z'|^2}{2|x-x'|}\right) \right]}\\
 \label{mp_eq:11fb}
 \end{equation}
-
+ \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
 To help visualize this Green's function, the magnitude and phase is shown in Figure \ref{gf_fig:5} and the real and imaginary components are shown in Figure \ref{gf_fig:6}. Both figures show a slice of the Green's function along $z = 0$. 
 
 \begin{figure}[H]
@@ -802,9 +850,7 @@ To help visualize this Green's function, the magnitude and phase is shown in Fig
 \renewcommand{\baselinestretch}{2}
 \small\normalsize
 
-\iftoggle{separate_greens_functions}{\subsection}{\subsubsection} {Derivation from the 3-D Green's Function}
-
-\iftoggle{separate_greens_functions}{\chapter}{\section} {Tabularized Green's Functions}
+\section {Tabularized Green's Functions}
 Table \ref{gf_tab:0} collects the various Green's functions derived in this section. Again, these were derived assuming a time dependence going as $e^{j\omega t}$.
 \begin{table}[H]
   \begin{center}
@@ -818,22 +864,79 @@ Table \ref{gf_tab:0} collects the various Green's functions derived in this sect
   3-D Free Space & $\frac{e^{-jk|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|}$ &  $\frac{\delta\left(|t-t'|-\frac{|\mathbf{r}-\mathbf{r}'|}{c} \right)}{4\pi |\mathbf{r}-\mathbf{r}'|}$ \\ \hline
   2-D Free Space & $-\frac{j}{4}H_0^{(2)}\left(k|\boldsymbol{\rho} - \boldsymbol{\rho}' | \right)$ & $\frac{H\left(|t-t'| -\frac{|\boldsymbol{\rho} - \boldsymbol{\rho}'|}{c}\right)}{2\pi \sqrt{|t-t'|^2 -\left(\frac{|\boldsymbol{\rho} - \boldsymbol{\rho}'|}{c}\right)^2 }     }$  \\ \hline
   2-D Paraxial & $\sqrt{\frac{j}{8\pi k|x-x'|}}\exp\left[-jk\left(|x-x'| + \frac{|z-z'|^2}{2|x-x'|}\right) \right]$ & N/A \\ \hline
-
 \end{tabular}
 \end{center}
 \end{table}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\iftoggle{separate_greens_functions}{\chapter}{\section} {Propagation With Green's Functions}
+\section {Propagation With Green's Functions}
+This section describes how to use Green's functions to find solutions for propagation problems.
 
-\iftoggle{separate_greens_functions}{\section}{\subsection} {Free Space Propagation}
+\subsection {Free Space Propagation}
+For free space propagation problems, we only have the forcing function of Equation \ref{gf_eq:11} surviving so that $U = -\int d^3r' Gf$.
 
-\iftoggle{separate_greens_functions}{\section}{\subsection} {Diffraction through an Aperture}
+\subsubsection{Point Source}
+The simplest implementation is to assume a point source, so that $f= -\alpha \delta(\mathbf{r}-\mathbf{r}')\delta(t-t')$, in which case the solution simply becomes $U = G(\mathbf{r},\mathbf{r}',t,t')$.
 
-\iftoggle{separate_greens_functions}{\section}{\subsection} {Diffraction from a Planar Surface}
+The point source approximation is adequate to capture propagation characteristics in many cases, especially at long ranges. It is only at closer ranges that the distributed aspects of a source become apparent, and where the infrared signature of an object may look dramatically different from a point source.
 
-\iftoggle{separate_greens_functions}{\subsection}{\subsubsection} {Integration Along the Surface}
+\subsection {Diffraction through an Aperture}
+The canonical diffraction problem is the propagation of light through an aperture and is heavily utilized in the field of Fourier Optics \cite{goodman_fourier} \cite{gaskill_fourier}.
 
-\iftoggle{separate_greens_functions}{\subsection}{\subsubsection} {Integration Perpendicular to the Surface}
+\subsection{Rayleigh-Sommerfeld Diffraction Integral}
+Following Huygen's principle, we can use every point on the aperture as a source for the reflected wave. In order to ensure the integral over the surface vanishes at far distances, we need to apply the Sommerfeld radiation condition on the disturbance $U$
 
-\iftoggle{separate_greens_functions}{\section}{\subsection} {Optical Propagation Through Turbulence}
+\begin{equation}
+ \lim_{R\to\infty} R\left(\frac{\partial U}{\partial n} -jkU \right) = 0.
+\label{gf_eq:48}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+We will assume there is no additional forcing function in the aperture so the solution from Equation \ref{gf_eq:11} becomes $U = \oint dS\left[G\partial U/\partial n - U\partial G/\partial n  \right]$.
+
+The Rayleigh-Sommerfeld approach is to can choose an alternative Green's function that is generated by a pair of mirrored point sources. This configuration will ensure that the Green's function vanishes on the surface so we do not need to apply boundary conditions to both $U$ and $\partial U/\partial n$. This Greens function, $G\_$, is then given as
+
+\begin{equation}
+G\_= \frac{\exp[-jk_or_1]}{4\pi r_1} - \frac{\exp[-jk_or_2]}{4\pi r_2}
+\label{gf_eq:49}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+With $\theta_1$ equal to the angle between $\hat{n}$ and $r_1$ and $\theta_2$ equal to the angle between $\hat{n}$ and $r_2$, the normal derivative, $\partial G\_/\partial n$, is then given as 
+
+\begin{equation}
+\begin{aligned}
+\frac{\partial G\_}{\partial n} = \cos(\theta_1)\left(-jk_o - \frac{1}{r_1} \right)\frac{\exp[-jk_or_1]}{4\pi r_1} -\cos(\theta_2)\left(-jk_o - \frac{1}{r_2} \right)\frac{\exp[-jk_or_1]}{4\pi r_2}
+\end{aligned}
+\label{gf_eq:50}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent In the aperture, $\cos(\theta_1) = -\cos(\theta_2)$ and $r_1=r_2$ so that
+
+\begin{equation}
+\begin{gathered}
+\frac{\partial G\_}{\partial n}\bigg|_S = -2\frac{\partial G}{\partial n}\bigg|_S \\
+\end{gathered}
+\label{gf_eq:51}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent With this Green's function in hand, we can rewrite the solution as
+
+\begin{equation}
+\begin{gathered}
+U(P_2) = -\oint\limits_{S}U_2(P_1)\frac{\partial G\_}{\partial n}dS\\
+= 2\oint\limits_{S}U(P_1)\frac{\partial G}{\partial n}dS
+\end{gathered}
+\label{gf_eq:52}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\subsection {Diffraction from a Planar Surface}
+
+\subsubsection {Integration Along the Surface}
+
+\subsubsection {Integration Perpendicular to the Surface}
+
+\subsection {Optical Propagation Through Turbulence}

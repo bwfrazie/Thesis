@@ -1,83 +1,68 @@
 %\documentclass[12pt]{../packages/thesis}  %12pt is larger than 11pt
-\documentclass[12pt]{report}  %12pt is larger than 11pt
+\documentclass[12pt,twoside]{paper}  %12pt is larger than 11pt
+\usepackage[left=3.0cm, right = 2.5cm,headsep=12pt,]{geometry}
 
-\usepackage{titlesec}
-   \titleformat{\chapter}
-      {\normalfont\large}{\thechapter}{1em}{}
-      
-\usepackage[pdftex]{graphicx}
-\usepackage{mathrsfs,amsmath}
+%include necessary packages      
+\usepackage{graphicx}
+\usepackage{amsmath}
 \usepackage{float}
-\numberwithin{equation}{chapter}
-\setcounter{secnumdepth}{4}
-\titleformat{\paragraph}
-{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
-\titlespacing*{\paragraph}
-{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
-\usepackage{chngcntr}
-\counterwithin{table}{chapter}
-\counterwithin{figure}{chapter}
-\usepackage{cite}
-\usepackage{lscape}
-\usepackage{indentfirst}
-\usepackage{latexsym}
-\usepackage{multirow}
-\usepackage{tabls}
-\usepackage{wrapfig}
-\usepackage{../packages/slashbox}
-\usepackage{longtable}
 \usepackage{supertabular}
-\usepackage{subfigure}
 
+%Make sure to number Equations by chapter
+\numberwithin{equation}{section}
+\setcounter{secnumdepth}{4}
+
+%make sure the number tables and figures by chapter
+\usepackage{chngcntr}
+\counterwithin{table}{section}
+\counterwithin{figure}{section}
+
+%set up section display settings
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\bfseries\Large}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\bfseries\large}{\thesubsection}{1em}{}
+\titleformat{\subsubsection} {\normalfont\bfseries\large}{\thesubsubsection}{1em}{}
+
+%reset the table of contents style     
+\usepackage[tocflat]{tocstyle}
+\usetocstyle{standard}
+      
+%setup etoolbox for toggles
 \usepackage{etoolbox}
 \newtoggle{separate_greens_functions}
 \toggletrue{separate_greens_functions}
-\makeatletter
-\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
-\makeatother
 
+%setup the header and footers    
+\usepackage{fancyhdr}    
+\setlength{\headheight}{28pt}
+\fancyhf{}
+\pagestyle{fancy}
 
-\newcommand{\tbsp}{\rule{0pt}{18pt}} %used to get a vertical distance after \hline
-\renewcommand{\baselinestretch}{2}
-\setlength{\textwidth}{5.9in}
-\setlength{\textheight}{9in}
-\setlength{\topmargin}{-.50in}
-%\setlength{\topmargin}{0in}    %use this setting if the printer makes the the top margin 1/2 inch instead of 1 inch
-\setlength{\oddsidemargin}{.55in}
-\setlength{\parindent}{.4in}
+\fancyhead[R]{KVU-xxx \\ Green's Functions in Electromagnetic Wave Propagation}
+\fancyhead[L]{\includegraphics[width=0.25\textwidth,keepaspectratio]{../media/apl_small_horizontal_blue_cropped}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
 \begin{document}
-\titlepage
-\begin{center}
-\vspace*{25pt}
-{\huge \bfseries Green's Functions in Electromagnetic Propagation\\}
-
-\vspace{150 pt}
-
-\large Ben Frazier \\
- \small IRST and Sensors Group (FPS/KVU), JHU/APL \\
- %\small Electrical and Computer Engineering, UMD \\
-\includegraphics[width=0.6\textwidth]{../media/apl_small_horizontal_blue} \\
-%\includegraphics[width=0.5\textwidth]{../media/clark}\\
-\vspace{125pt}
-\large \today
-\end{center}
-
-\newpage
-\pagestyle{plain}
 \pagenumbering{roman}
-\setcounter{page}{2}
+\input{GreensFunctionTitlepage} 
+\newpage
 
-\renewcommand{\baselinestretch}{1}
-\small\normalsize
+%\renewcommand{\baselinestretch}{1}
+%\small\normalsize
+
 \tableofcontents %(required, lower-case Roman)
 \newpage
+\addcontentsline{toc}{section}{\listfigurename}
 \listoffigures %(if present, lower-case Roman)
 \newpage
+\addcontentsline{toc}{section}{\listtablename}
 \listoftables %(if present, lower-case Roman)
 \newpage
 
 %List of Symbols
-\addcontentsline{toc}{chapter}{List of Symbols}
+\addcontentsline{toc}{section}{List of Symbols}
 \include{gfSymbols}
 \setlength{\parskip}{0em}
 \renewcommand{\baselinestretch}{2}
@@ -87,13 +72,13 @@
 \include{supertabular}
 \setcounter{page}{1}
 
-%\renewcommand{\thechapter}{1}
 \include{greens_functions}
 
 \newpage
+\titleformat{\section}{\normalfont\bfseries\Large}{Appendix \thesection}{1em}{}
 \appendix
-\renewcommand{\thechapter}{A}
-\renewcommand{\chaptername}{Appendix}
+\renewcommand{\thesection}{A}
+%\renewcommand{\sectionname}{Appendix}
 \input{saddle_point_method}
 
 \newpage
