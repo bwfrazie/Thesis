@@ -817,3 +817,12 @@ The statistics for any given sea surface realization will be spatially and tempo
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 In this case we do not need to generate a full 2-D surface to propagate over for each run, and we can generate a 1-D surface for each path to get independent statistics and reduce the computational burden. We will need to make sure to apply the wind direction correctly for each path.
+
+\section {Matlab Listings}
+\lstinputlisting[language=Matlab,caption=Elfouhaily 1-D Spectrum Matlab Code,label=list:elf1d]{../mfiles/SeaSurfaceGeneration/Elfouhaily.m}
+
+\lstinputlisting[language=Matlab,caption=1-D Ocean Surface Generation Matlab Code,label=list:elf1d]{../mfiles/SeaSurfaceGeneration/generateSeaSurface.m}
+
+\lstinputlisting[language=Matlab,caption=Elfouhaily 2-D Spectrum Matlab Code,label=list:elf1d]{../mfiles/SeaSurfaceGeneration/Elfouhaily2D.m}
+
+\lstinputlisting[language=Matlab,caption=2-D Ocean Surface Generation Matlab Code,label=list:elf1d]{../mfiles/SeaSurfaceGeneration/generateSeaSurface2D.m}
