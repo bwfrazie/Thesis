@@ -1,35 +1,43 @@
-\documentclass[12pt]{../packages/thesis}  %12pt is larger than 11pt
+%\documentclass[12pt]{../packages/thesis}  %12pt is larger than 11pt
+\documentclass[12pt,twoside]{book}  %12pt is larger than 11pt
+\usepackage[left=3.0cm, right = 2.5cm,bottom=3.5cm,headsep=12pt]{geometry}
 
-\usepackage{titlesec}
-   \titleformat{\chapter}
-      {\normalfont\large}{Chapter \thechapter:}{1em}{}
-
-\usepackage[pdftex]{graphicx}
-\usepackage{mathrsfs,amsmath,amssymb, amsfonts}
-
-\numberwithin{equation}{chapter}
-\setcounter{secnumdepth}{4}
-\titleformat{\paragraph}
-{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
-\titlespacing*{\paragraph}
-{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
-\usepackage{chngcntr}
+%include necessary packages      
+\usepackage{graphicx}
+\usepackage{amsmath}
 \usepackage{float}
-\counterwithin{table}{chapter}
-\counterwithin{figure}{chapter}
-\usepackage{cite}
-\usepackage{lscape}
-\usepackage{indentfirst}
-\usepackage{latexsym}
-\usepackage{multirow}
-\usepackage{tabls}
-\usepackage{wrapfig}
-\usepackage{../packages/slashbox}
-\usepackage{longtable}
 \usepackage{supertabular}
-\usepackage{subfigure}
-\usepackage{standalone}
+
+\usepackage[font=small,labelfont=bf]{caption}
+\renewcommand\figurename{Figure}
+\renewcommand\tablename{Table}
+
+%Make sure to number Equations by chapter
+\numberwithin{equation}{section}
+\setcounter{secnumdepth}{4}
+
+%make sure the number tables and figures by chapter
+\usepackage{chngcntr}
+\counterwithin{table}{section}
+\counterwithin{figure}{section}
+
+%set up section display settings
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\bfseries\Large}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\bfseries\large}{\thesubsection}{1em}{}
+\titleformat{\subsubsection} {\normalfont\bfseries\large}{\thesubsubsection}{1em}{}
+\titleformat{\chapter}{\normalfont\bfseries\large}{Chapter \thechapter}{1em}{}
+
+%reset the table of contents style     
+\usepackage[tocflat]{tocstyle}
+\usetocstyle{standard}
+      
+%setup etoolbox for toggles
 \usepackage{etoolbox}
+\newtoggle{separate_ocean_surface}
+\togglefalse{separate_ocean_surface}
+\newtoggle{separate_greens_functions}
+\togglefalse{separate_greens_functions}
 
 \usepackage{xparse}
 \usepackage{tikz}
@@ -39,11 +47,6 @@
 \pgfsetlayers{myback,background,main}
 \tikzset{mycolor/.style = {line width=1bp,color=#1}}%
 \tikzset{myfillcolor/.style = {draw,fill=#1}}%
-
-\newtoggle{separate_ocean_surface}
-\togglefalse{separate_ocean_surface}
-\newtoggle{separate_greens_functions}
-\togglefalse{separate_greens_functions}
 
 \NewDocumentCommand{\highlight}{O{blue!40} m m}{%
 \draw[mycolor=#1] (#2.north west)rectangle (#3.south east);
@@ -58,53 +61,49 @@
     fill opacity=0.5,thick,inner sep=0pt}
 }
 
-\newcommand{\tbsp}{\rule{0pt}{18pt}} %used to get a vertical distance after \hline
-\renewcommand{\baselinestretch}{2}
-\setlength{\textwidth}{5.9in}
-\setlength{\textheight}{9in}
-\setlength{\topmargin}{-.50in}
-%\setlength{\topmargin}{0in}    %use this setting if the printer makes the the top margin 1/2 inch instead of 1 inch
-\setlength{\oddsidemargin}{.55in}
-\setlength{\parindent}{.4in}
-\pagestyle{empty}
+
+%setup the header and footers    
+\usepackage{fancyhdr}    
+\setlength{\headheight}{28pt}
+\fancyhf{}
+\pagestyle{fancy}
+
+\fancyhead[R]{FPS-T-18-0292 \\ Multistatic RF Sensor Networks}
+\fancyhead[L]{\includegraphics[width=0.25\textwidth,keepaspectratio]{../media/apl_small_horizontal_blue_cropped}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
 
 \begin{document}
-
-
-%\input{Abstract} %(must be first, required, non-numbered)
-\input{MultistaticTitlepage} %(must follow Abstract, required, non-numbered)
-\newpage
-%\input{Copyright} %(highly recommended, non-numbered)
-
-%Pages from this point start at lower-case Roman number ii)
-\pagestyle{plain}
 \pagenumbering{roman}
-\setcounter{page}{2}
+\input{MultistaticTitlepage} 
+\newpage
 
-%\input{Preface}  %(if present, start at lower-case Roman number ii)
-%\input{Foreword} %(if present, lower-case Roman)
-%\input{Dedication} %(if present, lower-case Roman)
-%\input{Acknowledgements} %(if present, lower-case Roman)
+%\renewcommand{\baselinestretch}{1}
+%\small\normalsize
 
-\renewcommand{\baselinestretch}{1}
-\small\normalsize
 \tableofcontents %(required, lower-case Roman)
 \newpage
+\addcontentsline{toc}{section}{\listfigurename}
 \listoffigures %(if present, lower-case Roman)
 \newpage
+\addcontentsline{toc}{section}{\listtablename}
 \listoftables %(if present, lower-case Roman)
 \newpage
 %List of Abbreviations
-\addcontentsline{toc}{chapter}{List of Abbreviations}
+\addcontentsline{toc}{section}{List of Abbreviations}
 \include{Abbreviations}
 \newpage
 %List of Symbols
-\addcontentsline{toc}{chapter}{List of Symbols}
+\addcontentsline{toc}{section}{List of Symbols}
 \include{Symbols}
-
 \setlength{\parskip}{0em}
 \renewcommand{\baselinestretch}{2}
 \small\normalsize
+
+\pagenumbering{arabic}
+\include{supertabular}
+\setcounter{page}{1}
 
 %Pages from this point start at Arabic numeral 1
 \setcounter{page}{1}
@@ -123,51 +122,27 @@
 \include{RF_environmental_impacts}
 
 \renewcommand{\thechapter}{5}
-\include{ocean_surface_generation}
-
-\renewcommand{\thechapter}{6}
 \include{analysis}
 
-\renewcommand{\thechapter}{7}
+\renewcommand{\thechapter}{6}
 \include{cylindrical_prop}
 
-\renewcommand{\thechapter}{8}
+\renewcommand{\thechapter}{7}
 \include{numerical_propagation}
 
-\renewcommand{\thechapter}{9}
+\renewcommand{\thechapter}{8}
 \include{amplitude_statistics}
 
-
-\titleformat{\chapter}
-      {\normalfont\large}{Appendix \thechapter:}{1em}{}
-      
-\newpage
+ \titleformat{\chapter}{\normalfont\bfseries\Large}{Appendix \thechapter}{1em}{}
 \appendix
 \renewcommand{\thechapter}{A}
-\renewcommand{\chaptername}{Appendix}
+\newpage
+\appendix
 \input{geometric_derivations}
-
-\newpage
-\appendix
-\renewcommand{\thechapter}{B}
-\renewcommand{\chaptername}{Appendix}
-\input{greens_functions}
-
-\newpage
-\appendix
-\renewcommand{\thechapter}{C}
-\renewcommand{\chaptername}{Appendix}
-\input{saddle_point_method}
-
-
-\renewcommand{\baselinestretch}{1}
-\small\normalsize
-\newpage
 
 \newpage
 \bibliographystyle{unsrt} 
 \bibliography{background_bib}
-
 
 \end{document}
 

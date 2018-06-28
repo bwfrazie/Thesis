@@ -119,15 +119,15 @@ L_0 \approx \frac{(h_1+h_2)^2}{2L} + \frac{(h_1+h_2)^4}{2h_1h_2L^3}(x-x_m)^2
 \end{equation}
 
 \section{Solution Through Green's Functions}
-The Green's function for the paraxial wave equation is derived in Section \ref{gf_sec:paraxial} as
+The Green's function for the paraxial wave equation is given in \cite{frazier_green} as
 \begin{equation}
-G\left(x,x',z,z' \right)= \sqrt{\frac{j}{8\pi k_o|x-x'|}}\exp\left[-jk_o\left(|x -x'| + \frac{|z-z'|^2}{2|x-x'|}\right) \right]
+G\left(x,x',z,z' \right)= \sqrt{\frac{1}{8\pi jk_o|x-x'|}}\exp\left[-jk_o\left(|x -x'| + \frac{|z-z'|^2}{2|x-x'|}\right) \right]
 \label{mp_eq:11aa}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 In this equation the source is located at $(x',z')$ and the observation point is located at $(x,z)$.
 
-The scalar solution from the Green's function method is derived in Section \ref{gf_sec:method} as
+The scalar solution from the Green's function method is derived in \cite{frazier_green} as
 \begin{equation}
 U = \oint\limits_{S}\left[G\frac{\partial U}{\partial n}dS - U\frac{\partial G}{\partial n} \right] -\int\limits_{V}d^3r' Gf
 \label{mp_eq:11aaa}
@@ -339,7 +339,7 @@ I&=\int\limits_{-\infty}^{\infty}dx\gamma(x)\exp\left[\frac{-jk_oL_0''}{2}(x-x_m
 \label{mp_eq:23}
 \end{equation}
 
-We can solve this equation using the saddle point method as described in Appendix \ref{appendix_saddle_point_method}, where we must deform the contour to ensure it doesn't pass through the singular point of $\gamma (x)$ at $x=x_m$. The solution to Equation \ref{mp_eq:23} is then
+We can solve this equation using the saddle point method \cite{frazier_green} \cite{arfken_weber}, where we must deform the contour to ensure it doesn't pass through the singular point of $\gamma (x)$ at $x=x_m$. The solution to Equation \ref{mp_eq:23} is then
 \begin{equation}
 \begin{aligned}
 I&=\gamma(x_m)\sqrt{\frac{2\pi}{jk_oL_0''}}\\

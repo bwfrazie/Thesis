@@ -42,7 +42,7 @@
 \fancyhf{}
 \pagestyle{fancy}
 
-\fancyhead[R]{KVU-xxx \\ Ocean Surface Modeling}
+\fancyhead[R]{FPS-T-18-0290 \\ Ocean Surface Modeling}
 \fancyhead[L]{\includegraphics[width=0.25\textwidth,keepaspectratio]{../media/apl_small_horizontal_blue_cropped}}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{1pt}
@@ -64,10 +64,13 @@
 \addcontentsline{toc}{section}{\listtablename}
 \listoftables %(if present, lower-case Roman)
 \newpage
-
+%List of Abbreviations
+\addcontentsline{toc}{section}{List of Abbreviations}
+\include{osAbbreviations}
+\newpage
 %List of Symbols
 \addcontentsline{toc}{section}{List of Symbols}
-\include{gfSymbols}
+\include{osSymbols}
 \setlength{\parskip}{0em}
 \renewcommand{\baselinestretch}{2}
 \small\normalsize
