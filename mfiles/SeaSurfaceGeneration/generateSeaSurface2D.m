@@ -32,7 +32,7 @@ omega = sqrt(g*abs(k) +(k/km).^2);
 
 %% Spectral Representation
 %get the elfouhaily spectrum
-S = Elfouhaily2D(k,phi,U10,age);
+S = Elfouhaily2D(k,phi,U10,age);  
 S(1,1) = 0.0;
 
 %we now have a 2-way spectrum (positive and negative frequencies) and need to scale the total power by 2
@@ -59,7 +59,7 @@ for u = 1:N/2-1
         ub = u + 1;
         vb = v + N/2 + 1;
         Va(u,v) = 1/2*sqrt(S(ua,va)*dk^2)*(W1(u,v) + 1i*W2(u,v)).*exp(-1i*omega(u,v)*t);
-        Vb(u,v) = 1/2*sqrt(S(ub,vb)*dk^2)*(W3(u,v) + 1i*W4(u,v)).*exp(-1i*omega(u,v)*t);
+        Vb(u,v) = 1/2*sqrt(S(ub,vb)*dk^2)*(W3(u,v) + 1i*W4(u,v)).*exp(1i*omega(u,v)*t);
     end
 end
 

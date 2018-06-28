@@ -155,7 +155,9 @@ The low spatial frequency region, $B_l$, is given by Equation \ref{os_eq:3} and 
 \end{center}
 \end{table}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
 The high spatial frequency region, $B_h$, is given by Equation \ref{os_eq:4} and the parameters are defined in Table \ref{os_tab:2} and Equations \ref{os_eq:4a} and \ref{os_eq:4b}.
+
 \begin{equation}
   \label{os_eq:4}
  B_h = \frac{1}{2} \alpha_m \frac{v_m}{v} F_m
@@ -203,7 +205,9 @@ The high spatial frequency region, $B_h$, is given by Equation \ref{os_eq:4} and
 \end{center}
 \end{table}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
 The variables $L_{PM}$ and $J_p$ are found in both $B_l$ and $B_h$ and are given by Equation \ref{os_eq:5}.
+
 \begin{equation}
 \begin{gathered}
   \label{os_eq:5}
@@ -216,6 +220,7 @@ The variables $L_{PM}$ and $J_p$ are found in both $B_l$ and $B_h$ and are given
 \end{gathered}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
 In \cite{elfouhaily}, the dispersion relation that holds for both gravity and capillary waves is given as 
 
 \begin{equation}
@@ -349,6 +354,7 @@ Figure \ref{os_fig:7bc} shows 2-D slices of the power spectrum compared to the 1
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 Figure \ref{os_fig:7cc} shows the low frequency behavior of the 2-D variance power spectrum for $|k| \leq 2$ rad/m. Here we cn clearly see the angular dependence of the power spectrum.
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=4in]{../media/Ocean_Surface/elf_variance_spectrum_2D_zoom.png}
@@ -796,10 +802,8 @@ The time varying sea surface will be found from the inverse Fourier transform, $
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\subsection {2-D Time Varying Surfaces}
-
 \section {Quasi 2-D Surfaces}
-The statistics for any given sea surface realization will be spatially correlated. However, if we are looking at Monte Carlo statistics of many such sets, we can treat different paths on the surface as being independent. A specific instance where this is useful is looking at statistics for propagating radio waves in a multistatic environment as shown in Figure \ref{os_fig:16}. 
+The statistics for any given sea surface realization will be spatially and temporally correlated. However, if we are looking at Monte Carlo statistics of many such sets, we can treat different paths on the surface as being independent. A specific instance where this is useful is looking at statistics for propagating radio waves in a multistatic environment as shown in Figure \ref{os_fig:16} where there are 3 separate paths for propagation.
 
 \begin{figure}[H]
   \begin{center}
@@ -812,4 +816,4 @@ The statistics for any given sea surface realization will be spatially correlate
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-In this case, we do not need to generate a full 2-D surface to propagate over for each run, but can generate a 1-D surface for each path to get independent statistics and not use a tremendous amount of computational resources. We need to make sure to apply the wind direction correctly for each path.
+In this case we do not need to generate a full 2-D surface to propagate over for each run, and we can generate a 1-D surface for each path to get independent statistics and reduce the computational burden. We will need to make sure to apply the wind direction correctly for each path.
