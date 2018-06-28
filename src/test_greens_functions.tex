@@ -1,12 +1,16 @@
 %\documentclass[12pt]{../packages/thesis}  %12pt is larger than 11pt
 \documentclass[12pt,twoside]{paper}  %12pt is larger than 11pt
-\usepackage[left=3.0cm, right = 2.5cm,headsep=12pt,]{geometry}
+\usepackage[left=3.0cm, right = 2.5cm,bottom=3.5cm,headsep=12pt]{geometry}
 
 %include necessary packages      
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{float}
 \usepackage{supertabular}
+
+\usepackage[font=small,labelfont=bf]{caption}
+\renewcommand\figurename{Figure}
+\renewcommand\tablename{Table}
 
 %Make sure to number Equations by chapter
 \numberwithin{equation}{section}
@@ -38,7 +42,7 @@
 \fancyhf{}
 \pagestyle{fancy}
 
-\fancyhead[R]{KVU-xxx \\ Green's Functions in Electromagnetic Wave Propagation}
+\fancyhead[R]{KVU-xxx \\ Green's Functions in Electromagnetic Propagation}
 \fancyhead[L]{\includegraphics[width=0.25\textwidth,keepaspectratio]{../media/apl_small_horizontal_blue_cropped}}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{1pt}

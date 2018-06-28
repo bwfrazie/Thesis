@@ -1,17 +1,17 @@
 \renewcommand{\baselinestretch}{2} \small\normalsize
-\iftoggle{separate_ocean_surface}{\chapter{Introduction}}{\chapter{Ocean Surface Modeling}}
+\iftoggle{separate_ocean_surface}{\section{Introduction}}{\chapter{Ocean Surface Modeling}}
 
 To capture the physical behavior of electromagnetic waves reflecting off the surface of the ocean, we need to model the surface altitude variations correctly. For this, we first need to understand the power spectra of ocean waves and their dependencies. Next, we can generate random realizations of sea surfaces by discretizing the power spectrum and taking the inverse Fourier transform of a Hermitian sequence of spectrally appropriate coefficients. This will be demonstrated in both the 1-dimensional and 2-dimensional cases.
 
-\iftoggle{separate_ocean_surface}{\chapter}{\section} {Waves in the Ocean}
+\section {Waves in the Ocean}
 Ocean waves are driven by wind and start when turbulence creates capillary or surface waves with small wavelengths (on the order of a few centimeters). As the wind continues, it increases both the amplitude and the wavelength of the waves until they start to interact. These interactions continue to increase the wavelength and phase speed of the waves until they are traveling faster than the wind, at which point the sea is deemed fully developed. As a sea develops, energy will transfer from higher frequencies to lower frequencies, which means the power spectrum will be different for a younger sea than a mature one.
 
 Before discussing the statistical properties of ocean waves, it is useful to review some standard nomenclature. Fetch is the length over which the wind can be considered constant, and a longer fetch generally means higher waves. Significant wave height is the mean wave height of the highest third of the waves. It is represented in the literature as $H_{1/3}$ and is equal to $4$ times the standard deviation of the wave height, $H_{1/3} = 4\sigma_h$. Wave height generally refers to the mean difference between successive peaks and troughs (twice the amplitude).
 
-\iftoggle{separate_ocean_surface}{\chapter}{\section}{Ocean Wave Power Spectra}  \label{os_sec:power_spectra}
+\section{Ocean Wave Power Spectra}  \label{os_sec:power_spectra}
 Many methods have been proposed to statistically describe the behavior of ocean waves. These range from the simplest sea state representations with a very coarse binning of wind speed and sea height variations to mathematically complex multi-parameter power spectra.
 
-\iftoggle{separate_ocean_surface}{\section}{\subsection} {Sea State}
+\subsection {Sea State}
 The modern concept of sea state is a combination of the Beaufort wind scale and the Douglas sea scale. The Beaufort wind scale was developed in the early 1800s by sir Francis Beaufort and the Douglas sea scale was developed in the 1920s by H.P Douglas, both of the Royal Navy \cite{uk_met_fact_sheet6}. The Beaufort wind scale measures force vs. wind speed in 12 bins from "Calm" to "Hurricane" and was extended in 1944 to add scales up to 17. In 1960, it was further extended to add probable wave heights. 
 
 The Douglas sea scale on the other hand measures sea height in 9 bins from "Calm (glossy)" to "Phenomenal". The World Meterological Organization (WMO) has adopted the Douglas sea scale as a standard \cite{wmo_code} and we can compare this to the Beaufort wind scale to add the dependency on wind speed as shown in Table \ref{os_tab:0}. There are no true standards when working with sea states, so care must be taken when comparing results between research groups.
@@ -40,8 +40,9 @@ The Douglas sea scale on the other hand measures sea height in 9 bins from "Calm
 \end{table}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\iftoggle{separate_ocean_surface}{\section}{\subsection} {Pierson-Moskowitz Spectrum}
-In 1964, the Pierson-Moskowitz (PM) spectrum given in Equation \ref{os_eq:1} was developed to describe the power spectrum of the variance of wave height in terms of the measured wind speed $19$ meters above the sea surface ($U_{19}$) \cite{michel_sea_spectra}. 
+\subsection {Pierson-Moskowitz Spectrum}
+In 1964, the Pierson-Moskowitz (PM) spectrum given in Equation \ref{os_eq:1} was developed to describe the power spectrum of the variance of wave height in terms of the measured wind speed $19$ meters above the sea surface ($U_{19}$) \cite{michel_sea_spectra}.
+ 
  \begin{equation}
 S(k) = \frac{0.0081}{k^3}e^{-0.74\left(\frac{g}{k}\right)^2U_{19}^{-4}}
 \label{os_eq:1}
@@ -61,12 +62,14 @@ The PM spectrum is a single parameter spectrum as wind speed only drives the exp
   \end{quote}
 \end{figure}
  \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
 From Figure \ref{os_fig:1} we can see that, for the PM spectrum, wind speed impacts the spectral peak and low spatial frequency cutoff but has no effect at high spatial frequencies.
  
 The PM spectrum assumes deep water, infinite fetch and no swells and has repeatedly been shown to be accurate for gravity waves in fully developed seas, but fails to capture spectral peaks due to high winds over short fetches.
 
-\iftoggle{separate_ocean_surface}{\section}{\subsection} {Bretschneider Spectrum}
+\subsection {Bretschneider Spectrum}
 To overcome the limitations of a spectrum that requires fully developed seas, several multi-parameter spectra have been developed. In 1978, the 12th International Towing Tank Conference recommended the Bretschneider spectrum \cite{michel_sea_spectra} shown in Equation \ref{os_eq:1a} where the modal frequency $\omega_m$ is given by $\omega_m = 0.4\sqrt{g/H_{1/3}}$.
+
 \begin{equation}
   \begin{gathered}
   \label{os_eq:1a}
@@ -74,6 +77,7 @@ To overcome the limitations of a spectrum that requires fully developed seas, se
   \end{gathered}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
 Figure \ref{os_fig:1a} shows the variance power spectrum on the left hand side and the associated curvature spectrum on the right hand side, both for wave height standard deviations from $0.1$ m to $1$ m in increments of $0.1$ m.
 
  \begin{figure}[H]
@@ -86,9 +90,10 @@ Figure \ref{os_fig:1a} shows the variance power spectrum on the left hand side a
   \end{quote}
 \end{figure}
  \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
 The Bretschneider spectrum is a two-parameter spectrum as both the exponential term and the amplitude in Equation \ref{os_eq:1a} are dependent on significant wave height.
 
-\iftoggle{separate_ocean_surface}{\section}{\subsection} {JONSWAP Spectrum}
+\subsection {JONSWAP Spectrum}
 The Joint North Sea Wave Project (JONSWAP) in the 1970s modified the Pierson-Moskowitz spectrum by adding a peak enhancement factor as shown in Equation \ref{os_eq:1b} \cite{michel_sea_spectra}.
 \begin{equation}
   \label{os_eq:1b}
@@ -96,19 +101,22 @@ The Joint North Sea Wave Project (JONSWAP) in the 1970s modified the Pierson-Mos
   \end{equation}
 The enhancement factor $\nu$ was empirically derived for locations in the North Sea and allows control of the amplitude as in the Bretschneider spectrum. The difference is that the JONSWAP enhancement factor only amplifies the spectrum around the spectral peak.
 
-\iftoggle{separate_ocean_surface}{\section}{\subsection} {Elfouhaily Spectrum}
+\subsection {Elfouhaily Spectrum}
 Many additional spectra have been developed and in 1997, Elfouhaily et. al extended several of these to provide a unified modern spectrum that is broken into low and high spatial frequency regions, $B_l$ and $B_h$, \cite{elfouhaily}. 
 
-\iftoggle{separate_ocean_surface}{\subsection}{\subsubsection} {Spectrum Definition}
+\subsubsection {Spectrum Definition}
 The 1-dimensional version of the Elfouhaily spectrum is given in Equation \ref{os_eq:2}.
+
 \begin{equation}
   \label{os_eq:2}
   S(k) = k^{-3}\left[B_l + B_h \right]
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
 This spectrum is dependent on the wind speed at $10$ m altitude ($U_{10}$) and the inverse age parameter ($\Omega$). The inverse age parameter indicates how developed the sea is; fully developed for $\Omega = 0.84$, mature for $\Omega = 1.0$, and young for $\Omega > 2.0$. 
 
 The low spatial frequency region, $B_l$, is given by Equation \ref{os_eq:3} and the parameters are defined in Table \ref{os_tab:1} and Equation \ref{os_eq:3a}. Here we are using $v$ to represent phase speed rather than $c$ to prevent confusion with the speed of light.
+
 \begin{equation}
   \label{os_eq:3}
  B_l = \frac{1}{2} \alpha_p \frac{v_p}{v} F_p
@@ -123,6 +131,7 @@ The low spatial frequency region, $B_l$, is given by Equation \ref{os_eq:3} and 
 \end{align}
 \end{subequations}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
 \begin{table}[H]
   \begin{center}
       \renewcommand{\baselinestretch}{1} \small\normalsize
@@ -205,17 +214,21 @@ The variables $L_{PM}$ and $J_p$ are found in both $B_l$ and $B_h$ and are given
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 In \cite{elfouhaily}, the dispersion relation that holds for both gravity and capillary waves is given as 
+
 \begin{equation}
 \label{os_eq:5aa}
 \omega^2 = gk\left[1 + \left(\frac{k}{k_m}\right)^2 \right]
 \end{equation}
-We can use Equation \ref{os_eq:5aa} to define the phase speed as
+
+\noindent We can use Equation \ref{os_eq:5aa} to define the phase speed as
+
 \begin{equation}
 \label{os_eq:5ab}
 v = \frac{\omega}{k}= \sqrt{\frac{g}{k}\left[1 + \left(\frac{k}{k_m}\right)^2 \right]}
 \end{equation}
 
 In the case where we have fetch rather than the inverse age parameter, we can compute the inverse age parameter as shown in Equation \ref{os_eq:5a}. Here $x$ is the dimensional fetch in m and $X$ is the non-dimensional fetch.
+
 \begin{equation}
 \label{os_eq:5a}
 \begin{gathered}
@@ -226,8 +239,9 @@ In the case where we have fetch rather than the inverse age parameter, we can co
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\iftoggle{separate_ocean_surface}{\subsection}{\subsubsection}{1-Dimensional Spectrum Visualization}
+\subsubsection{1-Dimensional Spectrum Visualization}
 Figure \ref{os_fig:3} shows the variance power spectrum on the left hand side and the associated curvature spectrum on the right hand side. These plots were generated for wind speeds from $3$ m/s to $21$ m/s in increments of $2$ m/s, matching Figure 8 in \cite{elfouhaily}. In these figures, the secondary peak can clearly be seen at $370$ rad/m.
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/elf_variance_curvature_spectrum.png}
@@ -240,6 +254,7 @@ Figure \ref{os_fig:3} shows the variance power spectrum on the left hand side an
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 To demonstrate the impact of the inverse age parameter, Figure \ref{os_fig:3a} shows the variance power spectrum on the left hand side and the associated curvature spectrum on the right hand side. These figures were generated for $\Omega$ ranging from $0.84$ (fully developed) to $5.0$ (very young). From this figure, we can see that the spectra show energy transferring from high spatial frequencies to low spatial frequencies and the spectral peak flattening as the sea develops.
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/elf_variance_curvature_spectrum_age.png}
@@ -251,8 +266,9 @@ To demonstrate the impact of the inverse age parameter, Figure \ref{os_fig:3a} s
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\iftoggle{separate_ocean_surface}{\subsection}{\subsubsection} {Comparison with PM Spectrum}
-As a comparison, the Elfouhaily and PM variance power spectra are shown in the left hand side of Figure \ref{os_fig:2} for wind speeds of $5$ m/s and $10$ m/s. The inverse age parameter was set to $0.84$ to match and the wind speed at $19$ m altitude was approximated as $U_{19} \approx 1.026 U_{10}$. The Elfouhaily spectra are shown by the dashed lines and indicate a deviation from the PM spectra at large wave numbers. The corresponding curvature spectra are shown in the right hand side of Figure \ref{os_fig:2}. 
+\subsubsection {Comparison with PM Spectrum}
+As a comparison, the Elfouhaily and PM variance power spectra are shown in the left hand side of Figure \ref{os_fig:2} for wind speeds of $5$ m/s and $10$ m/s. The inverse age parameter was set to $0.84$ to match and the wind speed at $19$ m altitude was approximated as $U_{19} \approx 1.026 U_{10}$. The Elfouhaily spectra are shown by the dashed lines and indicate a deviation from the PM spectra at large wave numbers. The corresponding curvature spectra are shown in the right hand side of Figure \ref{os_fig:2}.
+ 
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/elf_vs_PM_variance_curvature_spectrum.png}
@@ -264,8 +280,9 @@ As a comparison, the Elfouhaily and PM variance power spectra are shown in the l
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\iftoggle{separate_ocean_surface}{\subsection}{\subsubsection}{Directional Spreading Functions}
+\subsubsection{Directional Spreading Functions}
 All the variance power spectra that have been discussed are uni-directional, meaning they only apply downrange in the direction of the wind. For two-dimensional surfaces, we need to include angular extent. This can be accomplished by applying a spreading function $\Phi$ in $k$-space as shown in Equation \ref{os_eq:5b} \cite{elfouhaily}.
+
 \begin{equation}
 \label{os_eq:5b}
 \Psi(k,\phi) = \frac{1}{k}S(k)\Phi(k,\phi)
@@ -298,8 +315,9 @@ The complete 2-dimensional unified Elfouhaily spectrum is given in Equation \ref
 \boxed{\Psi(k,\phi) = \frac{1}{2\pi k^4}\left[B_l + B_h \right] \left[1 + \Delta(k)\cos(2\phi) \right]}
 \end{equation}
 
-\iftoggle{separate_ocean_surface}{\subsection}{\subsubsection}{2-Dimensional Spectrum Visualization}
+\subsubsection{2-Dimensional Spectrum Visualization}
 Figure \ref{os_fig:7bb} shows the 2-D variance and curvature power spectra. In the curvature spectrum, we can see the secondary peak along the $x$-axis as in the 1-dimensional case. The secondary peak is not observed along the $y$-axis as that represents the crosswind direction where additional energy is not being injected by the wind.
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/elf_variance_curvature_spectrum_2D.png}
@@ -312,6 +330,7 @@ Figure \ref{os_fig:7bb} shows the 2-D variance and curvature power spectra. In t
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 Figure \ref{os_fig:7bc} shows 2-D slices of the power spectrum compared to the 1-D power spectrum on the left hand side and the same for the curvature spectrum on the right hand side, where $\Psi_x = \Psi(k_y = 0)$ and $\Psi_y = \Psi(k_x = 0)$. The 2-D spectral slices are plotted as $k_x\Psi_x$ and $k_y\Psi_y$ so that all three spectra have the same units. Note that $\Psi_x \approx S$ and that $\Psi_y$ has a shifted spectral peak and low frequency cutoff but converges to the other spectra at high spatial frequencies.
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/elf_variance_curvature_spectrum_2D_slices.png}
@@ -335,13 +354,14 @@ Figure \ref{os_fig:7cc} shows the low frequency behavior of the 2-D variance pow
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\iftoggle{separate_ocean_surface}{\chapter}{\section}{Sampling Constraints}\label{os_label:1d_sampling_constraints}
+\section{Sampling Constraints}\label{os_label:1d_sampling_constraints}
 In order to generate a random sea surface, we need to establish the number of points to use ($N$) and the spatial domain length to cover ($L$). The spatial domain sampling inteval is given by $\Delta x = \frac{L}{N}$ and is directly dependent on both the spatial domain length and the number of points. The frequency domain sampling interval is given by $\Delta k = \frac{2\pi}{L}$ and is only dependent on the length of the spatial domain. 
 
-\iftoggle{separate_ocean_surface}{\section}{\subsection}{Spatial Domain Constraints}
+\subsection{Spatial Domain Constraints}
 The spatial domain length will have a lower bound driven by the frequency of the spectral peak. From the Nyquist theorem, the spatial sampling frequency must be less than or equal to $1/2$ the spectral peak in order to recover that frequency. Because most of the energy is around the spectral peak, sampling at half the peak frequency is insufficient. A general rule of thumb is to use a factor of $1/10$ to $1/20$.
 
 Figure \ref{os_fig:6ba} shows the sampled Elfouhaily variance power spectrum in linear units with $U_{10} = 10$ m/s and $\Omega = 0.84$.  The upper left hand plot shows the sampling when $\Delta k = 1/2 k_p$, the upper right hand plot shows the sampling when $\Delta k = 1/5 k_p$, the lower left hand plot shows the sampling when $\Delta k = 1/10 k_p$, and the upper right hand plot shows the sampling when $\Delta k = 1/20 k_p$. The peak power and $1/2$ power points are identified by the dashed horizontal lines. We can see that for the case where $\Delta k = 1/2 k_p$, there are only $2$ points sampled above half power in the spectrum. For the case where $\Delta k = 1/5 k_p$, there are $5$ points sampled above half power. This is an improvement, but the spacing over the spectral peak is still coarse and the peak is not adequately sampled until $\Delta k \leq 1/10 k_p$
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/spectral_peak_sampling.png}
@@ -361,7 +381,7 @@ From Equation \ref{os_eq:3a}, we have $k_p = g\left(\frac{\Omega}{U_{10}}\right)
 
 From Equation \ref{os_eq:8o}, the lower bound on $L$ will typically be between $1$ km and $10$ km. Generating a surface with a length smaller than this will result in inadequate sampling over the portion of the spectrum containing the bulk of the energy. The upper bound on $L$ will be limited either by the problem size we are covering or computational requirements due to the number of points required.
 
-\iftoggle{separate_ocean_surface}{\section}{\subsection} {Constraints on the Number of Points}
+\subsection {Constraints on the Number of Points}
 To determine $N$, we can look at sampling requirements for high spatial frequencies. Again from the Nyquist sampling theorem, the highest wave number that can be sampled is $k_{max} = \frac{N}{2}\Delta k = \frac{N\pi}{L}$ rad/m, which corresponds to a minimum wavelength of $\lambda_{min} = 2\Delta x = \frac{2L}{N}$ m.
 
 Immediately, we can see that to sample the secondary peak at $k_m$, $\frac{N}{L}\pi > k_m$ or $N > \frac{k_m}{\pi}L$. Since $k_m = 370$ rad/m, we can round up to state that $N \geq 118L$ in this case. In other words, the number of points required to sample the secondary peak in the spectrum is $118$ times more than the length of the spatial domain. For the 1-dimensional case, this is not too bad as the secondary peak for a $10$ km length surface can be sampled with $1,180,000$ points. In the 2-dimensional case, the number of points goes as $N^2$, and this will be a significant computational issue.
@@ -369,6 +389,7 @@ Immediately, we can see that to sample the secondary peak at $k_m$, $\frac{N}{L}
 In general, we only need this many points when performing verification runs to demonstrate we are capable of modeling the entire spectrum correctly because the energy at the secondary peak is small compared to the energy at the primary peak. In many situations, we are not concerned with capturing the high spatial frequencies as much as we are with staying below a pre-defined maximum spatial step. This step is typically on the order of $0.1$ m ($N = 10L$) to $0.5$ m ($N = 2L$).
 
 Figure \ref{os_fig:6aa} shows the impact on wave number sampling for various values of $N$ for $L = 1$ km and $\Omega = 0.84$. The upper left hand plot shows the case where $N = 2L$, the upper right hand plot shows the case where $N = 10L$, the lower left hand plot shows the case where $N = 118L$, and the lower right hand plot shows the case where $N = 500L$. Since $\Delta x = \frac{L}{N}$, these cases represent spatial resolutions of $1/2$ m, $1/10$ m, $1/118$ m, and $1/500$ m. 
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sampling_coverage.png}
@@ -383,10 +404,10 @@ Since $L$ is the same for each case, $\Delta k$ is also the same and we can see 
 
 As a final note for sampling constraints, we need to maintain integer indexing for digital implementation so $N$ must be an even integer to allow the element $N/2$ to be an integer as well. We will define the range in $k$-space as running from $-\left(\frac{N}{2}-1\right)\Delta k$ to $\frac{N}{2}\Delta k$, but will shift this so that $k = 0 $ is the first element.
 
-\iftoggle{separate_ocean_surface}{\chapter}{\section} {Generation of Sea Surfaces in 1-Dimension}\label{os_sec:1d}
+\section {Generation of Sea Surfaces in 1-Dimension}\label{os_sec:1d}
 The general idea for generating sea surfaces is to use the power spectrum to create a realization of the sea surface in the frequency domain and then transform that to the spatial domain through an inverse Fourier transform. The 1-dimensional case is easiest to both understand and implement and will be discussed first.
 
-\iftoggle{separate_ocean_surface}{\section}{\subsection} {Frequency Domain Representation}
+\subsection {Frequency Domain Representation}
 To generate the frequency domain representation, we will follow the procedure outlined in \cite{percival_spectra}, but we need to provide some additional scale factors to account for conservation of energy. To handle discretization of the power spectrum, we use the fact that the amount of energy contained per unit interval is a constant, so that $S(k)dk = S(\omega) d\omega$. To normalize the spectrum to the specified wave number sampling interval, we simply need to multiply by $\Delta k$.
 
 To generate the frequency domain representation ($V_n$), we will take a set of Gaussian distributed random variables that are scaled  by the square root of the power spectrum and arrange them so the sequence is Hermitian, $V(k) = V^*(-k)$. Because $N$ is even, as described in Section \ref{os_label:1d_sampling_constraints}, there are special cases to handle to ensure that the sequence is Hermitian. $V_n$ only contains a single element for $k = 0$ and $k = \frac{N}{2}\Delta k$ and must be purely real at both frequencies. If we take a pair of uncorrelated Gaussian distributed random variables of length $\frac{N}{2}$ ($w$ and $u$), we can generate $V_n$ as shown in Equation \ref{os_eq:8}.
@@ -437,13 +458,15 @@ Figure \ref{os_fig:6ab} shows the Hermitian symmetry of the frequency domain rep
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 Now that we have the coefficients in the frequency domain, we can generate the sea surface through the inverse Fourier transform as in Equation \ref{os_eq:9}. Because the sequence is Hermitian, the sea surface will be purely real.
+
 \begin{equation}
   \label{os_eq:9}
   h(x) = \mathcal{F}^{-1}\left\{V(k) \right\}
   \end{equation}
 
-\iftoggle{separate_ocean_surface}{\section}{\subsection} {Example Realizations}
+\subsection {Example Realizations}
 Figure \ref{os_fig:7a} shows example realizations for $U_{10} = 10$ m/s and $L = 1$ km. The left hand plot shows the generated sea surface for $N = 500L$ ($\Delta x = 1/500$ m) and the right hand plot shows the same for $N=2L$ ($\Delta x = 1/2$ m).
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_1000.png}
@@ -456,6 +479,7 @@ Figure \ref{os_fig:7a} shows example realizations for $U_{10} = 10$ m/s and $L =
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 Figure \ref{os_fig:7aa} shows the first $1000$ m of example realizations for $U_{10} = 10$ m/s and $L = 10$ km. The left hand plot shows the generated sea surface for $N = 500L$ ($\Delta x = 1/500$ m) and the right hand plot shows the same for $N=2L$ ($\Delta x = 1/2$ m).
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_10000.png}
@@ -468,11 +492,12 @@ Figure \ref{os_fig:7aa} shows the first $1000$ m of example realizations for $U_
 \renewcommand{\baselinestretch}{2} \small\normalsize
 Figure \ref{os_fig:7a} and Figure \ref{os_fig:7aa} show the same general wave behavior in terms of significant wave height and frequency variations, which indicates the spatial peak has been adequately sampled in each case.
 
-\iftoggle{separate_ocean_surface}{\chapter}{\section} {Generation of Sea Surfaces in 2-Dimensions}
+\section {Generation of Sea Surfaces in 2-Dimensions}
 We will follow Section \ref{os_sec:1d} to generate 2-dimensional surfaces but we now have a wave vector $\mathbf{k} = k_x\hat{\mathbf{x}} + k_y\hat{\mathbf{y}}$ instead of a scalar wave number. In this case we will have matrices and the number of points will go as $N^2$. We still have the constraint that the frequency domain representation should exhibit Hermitian symmetry, so $V(n,m) = V^*(N-n,N-m)$. The special cases at the elements $k = 0$ and $k = \frac{N}{2}\Delta k$ now turn into special cases for the vectors $k_x = 0$, $k_x = \frac{N}{2}\Delta k$, $k_y = 0$, and $k_y = \frac{N}{2}\Delta k$. We are assuming uniform sampling along both $x$ and $y$ so that $\Delta k_x = \Delta k_y = \Delta k$.
 
-\iftoggle{separate_ocean_surface}{\section}{\subsection} {Frequency Domain Representation}
+\subsection {Frequency Domain Representation}
 The idea of Hermitian symmetry is less intuitive for 2-dimensions than 1-dimension. We should be careful to point out that the property of Hermitian symmetry does not imply that the matrix itself is Hermitian, as in general $V \neq V^H$. Figure \ref{os_fig:7dd} shows the symmetry properties for an $8 \times 8$ matrix ($N = 8$) in terms of $(k_x, k_y)$ pairs. Here, the arrows identify the groupings that show symmetry. 
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=4in]{../media/Ocean_Surface/2-d_hermitian_symmetry.png}
@@ -483,6 +508,7 @@ The idea of Hermitian symmetry is less intuitive for 2-dimensions than 1-dimensi
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
 The $4$ white blocks at $(k_x=0, k_y=0)$, $(k_x=4\Delta k, k_y=0)$, $(k_x=0, k_y=4\Delta k)$, and $(k_x=4\Delta k, k_y=4\Delta k)$ have no symmetric frequencies and must be purely real. The 4 vectors where $k_x = 0$, $k_x = 4\Delta k$, $k_y = 0$, and $k_y = 4\Delta k$ are again special cases with no symmetric frequencies in the 2nd dimension. These cases can be treated independently as if they were 1-dimensional sequences. This leaves a set of $4$ sub-matrices of size $\frac{N}{2} - 1 \times \frac{N}{2} - 1$. It is sufficient to compute $2$ of the sub-matrices directly ($\mathbf{A}$ and $\mathbf{B}$) and then use the Hermitian symmetry property to generate the remaining $2$ sub-matrices ($\mathbf{C}$ and $\mathbf{D}$).
 
 The process to generate the frequency domain representation starts by using Equation \ref{os_eq:8} to cover the $4$ special cases where $k_x = 0$, $k_x = \frac{N}{2}\Delta k$, $k_y = 0$, and $k_y = \frac{N}{2}\Delta k$. Each case will produce a sequence of length $N$, and should use independent sets of random variables $w$ and $u$ and the full 2-dimensional spectrum $\Psi$ instead of $S$. This is shown in Equation \ref{os_eq:9a} where $\alpha$ represents the spatial case being considered ($\alpha = 0$ or $\alpha = \frac{N}{2}$).
@@ -512,6 +538,7 @@ We can then generate $4$ matrices of random variables ($W_1$, $W_2$, $U_1$, and 
 In these equations, the offsets in indexing $\Psi$ ensure that the correct spectral component is used. As with Equation \ref{os_eq:8}, we have an extra scale factor of $\frac{1}{2}$ to account for the additional expectation ($\left<W_1 + iU_1\right>$ and $\left<W_1 - iU_1\right>$ for $\mathbf{A}$ and $\left<W_2 + iU_2\right>$ and $\left<W_2 - iU_2\right>$ for $\mathbf{B}$).
 
 We can then compute $\mathbf{C}$ and $\mathbf{D}$ from symmetry:
+
 \begin{equation}
 \label{os_eq:12}
 \begin{gathered}
@@ -522,8 +549,9 @@ We can then compute $\mathbf{C}$ and $\mathbf{D}$ from symmetry:
 
 Once we have all the pieces, we can lay everything down in the appropriate location in $V$.
 
-\iftoggle{separate_ocean_surface}{\section}{\subsection} {Example Realizations}
+\subsection {Example Realizations}
 Figure \ref{os_fig:8} shows a generated 2D sea surface with $L = 1$ km, $N = 2L$, and $U_{10} = 10$ m/s. The right hand plot shows an image of the entire $1000$ square meter surface and the left hand plot shows a 3D rendering of the $100$ square meter patch outlined in the red box in the upper left hand corner of the right hand plot.
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_surf_1000.png}
@@ -536,6 +564,7 @@ Figure \ref{os_fig:8} shows a generated 2D sea surface with $L = 1$ km, $N = 2L$
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 Figure \ref{os_fig:8a} shows the same thing as Figure \ref{os_fig:8} but with $N=10L$ instead of $N = 2L$.
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_surf_1000_10.png}
@@ -548,6 +577,7 @@ Figure \ref{os_fig:8a} shows the same thing as Figure \ref{os_fig:8} but with $N
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 Figure \ref{os_fig:11} shows the generated sea surface for $L = 5$ km, $N$= $2L$, and $U_{10} = 10$ m/s. Again, the right hand plot shows an image of a $1000$ square meter section of the surface and the left hand plot shows a 3D rendering of the $100$ square meter patch outlined in the red box in the upper left hand corner of the right hand plot.
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_surf_5000.png}
@@ -560,6 +590,7 @@ Figure \ref{os_fig:11} shows the generated sea surface for $L = 5$ km, $N$= $2L$
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 Figure \ref{os_fig:12} shows the generated sea surface for $L = 7.5$ km , $N$ = $2L$, and $U_{10} = 10$ m/s. Again, the right hand plot shows an image of a $1000$ square meter section of the surface and the left hand plot shows a 3D rendering of the $100$ square meter patch outlined in the red box in the upper left hand corner of the right hand plot.
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_surf_7500.png}
@@ -571,21 +602,23 @@ Figure \ref{os_fig:12} shows the generated sea surface for $L = 7.5$ km , $N$ = 
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\iftoggle{separate_ocean_surface}{\chapter}{\section} {Verification}
+\section {Verification}
 Verification testing is important to ensure that the computed sea surfaces have the appropriate statistics and that conservation of energy is maintained.
 
-\iftoggle{separate_ocean_surface}{\section}{\subsection} {Verification Process}
+\subsection {Verification Process}
 The verification process involves first generating a series of realizations to compare ensemble statistics. The overall wave height is compared against Table \ref{os_tab:0} and $\sigma_h$ is compared to Table 6.3 in the Tropospheric Electromagnetic Parabolic Equation Routine (TEMPER) user guide \cite{temper_guide}. The Ocean Surface Generator (OSG) mode added in TEMPER v3.2 internally uses the 1-dimensional Elfouhaily spectrum to generate random sea surface realizations and provides a table of ensemble statistics for comparison \cite{temper_guide}. 
 
 The next step is to recover the power spectrum from the sea surface and compare it to the original power spectrum. Since we are operating in $k$-space and computational FFT routines work in frequency space ($f_x$), we need to scale the results by $1/2\pi$. 
 
 The 1-D recovered spectrum is found from the 1-dimensional surface $h$:
+
 \begin{equation}
 \label{os_eq:ab}
 \hat{S} = \left[\frac{1}{2\pi}\left|\mathcal{F}\left\{ h\right\} \right| \right]^2\frac{2 \Delta x}{N}
 \end{equation}
 
 The 2-D recovered spectrum is found from the 2-dimensional surface $H$:
+
 \begin{equation}
 \label{os_eq:ba}
 \hat{\Psi} = \left[\frac{1}{2\pi}\left|\mathcal{F}\left\{ H\right\} \right| \right]^2\frac{2 \Delta x^2}{N^2}
@@ -593,9 +626,10 @@ The 2-D recovered spectrum is found from the 2-dimensional surface $H$:
 
 In the 2-D case, the full 2-D spectrum is estimated from the generated surface and then slices are taken to compare to slices from the original 2-D spectrum. 
 
-\iftoggle{separate_ocean_surface}{\section}{\subsection} {1-D Testing}
-\iftoggle{separate_ocean_surface}{\subsection}{\subsubsection} {Ensemble Statistics}
+\subsection {1-D Testing}
+\subsubsection {Ensemble Statistics}
 Figure \ref{os_fig:7fff} shows the 1-D surface RMS wave height vs. wind speed and is consistent with Table 6.3 and Figure 6.6 in \cite{temper_guide}.
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=4in]{../media/Ocean_Surface/1d_ensemble_rms.png}
@@ -606,10 +640,12 @@ Figure \ref{os_fig:7fff} shows the 1-D surface RMS wave height vs. wind speed an
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
 This figure shows the ensemble averages of 100 realizations for 6 different sampling conditions at various wind speeds. The conditions were set to $N = 2L$, $N = 10L$, and $N = 100L$ for $L = 1$ km and $L = 10$ km. There is little difference in the RMS wave heights of any of the settings expect at high wind speeds. Because the wind speed shifts the spectral peak, the $L = 1$ km cases are no longer adequately sampling the spectral peak at high wind speeds.
 
-\iftoggle{separate_ocean_surface}{\subsection}{\subsubsection} {Power Spectrum Recovery}
+\subsubsection {Power Spectrum Recovery}
 Figure \ref{os_fig:7bbb} shows the case for $U_{10} = 10$ m/s and $L = 1$ km. The left hand plot shows a comparison of the original spectrum to the recovered spectrum for $N = 500L$ ($\Delta x = 1/500$ m) and the right hand plot shows the same for $N=2L$ ($\Delta x = 1/2$ m).
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_spectra_1000.png}
@@ -620,9 +656,11 @@ Figure \ref{os_fig:7bbb} shows the case for $U_{10} = 10$ m/s and $L = 1$ km. Th
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
 For $L = 1$ km, the smapling is insufficient to recover the spectrum at low spatial frequencies and we do not have a good estimate of the recovered spectrum at the spectral peak.
 
 Figure \ref{os_fig:7aaa} shows the case for $U_{10} = 10$ m/s and $L = 10$ km. The left hand plot shows a comparison of the original spectrum to the recovered spectrum for $N = 500L$ ($\Delta x = 1/500$ m) and the right hand plot shows the same for $N=2L$ ($\Delta x = 1/2$ m).
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_spectra_10000.png}
@@ -633,15 +671,17 @@ Figure \ref{os_fig:7aaa} shows the case for $U_{10} = 10$ m/s and $L = 10$ km. T
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
 For $L = 10$ km, the sampling is now sufficient to recover the power spectrum at low spatial frequencies and we can see that the recovered spectrum matches the original spectrum at the spectral peak.
 
 Figure \ref{os_fig:7bbb} and Figure \ref{os_fig:7bbb} show that the power spectra are well matched in all cases.
 
-\iftoggle{separate_ocean_surface}{\section}{\subsection} {2-D Testing}
+\subsection {2-D Testing}
 The 2-D spectrum differs along the $x$ direction from the $y$ direction, so the statistics will be dependent on the direction.
 
-\iftoggle{separate_ocean_surface}{\subsection}{\subsubsection} {Ensemble Statistics}
+\subsubsection {Ensemble Statistics}
 Figure \ref{os_fig:7ffg} shows the 2-D surface RMS wave height vs. wind speed. This figure was created using 4 sampling conditions ($L = 1 $ km, $L = 5 $ km, $N = L$, and $N = 2=L$) to generate $100$ realizations of surfaces at wind speeds from $1$ m/s to $20$ m/s. Shown in the plots are the ensemble RMS waves heights along the $x$ direction and along the $y$ direction as well as the total RMS wave heights. The total RMS and the RMS along $x$ are shown in the upper grouping at high wind speed and are consistent with Table 6.3 and Figure 6.6 in \cite{temper_guide}. The RMS along $y$ is shown in the lower grouping at high wind speed and demonstrates the directional dependence of the spectrum.
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=4in]{../media/Ocean_Surface/2d_ensemble_rms.png}
@@ -653,8 +693,9 @@ Figure \ref{os_fig:7ffg} shows the 2-D surface RMS wave height vs. wind speed. T
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\iftoggle{separate_ocean_surface}{\subsection}{\subsubsection} {Power Spectrum Recovery}
+\subsubsection {Power Spectrum Recovery}
 For the $L$ = 1 km, $N$ = $2L$, and $U_{10} = 10$ m/s case, Figure \ref{os_fig:10} shows slices along the $N/2$ element in both the $x$ and $y$ planes on the left hand side and a comparison of the spectral slices in the 2-D Elfouhaily spectrum on the right hand side. 
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_slices_1000.png}
@@ -667,6 +708,7 @@ For the $L$ = 1 km, $N$ = $2L$, and $U_{10} = 10$ m/s case, Figure \ref{os_fig:1
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 Figure \ref{os_fig:10a} shows the same thing as Figure \ref{os_fig:10} but with $N=10L$ instead of $N = 2L$.
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_slices_1000_10.png}
@@ -679,6 +721,7 @@ Figure \ref{os_fig:10a} shows the same thing as Figure \ref{os_fig:10} but with 
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 For the $L = 5$ km, $N = 2L$, and $U_{10} = 10$ m/s case, Figure \ref{os_fig:11a} shows slices along the $N/2$ element in both the $x$ and $y$ planes on the left hand side and a comparison of the spectral slices in the 2-D Elfouhaily spectrum on the right hand side.
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_slices_5000.png}
@@ -691,6 +734,7 @@ For the $L = 5$ km, $N = 2L$, and $U_{10} = 10$ m/s case, Figure \ref{os_fig:11a
 \renewcommand{\baselinestretch}{2} \small\normalsize
  
 For the $L = 7.5$ km, $N = 2L$, and $U_{10} = 10$ m/s case, Figure \ref{os_fig:12a} shows slices along the $N/2$ element in both the $x$ and $y$ planes on the left hand side and a comparison of the spectral slices in the 2-D Elfouhaily spectrum on the right hand side.
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=6in]{../media/Ocean_Surface/sea_surface_2d_slices_7500.png}
@@ -702,11 +746,12 @@ For the $L = 7.5$ km, $N = 2L$, and $U_{10} = 10$ m/s case, Figure \ref{os_fig:1
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\iftoggle{separate_ocean_surface}{\chapter}{\section} {Time Varying Surfaces}
+\section {Time Varying Surfaces}
 To add in the time dependence and create ocean surfaces that vary in the time domain, we can use the shifting property of the Fourier transform and multiply the spatial frequency domain random sequences by $e^{-j\omega t}$. We will use the dispersion relation given in Equation \ref{os_eq:5aa}, $\omega^2 = gk\left[1 +(k/k_m)^2 \right]$, to relate the temporal frequency to the spatial frequency. Because we need to maintain Hermitian symmetry in the spatial frequency domain, the complex conjugate pairs will be multiplied by either $e^{-j\omega t}$ or $e^{+j\omega t}$.
 
-\iftoggle{separate_ocean_surface}{\section}{\subsection} {1-D Time Varying Surfaces}
+\subsection {1-D Time Varying Surfaces}
 For the 1-D case, we can replace Equation \ref{os_eq:8} with the following to generate the Hermitian sequence $V_n$.
+
 \begin{equation}
   \label{os_eq:888}   
   V_n = \begin{cases}
@@ -730,7 +775,7 @@ The time varying sea surface will be found from the inverse Fourier transform, $
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\iftoggle{separate_ocean_surface}{\section}{\subsection} {2-D Time Varying Surfaces}
+\subsection {2-D Time Varying Surfaces}
 
-\iftoggle{separate_ocean_surface}{\chapter}{\section} {Quasi 2-D Surfaces}
+\section {Quasi 2-D Surfaces}
 

@@ -16,21 +16,21 @@ end
 x = linspace(xExtent(1),xExtent(2),500);
 z = x;
 [X,Z] = meshgrid(x,z);
-Go2 = sqrt(j./(8*pi*X)).*exp(-j*(X + Z.^2./(2*X)));
+Go2 = sqrt(1./(8*1j*pi*X)).*exp(-j*(X + Z.^2./(2*X)));
 z0 = length(x)/2 + 1;
 
 h(1) = figure;
 subplot(2,1,1)
 f(1) = plot(x,abs(Go2(z0,:)));
-xlabel('$kx$ (rad)','Interpreter','latex')
-ylabel('$k|G_o(\mathbf{r},\mathbf{r}'')|$','Interpreter','latex')
+xlabel('$k_ox$ (rad)','Interpreter','latex')
+ylabel('$k_o|G_o(\mathbf{r},\mathbf{r}'')|$','Interpreter','latex')
 grid on
 set(gca,'FontSize',fontSize)
 xlim(xExtent)
 
 subplot(2,1,2)
 f(2) = plot(x,angle(Go2(z0,:)));
-xlabel('$kx$ (rad)','Interpreter','latex')
+xlabel('$k_ox$ (rad)','Interpreter','latex')
 ylabel('$\angle G_o(\mathbf{r},\mathbf{r}'')$','Interpreter','latex')
 grid on
 set(gca,'FontSize',fontSize)
@@ -40,16 +40,16 @@ h(2) = figure;
 subplot(2,1,1)
 f(3) =  plot(x,real(Go2(z0,:)));
 grid on
-xlabel('$kx$ (rad)','Interpreter','latex')
-ylabel('Re$\{kG_o(\mathbf{r},\mathbf{r}'')\}$','Interpreter','latex')
+xlabel('$k_ox$ (rad)','Interpreter','latex')
+ylabel('Re$\{k_oG_o(\mathbf{r},\mathbf{r}'')\}$','Interpreter','latex')
 set(gca,'FontSize',fontSize)
 xlim(xExtent)
 
 subplot(2,1,2)
 f(4) =  plot(x,imag(Go2(z0,:)));
 grid on
-xlabel('$kx$ (rad)','Interpreter','latex')
-ylabel('Im$\{kG_o(\mathbf{r},\mathbf{r}'')\}$','Interpreter','latex')
+xlabel('$k_ox$ (rad)','Interpreter','latex')
+ylabel('Im$\{k_oG_o(\mathbf{r},\mathbf{r}'')\}$','Interpreter','latex')
 set(gca,'FontSize',fontSize)
 xlim(xExtent)
 

@@ -23,9 +23,9 @@ Go3 = exp(-1i*R)./(4*pi*R);
 h(1) = figure;
 subplot(2,1,1)
 f(1) = mesh(x,y,abs(Go3));
-xlabel('$kx$ (rad)','Interpreter','latex')
-ylabel('$ky$ (rad)','Interpreter','latex')
-zlabel('$k|G_o(\mathbf{r},\mathbf{r}'')|$','Interpreter','latex')
+xlabel('$k_ox$ (rad)','Interpreter','latex')
+ylabel('$k_oy$ (rad)','Interpreter','latex')
+zlabel('$k_o|G_o(\mathbf{r},\mathbf{r}'')|$','Interpreter','latex')
 colormap(jet(256))
 colorbar
 set(gca,'FontSize',fontSize)
@@ -34,8 +34,8 @@ ylim(yExtent)
 
 subplot(2,1,2)
 f(2) = mesh(x,y,angle(Go3));
-xlabel('$kx$ (rad)','Interpreter','latex')
-ylabel('$ky$ (rad)','Interpreter','latex')
+xlabel('$k_ox$ (rad)','Interpreter','latex')
+ylabel('$k_oy$ (rad)','Interpreter','latex')
 zlabel('$\angle G_o(\mathbf{r},\mathbf{r}'')$','Interpreter','latex')
 colormap(jet(256))
 colorbar
@@ -49,9 +49,9 @@ subplot(2,1,1)
 f(3) = mesh(x,y,real(Go3));
 colormap(jet(256));
 colorbar
-xlabel('$kx$ (rad)','Interpreter','latex')
-ylabel('$ky$ (rad)','Interpreter','latex')
-zlabel('Re$\{kG_o(\mathbf{r},\mathbf{r}'')\}$','Interpreter','latex')
+xlabel('$k_ox$ (rad)','Interpreter','latex')
+ylabel('$k_oy$ (rad)','Interpreter','latex')
+zlabel('Re$\{k_oG_o(\mathbf{r},\mathbf{r}'')\}$','Interpreter','latex')
 set(gca,'FontSize',fontSize)
 xlim(xExtent)
 ylim(yExtent)
@@ -60,9 +60,9 @@ subplot(2,1,2)
 f(4) = mesh(x,y,imag(Go3));
 colormap(jet(256));
 colorbar
-xlabel('$kx$ (rad)','Interpreter','latex')
-ylabel('$ky$ (rad)','Interpreter','latex')
-zlabel('Im$\{kG_o(\mathbf{r},\mathbf{r}'')\}$','Interpreter','latex')
+xlabel('$k_ox$ (rad)','Interpreter','latex')
+ylabel('$k_oy$ (rad)','Interpreter','latex')
+zlabel('Im$\{k_oG_o(\mathbf{r},\mathbf{r}'')\}$','Interpreter','latex')
 set(gca,'FontSize',fontSize)
 view(az2,el2);
 xlim(xExtent)
