@@ -7,6 +7,7 @@
 \usepackage{amsmath}
 \usepackage{float}
 \usepackage{supertabular}
+\usepackage[section]{placeins}
 
 \usepackage[font=small,labelfont=bf]{caption}
 \renewcommand\figurename{Figure}
@@ -18,8 +19,8 @@
 
 %make sure the number tables and figures by chapter
 \usepackage{chngcntr}
-\counterwithin{table}{section}
-\counterwithin{figure}{section}
+\counterwithin{table}{chapter}
+\counterwithin{figure}{chapter}
 
 %set up section display settings
 \usepackage{titlesec}

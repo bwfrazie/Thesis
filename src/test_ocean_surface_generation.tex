@@ -1,5 +1,4 @@
-%\documentclass[12pt]{../packages/thesis}  %12pt is larger than 11pt
-\documentclass[12pt,twoside]{paper}  %12pt is larger than 11pt
+\documentclass[12pt,twoside]{paper}
 \usepackage[left=3.0cm, right = 2.5cm,bottom=3.5cm,headsep=12pt]{geometry}
 
 %include necessary packages      
@@ -8,16 +7,15 @@
 \usepackage{float}
 \usepackage{supertabular}
 \usepackage[framed,numbered,autolinebreaks,useliterate]{../packages/mcode}
+\usepackage[section]{placeins}
 
 \usepackage[font=small,labelfont=bf]{caption}
-\renewcommand\figurename{Figure}
-\renewcommand\tablename{Table}
+\renewcommand{\figureshortname}{Figure}
+\renewcommand{\tableshortname}{Table}
 
 %Make sure to number Equations by chapter
 \numberwithin{equation}{section}
 \setcounter{secnumdepth}{4}
-
-
 
 %make sure the number tables and figures by chapter
 \usepackage{chngcntr}

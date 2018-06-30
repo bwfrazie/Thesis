@@ -1,5 +1,4 @@
-%\documentclass[12pt]{../packages/thesis}  %12pt is larger than 11pt
-\documentclass[12pt,twoside]{paper}  %12pt is larger than 11pt
+\documentclass[12pt,twoside]{paper}
 \usepackage[left=3.0cm, right = 2.5cm,bottom=3.5cm,headsep=12pt]{geometry}
 
 %include necessary packages      
@@ -7,10 +6,11 @@
 \usepackage{amsmath}
 \usepackage{float}
 \usepackage{supertabular}
+\usepackage[section]{placeins}
 
 \usepackage[font=small,labelfont=bf]{caption}
-\renewcommand\figurename{Figure}
-\renewcommand\tablename{Table}
+\renewcommand{\figureshortname}{Figure}
+\renewcommand{\tableshortname}{Table}
 
 %Make sure to number Equations by chapter
 \numberwithin{equation}{section}
@@ -31,11 +31,6 @@
 \usepackage[tocflat]{tocstyle}
 \usetocstyle{standard}
       
-%setup etoolbox for toggles
-\usepackage{etoolbox}
-\newtoggle{separate_greens_functions}
-\toggletrue{separate_greens_functions}
-
 %setup the header and footers    
 \usepackage{fancyhdr}    
 \setlength{\headheight}{43pt}
