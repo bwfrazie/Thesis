@@ -1,5 +1,6 @@
 function [S,kp]= Elfouhaily(k,U10,age,varargin)
 %S = Elfouhaily(k,U10,age)
+%S = Elfouhaily(k,U10,age,phi)
 phi = 0;
 if nargin == 4
     phi = varargin{1};
@@ -16,7 +17,7 @@ k0 = g/(U10^2);
 kp = k0 * age^2; %wavenumber of the spectral peak
 cp = sqrt(g/kp); %phase speed at the spectral peak cp = U10/age
 
-if (ustar <= cm) %alpham is the generalizaed Phillips-Kitaigorodskii equilibrium range parameter for short waves
+if (ustar <= cm) %alpham is the generalized Phillips-Kitaigorodskii equilibrium range parameter for short waves
     alpham = 0.01*(1 + log(ustar/cm));
 else
     alpham = 0.01*(1 + 3*log(ustar/cm));

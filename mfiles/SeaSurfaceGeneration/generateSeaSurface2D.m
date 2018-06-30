@@ -23,13 +23,6 @@ kyy = ifftshift(kyy);
 %convert to polar coordinates
 [phi,k] = cart2pol(kxx,kyy);
 
-%compute the dispersion relations
-km = 370.0;
-g = 9.81;
-k1 = (0:N/2)*dk;
-omega1 = sqrt(g*k1 +(k1/km).^2);
-omega = sqrt(g*abs(k) +(k/km).^2);
-
 %% Spectral Representation
 %get the elfouhaily spectrum
 S = Elfouhaily2D(k,phi,U10,age);  
@@ -58,8 +51,8 @@ for u = 1:N/2-1
         va = v+1;
         ub = u + 1;
         vb = v + N/2 + 1;
-        Va(u,v) = 1/2*sqrt(S(ua,va)*dk^2)*(W1(u,v) + 1i*W2(u,v)).*exp(-1i*omega(u,v)*t);
-        Vb(u,v) = 1/2*sqrt(S(ub,vb)*dk^2)*(W3(u,v) + 1i*W4(u,v)).*exp(1i*omega(u,v)*t);
+        Va(u,v) = 1/2*sqrt(S(ua,va)*dk^2)*(W1(u,v) + 1i*W2(u,v));
+        Vb(u,v) = 1/2*sqrt(S(ub,vb)*dk^2)*(W3(u,v) + 1i*W4(u,v));
     end
 end
 
@@ -82,8 +75,8 @@ Vy0 = [];
 Vx0(1) = 0;
 Vy0(1) = 0;
 for(j = 2:N/2)
-    Vx0(j) = 1/2*sqrt(S(1,j)*dk^2)*(w1(j) + 1i*u1(j)).*exp(-1i*omega1(j)*t);
-    Vy0(j) = 1/2*sqrt(S(j,1)*dk^2)*(w2(j) + 1i*u2(j)).*exp(-1i*omega1(j)*t);
+    Vx0(j) = 1/2*sqrt(S(1,j)*dk^2)*(w1(j) + 1i*u1(j));
+    Vy0(j) = 1/2*sqrt(S(j,1)*dk^2)*(w2(j) + 1i*u2(j));
 end
 Vx0(N/2+1) = sqrt(S(1,N/2+1)*dk^2)*u1(1);
 Vy0(N/2+1) = sqrt(S(N/2+1,1)*dk^2)*u2(1);
@@ -109,8 +102,8 @@ Vx2(1) = sqrt(S(N/2+1,1)*dk^2)*w3(1);
 Vy2(1) = sqrt(S(1,N/2+1)*dk^2)*w4(1);
 
 for(j = 2:N/2)
-    Vx2(j) = 1/2*sqrt(S(N/2+1,j)*dk^2)*(w3(j) + 1i*u3(j)).*exp(-1i*omega1(j)*t);
-    Vy2(j) = 1/2*sqrt(S(j,N/2+1)*dk^2)*(w4(j) + 1i*u4(j)).*exp(-1i*omega1(j)*t);
+    Vx2(j) = 1/2*sqrt(S(N/2+1,j)*dk^2)*(w3(j) + 1i*u3(j));
+    Vy2(j) = 1/2*sqrt(S(j,N/2+1)*dk^2)*(w4(j) + 1i*u4(j));
 end
 
 Vx2(N/2+1) = sqrt(S(N/2+1,N/2+1)*dk^2)*u4(1);
@@ -126,7 +119,7 @@ end
 V(N/2+1,:) = Vy2;
 V(:,N/2+1) = Vx2';
 
-% V = V*sqrt(2);
+% generate the surface and create the x and y vectors for return
 h = ifft2(V)*length(V)^2;
 x = (0:N-1)*L/N;
 y = (0:N-1)*L/N;

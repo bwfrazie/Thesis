@@ -7,7 +7,6 @@
 \usepackage{amsmath}
 \usepackage{float}
 \usepackage{supertabular}
-%\usepackage{listings}
 \usepackage[framed,numbered,autolinebreaks,useliterate]{../packages/mcode}
 
 \usepackage[font=small,labelfont=bf]{caption}
@@ -17,6 +16,8 @@
 %Make sure to number Equations by chapter
 \numberwithin{equation}{section}
 \setcounter{secnumdepth}{4}
+
+
 
 %make sure the number tables and figures by chapter
 \usepackage{chngcntr}
@@ -44,7 +45,7 @@
 \fancyhf{}
 \pagestyle{fancy}
 
-\fancyhead[R]{Enclosure (1) to \\ FPS-T-18-0290}
+\fancyhead[R]{Attachment (1) to \\ FPS-T-18-0290}
 \fancyhead[L]{\includegraphics[width=0.25\textwidth,keepaspectratio]{../media/apl_small_horizontal_blue_cropped}}
 \renewcommand{\headrulewidth}{1pt}
 \renewcommand{\footrulewidth}{1pt}
@@ -54,10 +55,10 @@
 \input{OceanSurfaceTitlepage} 
 \newpage
 
-\fancyhead[R]{Enclosure (1) to \\FPS-T-18-0290 \\ Page \thepage}
+\renewcommand{\thelstlisting}{\thesection.\arabic{lstlisting}}
 
-%\renewcommand{\baselinestretch}{1}
-%\small\normalsize
+\fancyhead[R]{Attachment (1) to \\FPS-T-18-0290 \\ Page \thepage}
+
 
 \tableofcontents %(required, lower-case Roman)
 \newpage
@@ -66,6 +67,9 @@
 \newpage
 \addcontentsline{toc}{section}{\listtablename}
 \listoftables %(if present, lower-case Roman)
+\newpage
+\addcontentsline{toc}{section}{List of Listings}
+\lstlistoflistings
 \newpage
 %List of Abbreviations
 \addcontentsline{toc}{section}{List of Abbreviations}

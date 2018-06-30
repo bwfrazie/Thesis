@@ -2,9 +2,6 @@ function [h, k, S, V, x, kp, lambda_p] = generateSeaSurface(L, N, U10, age, phi,
 %[h, k, S, V, x, kp, lambda_p] = generateSeaSurface(L, N, U10, age,phi,t)
 %[h, k, S, V, x, kp, lambda_p] = generateSeaSurface(L, N, U10, age,phi,t,seed)
 
-linearCutOff = 0.75;
-useFilter = false;
-
 if (nargin >= 7)
    seed = varargin{1};
    if (seed > 0)
@@ -13,12 +10,7 @@ if (nargin >= 7)
        error('Random Number Seed Must be Nonnegative Integer');
    end
 end
-if (nargin >=8)
-    useFilter = varargin{2};
-end
-if (nargin == 9)
-    linearCutOff = varargin{3};
-end
+
 
 dk = 2*pi/L;
 k = (0:N/2)*dk;
@@ -31,15 +23,6 @@ omega = sqrt(g*k +(k/km).^2);
 [S,kp] = Elfouhaily(k,U10,age,phi);
 lambda_p = 2*pi/kp;
 S(1) = 0;
-
-if useFilter == true
-    %apply the filter
-    Spindex = find(S == max(S));
-    S1index = find(S >= linearCutOff*max(S),1);
-    S2index = Spindex + find(S(Spindex:end) <= linearCutOff*max(S),1);
-    %S(1:S1index-1) = 0;
-    S(S2index+1:end) = 0;
-end
 
 %create the random variables
 
@@ -57,5 +40,6 @@ for (j = N/2+2:N)
 V(j) = conj(V(N-j + 2));
 end
 
+%generate the surface and create the x vector for return
 h = ifft(V)*length(V);
 x = (0:N-1)*L/N;
