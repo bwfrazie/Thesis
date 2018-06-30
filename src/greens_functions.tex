@@ -1040,10 +1040,10 @@ r\approx z + \frac{(x-x’)^2}{2z}+\frac{(y-y’)^2}{2z}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Here, $x'$ and $y'$ represent the coordinates in the source plane and $x$ and $y$ represent the coordinates in the observation plane. With the substitution $\cos(\theta) = z/r$, we can now rewrite Equation \ref{gf_eq:53} as
+Here, $x'$ and $y'$ represent the coordinates in the source plane and $x$ and $y$ represent the coordinates in the observation plane. Because of the quadratic nature, the phase will rapidly oscillate as we move off axis. This means only a narrow region around the axis will contribute significantly and we can use the principle of stationary phase \cite{gbur_math} to extend the integration limits to $\pm \infty$. With the substitution $\cos(\theta) = z/r \approx 1$, we can now rewrite Equation \ref{gf_eq:53} as
 
 \begin{equation}
-\boxed{U(P_2) =\frac{je^{-jk_oz}}{\lambda z}\int U(x’,y’)\exp\left[-j \frac{k}{2z}\left([x-x’]^2 + [y-y’]^2 \right) \right]dx’ dy’}
+\boxed{U(P_2) =\frac{je^{-jk_oz}}{\lambda z}\int_{-\infty}^{\infty} U(x’,y’)\exp\left[-j \frac{k}{2z}\left([x-x’]^2 + [y-y’]^2 \right) \right]dx’ dy’}
 \label{gf_eq:53d}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1070,7 +1070,7 @@ z >> \frac{k_oD_{\text{max}}}{2}
 For clarity, we typically replace $x'$ with $\xi$ and $y'$ with $\eta$ so that Equation \ref{gf_eq:53d} becomes
 
 \begin{equation}
-U(P_2) =\frac{je^{-jk_oz}}{\lambda z}\int U(\xi,\eta)\exp\left[-j \frac{k}{2z}\left([x-\xi]^2 + [y-\eta]^2 \right) \right]d\xi d\eta
+U(P_2) =\frac{je^{-jk_oz}}{\lambda z}\int_{-\infty}^{\infty} U(\xi,\eta)\exp\left[-j \frac{k}{2z}\left([x-\xi]^2 + [y-\eta]^2 \right) \right]d\xi d\eta
 \label{gf_eq:53g}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1078,7 +1078,7 @@ U(P_2) =\frac{je^{-jk_oz}}{\lambda z}\int U(\xi,\eta)\exp\left[-j \frac{k}{2z}\l
 We can neglect the $\xi^2$ and $\eta^2$ terms in the exponential and let $(x-\xi)^2 \approx x^2-2x\xi$ and $(y-\eta)^2\approx y^2-2y\eta$. We can factor out the quadratic phase in terms of observation coordinates, $x$ and $y$, and rewrite Equation \ref{gf_eq:53g} as
 
 \begin{equation}
-\boxed{U(P_2) =\frac{je^{-jk_oz}e^{-j\frac{k_o}{2z}(x^2+y^2)}}{\lambda z}\int U(\xi,\eta)\exp\left[j2\pi\left(\frac{x}{\lambda z}\xi + \frac{y}{\lambda z}\eta \right) \right]d\xi d\eta}
+\boxed{U(P_2) =\frac{je^{-jk_oz}e^{-j\frac{k_o}{2z}(x^2+y^2)}}{\lambda z}\int_{-\infty}^{\infty} U(\xi,\eta)\exp\left[j2\pi\left(\frac{x}{\lambda z}\xi + \frac{y}{\lambda z}\eta \right) \right]d\xi d\eta}
 \label{gf_eq:53h}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1086,10 +1086,10 @@ We can neglect the $\xi^2$ and $\eta^2$ terms in the exponential and let $(x-\xi
 Equation \ref{gf_eq:53h} is the Fraunhofer approximation and is simply the spatial Fourier transform of the aperture with spatial frequencies $f_x = x/(\lambda z)$ and $f_y = y/(\lambda z)$ \cite{goodman_fourier} \cite{gaskill_fourier}. In other words, the spatial frequencies are the source coordinates at the observation plane divided by the product of the wavelength with the propagation distance.
 
 \subsection {Diffraction from a Planar Surface}
-We can treat diffraction from a planar surface in the same fashion as diffraction through an aperture but we will need to include a reflection coefficient, $\Gamma$.
+We can treat diffraction from a planar surface in the same fashion as diffraction through an aperture but we will need to include a reflection coefficient, $\Gamma$. As a particular example, the surface of the ocean can be approximated as a planar surface when the ocean wave heights are much smaller than the altitude of interest.
 
-\subsubsection {Rough Sea Surface}
-In maritime environments, we need to propagate over the ocean, which can be approximated as a planar surface. We will derive the propagation integral for a wave that is reflected off an ocean surface with small random components using a paraxial Green's function. The geometry is shown in Figure \ref{gf_fig:15}, where $\tilde{x}$, is the region over which the energy is significantly reflected, $x_m$ is the primary point of reflection, $L_1$ is the direct path, $L_2$ and $L_3$ are the path lengths for the various reflected rays, $s(x)$ is the altitude of the sea surface at $x$, $h_2$ is the altitude of the receiver at $P_2$, $h_1$ is the altitude of the transmitter at $P_1$, and $L$ is the ground distance between $P_1$ and $P_2$. 
+\subsubsection{Integral Solution for Reflected Ray}
+In this section, we will derive the propagation integral for a wave that is reflected off an ocean surface with small random components using a paraxial Green's function. The geometry is shown in Figure \ref{gf_fig:15}, where $\tilde{x}$, is the region over which the energy is significantly reflected, $x_m$ is the primary point of reflection, $L_1$ is the direct path, $L_2$ and $L_3$ are the path lengths for the various reflected rays, $s(x)$ is the altitude of the sea surface at $x$, $h_2$ is the altitude of the receiver at $P_2$, $h_1$ is the altitude of the transmitter at $P_1$, and $L$ is the ground distance between $P_1$ and $P_2$. 
 
 \begin{figure}[ht]
   \begin{center}
@@ -1144,7 +1144,134 @@ U_2(P_2) &= \int_0^L dx \Gamma \sqrt{\frac{1}{8\pi j k_o x}}\exp[-jk_oL_2]\frac{
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\subsubsection {Knife Edges and Non-planar Terrain}
+\subsubsection{Asymptotic Approximation for Deterministic Component}
+We can simplify the various path lengths in Figure \ref{gf_fig:15} through a binomial expansion. Here $L_{so}$ represents the shortest orbit path, which would be given as a straight line between $P_1$ and the mirror image of $P_2$. 
+
+\begin{equation}
+\begin{aligned}
+L_1 & = \sqrt{L^2 + (h_1-h_2)^2}  \approx L + \frac{(h_1 - h_2)^2}{2L}\\
+L_{so} & = \sqrt{L^2 + (h_1+h_2)^2}  \approx L + \frac{(h_1 + h_2)^2}{2L}\\
+L_2 &= \sqrt{x^2 + \left( h_1 - s(x)\right)^2}  \approx x + \frac{(h_1-s(x))^2}{2x}\\
+L_3 & = \sqrt{\left(L - x\right)^2 + \left( h_2 - s(x)\right)^2}  \approx L-x + \frac{(h_2 - s(x))^2}{2\left(L-x\right)}\\
+\end{aligned}
+\label{gf_eq:59}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+The path length for a given reflected ray, $L_r$ is given by
+\begin{equation}
+\begin{aligned}
+L_r &= L_2 + L_3 \\
+& = x + \frac{h_1^2-2h_1s(x)}{2x} +  L-x + \frac{h_2^2 - 2h_2s(x)}{2\left(L-x\right)} \\
+& = L + \frac{1}{2}\left[\frac{h_1^2}{x} + \frac{h_2^2}{L-x} \right] - s(x)\left[ \frac{h_1}{x} + \frac{h_2}{L-x}\right] \\
+&= L + L_0 - L_s
+\end{aligned}
+\label{gf_eq:60}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Here $L_0$ represents the deterministic component due to reflection from the surface and $L_s$ represents the random component due to reflection from the surface. The reflection point from the 2-ray model, $x_m$, should be a saddle point and provide the dominant contribution. We can therefore perform a Taylor expansion of $L_0$ about $x_m$.
+
+\begin{equation}
+L_0 \approx L_0(x_m) + \frac{1}{2}\frac{d^2L_0}{dx^2}\bigg|_{x_m}(x-x_m)^2
+\label{gf_eq:61}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\begin{equation}
+\frac{dL_0}{dx} = \frac{1}{2}\left[\frac{-h_1^2}{x^2} + \frac{h_2^2}{(L-x)^2} \right]
+\label{gf_eq:62}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\begin{equation}
+\frac{d^2L_0}{dx^2} = \frac{h_1^2}{x^3} + \frac{h_2^2}{(L-x)^3} 
+\label{gf_eq:63}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+\noindent Since $\frac{dL_0}{dx}\big|_{x_m} = 0$, we can solve for $x_m$
+
+\begin{equation}
+\begin{gathered}
+\frac{-h_1^2}{x_m^2} + \frac{h_2^2}{(L-x_m)^2} = 0\\
+\frac{-h_1}{x_m} + \frac{h_2}{L-x_m} = 0\\
+\frac{h_1}{x_m} = \frac{h_2}{L-x_m}\\
+h_1(L-x_m) = h_2x_m\\
+x_m = \frac{h_1L}{h_1+h_2}
+\end{gathered}
+\label{gf_eq:64}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent This gives the following for the lowest Taylor series terms:
+
+\begin{equation}
+\begin{aligned}
+L_0(x_m) &= \frac{(h_1+h_2)^2}{2L} \\
+L_0''=\frac{d^2L_0}{dx^2}\bigg|_{x_m}  &= \frac{(h_1+h_2)^4}{h_1h_2L^3} \\
+L_s(x_m) &= \frac{2s(x)(h_1 + h_2)}{L}\\
+\end{aligned}
+\label{gf_eq:65}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent The expansion of $L_0$ is then
+
+\begin{equation}
+L_0 \approx \frac{(h_1+h_2)^2}{2L} + \frac{(h_1+h_2)^4}{2h_1h_2L^3}(x-x_m)^2
+\label{gf_eq:66}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent We can now substitute into the exponential term of Equation \ref{gf_eq:58}
+\begin{equation}
+\begin{aligned}
+&\exp\left[-jk_o\left( L_2 + L_3\right) \right] \\
+&= \exp\left[-jk_o\left( L+L_0-L_s\right) \right]\\
+&= \exp\left[-jk_o\left( L+L_0(x_m) + \frac{L_0''}{2}(x-x_m)^2-L_s\right) \right]\\
+&= \exp\left[-jk_o\left( L+\frac{(h_1+h_2)^2}{2L} + \frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
+&=\exp\left[-jk_o\left(L_{so}+\frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
+&=\exp\left[-jk_oL_{so}\right]\exp\left[-jk_o\left(\frac{L_0''}{2}(x-x_m)^2-\frac{2s(h_1+h_2)}{L}\right)\right]\\
+&=\exp\left[-jk_oL_{so}\right]\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2+\frac{j2k_os(h_1+h_2)}{L}\right]\\
+\label{gf_eq:67}
+\end{aligned}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Because $L_{so}$ is not dependent on $x$, it can come outside of the integral.
+
+\subsubsection{Asymptotic Approximation for Random Component}
+ If we assume that $L_s$ is locally sinusoidal with amplitude $\sigma$, frequency $k_{\omega}$, and phase $\theta$, we can approximate the exponential term as 
+\begin{equation}
+\begin{aligned}
+\exp\left[jk_oL_s\right] =\exp\left[j\sigma \sin\left(k_{\omega} \tilde{x} + \theta\right) \right]
+\end{aligned}
+\label{gf_eq:68}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent From Equation \ref{gf_eq:67}, the random amplitude, $\sigma$, is given by
+\begin{equation}
+\begin{aligned}
+\sigma = k_oL_s = \frac{2k_os(h_1+h_2)}{L}
+\end{aligned}
+\label{gf_eq:69}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+We can then use the Jacobi-Anger expansion \cite{gbur_math} to convert the exponential term on the far right hand side into an infinite sum of Bessel functions.
+\begin{equation}
+\begin{aligned}
+K_r(\tilde{x}) &=\exp\left[j\sigma \sin\left(k_{\omega} \tilde{x} + \theta\right) \right] \\ &=\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl(k_{\omega}\tilde{x} + \theta) \right] \\
+&=\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\exp\left[jlk_{\omega}\tilde{x}\right] 
+\end{aligned}
+\label{gf_eq:70}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+The Bessel functions only depend on $\sigma$ and not $\tilde{x}$, so they will come outside of the integral as well.
+
+\subsection {Knife Edges and Non-planar Terrain}
 Following \cite{whitteker_diffraction}, we can formulate the integral in a direction perpendicular to the surface and treat subsequent obstacles as knife edges.
 
 \subsection {Optical Propagation Through Turbulence}
