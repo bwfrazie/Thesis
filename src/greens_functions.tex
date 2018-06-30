@@ -1,8 +1,10 @@
 \section{Introduction}
-In 1828, an English mathematician named George Green published "An Essay on the Application of Mathematical Analysis to the Theories of Electricity and Magnetism" with a theorem that is now used extensively to solve differential equations in electromagnetics, quantum mechanics, and applied mathematics \cite{green_phys_today}. Unfortunately, the scope of his contributions weren’t realized until after his death. 
+This section provides some background on Green’s functions, presents the convention used in this document for a forward propagating wave, discusses how this convention defines the Fourier transform, and introduces the different types of geometric spreading that may be encountered in propagation.
 
 \subsection{Background}
- Today, Green's functions are a useful tool in solving inhomogeneous differential equations and can be thought of as the impulse response for the differential equation. There are many references for Green's functions from the mathematical perspective \cite{bender_orszag}, \cite{arfken_weber}, \cite{gbur_math}, \cite{guenther_partial_de}, \cite{duffy_green}, and for their application to electromagnetics \cite{jackson_classical_em}, \cite{zangwill_modern_em}, \cite{balanis_advanced}, \cite{goodman_fourier}, \cite{smith_radiation}. Unfortunately, these references typically only highlight one aspect and have conflicting conventions for propagation direction and normalization. In addition, they tend to skip over many steps, and some define Green's functions without really using them, while others use Green’s Functions without really defining them. The purpose of this document is to work through derivations of the canonical free space Green's functions and demonstrate in a consistent manner how they can be utilized in electromagnetic propagation problems where diffraction becomes important. A particular aspect covered here is the derivation of equations governing the propagation of Radio Frequency (RF) waves in a maritime environment.
+In 1828, an English mathematician named George Green published "An Essay on the Application of Mathematical Analysis to the Theories of Electricity and Magnetism" with a theorem that is now used extensively to solve differential equations in electromagnetics, quantum mechanics, and applied mathematics \cite{green_phys_today}. Unfortunately, the scope of his contributions weren’t realized until after his death. 
+
+Today, Green's functions are a useful tool in solving inhomogeneous differential equations and can be thought of as the impulse response for the differential equation. There are many references for Green's functions from the mathematical perspective \cite{bender_orszag}, \cite{arfken_weber}, \cite{gbur_math}, \cite{guenther_partial_de}, \cite{duffy_green}, and for their application to electromagnetics \cite{jackson_classical_em}, \cite{zangwill_modern_em}, \cite{balanis_advanced}, \cite{goodman_fourier}, \cite{smith_radiation}. Unfortunately, these references typically only highlight one aspect and have conflicting conventions for propagation direction and normalization. In addition, they tend to skip over many steps, and some define Green's functions without really using them, while others use Green’s Functions without really defining them. The purpose of this document is to work through derivations of the canonical free space Green's functions and demonstrate in a consistent manner how they can be utilized in electromagnetic propagation problems where diffraction becomes important. A particular aspect covered here is the derivation of equations governing the propagation of Radio Frequency (RF) waves in a maritime environment.
 
 \subsection{Time Dependence Sign Convention} \label{gf_sec:time_dependence}
 Before getting started, we need to define the sign convention used for time dependence. We  assume harmonic propagating waves that follow the typical Engineering literature with time dependence going as $e^{j\omega t}$. This means we can represent an arbitrary vector wave $\mathbf{C}(\mathbf{r},t)$ as:
@@ -13,7 +15,37 @@ Before getting started, we need to define the sign convention used for time depe
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-As we will see shortly, this choice of time dependence drives the sign of the spatial phase dependence for a forward propagating wave and defines the forward and reverse Fourier transforms.
+For a system to be causal, it may only depend on past or present inputs and not on future inputs. Any physically realizable system, such as an electromagnetic wave must be causal, as something that has not yet happened cannot have an impact on the current output. We can relate the causality condition to the phase with the restriction that the phase can be delayed but not advanced. This tells us that for propagating waves, we need to look for solutions in the form of $g\left(\pm\left[\omega t - k_or\right]\right)$, as solutions in the form of $g\left(\pm\left[\omega t + k_or\right]\right)$ advance the phase and are not physically realizable. 
+
+With this restriction, our vector waves from Equation \ref{gf_eq:0a} must take the form:
+
+\begin{equation}
+\mathbf{C}\left(\mathbf{r},t\right) = \mathbf{C}e^{j\left(\omega t - \mathbf{k}_o \cdot \mathbf{r} \right)}
+\label{gf_eq:18b}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+In the next section, we will see that this choice of time dependence  defines the forward and reverse Fourier transforms in both the temporal and spatial domains.
+
+\subsection {Fourier Transforms in Time and Space} \label{gf_sec:fourier_transform}
+We must remain self consistent with our sign conventions when using Fourier transforms. The easiest way to ensure consistency is to interpret the transform from a frequency domain to either the temporal or spatial domain as a superposition of the signal of interest with forward propagating waves over all frequencies. The sign convention for the Fourier transform then comes directly from our definition of a forward propagating wave from the previous section.  
+
+Table \ref{gf_tab:0a} presents the forward Fourier transforms, $\hat{g} = \mathcal{F}\{g\}$, and the inverser Fourier transforms, $g = \mathcal{F}^{-1}\{\hat{g}\}$, in both time and space for an arbitrary function, $g$, and its Fourier transform, $\hat{g}$.
+\begin{table}[ht]
+  \begin{center}
+      \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[Fourier Transforms in Time and Space]{Fourier Transforms in Time and Space\label{gf_tab:0a}}
+  \end{quote}
+  \begin{tabular} {|c | c | c|}
+    \hline
+  \bf{Domain} & \bf{Forward Transform} & \bf{Inverse Transform}\\ \hline
+  Time & $\displaystyle \hat{g}(\omega) = \int_{-\infty}^{\infty} g(t)e^{-j\omega t}dt$ & $\displaystyle  g(t) = \frac{1}{2\pi}\int_{-\infty}^\infty \hat{g}(\omega)e^{j\omega t}d\omega$\\ \hline
+ Space & $\displaystyle \hat{g}(k) = \int_{-\infty}^{\infty} g(x)e^{jk x}dx$ & $\displaystyle  g(x) = \frac{1}{2\pi}\int_{-\infty}^\infty \hat{g}(k)e^{-jk x}dk$\\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection{Geometric Spreading}
 The geometric spreading of an electromagnetic wave is dependent on the dimensionality and approximations used. A plane wave is easy to work with but shows no spreading or amplitude reduction as it propagates. A paraxial wave allows us to represent beam like waves and will have spreading proportional to $1/\sqrt{L_x}$, where $L_x$ is the length along the propagation direction. A cylindrical wave will have spreading proportional to $1/\sqrt{\rho}$ and a spherical wave will have spreading proportional to $1/r$. The amount of geometry induced spreading increases as we add higher fidelity to our models and analytical tools so we need to take that into consideration when comparing models.
@@ -225,19 +257,11 @@ Robin boundary conditions are commonly found in propagation problems with mixed 
 We have already discussed the fact that Green's functions represent the spatial impulse response of the differential equation. This section introduces some other properties of Green's functions, including causality, reciprocity, continuity, and general forms.
 
 \subsection {Causality} \label{gf_sec:causality}
-For a system to be causal, it may only depend on past or present inputs and not on future inputs. Any physically realizable system, such as an electromagnetic wave must be causal, as something that has not yet happened cannot have an impact on the current output. We can relate the causality condition to the phase with the restriction that the phase can be delayed but not advanced. This tells us that for propagating waves, we need to look for solutions in the form of $g\left(\pm\left[\omega t - k_or\right]\right)$, as solutions in the form of $g\left(\pm\left[\omega t + k_or\right]\right)$ advance the phase and are not physically realizable. With the time dependence as specified in Section \ref{gf_sec:time_dependence}, our solutions must have the following form:
+Green’s functions represent physical systems and therefore must be causal. With the time dependence as specified in Section \ref{gf_sec:time_dependence}, our solutions must have the following form:
 
 \begin{equation}
 G\left(r,t\right) \sim g\left(\omega t - k_or\right)
 \label{gf_eq:18a}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-With this restriction, our vector waves from Equation \ref{gf_eq:0a} must take the form:
-
-\begin{equation}
-\mathbf{C}\left(\mathbf{r},t\right) = \mathbf{C}e^{j\left(\omega t - \mathbf{k}_o \cdot \mathbf{r} \right)}
-\label{gf_eq:18b}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
@@ -408,15 +432,7 @@ G_o\left(\mathbf{r},\mathbf{r}',\omega\right) = \frac{e^{-j\frac{\omega}{c}|\mat
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-To determine the Green's function in the time domain, we need to take the inverse Fourier transform. To go from the frequency domain to the time domain, we need to be consistent with our assumption for the time dependence of a forward propagating wave, $e^{j\omega t}$. The inverse Fourier transform is then defined as:
-
-\begin{equation}
-\label{gf_eq:28a}
-x(t) = \mathcal{F}^{-1}\{X(\omega)\} = \frac{1}{2\pi}\int_{-\infty}^\infty X(\omega)e^{j\omega t}d\omega
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-This convention means that we can interpret the transform back to the time domain as an integral of the signal of interest scaled by forward propagating waves. With this definition, we can compute the Green's function in the time domain:
+\noindent To determine the Green's function in the time domain, we need to take the inverse Fourier transform.
 
 \begin{equation}
 \begin{gathered}
@@ -1016,8 +1032,58 @@ h=\frac{j}{\lambda}\frac{\exp\left[-jk_o |\mathbf{r}-\mathbf{r}'|\right]}{|\math
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsubsection{Fresnel Diffraction}
+The Fresnel approximation is essentially the paraxial approximation but retaining all 3 dimensions. If we take a binomial expansion of $r$ but keep both the $x$ and $y$ components and assume the source plane is located at $z=0$, we can approximate $r$ as
+
+\begin{equation}
+r\approx z + \frac{(x-x’)^2}{2z}+\frac{(y-y’)^2}{2z}
+\label{gf_eq:53c}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Here, $x'$ and $y'$ represent the coordinates in the source plane and $x$ and $y$ represent the coordinates in the observation plane. With the substitution $\cos(\theta) = z/r$, we can now rewrite Equation \ref{gf_eq:53} as
+
+\begin{equation}
+\boxed{U(P_2) =\frac{je^{-jk_oz}}{\lambda z}\int U(x’,y’)\exp\left[-j \frac{k}{2z}\left([x-x’]^2 + [y-y’]^2 \right) \right]dx’ dy’}
+\label{gf_eq:53d}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Equation \ref{gf_eq:53d} is the Fresnel approximation of the diffraction integral and represents propagation as convolution with a kernel containing a quadratic phase factor
+
+\begin{equation}
+h = \frac{je^{-jk_o z}}{\lambda z}\exp\left[-j\frac{k_o}{2z}\left(x^2 + y^2 \right) \right]
+\label{gf_eq:53e}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+From \cite{goodman_fourier}, the Fresnel approximation is usually sufficient when $z\geq D_{\text{max}}^2/16$, where $D_{\text{max}}$ is the maximum spatial extent, $D_{\text{max}} = x_{\text{max}}^2 + y_{\text{max}}^2$. 
 
 \subsubsection{Fraunhofer Diffraction}
+If we allow the wave to propagate further, the quadratic phase factor will not contribute significantly and we can factor it out of the integral. This approximation is valid when the propagation distance meets the following criteria.
+
+\begin{equation}
+z >> \frac{k_oD_{\text{max}}}{2}
+\label{gf_eq:53f}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+For clarity, we typically replace $x'$ with $\xi$ and $y'$ with $\eta$ so that Equation \ref{gf_eq:53d} becomes
+
+\begin{equation}
+U(P_2) =\frac{je^{-jk_oz}}{\lambda z}\int U(\xi,\eta)\exp\left[-j \frac{k}{2z}\left([x-\xi]^2 + [y-\eta]^2 \right) \right]d\xi d\eta
+\label{gf_eq:53g}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+We can neglect the $\xi^2$ and $\eta^2$ terms in the exponential and let $(x-\xi)^2 \approx x^2-2x\xi$ and $(y-\eta)^2\approx y^2-2y\eta$. We can factor out the quadratic phase in terms of observation coordinates, $x$ and $y$, and rewrite Equation \ref{gf_eq:53g} as
+
+\begin{equation}
+\boxed{U(P_2) =\frac{je^{-jk_oz}e^{-j\frac{k_o}{2z}(x^2+y^2)}}{\lambda z}\int U(\xi,\eta)\exp\left[j2\pi\left(\frac{x}{\lambda z}\xi + \frac{y}{\lambda z}\eta \right) \right]d\xi d\eta}
+\label{gf_eq:53h}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Equation \ref{gf_eq:53h} is the Fraunhofer approximation and is simply the spatial Fourier transform of the aperture with spatial frequencies $f_x = x/(\lambda z)$ and $f_y = y/(\lambda z)$ \cite{goodman_fourier} \cite{gaskill_fourier}. In other words, the spatial frequencies are the source coordinates at the observation plane divided by the product of the wavelength with the propagation distance.
 
 \subsection {Diffraction from a Planar Surface}
 We can treat diffraction from a planar surface in the same fashion as diffraction through an aperture but we will need to include a reflection coefficient, $\Gamma$.
