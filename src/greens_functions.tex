@@ -1135,6 +1135,7 @@ U_2(s) &= \sqrt{\frac{1}{8\pi jk_ox}}\exp\left[-jk_oL_2\right]\\
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \noindent The full solution for the reflected wave is then 
+
 \begin{equation}
 \begin{aligned}
 U_2(P_2) &= \int_0^L dx \Gamma \sqrt{\frac{1}{8\pi j k_o x}}\exp[-jk_oL_2]\frac{h_2-s}{L-x}\sqrt{\frac{jk_o}{2\pi(L-x)}}\exp[-jk_oL_3]\\
@@ -1144,7 +1145,7 @@ U_2(P_2) &= \int_0^L dx \Gamma \sqrt{\frac{1}{8\pi j k_o x}}\exp[-jk_oL_2]\frac{
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\subsubsection{Asymptotic Approximation for Deterministic Component}
+\subsubsection{Asymptotic Approximation}
 We can simplify the various path lengths in Figure \ref{gf_fig:15} through a binomial expansion. Here $L_{so}$ represents the shortest orbit path, which would be given as a straight line between $P_1$ and the mirror image of $P_2$. 
 
 \begin{equation}
@@ -1173,20 +1174,12 @@ L_r &= L_2 + L_3 \\
 Here $L_0$ represents the deterministic component due to reflection from the surface and $L_s$ represents the random component due to reflection from the surface. The reflection point from the 2-ray model, $x_m$, should be a saddle point and provide the dominant contribution. We can therefore perform a Taylor expansion of $L_0$ about $x_m$.
 
 \begin{equation}
-L_0 \approx L_0(x_m) + \frac{1}{2}\frac{d^2L_0}{dx^2}\bigg|_{x_m}(x-x_m)^2
+\begin{gathered}
 \label{gf_eq:61}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-\begin{equation}
-\frac{dL_0}{dx} = \frac{1}{2}\left[\frac{-h_1^2}{x^2} + \frac{h_2^2}{(L-x)^2} \right]
-\label{gf_eq:62}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-\begin{equation}
+L_0 \approx L_0(x_m) + \frac{1}{2}\frac{d^2L_0}{dx^2}\bigg|_{x_m}(x-x_m)^2 \\
+\frac{dL_0}{dx} = \frac{1}{2}\left[\frac{-h_1^2}{x^2} + \frac{h_2^2}{(L-x)^2} \right]\\
 \frac{d^2L_0}{dx^2} = \frac{h_1^2}{x^3} + \frac{h_2^2}{(L-x)^3} 
-\label{gf_eq:63}
+\end{gathered}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 \noindent Since $\frac{dL_0}{dx}\big|_{x_m} = 0$, we can solve for $x_m$
@@ -1240,8 +1233,7 @@ L_0 \approx \frac{(h_1+h_2)^2}{2L} + \frac{(h_1+h_2)^4}{2h_1h_2L^3}(x-x_m)^2
 
 Because $L_{so}$ is not dependent on $x$, it can come outside of the integral.
 
-\subsubsection{Asymptotic Approximation for Random Component}
- If we assume that $L_s$ is locally sinusoidal with amplitude $\sigma$, frequency $k_{\omega}$, and phase $\theta$, we can approximate the exponential term as 
+If we assume that $L_s$ is locally sinusoidal with amplitude $\sigma$, frequency $k_{\omega}$, and phase $\theta$, we can approximate the exponential term as 
 \begin{equation}
 \begin{aligned}
 \exp\left[jk_oL_s\right] =\exp\left[j\sigma \sin\left(k_{\omega} \tilde{x} + \theta\right) \right]
@@ -1259,17 +1251,45 @@ Because $L_{so}$ is not dependent on $x$, it can come outside of the integral.
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-We can then use the Jacobi-Anger expansion \cite{gbur_math} to convert the exponential term on the far right hand side into an infinite sum of Bessel functions.
+We can then use the Jacobi-Anger expansion \cite{gbur_math} to convert the exponential term into an infinite sum of Bessel functions.
 \begin{equation}
 \begin{aligned}
-K_r(\tilde{x}) &=\exp\left[j\sigma \sin\left(k_{\omega} \tilde{x} + \theta\right) \right] \\ &=\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl(k_{\omega}\tilde{x} + \theta) \right] \\
-&=\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\exp\left[jlk_{\omega}\tilde{x}\right] 
+& \exp\left[j\sigma \sin\left(k_{\omega} \tilde{x} + \theta\right) \right] \\ &=\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl(k_{\omega}(x-x_m) + \theta) \right] \\
+&=\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\exp\left[jlk_{\omega}(x-x_m)\right] 
 \end{aligned}
 \label{gf_eq:70}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-The Bessel functions only depend on $\sigma$ and not $\tilde{x}$, so they will come outside of the integral as well.
+The Bessel functions only depend on $\sigma$ and not $\tilde{x}$, so they will come outside of the integral as well. We are now in position to rewrite Equation \ref{gf_eq:58} as
+
+\begin{equation}
+\begin{gathered}
+U_2(P_2) = \frac{1}{4\pi} \exp[-jk_oL_{so}] \sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\exp\left[jlk_{\omega}(x-x_m)\right]  \\
+\times \int_0^L  \Gamma \sqrt{\frac{1}{x}}\sqrt{\frac{1}{L-x}}\frac{h_2-s}{L-x}\exp\left[-\frac{jk_oL_0''}{2}(x-x_m)^2 \right]
+\label{gf_eq:71}
+\end{gathered}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+As we have seen previously, the quadratic phase term rapidly oscillates as $x$ moves away from $x_m$, so we can let the integration limits go to $\pm \infty$ and find an asymptotic solution as in Appendix \ref{appendix_saddle_point_method}. The amplitudes will be replaced by their values at $x_m$ and we have
+
+\begin{equation}
+\begin{gathered}
+U_2(P_2) = \frac{1}{4\pi} \exp[-jk_oL_{so}] \sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\exp\left[jlk_{\omega}(x-x_m)\right]  \\
+\times \Gamma_1 \sqrt{\frac{1}{x_m}}\sqrt{\frac{1}{L-x_m}}\frac{h_2}{L-x_m}\sqrt{\frac{\pi 2}{jk_oL_0''}}
+\label{gf_eq:71}
+\end{gathered}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent Substituting in for $x_m$ and $L_0''$ yields the final asymptotic result:
+
+\begin{equation}
+\boxed{U_2(P_2) = \sqrt{\frac{1}{8\pi jk_o L}}\Gamma_1\exp[-jk_oL_{so}] \sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\exp\left[jlk_{\omega}(x-x_m)\right]} 
+\label{gf_eq:72}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection {Knife Edges and Non-planar Terrain}
 Following \cite{whitteker_diffraction}, we can formulate the integral in a direction perpendicular to the surface and treat subsequent obstacles as knife edges.
