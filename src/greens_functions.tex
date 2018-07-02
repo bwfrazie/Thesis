@@ -1043,7 +1043,7 @@ h=\frac{j}{\lambda}\frac{\exp\left[-jk_o |\mathbf{r}-\mathbf{r}'|\right]}{|\math
 The Fresnel approximation is essentially the paraxial approximation but retaining all 3 dimensions. If we take a binomial expansion of $r$ but keep both the $x$ and $y$ components and assume the source plane is located at $z=0$, we can approximate $r$ as
 
 \begin{equation}
-r\approx z + \frac{(x-x’)^2}{2z}+\frac{(y-y’)^2}{2z}
+r\approx z + \frac{(x-x')^2}{2z}+\frac{(y-y')^2}{2z}
 \label{gf_eq:53c}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1051,7 +1051,7 @@ r\approx z + \frac{(x-x’)^2}{2z}+\frac{(y-y’)^2}{2z}
 Here, $x'$ and $y'$ represent the coordinates in the source plane and $x$ and $y$ represent the coordinates in the observation plane. Because of the quadratic nature, the phase will rapidly oscillate as we move off axis. This means only a narrow region around the axis will contribute significantly and we can use the principle of stationary phase \cite{gbur_math} to extend the integration limits to $\pm \infty$. With the substitution $\cos(\theta) = z/r \approx 1$, we can now rewrite Equation \ref{gf_eq:53} as
 
 \begin{equation}
-\boxed{U(P_2) =\frac{je^{-jk_oz}}{\lambda z}\int_{-\infty}^{\infty} U(x’,y’)\exp\left[-j \frac{k}{2z}\left([x-x’]^2 + [y-y’]^2 \right) \right]dx’ dy’}
+\boxed{U(P_2) =\frac{je^{-jk_oz}}{\lambda z}\int_{-\infty}^{\infty} U(x',y')\exp\left[-j \frac{k}{2z}\left([x-x']^2 + [y-y']^2 \right) \right]dx’ dy’}
 \label{gf_eq:53d}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1300,7 +1300,17 @@ U_2(P_2) = \frac{1}{4\pi} \exp[-jk_oL_{so}] \sum_{l=-\infty}^{\infty}J_l(\sigma)
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection {Knife Edges and Non-planar Terrain}
-In many cases of interest, the surface we want to propagate over is not planar. In this case, we can formulate the diffraction integral in altitude (perpendicular to the surface) and treat subsequent obstacles as knife edges \cite{whitteker_diffraction}.
+In many cases of interest, the surface we want to propagate over is not planar. In this case, we can formulate the diffraction integral in altitude (perpendicular to the surface) and treat subsequent obstacles as knife edges \cite{whitteker_diffraction}. If we treat the knife edge as an aperture that starts at $z=\xi$, assume no $y$ dependence from the source, $U(x,y) = U(x)$, and let propagation be along the $x$ axis, we can integrate out the $y$ dependence from the Fresnel diffraction equation (Equation \ref{gf_eq:53d}) and rewrite it as 
+
+\begin{equation}
+\begin{aligned}
+U(P_2) &=\frac{je^{-jk_ox}}{\lambda x}\int_{\xi}^{\infty}\int_{-\infty}^{\infty} U(z') \exp\left[-j \frac{k}{2x}\left(z-z'\right)^2 \right]   \exp\left[-j \frac{k}{2x}\left(y-y'\right)^2 \right]dz' dy' \\
+&=\frac{je^{-jk_ox}}{\lambda x}\sqrt{\frac{\pi 2 x}{jk_o}}\int_{\xi}^{\infty}U(z') \exp\left[-j \frac{k}{2x}\left(z-z'\right)^2 \right]dz'\\
+&=\sqrt{\frac{jk_o}{2\pi x}}\int_{\xi}^{\infty}U(z') \exp\left[-j \frac{k}{2x}\left(z-z'\right)^2 \right]dz'\\
+\end{aligned}
+\label{gf_eq:82}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection{Parabolic Wave Equation}
 The analytical results previously given have all assumed propagation in Cartesian coordinates. This section derives the parabolic wave equation (PWE) in spherical coordinates and presents a numerical implementation for solution through a split-step Fourier beam propagation method. 
