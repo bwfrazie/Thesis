@@ -277,7 +277,7 @@ G\left(\mathbf{r},\mathbf{r}' \right) = G\left(\mathbf{r}',\mathbf{r} \right)
 This property is known as reciprocity and it tells us that the impulse reponse for a propagating wave is the same in both directions. Reciprocity is commonly used in antenna radiation analysis as it allows us to analyze an antenna considering it as either a transmitter or a receiver.
 
 \subsection {Continuity} \label{gf_sec:continuity}
-A necessary condition for reciprocity is that Green's functions must be continuous in all space. However, they are singular so the derivative will have a discontinuity at $\mathbf{r} = \mathbf{r}'$.
+A necessary condition for reciprocity is that Green's functions must be continuous in all space. However, they are singular at so the derivative will have a discontinuity at $\mathbf{r} = \mathbf{r}'$.
 
 \subsection {General Forms}
 Because a Green's function is the spatial impulse response of the system, we can expect it to be used in a convolution integral. With that in mind, Green's functions usually take the form:
@@ -1167,7 +1167,8 @@ L_3 & = \sqrt{\left(L - x\right)^2 + \left( h_2 - s(x)\right)^2}  \approx L-x + 
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-The path length for a given reflected ray, $L_r$ is given by
+\noindent The path length for a given reflected ray, $L_r$ is given by
+
 \begin{equation}
 \begin{aligned}
 L_r &= L_2 + L_3 \\
@@ -1179,7 +1180,7 @@ L_r &= L_2 + L_3 \\
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Here $L_0$ represents the deterministic component due to reflection from the surface and $L_s$ represents the random component due to reflection from the surface. The reflection point from the 2-ray model, $x_m$, should be a saddle point and provide the dominant contribution. We can therefore perform a Taylor expansion of $L_0$ about $x_m$.
+Here $L_0$ represents the deterministic component due to reflection from the surface and $L_s$ represents the random component due to reflection from the surface. The primary reflection point, $x_m$, should be a saddle point and provide the dominant contribution. We can therefore perform a Taylor expansion of $L_0$ about $x_m$.
 
 \begin{equation}
 \begin{gathered}
@@ -1190,6 +1191,7 @@ L_0 \approx L_0(x_m) + \frac{1}{2}\frac{d^2L_0}{dx^2}\bigg|_{x_m}(x-x_m)^2 \\
 \end{gathered}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
 \noindent Since $\frac{dL_0}{dx}\big|_{x_m} = 0$, we can solve for $x_m$
 
 \begin{equation}
@@ -1216,7 +1218,7 @@ L_s(x_m) &= \frac{2s(x)(h_1 + h_2)}{L}\\
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\noindent The expansion of $L_0$ is then
+\noindent The expansion of $L_0$ to second order is then
 
 \begin{equation}
 L_0 \approx \frac{(h_1+h_2)^2}{2L} + \frac{(h_1+h_2)^4}{2h_1h_2L^3}(x-x_m)^2
@@ -1224,7 +1226,8 @@ L_0 \approx \frac{(h_1+h_2)^2}{2L} + \frac{(h_1+h_2)^4}{2h_1h_2L^3}(x-x_m)^2
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\noindent We can now substitute into the exponential term of Equation \ref{gf_eq:58}
+\noindent We can now substitute this into the exponential term of Equation \ref{gf_eq:58}
+
 \begin{equation}
 \begin{aligned}
 &\exp\left[-jk_o\left( L_2 + L_3\right) \right] \\
@@ -1232,25 +1235,25 @@ L_0 \approx \frac{(h_1+h_2)^2}{2L} + \frac{(h_1+h_2)^4}{2h_1h_2L^3}(x-x_m)^2
 &= \exp\left[-jk_o\left( L+L_0(x_m) + \frac{L_0''}{2}(x-x_m)^2-L_s\right) \right]\\
 &= \exp\left[-jk_o\left( L+\frac{(h_1+h_2)^2}{2L} + \frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
 &=\exp\left[-jk_o\left(L_{so}+\frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
-&=\exp\left[-jk_oL_{so}\right]\exp\left[-jk_o\left(\frac{L_0''}{2}(x-x_m)^2-\frac{2s(h_1+h_2)}{L}\right)\right]\\
-&=\exp\left[-jk_oL_{so}\right]\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2+\frac{j2k_os(h_1+h_2)}{L}\right]\\
+&=\exp\left[-jk_oL_{so}\right]\exp\left[-jk_o\left(\frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
+&=\exp\left[-jk_oL_{so}\right]\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2\right]\exp\left[jk_oL_s \right]\\
 \label{gf_eq:67}
 \end{aligned}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Because $L_{so}$ is not dependent on $x$, it can come outside of the integral.
+Because $L_{so}$ is not dependent on $x$, it can come outside of the integral. If we assume that $L_s$ is locally sinusoidal with amplitude $\sigma$, frequency $k_{\omega}$, and phase $\theta$, we can approximate the exponential term as 
 
-If we assume that $L_s$ is locally sinusoidal with amplitude $\sigma$, frequency $k_{\omega}$, and phase $\theta$, we can approximate the exponential term as 
 \begin{equation}
 \begin{aligned}
-\exp\left[jk_oL_s\right] =\exp\left[j\sigma \sin\left(k_{\omega} \tilde{x} + \theta\right) \right]
+\exp\left[jk_oL_s\right] =\exp\left[j\sigma \cos\left(k_{\omega} (x-x_m) + \theta\right) \right]
 \end{aligned}
 \label{gf_eq:68}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\noindent From Equation \ref{gf_eq:67}, the random amplitude, $\sigma$, is given by
+\noindent From Equation \ref{gf_eq:65}, the random amplitude, $\sigma$, is given by
+
 \begin{equation}
 \begin{aligned}
 \sigma = k_oL_s = \frac{2k_os(h_1+h_2)}{L}
@@ -1260,31 +1263,77 @@ If we assume that $L_s$ is locally sinusoidal with amplitude $\sigma$, frequency
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 We can then use the Jacobi-Anger expansion \cite{gbur_math} to convert the exponential term into an infinite sum of Bessel functions.
+
 \begin{equation}
 \begin{aligned}
-& \exp\left[j\sigma \sin\left(k_{\omega} \tilde{x} + \theta\right) \right] \\ &=\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl(k_{\omega}(x-x_m) + \theta) \right] \\
+& \exp\left[j\sigma \cos\left(k_{\omega} (x-x_m) + \theta\right) \right] \\ &=\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl(k_{\omega}(x-x_m) + \theta) \right] \\
 &=\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\exp\left[jlk_{\omega}(x-x_m)\right] 
 \end{aligned}
 \label{gf_eq:70}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-The Bessel functions only depend on $\sigma$ and not $\tilde{x}$, so they will come outside of the integral as well. We are now in position to rewrite Equation \ref{gf_eq:58} as
+\noindent We can now rewrite Equation \ref{gf_eq:67} as
 
 \begin{equation}
 \begin{gathered}
-U_2(P_2) = \frac{1}{4\pi} \exp[-jk_oL_{so}] \sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\exp\left[jlk_{\omega}(x-x_m)\right]  \\
-\times \int_0^L  \Gamma \sqrt{\frac{1}{x}}\sqrt{\frac{1}{L-x}}\frac{h_2-s}{L-x}\exp\left[-\frac{jk_oL_0''}{2}(x-x_m)^2 \right]
-\label{gf_eq:71}
+\exp\left[-jk_o\left( L_2 + L_3\right) \right]= \\
+\exp\left[-jk_oL_{so}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]
+\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2+jlk_{\omega}(x-x_m)\right]\\
+\label{gf_eq:98}
 \end{gathered}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-As we have seen previously, the quadratic phase term rapidly oscillates as $x$ moves away from $x_m$, so we can let the integration limits go to $\pm \infty$ and find an asymptotic solution as in Appendix \ref{appendix_saddle_point_method}. The amplitudes will be replaced by their values at $x_m$ and we have
+Only the last exponential term is dependent on $x$, so the other terms will come out of the integral. We can let $\tilde{x} = x-x_m$ for clarity and then simplify the last exponential by completing the square.
+
+\begin{equation}
+\begin{aligned}
+&\frac{-jk_oL_0''}{2}\tilde{x}^2+jlk_{\omega}\tilde{x}\\
+&=-\frac{jk_oL_0''}{2}\left[\tilde{x}^2 - \frac{2lk_{\omega}}{k_oL_0''}\tilde{x} \right]\\
+&=-\frac{jk_oL_0''}{2}\left[\left(x-\frac{lk_{\omega}}{k_oL_0''} \right)^2 + \frac{l^2k_{\omega}^2}{k_o^2L_0''^2} \right]\\
+&=-\frac{jk_oL_0''}{2}\left(x-\frac{lk_{\omega}}{k_oL_0''} \right)^2 - \frac{jl^2k_{\omega}^2}{k_oL_0''} 
+\label{gf_eq:99}
+\end{aligned}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent Equation \ref{gf_eq:98} can now be rewritten as
 
 \begin{equation}
 \begin{gathered}
-U_2(P_2) = \frac{1}{4\pi} \exp[-jk_oL_{so}] \sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\exp\left[jlk_{\omega}(x-x_m)\right]  \\
+\exp\left[-jk_o\left( L_2 + L_3\right) \right]= \\
+\exp\left[-jk_oL_{so}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]
+\exp\left[- \frac{jl^2k_{\omega}^2}{k_oL_0''} \right]\exp\left[-\frac{jk_oL_0''}{2}\left(\tilde{x}-\frac{lk_{\omega}}{2k_oL_0''} \right)^2\right]\\
+\label{gf_eq:100}
+\end{gathered}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent We can make a further substitution and introduce the variable $\phi_l$
+
+\begin{equation}
+\phi_l = l\theta - \frac{l^2k_{\omega}^2}{2k_oL_0''}
+\label{gf_eq:101}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent We are now in position to rewrite Equation \ref{gf_eq:58} as
+
+\begin{equation}
+\begin{gathered}
+U_2(P_2) = \frac{1}{4\pi} \exp[-jk_oL_{so}] \sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[j\phi_l\right] \\
+\times \int_0^L  \Gamma \sqrt{\frac{1}{x}}\sqrt{\frac{1}{L-x}}\frac{h_2-s}{L-x}\exp\left[-\frac{jk_oL_0''}{2}\left([x-x_m]-\frac{lk_{\omega}}{k_oL_0''} \right)^2\right]
+\label{gf_eq:102}
+\end{gathered}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+As we have seen previously, the quadratic phase term rapidly oscillates as $x$ moves away from $x_m$, so we can let the integration limits go to $\pm \infty$ and find an asymptotic solution \cite{cheng_analytic_methods}. The amplitudes will be replaced by their values at $x_m$ and we can ignore the sea height, $s$, in the amplitude which results in the following expression.
+
+\begin{equation}
+\begin{gathered}
+U_2(P_2) = \frac{1}{4\pi} \exp[-jk_oL_{so}] \sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[j\phi_l\right]\  \\
 \times \Gamma_1 \sqrt{\frac{1}{x_m}}\sqrt{\frac{1}{L-x_m}}\frac{h_2}{L-x_m}\sqrt{\frac{\pi 2}{jk_oL_0''}}
 \label{gf_eq:72}
 \end{gathered}
@@ -1294,10 +1343,12 @@ U_2(P_2) = \frac{1}{4\pi} \exp[-jk_oL_{so}] \sum_{l=-\infty}^{\infty}J_l(\sigma)
 \noindent Substituting in for $x_m$ and $L_0''$ yields the final asymptotic result:
 
 \begin{equation}
-\boxed{U_2(P_2) = \sqrt{\frac{1}{8\pi jk_o L}}\Gamma_1\exp[-jk_oL_{so}] \sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\exp\left[jlk_{\omega}(x-x_m)\right]} 
+\boxed{U_2(P_2) = \sqrt{\frac{1}{8\pi jk_o L}}\Gamma_1e^{-jk_oL_{so}} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}} 
 \label{gf_eq:73}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
+A simple plane wave solution would result in $U_2(P_2) = \Gamma_1\exp[-jk_oL_{so}]$ for the reflected wave. Here, we see that the deterministic component from the paraxial wave  solution scales the plane wave solution by the geometric spreading of a paraxial wave. The random sea height contributions are now contained in the sum of Bessel functions.
 
 \subsection {Knife Edges and Non-planar Terrain}
 In many cases of interest, the surface we want to propagate over is not planar. In this case, we can formulate the diffraction integral in altitude (perpendicular to the surface) and treat subsequent obstacles as knife edges \cite{whitteker_diffraction}. If we treat the knife edge as an aperture that starts at $z=\xi$, assume no $y$ dependence from the source, $U(x,y) = U(x)$, and let propagation be along the $x$ axis, we can integrate out the $y$ dependence from the Fresnel diffraction equation (Equation \ref{gf_eq:53d}) and rewrite it as 
@@ -1306,9 +1357,18 @@ In many cases of interest, the surface we want to propagate over is not planar. 
 \begin{aligned}
 U(P_2) &=\frac{je^{-jk_ox}}{\lambda x}\int_{\xi}^{\infty}\int_{-\infty}^{\infty} U(z') \exp\left[-j \frac{k}{2x}\left(z-z'\right)^2 \right]   \exp\left[-j \frac{k}{2x}\left(y-y'\right)^2 \right]dz' dy' \\
 &=\frac{je^{-jk_ox}}{\lambda x}\sqrt{\frac{\pi 2 x}{jk_o}}\int_{\xi}^{\infty}U(z') \exp\left[-j \frac{k}{2x}\left(z-z'\right)^2 \right]dz'\\
-&=\sqrt{\frac{jk_o}{2\pi x}}\int_{\xi}^{\infty}U(z') \exp\left[-j \frac{k}{2x}\left(z-z'\right)^2 \right]dz'\\
 \end{aligned}
 \label{gf_eq:82}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent Simplifying terms yields the final result.
+
+\begin{equation}
+\begin{aligned}
+\boxed{U(P_2) =\sqrt{\frac{jk_o}{2\pi x}}\int_{\xi}^{\infty}U(z') \exp\left[-j \frac{k}{2x}\left(z-z'\right)^2 \right]dz'}\\
+\end{aligned}
+\label{gf_eq:82a}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
