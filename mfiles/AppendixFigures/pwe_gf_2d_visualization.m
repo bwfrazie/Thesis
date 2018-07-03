@@ -9,6 +9,9 @@ el2 = -30;
 xExtent = [-25 25];
 yExtent = xExtent;
 
+ae = 6371000;
+n = 1;
+
 if nargin == 1
     saveFigs = varargin{1};
 end
@@ -16,8 +19,9 @@ end
 x = linspace(xExtent(1),xExtent(2),500);
 z = x;
 [X,Z] = meshgrid(x,z);
-Go2 = sqrt(1./(8*1j*pi*X)).*exp(-1j*(X + Z.^2./(2*X)));
-z0 = length(x)/2 + 1;
+m = n^2-1+2*Z/ae;
+Go2 = sqrt(1./(8*1j*pi*X)).*exp(-1j*(X + Z.^2./(2*X))).*exp(-1j*m/2.*X);
+z0 = length(x)/2 + 5;
 
 h(1) = figure;
 subplot(2,1,1)

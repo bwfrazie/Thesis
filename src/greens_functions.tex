@@ -1,10 +1,7 @@
 \section{Introduction}
-This section provides some background on Green’s functions, presents the convention used in this document for a forward propagating wave, discusses how this convention defines the Fourier transform, and introduces the different types of geometric spreading that may be encountered in propagation.
+In 1828, an English mathematician named George Green published "An Essay on the Application of Mathematical Analysis to the Theories of Electricity and Magnetism" with a theorem that is now used extensively to solve differential equations in electromagnetics, quantum mechanics, and applied mathematics \cite{green_phys_today}. Unfortunately, the scope of his contributions were not realized until after his death. 
 
-\subsection{Background}
-In 1828, an English mathematician named George Green published "An Essay on the Application of Mathematical Analysis to the Theories of Electricity and Magnetism" with a theorem that is now used extensively to solve differential equations in electromagnetics, quantum mechanics, and applied mathematics \cite{green_phys_today}. Unfortunately, the scope of his contributions weren’t realized until after his death. 
-
-Today, Green's functions are a useful tool in solving inhomogeneous differential equations and can be thought of as the impulse response for the differential equation. There are many references for Green's functions from the mathematical perspective \cite{bender_orszag}, \cite{arfken_weber}, \cite{gbur_math}, \cite{guenther_partial_de}, \cite{duffy_green}, and for their application to electromagnetics \cite{jackson_classical_em}, \cite{zangwill_modern_em}, \cite{balanis_advanced}, \cite{goodman_fourier}, \cite{smith_radiation}. Unfortunately, these references typically only highlight one aspect and have conflicting conventions for propagation direction and normalization. In addition, they tend to skip over many steps, and some define Green's functions without really using them, while others use Green’s Functions without really defining them. The purpose of this document is to work through derivations of the canonical free space Green's functions and demonstrate in a consistent manner how they can be utilized in electromagnetic propagation problems where diffraction becomes important. A particular aspect covered here is the derivation of equations governing the propagation of Radio Frequency (RF) waves in a maritime environment.
+Today Green's functions are a useful tool in solving inhomogeneous differential equations and can be thought of as an impulse response. There are many references for Green's functions from the mathematical perspective \cite{bender_orszag}, \cite{arfken_weber}, \cite{gbur_math}, \cite{guenther_partial_de}, \cite{duffy_green}, and for their application to electromagnetics \cite{jackson_classical_em}, \cite{zangwill_modern_em}, \cite{balanis_advanced}, \cite{goodman_fourier}, \cite{smith_radiation}. Unfortunately, these references typically only highlight one aspect and often have conflicting conventions for propagation direction and normalization. In addition, they tend to skip over many steps, and some define Green's functions without really using them, while others use Green’s Functions without really defining them. The purpose of this document is to fill this gap and present the theory behind Green's functions and demonstrate how they can be used in electromagnetic propagation and diffraction problems in a consistent manner. A particular emphasis is given to applications concerning the propagation of Radio Frequency (RF) waves in a maritime environment. The discussion will be restricted to scalar analysis and will not address dyadic forms, series expansions, or stochastic integrals.
 
 \subsection{Time Dependence Sign Convention} \label{gf_sec:time_dependence}
 Before getting started, we need to define the sign convention used for time dependence. We  assume harmonic propagating waves that follow the typical Engineering literature with time dependence going as $e^{j\omega t}$. This means we can represent an arbitrary vector wave $\mathbf{C}(\mathbf{r},t)$ as:
@@ -15,7 +12,7 @@ Before getting started, we need to define the sign convention used for time depe
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-For a system to be causal, it may only depend on past or present inputs and not on future inputs. Any physically realizable system, such as an electromagnetic wave must be causal, as something that has not yet happened cannot have an impact on the current output. We can relate the causality condition to the phase with the restriction that the phase can be delayed but not advanced. This tells us that for propagating waves, we need to look for solutions in the form of $g\left(\pm\left[\omega t - k_or\right]\right)$, as solutions in the form of $g\left(\pm\left[\omega t + k_or\right]\right)$ advance the phase and are not physically realizable. 
+For a system to be causal, it may only depend on past or present inputs and not on future inputs. Any physically realizable system, such as an electromagnetic wave, must be causal as something that has not yet happened cannot have an impact on the current output. We can relate the causality condition to the phase with the restriction that the phase can be delayed but not advanced. This tells us that for propagating waves, we need to look for solutions in the form of $g\left(\pm\left[\omega t - k_or\right]\right)$, as solutions in the form of $g\left(\pm\left[\omega t + k_or\right]\right)$ advance the phase and are not physically realizable. 
 
 With this restriction, our vector waves from Equation \ref{gf_eq:0a} must take the form:
 
@@ -25,12 +22,13 @@ With this restriction, our vector waves from Equation \ref{gf_eq:0a} must take t
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-In the next section, we will see that this choice of time dependence  defines the forward and reverse Fourier transforms in both the temporal and spatial domains.
+This choice of time dependence  defines the forward and reverse Fourier transforms in both the temporal and spatial domains.
 
 \subsection {Fourier Transforms in Time and Space} \label{gf_sec:fourier_transform}
-We must remain self consistent with our sign conventions when using Fourier transforms. The easiest way to ensure consistency is to interpret the transform from a frequency domain to either the temporal or spatial domain as a superposition of the signal of interest with forward propagating waves over all frequencies. The sign convention for the Fourier transform then comes directly from our definition of a forward propagating wave from the previous section.  
+We must remain consistent with our sign conventions when using Fourier transforms. The easiest way to ensure consistency is to interpret the transform from a frequency domain to either the temporal or spatial domain as a superposition of the signal of interest with forward propagating waves over all frequencies. The sign convention for the Fourier transform then comes directly from our definition of a forward propagating wave from the previous section.  
 
-Table \ref{gf_tab:0a} presents the forward Fourier transforms, $\hat{g} = \mathcal{F}\{g\}$, and the inverser Fourier transforms, $g = \mathcal{F}^{-1}\{\hat{g}\}$, in both time and space for an arbitrary function, $g$, and its Fourier transform, $\hat{g}$.
+Table \ref{gf_tab:0a} presents the forward Fourier transforms, $\hat{g} = \mathcal{F}\{g\}$, and the inverse Fourier transforms, $g = \mathcal{F}^{-1}\{\hat{g}\}$, in both time and space for an arbitrary function, $g$, and its Fourier transform, $\hat{g}$.
+
 \begin{table}[ht]
   \begin{center}
       \renewcommand{\baselinestretch}{1} \small\normalsize
@@ -48,13 +46,22 @@ Table \ref{gf_tab:0a} presents the forward Fourier transforms, $\hat{g} = \mathc
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection{Geometric Spreading}
-The geometric spreading of an electromagnetic wave is dependent on the dimensionality and approximations used. A plane wave is easy to work with but shows no spreading or amplitude reduction as it propagates. A paraxial wave allows us to represent beam like waves and will have spreading proportional to $1/\sqrt{L_x}$, where $L_x$ is the length along the propagation direction. A cylindrical wave will have spreading proportional to $1/\sqrt{\rho}$ and a spherical wave will have spreading proportional to $1/r$. The amount of geometry induced spreading increases as we add higher fidelity to our models and analytical tools so we need to take that into consideration when comparing models.
+The geometric spreading of an analytical electromagnetic wave is dependent on the dimensionality and approximations used. A plane wave is easy to work with but shows no spreading or amplitude reduction as it propagates. A paraxial wave allows us to represent beam like waves and will have spreading proportional to $1/\sqrt{L_x}$, where $L_x$ is the length along the propagation direction. A cylindrical wave will have spreading proportional to $1/\sqrt{\rho}$ and a spherical wave will have spreading proportional to $1/r$. The amount of geometry induced spreading increases as we add higher fidelity to our models and analytical tools so we need to take that into consideration when comparing models and try to remain consistent wherever possible.
+
+\subsection{Common Pitfalls}
+There are several potential issues that need to be considered when applying numerical methods to any propagation problem. The following list is certainly not exhaustive, but captures some of the biggest tripping points that may be encountered.
+
+\begin{enumerate}
+\item Consistency with Fourier transform definitions. The time and space versions of Fourier transforms will have opposing signs due to causality. When using numerical Fast Fourier Transform (FFT) implementations, we need to ensure they match the conventions used as described in Table \ref{gf_tab:0a}. If they do not agree, a general fix is to take the complex conjugate of any exponential terms in the analytical expression.
+\item Polarization changes not captured. In the scalar theory presented here, there is no sense of polarization. This means that once set, the polarization will be constant for all time. Polarization is accounted for through the reflection coefficients and boundary conditions as those implicitly have polarization dependence.
+\item No backscattering with paraxial approximation. The paraxial assumption greatly simplifies analysis and is extremely useful for describing beam like waves, Fresnel and Fraunhofer diffraction, and the parabolic wave equation (PWE). However, this assumption effectively factors out backward propagating waves and only provides solutions for forward propagating waves. This means that with the paraxial assumption, we do not get any kind of backward scattering in the solution and will need to supplement the results where backscattering is important (e.g. clutter). 
+\end{enumerate}
 
 \section {Green's Identities and Method}
-The two identities named for George Green and the method of Green’s functions will be derived in this section.
+The two identities named for George Green and the method of Green’s functions will be derived here.
 
 \subsection{Identities}
-To derive Green’s identities, we will start with the divergence theorem:
+To derive Green’s identities, we start with the divergence theorem:
 
 \begin{equation}
 \oint\limits_{S} \mathbf{C} \cdot \hat{n} dS = \int\limits_{V}d^3r'\nabla \cdot \mathbf{C}
@@ -94,7 +101,7 @@ If we flip the order of the scalar variables and instead let $\mathbf{C}=\psi\na
 \end{equation}
 
 \subsection {Method of Green's Functions} \label{gf_sec:method}
-For the purposes of this document, we are interested in time varying propagation problems. Therefore, we would like to apply the method of Green's functions to the scalar wave equation  to solve for the scalar field $\varphi$ as a function of space and time with an arbitrary driving function, $f$, that is also a function of space and time:
+For the purposes of this document, we are interested in time varying propagation problems rather than electrostatic ones. Therefore, we would like to apply the method of Green's functions to the scalar wave equation  to solve for the scalar field $\varphi$ as a function of space and time with an arbitrary driving function, $f$, that is also a function of space and time:
 
 \begin{equation}
 \nabla^2\varphi\left(\mathbf{r},t\right) - \frac{1}{c^2}\frac{\partial^2 \varphi\left(\mathbf{r},t\right)}{\partial t^2} = f\left(\mathbf{r},t\right)
@@ -126,7 +133,7 @@ The Green's function for this problem can be found by replacing the driving func
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Equation \ref{gf_eq:9} shows that the Green's function is the solution to the differential equation for a spatial impulse and therefore represents the impulse response of the system. In electromagnetics, the driving force often has a negative sign as seen from the Laplace equation, $\nabla^2\varphi = -\rho/\epsilon_o$, so we typically chose a matching negative sign for the delta function. With this convention, we need to make sure the driving force has a negative sign when utilizing a Green's function later.
+Equation \ref{gf_eq:9} shows that the Green's function is the solution to the differential equation for a spatial impulse and therefore represents the impulse response of the system. In electromagnetics, the driving force often has a negative sign as seen from the Poisson equation, $\nabla^2\varphi = -\rho/\epsilon_o$, so we typically chose a matching negative sign for the delta function. With this convention, we need to make sure the driving force has a negative sign when utilizing a Green's function later.
 
 The general method to find Green's functions is to solve the homogeneous differential equation away from the delta function source and then integrate over a small region that includes the delta function for normalization. Some authors, such as \cite{jackson_classical_em}, include a $4\pi$ scale factor with the delta function to absorb this normalization term into the differential equation rather than the Green's function.
 
@@ -136,7 +143,7 @@ Equations \ref{gf_eq:8} and \ref{gf_eq:9} can be rearranged to solve for the Lap
 \begin{gathered}
 \oint\limits_{S} \left[ \varphi\frac{\partial G}{\partial n} - G\frac{\partial \varphi}{\partial n} \right]dS = \int\limits_{V}d^3r' \left[ \varphi\nabla^2G- G \nabla^2 \varphi\right] \\
 \oint\limits_{S} \left[ \varphi\frac{\partial G}{\partial n} - G\frac{\partial \varphi}{\partial n} \right]dS = \int\limits_{V}d^3r' \left[ \varphi \left(-\delta\left(\mathbf{r}-\mathbf{r}' \right) - k_o^2G\right)- G \left(f - k_o^2\varphi \right)\right] \\
-\int\limits_{V}d^3r'\varphi\delta\left(\mathbf{r}-\mathbf{r}' \right) = \oint\limits_{S}\left[G\frac{\partial \varphi}{\partial n} - \varphi\frac{\partial G}{\partial n} \right]dS +\int\limits_{V}d^3r'\left[ Gk_o^2\varphi - \varphi k_o^2G-k_o^2G - Gf \right] \\
+\int\limits_{V}d^3r'\varphi\delta\left(\mathbf{r}-\mathbf{r}' \right) = \oint\limits_{S}\left[G\frac{\partial \varphi}{\partial n} - \varphi\frac{\partial G}{\partial n} \right]dS +\int\limits_{V}d^3r'\left[ Gk_o^2\varphi - \varphi k_o^2G - Gf \right] \\
 \int\limits_{V}d^3r'\varphi\delta\left(\mathbf{r}-\mathbf{r}' \right) = \oint\limits_{S}\left[G\frac{\partial \varphi}{\partial n} - \varphi\frac{\partial G}{\partial n} \right]dS -\int\limits_{V}d^3r' Gf
 \end{gathered}
 \label{gf_eq:10}
@@ -159,7 +166,7 @@ Equation \ref{gf_eq:11} defines the general solution for an inhomogeneous differ
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-In the simplest case, $f$ is a delta function with a scalar amplitude, $ f = -\alpha\delta(r'-r_o)$, so that
+In the simplest case, $f$ is a point source and can be represented by a delta function with a scalar amplitude, $ f = -\alpha\delta(r'-r_o)$, so that
 
 \begin{equation}
 \varphi = \alpha G(r,r_o)
@@ -179,12 +186,14 @@ G\left(\mathbf{r},\mathbf{r}' \right)\bigg|_{S}=0
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Green's functions specified in this manner are sometimes called Green's functions of the first kind. Substituting Equation \ref{gf_eq:12} into Equation \ref{gf_eq:11} results in the following equation for $\varphi$ in the presence of Dirichlet boundary conditions.
+Substituting Equation \ref{gf_eq:12} into Equation \ref{gf_eq:11} results in the following equation for $\varphi$ in the presence of Dirichlet boundary conditions.
 \begin{equation}
 \boxed{\varphi = -\oint\limits_{S}dS \varphi\frac{\partial G}{\partial n} -\int\limits_{V}d^3r' Gf}
 \label{gf_eq:13}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
+Green's functions with Dirichlet boundary conditions are sometimes called Green's functions of the first kind and occur naturally in electrostatics. 
 
 \subsection {Neuman Boundary Conditions}
 For Neuman boundary conditions, the normal derivative of the field is specified on the surface, $\frac{\partial\varphi\left(\mathbf{r}\right)}{\partial n}|_{S} = b\left(\mathbf{r}_s\right)$. As described in \cite{jackson_classical_em}, \cite{zangwill_modern_em}, and \cite{balanis_advanced}, we cannot simply set the normal derivative of $G$ to $0$. This can be demonstrated by integrating Equation \ref{gf_eq:9} over a volume and then applying the divergence theorem:
@@ -216,7 +225,7 @@ Equation \ref{gf_eq:15} indicates that there is a discontinuity in the normal de
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Equation \ref{gf_eq:16} demonstrates the jump condition for the normal derivative of the Green's function. Note that when the surface is taken out to infinity that $\partial G/\partial n = 0$. Green's functions specified in this manner are sometimes called Green's functions of the second kind. Substituting Equation \ref{gf_eq:16} into Equation \ref{gf_eq:11} results in the following equation for $\varphi$ in the presence of Neuman boundary conditions.
+Equation \ref{gf_eq:16} demonstrates the jump condition for the normal derivative of the Green's function. Note that when the surface is taken out to infinity that $\partial G/\partial n = 0$. Substituting Equation \ref{gf_eq:16} into Equation \ref{gf_eq:11} results in the following equation for $\varphi$ in the presence of Neuman boundary conditions.
 
 \begin{equation}
 \boxed{\varphi = \oint\limits_{S}dS\left[G\frac{\partial \varphi}{\partial n} + \frac{\varphi}{S} \right] -\int\limits_{V}d^3r' Gf}
@@ -231,6 +240,8 @@ We can rewrite Equation \ref{gf_eq:17} as in \cite{jackson_classical_em}, using 
 \label{gf_eq:18}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
+Green's functions with Neuman boundary conditions are sometimes called Green's functions of the second kind and occur naturally in waveguides. 
 
 \subsection {Robin Boundary Conditions}
 For Robin boundary conditions, a weighted linear combination of the solution and its derivative are specified on the surface, $\frac{\partial\varphi\left(\mathbf{r}\right)}{\partial n}|_{S} +\alpha\varphi\left(\mathbf{r}\right) |_{S}= c\left(\mathbf{r}_s\right)$. 
@@ -251,7 +262,7 @@ Substituting Equation \ref{gf_eq:18aa} into Equation \ref{gf_eq:11} results in t
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Robin boundary conditions are commonly found in propagation problems with mixed polarization. They generally do not allow simple solutions are usually solved numerically.
+Robin boundary conditions are commonly found in propagation problems with mixed polarization and cavities with apertures. They generally do not allow simple solutions are usually solved numerically.
 
 \section {Properties of Green's Functions} \label{gf_sec:properties}
 We have already discussed the fact that Green's functions represent the spatial impulse response of the differential equation. This section introduces some other properties of Green's functions, including causality, reciprocity, continuity, and general forms.
@@ -395,7 +406,7 @@ G_o\left(\mathbf{r},\mathbf{r}'\right)  = \frac{e^{-jk_o|\mathbf{r} - \mathbf{r}
 
 \noindent In this case, the $4\pi$ scale factor would then appear in Equation \ref{gf_eq:11}.
 
-To help visualize this Green's function, the magnitude and phase is shown in Figure \ref{gf_fig:1} and the real and imaginary components are shown in Figure \ref{gf_fig:2}. These figures constrain the Green's function to the $x-y$ plane at $z=0$ for visualization.
+To help visualize this Green's function, the magnitude and phase are shown in Figure \ref{gf_fig:1} and the real and imaginary components are shown in Figure \ref{gf_fig:2}. These figures constrain the Green's function to the $x-y$ plane at $z=0$ for visualization.
 
 \begin{figure}[ht]
 \begin{center}
@@ -438,10 +449,19 @@ G_o\left(\mathbf{r},\mathbf{r}',\omega\right) = \frac{e^{-j\frac{\omega}{c}|\mat
 \begin{gathered}
 G_o\left(\mathbf{r},\mathbf{r}',t\right) = \frac{1}{2\pi}\int\limits_{-\infty}^{\infty}d\omega e^{j\omega t}G_o\left(\mathbf{r},\mathbf{r}',\omega\right) \\
 G_o\left(\mathbf{r},\mathbf{r}',t\right) = \frac{1}{2\pi}\int\limits_{-\infty}^{\infty}d\omega e^{j\omega t}  \frac{e^{-j\frac{\omega}{c}|\mathbf{r}-\mathbf{r}'|}}{4\pi |\mathbf{r}-\mathbf{r}'|}\\
+\end{gathered}
+\label{gf_eq:29}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent Because the integration limits are $\pm\infty$, we can flip the sign in the exponential term.
+
+\begin{equation}
+\begin{gathered}
 G_o\left(\mathbf{r},\mathbf{r}',t\right) = \frac{1}{4\pi |\mathbf{r}-\mathbf{r}'|}\frac{1}{2\pi}\int\limits_{-\infty}^{\infty}d\omega e^{-j\omega\left(\frac{|\mathbf{r}-\mathbf{r}'|}{c} - t\right)} \\
 G_o\left(\mathbf{r},\mathbf{r}',t\right) = \frac{1}{4\pi |\mathbf{r}-\mathbf{r}'|}\frac{1}{2\pi}\int\limits_{-\infty}^{\infty}d\omega e^{-j\omega\left(t - \frac{|\mathbf{r}-\mathbf{r}'|}{c}\right)}
 \end{gathered}
-\label{gf_eq:29}
+\label{gf_eq:29a}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
@@ -456,7 +476,7 @@ G_o\left(\mathbf{r},\mathbf{r}',t\right) = \frac{1}{4\pi |\mathbf{r}-\mathbf{r}'
 \noindent We can write the free space Green's function in the temporal domain as:
 
 \begin{equation}
-\boxed{G_o\left(\mathbf{r},\mathbf{r}',t\right) = \frac{\delta\left(t-\frac{|\mathbf{r}-\mathbf{r}'|}{c} \right)}{4\pi |\mathbf{r}-\mathbf{r}'|}}
+G_o\left(\mathbf{r},\mathbf{r}',t\right) = \frac{\delta\left(t-\frac{|\mathbf{r}-\mathbf{r}'|}{c} \right)}{4\pi |\mathbf{r}-\mathbf{r}'|}
 \label{gf_eq:31}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -464,7 +484,7 @@ G_o\left(\mathbf{r},\mathbf{r}',t\right) = \frac{1}{4\pi |\mathbf{r}-\mathbf{r}'
 Equation \ref{gf_eq:31} assumes the source is turned on at time $0$. If we let the source be turned on at an arbitrary time, $t'$, a more general expression is:
 
 \begin{equation}
-G_o\left(\mathbf{r},\mathbf{r}',t,t'\right) = \frac{\delta\left(|t-t'|-\frac{|\mathbf{r}-\mathbf{r}'|}{c} \right)}{4\pi |\mathbf{r}-\mathbf{r}'|}
+\boxed{G_o\left(\mathbf{r},\mathbf{r}',t,t'\right) = \frac{\delta\left(|t-t'|-\frac{|\mathbf{r}-\mathbf{r}'|}{c} \right)}{4\pi |\mathbf{r}-\mathbf{r}'|}}
 \label{gf_eq:32}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -499,9 +519,9 @@ G = c_1J_0\left(k_o\rho\right) + c_2N_0\left(k_o\rho\right)
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Here $J_0$ is a Bessel function of the first kind, and $N_0$ is a Bessel function of the second kind. Since the delta function is singular at the origin, we cannot demand that $G$ be finite at the origin. This means that $c_2 \neq 0$ and we have one equation with two unknowns.
+Here $J_0$ is a Bessel function of the first kind, and $N_0$ is a Bessel function of the second kind. Since the delta function is singular at the origin, we can not demand that $G$ be finite at the origin. This means that $c_2 \neq 0$ and we have one equation with two unknowns.
 
-When working with propagating waves, it is sometimes more useful to work with Hankel functions than Bessel functions. The Hankel functions are:
+When working with propagating waves, it is often more useful to work with Hankel functions than Bessel functions. The Hankel functions are defined as:
 
 \begin{equation}
 \begin{gathered}
@@ -564,7 +584,7 @@ Now letting $\rho \rightarrow |\boldsymbol{\rho}-\boldsymbol{\rho}'|$, we have t
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-To help visualize this Green's function, the magnitude and phase is shown in Figure \ref{gf_fig:3} and the real and imaginary components are shown in Figure \ref{gf_fig:4}. The real and imaginary components show the sinusoidal behavior of the Hankel functions for large arguments.
+To help visualize this Green's function, the magnitude and phase are shown in Figure \ref{gf_fig:3} and the real and imaginary components are shown in Figure \ref{gf_fig:4}. The real and imaginary components show the sinusoidal behavior of the Hankel functions for large arguments.
 
 \begin{figure}[ht]
 \begin{center}
@@ -601,7 +621,7 @@ G_o\left(\boldsymbol{\rho},\boldsymbol{\rho}',\omega\right) = -\frac{j}{4}H_0^{(
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-To determine the Green's function in the time domain, we need to take the inverse Fourier transform:
+To determine the Green's function in the time domain, we need to take the inverse Fourier transform and will follow the procedure outlined in \cite{gbur_math}.
 
 \begin{equation}
 \begin{gathered}
@@ -758,7 +778,7 @@ Equation \ref{gf_eq:44} was derived for rectilinear propagation in a vacuum wher
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
  
-\subsubsection {Green's Function Derivation in the Frequency Domain}
+\subsubsection {Green's Function Derivation in the Frequency Domain} \label{gf_sec:paraxial_gf_derivation}
 As stated in the previous section, the Green's function for the paraxial wave equation, $G_p$, will only define the amplitude modulation. To get the full Green's function, we will need to scale by the plane wave, $G_o= G_p e^{-jk_ox}$. We can start with substituting the Greens function into equation \ref{gf_eq:44}.
 
 \begin{equation}
@@ -895,7 +915,7 @@ To help visualize this Green's function, the magnitude and phase is shown in Fig
 It is important to note that with the paraxial approximation, only forward propagating waves are included in the solution. This means that effects such as backscattering are not captured with this method. 
 
 \subsubsection{Derivation From 3-D Free Space Green's Function}
-A simpler method to derive the Green's function for the paraxial wave equation is to apply the paraxial assumption to the 3-D free space Green's function. This assumption allows us to substitute $r$ with $x$ for the amplitude, but we will need to integrate out the $y$ dependence of the phase because it is a rapidly oscillating function. We can use a binomial expansion to separate the $y$ and $z$ dependence.
+A simpler method to derive the Green's function for the paraxial wave equation is to apply the paraxial assumption to the 3-D free space Green's function. This assumption allows us to substitute $r$ with $x$ for the amplitude, but we will need to integrate out the $y$ dependence of the phase because it is rapidly oscillating. We can use a binomial expansion to separate the $y$ and $z$ dependence.
 
 \begin{equation}
 r = \sqrt{x^2+y^2+z^2} \approx x + \frac{y^2}{2x}+\frac{z^2}{2x}
@@ -932,27 +952,87 @@ G_o &= \frac{\exp\left[-jk_o\left(x+\frac{z^2}{2x} \right)\right]}{4\pi x} \sqrt
  
 \noindent Equation \ref{gf_eq:11zd} is identical to Equation \ref{gf_eq:11fa} so we get the same answer either way.
 
+\subsection{Parabolic Wave Equation}
+This section derives the Green's function for the parabolic wave equation (PWE), which is essentially the paraxial wave equation with a correction factor to account for the curvature of the earth.
+
+\subsubsection{Derivation of the Parabolic Wave Equation}
+Because the earth is actually curved and not flat, it is often useful to treat the earth as a sphere when analyzing propagation. If we let $a_e$ be the radius of the earth, we can use a conformal mapping to implement the transformation \cite{kuttler_pe_theory} and keep the result in Cartesian coordinates.
+
+\begin{equation}
+\begin{gathered} 
+\xi = 2a_e\frac{a_e+j\zeta}{\zeta + ja_e} \\
+\zeta = r\sin(\theta) + jr\cos(\theta)  \quad \xi=x+jz\\
+\label{gf_eq:74}
+\end{gathered}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Using this mapping and applying the paraxial approximation to the Helmholtz equation with refractivity included yields the PWE \cite{kuttler_pe_theory} \cite{dockery_pe}.
+ 
+\begin{equation}
+-2jk_o\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} +k_0^2\left(n^2-1+\frac{2z}{a_e} \right)A = 0 \\
+\label{gf_eq:75}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+The only difference between Equation \ref{gf_eq:75} and Equation \ref{gf_eq:44aaaa} is the inclusion of the term $2z/a_e$ that represents the impact of the curvature of the Earth. We can make a substitution for the modified refractivity, $m = n^2-1 + 2z/a_e$, and treat it as a constant. 
+
+\begin{equation}
+-2jk_o\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} +k_0^2mA = 0 \\
+\label{gf_eq:76}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\subsubsection{Green's Function Derivation in the Frequency Domain}
+The derivation of the Green's function for the PWE follows directly from Section \ref{gf_sec:paraxial_gf_derivation}. The Fourier transform of the equation for the Green's function is now given by
+
+\begin{equation}
+2jk_o\frac{\partial \hat{G}_p}{\partial x} + (k^2-k_o^2m)\hat{G}_p = \delta(x) \\
+\label{gf_eq:200}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+The solution in the spatial frequency domain will now have an additional phase factor driven by the correction factor.
+
+\begin{equation}
+\begin{aligned}
+\hat{g}_p &= \frac{1}{2jk_0}e^{j\frac{(k^2-k_o^2m}{2k_o}x}\\
+&=\frac{1}{2jk_0}e^{\frac{jk^2}{2k_o}x} e^{\frac{-jk_om}{2}x}\\
+\end{aligned}
+\label{gf_eq:201}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Because the additional phase factor does not depend on $k$, it can be pulled out of the integral when taking the inverse Fourier transform. The final Green's function for the PWE is then given as
+
+\begin{equation}
+\boxed{G\left(x,x',z,z' \right)= \sqrt{\frac{1}{8\pi jk_o|x-x'|}}\exp\left[-jk_o\left(|x-x'|\left[1+\frac{m}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right) \right]}\\
+\label{gf_eq:202}
+\end{equation}
+ \renewcommand{\baselinestretch}{2} \small\normalsize
+
 \subsection {Tabularized Green's Functions}
-Table \ref{gf_tab:0} collects the various Green's functions derived in this section. Again, these were derived assuming a time dependence going as $e^{j\omega t}$.
+Table \ref{gf_tab:0} collects the various Green's functions derived in this section in the frequency domain. Again, these were derived assuming a time dependence going as $e^{j\omega t}$.
 \begin{table}[ht]
   \begin{center}
       \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
     \caption[Table of Derived Green's Functions]{Table of Derived Green's Functions\label{gf_tab:0}}
   \end{quote}
-  \begin{tabular} {|c | c | c|}
+  \begin{tabular} {|c | c |}
     \hline
-  \bf{Wave Equation} & \bf{Frequency Domain} & \bf{Time Domain}\\ \hline
-  3-D Free Space & $\displaystyle\frac{e^{-jk_o|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|}$ &  $\displaystyle\frac{\delta\left(|t-t'|-\frac{|\mathbf{r}-\mathbf{r}'|}{c} \right)}{4\pi |\mathbf{r}-\mathbf{r}'|}$ \\ \hline
-  2-D Free Space & $\displaystyle -\frac{j}{4}H_0^{(2)}\left(k_o|\boldsymbol{\rho} - \boldsymbol{\rho}' | \right)$ & $\displaystyle\frac{H\left(|t-t'| -\frac{|\boldsymbol{\rho} - \boldsymbol{\rho}'|}{c}\right)}{2\pi \sqrt{|t-t'|^2 -\left(\frac{|\boldsymbol{\rho} - \boldsymbol{\rho}'|}{c}\right)^2 }     }$  \\ \hline
-  2-D Paraxial & $\displaystyle\sqrt{\frac{1}{8\pi jk_o|x-x'|}}\exp\left[-jk_o\left(|x-x'| + \frac{|z-z'|^2}{2|x-x'|}\right) \right]$ & N/A \\ \hline
+  \bf{Wave Equation} & \bf{Frequency Domain} \\ \hline
+  3-D Free Space & $\displaystyle\frac{e^{-jk_o|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|}$ \\ \hline
+  2-D Free Space & $\displaystyle -\frac{j}{4}H_0^{(2)}\left(k_o|\boldsymbol{\rho} - \boldsymbol{\rho}' | \right)$  \\ \hline
+  2-D Paraxial & $\displaystyle\sqrt{\frac{1}{8\pi jk_o|x-x'|}}\exp\left[-jk_o\left(|x-x'| + \frac{|z-z'|^2}{2|x-x'|}\right) \right]$\\ \hline
+  2-D PWE &$\displaystyle\sqrt{\frac{1}{8\pi jk_o|x-x'|}}\exp\left[-jk_o\left(|x-x'|\left[1+\frac{m}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right) \right]$ \\ \hline
 \end{tabular}
 \end{center}
 \end{table}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \section {Propagation With Green's Functions}
-This section describes how to use Green's functions to find solutions for propagation problems. We will identify the disturbance at the observation point as $U(P_2)$ and the disturbance at the source as $U(P_1)$.
+This section describes how to use Green's functions for propagation problems. We will identify the disturbance at the observation point as $U(P_2)$ and the disturbance at the source as $U(P_1)$.
 
 \subsection {Free Space Propagation}
 For free space propagation problems, there are no boundaries present and we only have the forcing function of Equation \ref{gf_eq:11} surviving so that $U(P_0) = -\int d^3r' Gf$. 
@@ -962,10 +1042,10 @@ The simplest implementation is to assume a point source, so that $f= -\alpha \de
 
 The point source approximation greatly simplifies the calculation and is adequate to capture propagation characteristics in many cases, especially at long ranges. At closer ranges, the distributed aspects of a source become apparent and may be important to include in cases such as predicting the infrared signature of objects.
 
-\subsubsection {Diffraction through an Aperture}
+\subsection {Diffraction through an Aperture}
 The canonical diffraction problem is the propagation of light through an aperture and is heavily utilized in the field of Fourier Optics \cite{goodman_fourier} \cite{gaskill_fourier}.
 
-\subsection{Rayleigh-Sommerfeld Diffraction Integral}
+\subsubsection{Rayleigh-Sommerfeld Diffraction Integral}
 Following Huygen's principle, we can use every point in the aperture as a source for secondary waves. In order to ensure the integral over the surface vanishes at far distances, we need to apply the Sommerfeld radiation condition on the disturbance $U$
 
 \begin{equation}
@@ -1042,7 +1122,7 @@ h=\frac{j}{\lambda}\frac{\exp\left[-jk_o |\mathbf{r}-\mathbf{r}'|\right]}{|\math
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsubsection{Fresnel Diffraction}
-The Fresnel approximation is essentially the paraxial approximation but retaining all 3 dimensions. If we take a binomial expansion of $r$ but keep both the $x$ and $y$ components and assume the source plane is located at $z=0$, we can approximate $r$ as
+The Fresnel approximation is just the paraxial approximation retaining all 3 dimensions. If we take a binomial expansion of $r$ but keep both the $x$ and $y$ components and assume the source plane is located at $z=0$, we can approximate $r$ as
 
 \begin{equation}
 r\approx z + \frac{(x-x')^2}{2z}+\frac{(y-y')^2}{2z}
@@ -1096,7 +1176,7 @@ We can neglect the $\xi^2$ and $\eta^2$ terms in the exponential and let $(x-\xi
 Equation \ref{gf_eq:53h} is the Fraunhofer approximation and is simply the spatial Fourier transform of the aperture with spatial frequencies $f_x = x/(\lambda z)$ and $f_y = y/(\lambda z)$ \cite{goodman_fourier} \cite{gaskill_fourier}. In other words, the spatial frequencies are the source coordinates at the observation plane divided by the product of the wavelength with the propagation distance.
 
 \subsection {Diffraction from a Planar Surface}
-We can treat diffraction from a planar surface in the same fashion as diffraction through an aperture but we will need to include a reflection coefficient, $\Gamma$. As a particular example, the surface of the ocean can be approximated as a planar surface when the ocean wave heights are much smaller than the altitude of interest.
+We can treat diffraction from a planar surface in the same fashion as diffraction through an aperture but we will need to include a reflection coefficient, $\Gamma$. As a specific example, the surface of the ocean can be approximated as a planar surface when the ocean wave heights are much smaller than the altitude of interest.
 
 \subsubsection{Integral Solution for Reflected Ray}
 In this section, we will use a paraxial Green's function to derive the propagation integral for a wave that is reflected off an ocean surface with small random components. The geometry is shown in Figure \ref{gf_fig:15}, where $\tilde{x}$ is the region over which the energy is significantly reflected, $x_m$ is the primary point of reflection, $L_1$ is the direct path, $L_2$ and $L_3$ are the path lengths for the various reflected rays, $s(x)$ is the altitude of the sea surface at $x$, $h_2$ is the altitude of the receiver at $P_2$, $h_1$ is the altitude of the transmitter at $P_1$, and $L$ is the ground distance between $P_1$ and $P_2$. 
@@ -1112,7 +1192,7 @@ In this section, we will use a paraxial Green's function to derive the propagati
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-We can use Equation \ref{gf_eq:52} with the paraxial Green's function. The surface normal is now given as $\hat{z}$, so we only need to take the derivative with respect to $z$. The reflected wave along $L_3$ will then be given by
+We can use Equation \ref{gf_eq:52} with the paraxial Green's function where the surface normal is now given as $\hat{z}$. The reflected wave along $L_3$ will then be given by
 
 \begin{equation}
 \begin{aligned}
@@ -1155,6 +1235,17 @@ U_2(P_2) &= \int_0^L dx \Gamma \sqrt{\frac{1}{8\pi j k_o x}}\exp[-jk_oL_2]\frac{
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
+This approach only captures the reflected portion of the field, to get the solution for the full field, we need to use superposition and add the solution for the direct path.
+
+\begin{equation}
+\begin{aligned}
+U_2(P_2) &= U_1(P_2) + U_2(P_2)\\
+&= \sqrt{\frac{1}{8\pi jk_oL}}\exp\left[-jk_oL_1\right] + \frac{1}{4\pi}\int_0^L dx \Gamma \sqrt{\frac{1}{x}}\sqrt{\frac{1}{L-x}}\frac{h_2-s}{L-x}\exp\left[-jk_o\left(L_2+L_3\right) \right]
+\label{gf_eq:58a}
+\end{aligned}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
 \subsubsection{Asymptotic Approximation}
 We can simplify the various path lengths in Figure \ref{gf_fig:15} through a binomial expansion. Here $L_m$ represents the minimum reflected path, which would be given as a straight line between $P_1$ and the mirror image of $P_2$. 
 
@@ -1182,7 +1273,7 @@ L_r &= L_2 + L_3 \\
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Here $L_0$ represents the deterministic component due to reflection from the surface and $L_s$ represents the random component due to reflection from the surface. The primary reflection point, $x_m$, should be a saddle point and provide the dominant contribution. We can therefore perform a Taylor expansion of $L_0$ about $x_m$.
+Here $L_0$ represents the deterministic component and $L_s$ represents the random component. The primary reflection point, $x_m$, should be a saddle point and provide the dominant contribution. We can therefore perform a Taylor expansion of $L_0$ about $x_m$.
 
 \begin{equation}
 \begin{gathered}
@@ -1248,7 +1339,7 @@ Because $L_m$ is not dependent on $x$, it can come outside of the integral. If w
 
 \begin{equation}
 \begin{aligned}
-\exp\left[jk_oL_s\right] =\exp\left[j\sigma \cos\left(k_{\omega} (x-x_m) + \theta\right) \right]
+\exp\left[jk_oL_s\right] =\exp\left[j\sigma \sin\left(k_{\omega} (x-x_m) + \theta\right) \right]
 \end{aligned}
 \label{gf_eq:68}
 \end{equation}
@@ -1268,7 +1359,7 @@ We can then use the Jacobi-Anger expansion \cite{gbur_math} to convert the expon
 
 \begin{equation}
 \begin{aligned}
-& \exp\left[j\sigma \cos\left(k_{\omega} (x-x_m) + \theta\right) \right] \\ &=\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl(k_{\omega}(x-x_m) + \theta) \right] \\
+& \exp\left[j\sigma \sin\left(k_{\omega} (x-x_m) + \theta\right) \right] \\ &=\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl(k_{\omega}(x-x_m) + \theta) \right] \\
 &=\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]\exp\left[jlk_{\omega}(x-x_m)\right] 
 \end{aligned}
 \label{gf_eq:70}
@@ -1342,23 +1433,29 @@ U_2(P_2) = \frac{1}{4\pi} \exp[-jk_oL_m] \sum_{l=-\infty}^{\infty}J_l(\sigma)\ex
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\noindent Substituting in for $x_m$ and $L_0''$ yields the final asymptotic result:
+\noindent Substituting in for $x_m$ and $L_0''$ yields the final asymptotic result for the reflected wave.
 
 \begin{equation}
-\boxed{U_2(P_2) = \sqrt{\frac{1}{8\pi jk_o L}}\Gamma_1e^{-jk_oL_m} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}} 
+U_2(P_2) = \sqrt{\frac{1}{8\pi jk_o L}}\Gamma_1e^{-jk_oL_m} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}
 \label{gf_eq:73}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-A simple plane wave solution would result in $U_2(P_2) = \Gamma_1\exp[-jk_oL_m]$ for the reflected wave. Here, we see that the deterministic component from the paraxial wave  solution scales the plane wave solution by the geometric spreading of a paraxial wave. The random sea height contributions are now contained in the sum of Bessel functions.
+A simple plane wave solution would result in $U_2(P_2) = \Gamma_1\exp[-jk_oL_m]$ for the reflected wave. Here, we see that the deterministic component from the paraxial wave  solution scales the plane wave solution by the geometric spreading of a paraxial wave. The random sea height contributions are now contained in the sum of Bessel functions. We can now add the solution for the direct wave for the asymptotic solution for the full field.
+
+\begin{equation}
+\boxed{U(P_2) = \sqrt{\frac{1}{8\pi jk_o L}}\left[e^{-jk_oL_1}+\Gamma_1e^{-jk_oL_m} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}\right]}
+\label{gf_eq:73a}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection {Knife Edges and Non-planar Terrain}
-In many cases of interest, the surface we want to propagate over is not planar. In this case, we can formulate the diffraction integral in altitude (perpendicular to the surface) and treat subsequent obstacles as knife edges \cite{whitteker_diffraction}. If we treat the knife edge as an aperture that starts at $z=\xi$, assume no $y$ dependence from the source, $U(x,y) = U(x)$, and let propagation be along the $x$ axis, we can integrate out the $y$ dependence from the Fresnel diffraction equation (Equation \ref{gf_eq:53d}) and rewrite it as 
+In many cases of interest, the surface we want to propagate over is not planar. Under this condition, we can formulate the diffraction integral in altitude (perpendicular to the surface) and treat subsequent obstacles as knife edges \cite{whitteker_diffraction}. If we treat the knife edge as an aperture that starts at $z=\xi$, assume no $y$ dependence from the source, $U(x,y) = U(x)$, and let propagation be along the $x$ axis, we can integrate out the $y$ dependence from the Fresnel diffraction equation (Equation \ref{gf_eq:53d}) and rewrite it as 
 
 \begin{equation}
 \begin{aligned}
-U(P_2) &=\frac{je^{-jk_ox}}{\lambda x}\int_{\xi}^{\infty}\int_{-\infty}^{\infty} U(z') \exp\left[-j \frac{k}{2x}\left(z-z'\right)^2 \right]   \exp\left[-j \frac{k}{2x}\left(y-y'\right)^2 \right]dz' dy' \\
-&=\frac{je^{-jk_ox}}{\lambda x}\sqrt{\frac{\pi 2 x}{jk_o}}\int_{\xi}^{\infty}U(z') \exp\left[-j \frac{k}{2x}\left(z-z'\right)^2 \right]dz'\\
+U(P_2) &=\frac{je^{-jk_ox}}{\lambda x}\int_{\xi}^{\infty}\int_{-\infty}^{\infty} U(z') \exp\left[-j \frac{k_o}{2x}\left(z-z'\right)^2 \right]   \exp\left[-j \frac{k_o}{2x}\left(y-y'\right)^2 \right]dz' dy' \\
+&=\frac{je^{-jk_ox}}{\lambda x}\sqrt{\frac{\pi 2 x}{jk_o}}\int_{\xi}^{\infty}U(z') \exp\left[-j \frac{k_o}{2x}\left(z-z'\right)^2 \right]dz'\\
 \end{aligned}
 \label{gf_eq:82}
 \end{equation}
@@ -1368,49 +1465,50 @@ U(P_2) &=\frac{je^{-jk_ox}}{\lambda x}\int_{\xi}^{\infty}\int_{-\infty}^{\infty}
 
 \begin{equation}
 \begin{aligned}
-\boxed{U(P_2) =\sqrt{\frac{jk_o}{2\pi x}}\int_{\xi}^{\infty}U(z') \exp\left[-j \frac{k}{2x}\left(z-z'\right)^2 \right]dz'}\\
+\boxed{U(P_2) =\sqrt{\frac{jk_o}{2\pi x}}e^{-jk_ox}\int_{\xi}^{\infty}U(z') \exp\left[-j \frac{k_o}{2x}\left(z-z'\right)^2 \right]dz'}\\
 \end{aligned}
 \label{gf_eq:82a}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\subsection{Parabolic Wave Equation}
-The analytical results previously given have all assumed propagation in Cartesian coordinates. This section derives the parabolic wave equation (PWE) in spherical coordinates and presents a numerical implementation for solution through a split-step Fourier beam propagation method. 
+Because we are integrating in altitude, we have the full field solution and do not need to add in a direct path. Equation \ref{gf_eq:82a} can be used in a marching algorithm that steps along the $x$ axis, solving in $z$.
 
-\subsubsection{Analytical Derivation}
-Because the earth is actually curved and not flat, it is often useful to treat the earth as a sphere when analyzing propagation. If we let $a_e$ be the radius of the earth, we can use a conformal mapping to implement the transformation \cite{kuttler_pe_theory}.
+\subsection{Fourier Method for PWE}
+The typical PWE solution is formulated as a marching algorithm and will be derived here using the Green's function method and directly from the differential equation. 
+
+\subsubsection{Derivation from Green's Function}
+Because the additional phase term is treated only as a function of $x$, we can multiply the paraxial wave equation solution in Equation \ref{gf_eq:82a} by the additional phase and extend the lower limit to $-\infty$ for generality.
 
 \begin{equation}
-\begin{gathered} 
-\xi = 2a_e\frac{a_e+j\zeta}{\zeta + ja_e} \\
-\zeta = r\sin(\theta) + jr\cos(\theta)  \quad \xi=x+jz\\
-\label{gf_eq:74}
-\end{gathered}
+U(P_2) =\sqrt{\frac{jk_o}{2\pi x}}e^{-jk_ox\left(1+\frac{m}{2}\right)}\int_{\xi}^{\infty}U(z') \exp\left[-j \frac{k_o}{2x}\left(z-z'\right)^2 \right]dz'
+\label{gf_eq:301}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Using this mapping and applying the paraxial approximation to the Helmholtz equation with refractivity included yields the PWE \cite{kuttler_pe_theory} \cite{dockery_pe}.
- 
+Because this is a convolution integral, and we can represent convolution in space as multiplication in Frequency, we can rewrite this as
+
 \begin{equation}
--2jk_o\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} +k_0^2\left(n^2-1+\frac{2z}{a_e} \right)A = 0 \\
-\label{gf_eq:75}
+\begin{aligned}
+U(P_2) &=\sqrt{\frac{jk_o}{2\pi x}}e^{-jk_ox\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\{U(z')\}\mathcal{F}\left\{ \exp\left[-j \frac{k_o}{2x}\left(z-z'\right)^2 \right]\right\} \right\} \\
+&=\sqrt{\frac{jk_o}{2\pi x}}e^{-jk_ox\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\{U(z')\}\sqrt{\frac{2\pi x}{jk_o}}\exp\left[-j\frac{k_z^2}{2k_o}x \right] \right\} \\
+\label{gf_eq:302}
+\end{aligned}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-The only difference between Equation \ref{gf_eq:75} and the previously derived paraxial wave equation is the inclusion of the term $2z/a_e$ that represents the impact of the curvature of the Earth.
-
-There are two comments regarding this derivation. First, we have used the convention of spatial dependence going as $e^{-jk_ox}$, which leads to the $-$ sign for the $\partial A/\partial x$ term in Equation \ref{gf_eq:75}. If we had instead assumed the spatial dependence went as $e^{+jk_ox}$, we would have a $+$ sign for the $\partial A/\partial x$ term. Second, as previously mentioned this equation only defines how the amplitude changes with propagation and we will need to multiply the result by a plane wave, $e^{-jk_ox}$, to get the final answer. 
-
-We can make a substitution for the modified refractivity, $m = n^2-1 + 2z/a_e$, and treat it as a constant. 
+\noindent Combining terms and simplifying gives the final result
 
 \begin{equation}
--2jk_o\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} +k_0^2mA = 0 \\
-\label{gf_eq:76}
+\begin{aligned}
+U(P_2) = e^{-jk_ox\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\{U(z')\}\exp\left[-j\frac{k_z^2}{2k_o}x \right] \right\} \\
+\label{gf_eq:303}
+\end{aligned}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\subsubsection{Numerical Implementation}
-\noindent We can start by taking the Fourier transform of Equation \ref{gf_eq:76} along $z$
+
+\subsection{Derivation from PWE}
+\noindent The most straight forward approach is to start by taking the Fourier transform of the PWE (Equation \ref{gf_eq:76}) along $z$
 
 \begin{equation}
 -k_z^2\hat{A} -2jk_o\frac{\partial \hat{A}}{\partial x} +k_o^2m\hat{A}
@@ -1448,13 +1546,4 @@ A(x,z) &= \mathcal{F}^{-1}\left\{\hat{A}(x,k_z) \right\} \\
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Equation \ref{gf_eq:80} is the split step algorithm for solving the PWE. One note of caution here is that when using numerical Fast Fourier Transform (FFT) implementations, we need to ensure they match the conventions used for forward and reverse transforms. If they do not agree, we would need to use the complex conjugates of the exponential terms in Equation \ref{gf_eq:80}.
-
-\begin{equation}
-A(x,z) = \exp\left[j\frac{k_om}{2}\Delta x\right]\mathcal{F}^{-1}\left\{\exp\left[-j\frac{k_z^2}{2k_o}\Delta x \right]\hat{A}(x_o,k_z) \right\}
-\label{gf_eq:81}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-\subsection{Polarization}
-In the scalar theory presented here, there is no sense of polarization. This means that once set, the polarization will be constant for all time. Polarization is accounted for through the reflection coefficients and boundary conditions as those implicitly have polarization dependence.
+Equation \ref{gf_eq:80} is the split step algorithm for solving the PWE.
