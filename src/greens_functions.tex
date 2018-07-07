@@ -1,20 +1,14 @@
 \section{Introduction}
 In 1828, an English mathematician named George Green published "An Essay on the Application of Mathematical Analysis to the Theories of Electricity and Magnetism" with a theorem that is now used extensively to solve differential equations in electromagnetics, quantum mechanics, and applied mathematics \cite{green_phys_today}. Unfortunately, the scope of his contributions were not realized until after his death. 
 
-Today Green's functions are a useful tool in solving inhomogeneous differential equations and can be thought of as an impulse response. There are many references for Green's functions from the mathematical perspective \cite{bender_orszag}, \cite{arfken_weber}, \cite{gbur_math}, \cite{guenther_partial_de}, \cite{duffy_green}, and for their application to electromagnetics \cite{jackson_classical_em}, \cite{zangwill_modern_em}, \cite{balanis_advanced}, \cite{goodman_fourier}, \cite{smith_radiation}. Unfortunately, these references typically only highlight one aspect and often have conflicting conventions for propagation direction and normalization. In addition, they tend to skip over many steps, and some define Green's functions without really using them, while others use Green’s functions without really defining them. The purpose of this document is to fill this gap and present the theory behind Green's functions and demonstrate in a consistent manner how they can be used in electromagnetic propagation and diffraction problems. A particular emphasis is given to applications concerning the propagation of Radio Frequency (RF) waves in a maritime environment and the discussion will be restricted to scalar analysis and will not address dyadic forms, series expansions, or stochastic integrals.
+Today Green's functions are a useful tool in solving inhomogeneous differential equations and can be thought of as an impulse response. There are many references for Green's functions from the mathematical perspective \cite{bender_orszag}, \cite{arfken_weber}, \cite{gbur_math}, \cite{guenther_partial_de}, \cite{duffy_green}, and for their application to electromagnetics \cite{jackson_classical_em}, \cite{zangwill_modern_em}, \cite{balanis_advanced}, \cite{goodman_fourier}, \cite{smith_radiation}, \cite{schwinger_em}. Unfortunately, these references are by necessity specialized, only highlighting one aspect and skipping over significant steps. In addition, they often have conflicting conventions for propagation direction and normalization. The purpose of this document is to fill this gap; presenting the theory behind Green's functions and demonstrating in a consistent manner how they can be used in electromagnetic propagation and diffraction problems. A particular emphasis is given to applications concerning the propagation of Radio Frequency (RF) waves in maritime environments and the discussion will be restricted to scalar analysis and will not address dyadic forms, series expansions, or stochastic integrals.
 
 \subsection{Time Dependence Sign Convention} \label{gf_sec:time_dependence}
-Before getting started, we need to define the sign convention used for time dependence. We  assume harmonic propagating waves that follow the typical Engineering literature with time dependence going as $e^{j\omega t}$. This means we can represent an arbitrary vector wave $\mathbf{C}(\mathbf{r},t)$ as:
-
-\begin{equation}
-\mathbf{C}\left(\mathbf{r},t\right) = \mathbf{C}\left(\mathbf{r}\right)e^{j\omega t}
-\label{gf_eq:0a}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
+Before getting started, we need to define the sign convention used for time dependence. We  assume harmonic propagating waves that follow the typical engineering literature with time dependence going as $e^{j\omega t}$. This choice of time dependence defines the spatial difference and the forward and reverse Fourier transforms in both the temporal and spatial domains.
 
 For a system to be causal, it may only depend on past or present inputs and not on future inputs. Any physically realizable system, such as an electromagnetic wave, must be causal as something that has not yet happened cannot have an impact on the current output. We can relate the causality condition to the phase with the restriction that the phase can be delayed but not advanced. This tells us that for propagating waves, we need to look for solutions in the form of $g\left(\pm\left[\omega t - k_on_rr\right]\right)$, as solutions in the form of $g\left(\pm\left[\omega t + k_on_rr\right]\right)$ advance the phase and are not physically realizable. 
 
-With this restriction, our vector waves from Equation \ref{gf_eq:0a} must take the form:
+With this restriction, an arbitrary vector wave, $\mathbf{C}$ must take the form:
 
 \begin{equation}
 \mathbf{C}\left(\mathbf{r},t\right) = \mathbf{C}e^{j\left(\omega t - n_r\mathbf{k}_o \cdot \mathbf{r} \right)}
@@ -22,10 +16,8 @@ With this restriction, our vector waves from Equation \ref{gf_eq:0a} must take t
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-This choice of time dependence  defines the forward and reverse Fourier transforms in both the temporal and spatial domains.
-
 \subsection {Fourier Transforms in Time and Space} \label{gf_sec:fourier_transform}
-We must remain consistent with our sign conventions when using Fourier transforms. The easiest way to ensure consistency is to interpret the transform from a frequency domain to either the temporal or spatial domain as a superposition of the signal of interest with forward propagating waves over all frequencies. The sign convention for the inverse Fourier transform then comes directly from our definition of a forward propagating wave from the previous section.  
+As a mathematical construct, the signs on the forward and reverse Fourier transforms are irrelevant as long as we are consistent when moving into and out of the frequency domain. In physics however, we must remain consistent with the conventions we have established. The easiest way to do so is to interpret the transform from a frequency domain to either the temporal or spatial domain as a superposition of the signal of interest with forward propagating waves over all frequencies. The sign convention for the inverse Fourier transform then comes directly from our definition of a forward propagating wave from the previous section.  
 
 Table \ref{gf_tab:0a} presents the forward Fourier transforms, $\hat{g} = \mathcal{F}\{g\}$, and the inverse Fourier transforms, $g = \mathcal{F}^{-1}\{\hat{g}\}$, in both time and space for an arbitrary function, $g$, and its Fourier transform, $\hat{g}$.
 
@@ -46,14 +38,14 @@ Table \ref{gf_tab:0a} presents the forward Fourier transforms, $\hat{g} = \mathc
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection{Geometric Spreading}
-The geometric spreading of an analytical electromagnetic wave is dependent on the dimensionality and approximations used. A plane wave is easy to work with but is not physically realizable and shows no spreading or amplitude reduction as it propagates. A paraxial wave allows us to represent beam like waves and will have spreading proportional to $1/\sqrt{L_x}$, where $L_x$ is the length along the propagation direction (this can be interpreted as the ground distance between points). A cylindrical wave will have spreading proportional to $1/\sqrt{\rho}$ and a spherical wave will have spreading proportional to $1/r$, where $\rho$ and $r$ are the respective path lengths in the corresponding coordinate system. The amount of geometry induced spreading increases as we add higher fidelity to our models and analytical tools so we need to take that into consideration when comparing models and try to remain consistent wherever possible.
+When using mathematical models of electromagnetic wave propagation, the amount of geometric spreading is dependent on the dimensionality and approximations used. A plane wave is easy to work with but is not physically realizable and shows no spreading or amplitude reduction as it propagates. A paraxial wave allows us to represent beam like waves and will have spreading proportional to $1/\sqrt{L_x}$, where $L_x$ is the length along the propagation direction (for propagation over the earth, this can be interpreted as the ground distance between points). A cylindrical wave will have spreading proportional to $1/\sqrt{\rho}$ and a spherical wave will have spreading proportional to $1/r$, where $\rho$ and $r$ are the respective path lengths in the corresponding coordinate system. These differences do not necessarily mean an answer is wrong, but indicate we need to understand the limitations of any model we choose.
 
 \subsection{Common Pitfalls}
-There are several potential issues that need to be considered when applying numerical methods to any propagation problem. The following list is certainly not exhaustive, but captures some of the biggest tripping points that may be encountered.
+There are several potential issues that need to be considered when analyzing any propagation problem. The following list is certainly not exhaustive, but captures some tripping points that may be encountered.
 
 \begin{enumerate}
-\item Consistency with Fourier transform definitions. The time and space versions of Fourier transforms will have opposing signs due to causality. When using numerical Fast Fourier Transform (FFT) implementations, we need to ensure they match the conventions used as described in Table \ref{gf_tab:0a}. If they do not agree, a general fix is to take the complex conjugate of any exponential terms in the analytical expression.
-\item Polarization effects are not captured in scalar propagation. Because we are restricting ourselves to scalar analysis, there is no sense of polarization. This means that once set, the polarization will be constant for all time. Polarization is accounted for through the reflection coefficients and boundary conditions as those implicitly have polarization dependence.
+\item Consistency with Fourier transform definitions. As previously discussed, the time and space versions of Fourier transforms will have opposing signs due to causality. When using numerical Fast Fourier Transform (FFT) implementations, we need to ensure they match the conventions used as described in Table \ref{gf_tab:0a}.
+\item Polarization effects are not captured in scalar propagation. Because we are restricting the analysis to scalar propagation, there is no sense of polarization. This means that once set, the polarization will be constant for all time. Amplitude changes for the current polarization are accounted for through the reflection coefficients and boundary conditions as those implicitly have polarization dependence.
 \item No backscattering with paraxial approximation. The paraxial assumption greatly simplifies analysis and is extremely useful for describing beam like waves, Fresnel and Fraunhofer diffraction, and the parabolic wave equation (PWE). However, this assumption effectively factors out backward propagating waves and only provides solutions for forward propagating waves. This means that with the paraxial assumption, we do not get any kind of backward scattering in the solution and will need to supplement the results where backscattering is important (e.g. clutter). 
 \end{enumerate}
 
@@ -101,7 +93,7 @@ If we flip the order of the scalar variables and instead let $\mathbf{C}=\psi\na
 \end{equation}
 
 \subsection {Method of Green's Functions} \label{gf_sec:method}
-For the purposes of this document, we are interested in time varying propagation problems rather than electrostatic ones. Therefore, we would like to apply the method of Green's functions to the scalar wave equation  to solve for the scalar field $\varphi$ as a function of space and time with an arbitrary driving function, $f$, that is also a function of space and time:
+Since we are interested in propagation problems, we would like to apply the method of Green's functions to the scalar wave equation  to solve for the scalar field, $\varphi$, as a function of space and time with an arbitrary driving function, $f$, that is also a function of space and time:
 
 \begin{equation}
 \nabla^2\varphi\left(\mathbf{r},t\right) - \frac{n_r^2}{c^2}\frac{\partial^2 \varphi\left(\mathbf{r},t\right)}{\partial t^2} = f\left(\mathbf{r},t\right)
@@ -109,7 +101,7 @@ For the purposes of this document, we are interested in time varying propagation
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\noindent Assuming the index of refraction, $n_r$ is constant in time, we can utilize the Fourier transform to remove the time dependence:
+\noindent Assuming the index of refraction, $n_r$, is constant in time, we can utilize the Fourier transform to remove the time dependence:
 
 \begin{equation}
 \nabla^2\varphi\left(\mathbf{r},\omega\right) + \frac{\omega^2n_r^2}{c^2}\varphi\left(\mathbf{r},\omega\right) = f\left(\mathbf{r},\omega\right)
@@ -117,7 +109,7 @@ For the purposes of this document, we are interested in time varying propagation
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Equation \ref{gf_eq:7} is the Helmholtz equation and it represents the wave equation with only spatial derivatives. If we use the wavevector, $k_o = \omega/c$, and suppress the variable dependence for clarity, Equation \ref{gf_eq:7} can be rewritten as:
+Equation \ref{gf_eq:7} is the Helmholtz equation and it represents the wave equation with only spatial derivatives. If we use the wave number, $k_o = \omega n_r/c$, and suppress the variable dependence for clarity, Equation \ref{gf_eq:7} can be rewritten as:
 
 \begin{equation}
 \nabla^2\varphi + k_o^2\varphi = f
@@ -128,22 +120,22 @@ Equation \ref{gf_eq:7} is the Helmholtz equation and it represents the wave equa
 The Green's function for this problem can be found by replacing the driving function, $f$, with a delta function:
 
 \begin{equation}
-\nabla^2G+ k_o^2n_r^2G = -\delta\left(\mathbf{r}-\mathbf{r}' \right)
+\nabla^2G+ k_o^2G = -\delta\left(\mathbf{r}-\mathbf{r}' \right)
 \label{gf_eq:9}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 Equation \ref{gf_eq:9} shows that the Green's function is the solution to the differential equation for a spatial impulse and therefore represents the impulse response of the system. In electromagnetics, the driving force often has a negative sign as seen from the Poisson equation, $\nabla^2\varphi = -\rho/\epsilon_o$, so we typically chose a matching negative sign for the delta function. With this convention, we need to make sure the driving force has a negative sign when utilizing a Green's function later.
 
-The general method to find Green's functions is to solve the homogeneous differential equation away from the delta function source and then integrate over a small region that includes the delta function for normalization. Some authors, such as \cite{jackson_classical_em}, include a $4\pi$ scale factor with the delta function to absorb this normalization term into the differential equation rather than the Green's function.
+The general method to find Green's functions is to solve the homogeneous differential equation away from the delta function source and then integrate over a small region that includes the delta function for normalization. Some authors, such as \cite{jackson_classical_em} and \cite{schwinger_em}, include a $4\pi$ scale factor with the delta function to absorb this normalization term into the differential equation rather than the Green's function.
 
-Equations \ref{gf_eq:8} and \ref{gf_eq:9} can be rearranged to solve for the Laplacian, so that $\nabla^2\varphi = f - k_o^2n_r^2\varphi$ and $\nabla^2G = -\delta\left(\mathbf{r}-\mathbf{r}' \right) - k_o^2n_r^2G$. We can substitute these values into Green's second identity (Equation \ref{gf_eq:5}), with $\psi=G$:
+Equations \ref{gf_eq:8} and \ref{gf_eq:9} can be rearranged to solve for the Laplacian, so that $\nabla^2\varphi = f - k_o^2\varphi$ and $\nabla^2G = -\delta\left(\mathbf{r}-\mathbf{r}' \right) - k_o^2G$. We can substitute these values into Green's second identity (Equation \ref{gf_eq:5}), with $\psi=G$:
 
 \begin{equation}
 \begin{gathered}
 \oint\limits_{S} \left[ \varphi\frac{\partial G}{\partial n} - G\frac{\partial \varphi}{\partial n} \right]dS = \int\limits_{V}d^3r' \left[ \varphi\nabla^2G- G \nabla^2 \varphi\right] \\
-\oint\limits_{S} \left[ \varphi\frac{\partial G}{\partial n} - G\frac{\partial \varphi}{\partial n} \right]dS = \int\limits_{V}d^3r' \left[ \varphi \left(-\delta\left(\mathbf{r}-\mathbf{r}' \right) - k_o^2n_r^2G\right)- G \left(f - k_o^2n_r^2\varphi \right)\right] \\
-\int\limits_{V}d^3r'\varphi\delta\left(\mathbf{r}-\mathbf{r}' \right) = \oint\limits_{S}\left[G\frac{\partial \varphi}{\partial n} - \varphi\frac{\partial G}{\partial n} \right]dS +\int\limits_{V}d^3r'\left[ Gk_o^2n_r^2\varphi - \varphi k_o^2n_r^2G - Gf \right] \\
+\oint\limits_{S} \left[ \varphi\frac{\partial G}{\partial n} - G\frac{\partial \varphi}{\partial n} \right]dS = \int\limits_{V}d^3r' \left[ \varphi \left(-\delta\left(\mathbf{r}-\mathbf{r}' \right) - k_o^2n_r^2G\right)- G \left(f - k_o^2\varphi \right)\right] \\
+\int\limits_{V}d^3r'\varphi\delta\left(\mathbf{r}-\mathbf{r}' \right) = \oint\limits_{S}\left[G\frac{\partial \varphi}{\partial n} - \varphi\frac{\partial G}{\partial n} \right]dS +\int\limits_{V}d^3r'\left[ Gk_o^2\varphi - \varphi k_o^2G - Gf \right] \\
 \int\limits_{V}d^3r'\varphi\delta\left(\mathbf{r}-\mathbf{r}' \right) = \oint\limits_{S}\left[G\frac{\partial \varphi}{\partial n} - \varphi\frac{\partial G}{\partial n} \right]dS -\int\limits_{V}d^3r' Gf
 \end{gathered}
 \label{gf_eq:10}
@@ -175,10 +167,10 @@ In the simplest case, $f$ is a point source and can be represented by a delta fu
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \section {Boundary Conditions}
-There are two traditional types of boundary conditions: Dirichlet, where $\varphi$ is specified on the boundary, or Neuman, where the normal derivative of $\varphi$ is specified on the boundary. There is a third type of boundary condition, known as the Robin condition, that is a weighted combination of Dirichlet and Neuman boundary conditions.
+There are two traditional types of boundary conditions: Dirichlet, where $\varphi$ is specified on the boundary, or Neuman, where the normal derivative of $\varphi$ is specified on the boundary. There is also a third type of boundary condition, known as the Robin condition, that is a weighted combination of Dirichlet and Neuman boundary conditions.
 
 \subsection {Dirichlet Boundary Conditions}
-For Dirichlet boundary conditions, the solution is specified on the surface, $\varphi\left(\mathbf{r}\right) |_{S} = \varphi\left(\mathbf{r}_S \right) = a\left(\mathbf{r}_s\right)$. To simplify Equation \ref{gf_eq:11}, we can enforce the following condition on the Green's function:
+For Dirichlet boundary conditions, the solution is specified on the surface, $\varphi\left(\mathbf{r}\right) |_{S} = \varphi\left(\mathbf{r}_S \right) = a\left(\mathbf{r}_s\right)$. To simplify Equation \ref{gf_eq:11}, we can apply a Dirichlet boundary condition on the Green’s function to remove the $\partial \varphi /\partial n$ dependence
 
 \begin{equation}
 G\left(\mathbf{r},\mathbf{r}' \right)\bigg|_{S}=0
@@ -200,16 +192,16 @@ For Neuman boundary conditions, the normal derivative of the field is specified 
 
 \begin{equation}
 \begin{gathered}
-\int\limits_{V}d^3r' \nabla^2 G = \int\limits_{V}d^3r'\left[-\delta\left(\mathbf{r}-\mathbf{r}' \right) -k^2G \right] \\
-\int\limits_{V}d^3r' \nabla \cdot \nabla G = -\int\limits_{V}d^3r'\delta\left(\mathbf{r}-\mathbf{r}' \right) -\int\limits_{V}d^3r'k^2G \\
-\oint\limits_{S}\nabla G \cdot \hat{n} dS  = -1 - \int\limits_{V}d^3r'k^2G\\
-\oint\limits_{S}\frac{\partial G}{\partial n} dS = -1 - \int\limits_{V}d^3r' k^2G
+\int\limits_{V}d^3r' \nabla^2 G = \int\limits_{V}d^3r'\left[-\delta\left(\mathbf{r}-\mathbf{r}' \right) -k_o^2G \right] \\
+\int\limits_{V}d^3r' \nabla \cdot \nabla G = -\int\limits_{V}d^3r'\delta\left(\mathbf{r}-\mathbf{r}' \right) -\int\limits_{V}d^3r'k_o^2G \\
+\oint\limits_{S}\nabla G \cdot \hat{n} dS  = -1 - \int\limits_{V}d^3r'k_o^2G\\
+\oint\limits_{S}\frac{\partial G}{\partial n} dS = -1 - \int\limits_{V}d^3r' k_o^2G
 \end{gathered}
 \label{gf_eq:14}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Equation \ref{gf_eq:14} must hold for all values of $k$, so we can find a general condition for $\partial G/\partial n$ by letting $k = 0$:
+The continuity and reciprocity properties that will be discussed in the next section ensure that the volume integral over $G$ vanishes, so we are left with the following general condition.
 
 \begin{equation}
 \oint\limits_{S}\frac{\partial G}{\partial n} dS = -1
@@ -257,7 +249,7 @@ We can generally set $c=0$ so that the Robin boundary condition relates the Gree
 Substituting Equation \ref{gf_eq:18aa} into Equation \ref{gf_eq:11} results in the following equation for $\varphi$ in the presence of Robin boundary conditions.
 
 \begin{equation}
-\boxed{\varphi = \oint\limits_{S}dS\left[\frac{\partial \varphi}{\partial n} + \alpha\varphi \right] -\int\limits_{V}d^3r' Gf}
+\boxed{\varphi = \oint\limits_{S}dS\left[\frac{\partial \varphi}{\partial n} + \alpha\varphi \right]G -\int\limits_{V}d^3r' Gf}
 \label{gf_eq:18aabb}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -265,10 +257,10 @@ Substituting Equation \ref{gf_eq:18aa} into Equation \ref{gf_eq:11} results in t
 Robin boundary conditions are commonly found in propagation problems with mixed polarization and cavities with apertures. They generally do not allow simple solutions are usually solved numerically.
 
 \section {Properties of Green's Functions} \label{gf_sec:properties}
-We have already discussed the fact that Green's functions represent the spatial impulse response of the differential equation. This section introduces some other properties of Green's functions, including causality, reciprocity, continuity, and general forms.
+We have already discussed the fact that a Green's function represents the spatial impulse response of a differential equation. This section introduces some other properties of Green's functions, including causality, reciprocity, continuity, and general forms.
 
 \subsection {Causality} \label{gf_sec:causality}
-Green’s functions represent physical systems and therefore must be causal. With the time dependence as specified in Section \ref{gf_sec:time_dependence}, our solutions must have the following form:
+Green's functions represent physical systems and therefore must be causal. With the time dependence as specified in Section \ref{gf_sec:time_dependence}, our solutions must have the following form:
 
 \begin{equation}
 G\left(r,t\right) \sim g\left(\omega t - k_on_rr\right)
@@ -288,7 +280,7 @@ G\left(\mathbf{r},\mathbf{r}' \right) = G\left(\mathbf{r}',\mathbf{r} \right)
 This property is known as reciprocity and it tells us that the impulse reponse for a propagating wave is the same in both directions. Reciprocity is commonly used in antenna radiation analysis as it allows us to analyze an antenna considering it as either a transmitter or a receiver.
 
 \subsection {Continuity} \label{gf_sec:continuity}
-A necessary condition for reciprocity is that Green's functions must be continuous in all space. However, they are singular at so the derivative will have a discontinuity at $\mathbf{r} = \mathbf{r}'$.
+A necessary condition for reciprocity is that Green's functions must be continuous in all space. However, they are singular so the derivative will have a discontinuity at $\mathbf{r} = \mathbf{r}'$.
 
 \subsection {General Forms}
 Because a Green's function is the spatial impulse response of the system, we can expect it to be used in a convolution integral. With that in mind, Green's functions usually take the form:
@@ -301,7 +293,7 @@ G\left(\mathbf{r},\mathbf{r}' \right) = g\left( \mathbf{r} - \mathbf{r}'\right)
 Using the results of the previously described properties, the most general representation of a Green's function is as follows:
 
 \begin{equation}
-G\left(\mathbf{r},\mathbf{r}',t ,t'\right) = g\left(\omega |t-t'| - k_on_r| \mathbf{r} - \mathbf{r}' | \right)
+G\left(\mathbf{r},\mathbf{r}',t ,t'\right) = g\left(\omega |t-t'| - k_o| \mathbf{r} - \mathbf{r}' | \right)
 \label{gf_eq:19b}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -310,7 +302,7 @@ G\left(\mathbf{r},\mathbf{r}',t ,t'\right) = g\left(\omega |t-t'| - k_on_r| \mat
 This section derives the free space Green's functions for the Helmholtz equation (Equation \ref{gf_eq:9}) in both 3-dimensions and 2-dimensions. In the 2-dimensional case, we will also derive the Green's function for the paraxial wave equation. In free space, there are no boundaries, so we can let $r\rightarrow \infty$ and use Dirichlet boundary conditions at $\infty$. Without loss of generality, we can place the delta function at the origin, so that $\delta\left(\mathbf{r}-\mathbf{r}' \right) \rightarrow \delta \left(\mathbf{r} \right)$. To find the Green's function, we need to solve the homogeneous equation away from the delta function and then integrate over a small region around the origin for normalization. The homogenous equation to solve is:
 
 \begin{equation}
-\nabla^2G+ k_o^2n_r^2G = 0
+\nabla^2G+ k_o^2G = 0
 \label{gf_eq:19}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -325,7 +317,7 @@ This section derives the free space Green's function for the Helmholtz equation 
 In 3-dimensions,  rotational symmetry means that  $\partial G/\partial\theta = \partial G/\partial\phi=0$. Therefore we can expand the Laplacian of Equation \ref{gf_eq:19} in spherical coordinates and neglect the $\theta$ and $\phi$ components:
 
 \begin{equation}
-\frac{1}{r^2}\frac{\partial}{\partial r}\left(r^2\frac{\partial G}{\partial r}\right)+ k_o^2n_r^2G = 0
+\frac{1}{r^2}\frac{\partial}{\partial r}\left(r^2\frac{\partial G}{\partial r}\right)+ k_o^2G = 0
 \label{gf_eq:20}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -334,9 +326,9 @@ Expanding the derivatives in Equation \ref{gf_eq:20} along with a little algebra
 
 \begin{equation}
 \begin{gathered}
-\frac{1}{r^2}\left[2r\frac{\partial G}{\partial r}+ r^2\frac{\partial^2 G}{\partial r^2}  \right] + k_o^2n_r^2G = 0 \\
-r\frac{\partial^2 G}{\partial r^2} + 2\frac{\partial G}{\partial r}+ k_o^2n_r^2rG = 0 \\
-\frac{\partial^2 \left(rG\right)}{\partial r^2} + k_o^2n_r^2rG = 0
+\frac{1}{r^2}\left[2r\frac{\partial G}{\partial r}+ r^2\frac{\partial^2 G}{\partial r^2}  \right] + k_o^2G = 0 \\
+r\frac{\partial^2 G}{\partial r^2} + 2\frac{\partial G}{\partial r}+ k_o^2rG = 0 \\
+\frac{\partial^2 \left(rG\right)}{\partial r^2} + k_o^2rG = 0
 \end{gathered}
 \label{gf_eq:21}
 \end{equation}
@@ -345,7 +337,7 @@ r\frac{\partial^2 G}{\partial r^2} + 2\frac{\partial G}{\partial r}+ k_o^2n_r^2r
 Equation \ref{gf_eq:21} has the following  solution:
 
 \begin{equation}
-G = c_1\frac{e^{jk_on_rr}}{r} + c_2\frac{e^{-jk_on_rr}}{r}
+G = c_1\frac{e^{jk_or}}{r} + c_2\frac{e^{-jk_or}}{r}
 \label{gf_eq:22}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -353,7 +345,7 @@ G = c_1\frac{e^{jk_on_rr}}{r} + c_2\frac{e^{-jk_on_rr}}{r}
 From the causality restriction discussed in Section \ref{gf_sec:causality}, the $c_2$ term describes an outward propagating wave. This is the physical solution, which means $c_1$ must be equal to $0$. Therefore, the free space Green's function is:
 
 \begin{equation}
-G = c_2\frac{e^{-jk_on_rr}}{r}
+G = c_2\frac{e^{-jk_or}}{r}
 \label{gf_eq:23}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -362,12 +354,21 @@ This equation represents a spherical wave and is valid everywhere except $r=0$. 
 
 \begin{equation}
 \begin{gathered}
-\lim_{r\to0}\int\limits_{V}d^3r'\left[\nabla^2G+ k_o^2n_r^2G\right] = -\lim_{r\to0}\int\limits_{V}\delta\left(\mathbf{r}\right) \\
-\lim_{r\to0}\int\limits_{V}d^3r'\left[\nabla \cdot\nabla G+ k_o^2n_r^2G\right] = -1 \\
-\lim_{r\to0}\left[\oint\limits_{S}\nabla G \cdot \hat{n} dS + \int\limits_{V}d^3r' k_o^2n_r^2G\right] = -1 \\
-\lim_{r\to0}\left[\oint\limits_{S}\frac{\partial G}{\partial n} dS + \int\limits_{V}d^3r' k_o^2n_r^2G\right] = -1
+\lim_{r\to0}\int\limits_{V}d^3r'\left[\nabla^2G+ k_o^2G\right] = -\lim_{r\to0}\int\limits_{V}\delta\left(\mathbf{r}\right) \\
+\lim_{r\to0}\int\limits_{V}d^3r'\left[\nabla \cdot\nabla G+ k_o^2G\right] = -1 \\
 \end{gathered}
 \label{gf_eq:24}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent Applying the Divergence theorem allow us to write this as
+
+\begin{equation}
+\begin{gathered}
+\lim_{r\to0}\left[\oint\limits_{S}\nabla G \cdot \hat{n} dS + \int\limits_{V}d^3r' k_o^2G\right] = -1 \\
+\lim_{r\to0}\left[\oint\limits_{S}\frac{\partial G}{\partial n} dS + \int\limits_{V}d^3r' k_o^2G\right] = -1
+\end{gathered}
+\label{gf_eq:24a}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
@@ -375,36 +376,44 @@ Substituting Equation \ref{gf_eq:23} in for $G$ and letting $\hat{n} = \hat{r}$,
 
 \begin{equation}
 \begin{gathered}
-\lim_{r\to0}\left[c_2\oint\limits_{S}\frac{\partial }{\partial r'}\left(\frac{e^{-jk_on_rr'}}{r'}\right) r'^2\sin{\theta'} d\theta' d\phi '+ c_2\int\limits_{V}r'^2 \sin{\theta'}dr' d\theta' d\phi' k_o^2n_r^2\frac{e^{-jk_on_rr'}}{r'}\right] = -1 \\
-\lim_{r\to0}\left[c_2 r^2\left( -\frac{jk_on_r}{r} - \frac{1}{r^2}\right)e^{-jk_on_rr}\oint\limits_{S}\sin{\theta'} d\theta' d\phi' + 4\pi c_2k_o^2n_r^2\int dr' r'e^{-jk_or'}\right] = -1 \\
-\lim_{r\to0}\left[4\pi c_2 \left( -jk_on_rr - 1\right)e^{-jk_on_rr}+ 4\pi c_2k_o^2n_r^2\int dr' \frac{\partial }{\partial k_o}\frac{e^{-jk_on_rr'}}{-jn_r}\right] = -1 \\
-\lim_{r\to0}4\pi c_2\left[\left( -jk_or - 1\right)e^{-jk_on_rr}+ j4\pi c_2k_o^2n_r\frac{\partial }{\partial k_o}\int dr'e^{-jk_on_rr'} \right] = -1 \\
-4\pi c_2\left[-1 +  \lim_{r\to0}j k_o^2n_r\frac{\partial}{\partial k_o}\frac{1}{-jk_on_r}e^{-jk_on_rr'}\bigg|_o^r \right] = -1 \\
--4\pi c_2\left[1 - \lim_{r\to0}k_o^2\frac{\partial}{\partial k_o}\frac{1}{k_o}\left(e^{-jk_on_rr} -1\right)\right] = -1 \\
-c_2\left[1 - \lim_{r\to0}k_o^2\left(-\frac{1}{k_o^2}e^{-jk_on_rr} -\frac{jn_rr}{k_o}e^{-jk_on_rr}+\frac{1}{k_o^2}\right)\right] = \frac{1}{4\pi} \\
- c_2 = \frac{1}{4\pi}
+\lim_{r\to0}\left[c_2\oint\limits_{S}\frac{\partial }{\partial r'}\left(\frac{e^{-jk_or'}}{r'}\right) r'^2\sin{\theta'} d\theta' d\phi '+ c_2\int\limits_{V}r'^2 \sin{\theta'}dr' d\theta' d\phi' k_o^2\frac{e^{-jk_or'}}{r'}\right] = -1 \\
+\lim_{r\to0}\left[c_2 r^2\left( -\frac{jk_o}{r} - \frac{1}{r^2}\right)e^{-jk_or}\oint\limits_{S}\sin{\theta'} d\theta' d\phi' + 4\pi c_2k_o^2\int dr' r'e^{-jk_or'}\right] = -1 \\
 \end{gathered}
 \label{gf_eq:25}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent We can recognize that $r' e^{-jk_o r'} = -1/j \partial/\partial k_o e^{-jk_0r'}$
+
+\begin{equation}
+\begin{gathered}
+\lim_{r\to0}\left[4\pi c_2 \left( -jk_or - 1\right)e^{-jk_or}+ 4\pi c_2k_o^2\int dr' \frac{\partial }{\partial k_o}\frac{e^{-jk_or'}}{-j}\right] = -1 \\
+\lim_{r\to0}4\pi c_2\left[\left( -jk_or - 1\right)e^{-jk_or}+ j4\pi c_2k_o^2\frac{\partial }{\partial k_o}\int dr'e^{-jk_or'} \right] = -1 \\
+\end{gathered}
+\label{gf_eq:25a}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent Collecting terms allows us to simplify this expression further
+
+\begin{equation}
+\begin{gathered}
+4\pi c_2\left[-1 +  \lim_{r\to0}j k_o^2\frac{\partial}{\partial k_o}\frac{1}{-jk_o}e^{-jk_or'}\bigg|_o^r \right] = -1 \\
+-4\pi c_2\left[1 - \lim_{r\to0}k_o^2\frac{\partial}{\partial k_o}\frac{1}{k_o}\left(e^{-jk_or} -1\right)\right] = -1 \\
+c_2\left[1 - \lim_{r\to0}k_o^2\left(-\frac{1}{k_o^2}e^{-jk_or} -\frac{jr}{k_o}e^{-jk_or}+\frac{1}{k_o^2}\right)\right] = \frac{1}{4\pi} \\
+ c_2 = \frac{1}{4\pi}
+\end{gathered}
+\label{gf_eq:25b}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \noindent Now letting $r \rightarrow |\mathbf{r}-\mathbf{r}'|$, we have the final free space 3-dimensional Green's function, $G_o$:
 
 \begin{equation}
-\boxed{G_o\left(\mathbf{r},\mathbf{r}'\right) = \frac{e^{-jk_on_r|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|}}
+\boxed{G_o\left(\mathbf{r},\mathbf{r}'\right) = \frac{e^{-jk_o|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|}}
 \label{gf_eq:26}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
-
-As discussed for Equation \ref{gf_eq:9}, some authors, such as \cite{jackson_classical_em}, include the $4\pi$ scale factor with the delta function, so the free space 3-dimensional Green's function is:
-
-\begin{equation}
-G_o\left(\mathbf{r},\mathbf{r}'\right)  = \frac{e^{-jk_on_r|\mathbf{r} - \mathbf{r}'|}}{|\mathbf{r} - \mathbf{r}'|}
-\label{gf_eq:27}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-\noindent In this case, the $4\pi$ scale factor would then appear in Equation \ref{gf_eq:11}.
 
 To help visualize this Green's function, the magnitude and phase are shown in Figure \ref{gf_fig:1} and the real and imaginary components are shown in Figure \ref{gf_fig:2}. These figures constrain the Green's function to the $x-y$ plane at $z=0$ for visualization.
 
@@ -498,7 +507,7 @@ This section derives the free space Green's function for the Helmholtz equation 
 In 2-dimensions,  rotational symmetry means that  $\partial G/\partial\phi =0$. Therefore we can expand the Laplacian of Equation \ref{gf_eq:19} in polar coordinates and neglect the $\phi$ components:
 
 \begin{equation}
-\frac{1}{\rho}\frac{\partial}{\partial \rho}\left(\rho\frac{\partial G}{\partial \rho}\right)+ k_o^2n_r^2G = 0
+\frac{1}{\rho}\frac{\partial}{\partial \rho}\left(\rho\frac{\partial G}{\partial \rho}\right)+ k_o^2G = 0
 \label{gf_eq:33}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -506,7 +515,7 @@ In 2-dimensions,  rotational symmetry means that  $\partial G/\partial\phi =0$. 
 \noindent Equation \ref{gf_eq:33} is Bessel's equation with $\nu = 0$:
 
 \begin{equation}
-\frac{1}{\rho}\frac{\partial}{\partial \rho}\left(\rho\frac{\partial G}{\partial \rho}\right)+ \left(k_o^2n_r^2 -\nu^2\right)G = 0
+\frac{1}{\rho}\frac{\partial}{\partial \rho}\left(\rho\frac{\partial G}{\partial \rho}\right)+ \left(k_o^2 -\nu^2\right)G = 0
 \label{gf_eq:34}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -514,7 +523,7 @@ In 2-dimensions,  rotational symmetry means that  $\partial G/\partial\phi =0$. 
 \noindent The general solution to Equation \ref{gf_eq:33} is 
 
 \begin{equation}
-G = c_1J_0\left(k_on_r\rho\right) + c_2N_0\left(k_on_r\rho\right)
+G = c_1J_0\left(k_o\rho\right) + c_2N_0\left(k_o\rho\right)
 \label{gf_eq:35}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -525,8 +534,8 @@ When working with propagating waves, it is often more useful to work with Hankel
 
 \begin{equation}
 \begin{gathered}
-H_0^{(1)}(k\rho) = J_0(k_on_r\rho) + jN_0(k_on_r\rho) \\
-H_0^{(2)}(k\rho) = J_0(k_on_r\rho) - jN_0(k_on_r\rho)
+H_0^{(1)}(k\rho) = J_0(k_o\rho) + jN_0(k_o\rho) \\
+H_0^{(2)}(k\rho) = J_0(k_o\rho) - jN_0(k_o\rho)
 \label{gf_eq:36}
 \end{gathered}
 \end{equation}
@@ -536,8 +545,8 @@ The Hankel functions behave asymptotically like waves as can be seen by their be
 
 \begin{equation}
 \begin{gathered}
-H_0^{(1)}(k_o\rho) \approx \sqrt{\frac{2}{\pi k_on_r\rho}}e^{j\left(k_on_r\rho - \frac{\pi}{4}\right)}\\
-H_0^{(2)}(k_o\rho) \approx \sqrt{\frac{2}{\pi k_on_r\rho}}e^{-j\left(k_on_r\rho - \frac{\pi}{4}\right)}
+H_0^{(1)}(k_o\rho) \approx \sqrt{\frac{2}{\pi k_o\rho}}e^{j\left(k_o\rho - \frac{\pi}{4}\right)}\\
+H_0^{(2)}(k_o\rho) \approx \sqrt{\frac{2}{\pi k_o\rho}}e^{-j\left(k_o\rho - \frac{\pi}{4}\right)}
 \label{gf_eq:36a}
 \end{gathered}
 \end{equation}
@@ -546,7 +555,7 @@ H_0^{(2)}(k_o\rho) \approx \sqrt{\frac{2}{\pi k_on_r\rho}}e^{-j\left(k_on_r\rho 
 We can now represent the solution to Equation \ref{gf_eq:33} in terms of Hankel functions as:
 
 \begin{equation}
-G = c_1H_0^{(1)}\left(k_on_r\rho\right) +c_2H_0^{(2)}\left(k_on_r\rho\right) 
+G = c_1H_0^{(1)}\left(k_o\rho\right) +c_2H_0^{(2)}\left(k_o\rho\right) 
 \label{gf_eq:37}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -554,32 +563,59 @@ G = c_1H_0^{(1)}\left(k_on_r\rho\right) +c_2H_0^{(2)}\left(k_on_r\rho\right)
 From the causality discussion in Section \ref{gf_sec:causality}, $H_0^{(2)}$ acts like an outward propagating wave while $H_0^{(1)}$ acts like an inward propagating wave. Therefore, $H_0^{(2)}$ is the physical solution, $c_1=0$, and the Green's function is:
 
 \begin{equation}
-G = c_2H_0^{(2)}\left(k_on_r\rho\right) 
+G = c_2H_0^{(2)}\left(k_o\rho\right) 
 \label{gf_eq:38}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-As in Section \ref{gf_sec:3d}, we integrate Equation \ref{gf_eq:9} over a small disk, $D$, centered at $\rho = 0$ and take the limit as $\rho \rightarrow 0$. For small arguments, the asymptotic behavior of $H_0^{(2)}(k_on_r\rho) \sim -j\frac{2}{\pi}\ln\left({k_on_r\rho}\right)$ and we can substitute $G = -\frac{j2c_2}{\pi}\ln\left({k_on_r\rho}\right)$ \cite{abramowitz_stegun}. 
+As in Section \ref{gf_sec:3d}, we integrate Equation \ref{gf_eq:9} over a small disk, $D$, centered at $\rho = 0$ and take the limit as $\rho \rightarrow 0$. For small arguments, the asymptotic behavior of $H_0^{(2)}(k_o\rho) \sim -j\frac{2}{\pi}\ln\left({k_o\rho}\right)$ and we can substitute $G = -\frac{j2c_2}{\pi}\ln\left({k_o\rho}\right)$ \cite{abramowitz_stegun}. 
 
 \begin{equation}
 \begin{gathered}
-\lim_{\rho\to 0}\int\limits_{D} \left[ \frac{1}{\rho'}\frac{\partial}{\partial \rho'}\left(\rho' \frac{\partial G}{\partial \rho'} \right) + k_o^2n_r^2G\right]\rho' d\rho' d\theta' = \lim_{\rho\to 0}\int\limits_{D} \delta\left(\boldsymbol{\rho}-\boldsymbol{\rho}' \right)\rho' d\rho' d\phi' \\
-\lim_{\rho\to 0}\int\limits_{D} \left[ -\frac{1}{\rho'}\frac{\partial}{\partial \rho'}\left(\rho' jc_1\frac{2}{\pi}\frac{\partial \ln(k_on_r\rho')}{\partial \rho'} \right) - k_o^2n_r^2jc_1\frac{2}{\pi}\ln(k_on_r\rho')\right]\rho' d\rho' d\theta' = -1 \\
-\lim_{\rho\to 0}-4jc_1\int\limits_{D} \left[\frac{\partial}{\partial \rho'}\left(\rho' \frac{\partial \ln(k_on_r\rho')}{\partial \rho'} \right) + k_o^2n_r^2\rho'\ln(k_on_r\rho')\right] d\rho' = -1 \\
-\lim_{\rho\to 0}4jc_1\left[\left(\rho' \frac{1 }{\rho'} \right)\bigg|_0^{\rho} + \int\limits_{D}k_o^2n_r^2\rho'\ln(k_on_r\rho') d\rho'\right] = 1 \\
-\lim_{\rho\to 0}c_1\left[ 1 +  k_o^2n_r^2\left( \ln(k_on_r\rho')\frac{\rho'^2}{2}\bigg|_0^{\rho} - \int\limits_{D}\frac{\rho'^2}{2}\frac{1}{\rho'} d\rho' \right)\right] = -\frac{j}{4} \\
-\lim_{\rho\to 0}c_1\left[ 1 +  k_o^2n_r^2\left( \ln(k_on_r\rho)\frac{\rho^2}{2} - \frac{1}{2}\int\limits_{D}\rho' d\rho' \right)\right] = -\frac{j}{4} \\
-\lim_{\rho\to 0}c_1\left[ 1 - \frac{\rho^2}{4}\right] = \frac{j}{4} \\
-c_1 = -\frac{j}{4}
+\lim_{\rho\to 0}\int\limits_{D} \left[ \frac{1}{\rho'}\frac{\partial}{\partial \rho'}\left(\rho' \frac{\partial G}{\partial \rho'} \right) + k_o^2G\right]\rho' d\rho' d\theta' = \lim_{\rho\to 0}\int\limits_{D} \delta\left(\boldsymbol{\rho}-\boldsymbol{\rho}' \right)\rho' d\rho' d\phi' \\
+\lim_{\rho\to 0}\int\limits_{D} \left[ -\frac{1}{\rho'}\frac{\partial}{\partial \rho'}\left(\rho' jc_1\frac{2}{\pi}\frac{\partial \ln(k_o\rho')}{\partial \rho'} \right) - k_o^2jc_1\frac{2}{\pi}\ln(k_o\rho')\right]\rho' d\rho' d\theta' = -1 \\
 \end{gathered}
 \label{gf_eq:39}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent Integrating over $\theta'$ to get $2\pi$ and collecting the constants in the front yields.
+
+\begin{equation}
+\begin{gathered}
+\lim_{\rho\to 0}-4jc_1\int\limits_{D} \left[\frac{\partial}{\partial \rho'}\left(\rho' \frac{\partial \ln(k_o\rho')}{\partial \rho'} \right) + k_o^2\rho'\ln(k_o\rho')\right] d\rho' = -1 \\
+\lim_{\rho\to 0}4jc_1\left[\left(\rho' \frac{1 }{\rho'} \right)\bigg|_0^{\rho} + \int\limits_{D}k_o^2\rho'\ln(k_o\rho') d\rho'\right] = 1 \\
+\end{gathered}
+\label{gf_eq:39a}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent Integrating the second term by parts results in the following.
+
+\begin{equation}
+\begin{gathered}
+\lim_{\rho\to 0}c_1\left[ 1 +  k_o^2\left( \ln(k_o\rho')\frac{\rho'^2}{2}\bigg|_0^{\rho} - \int\limits_{D}\frac{\rho'^2}{2}\frac{1}{\rho'} d\rho' \right)\right] = -\frac{j}{4} \\
+\lim_{\rho\to 0}c_1\left[ 1 +  k_o^2\left( \ln(k_o\rho)\frac{\rho^2}{2} - \frac{1}{2}\int\limits_{D}\rho' d\rho' \right)\right] = -\frac{j}{4} \\
+\end{gathered}
+\label{gf_eq:39c}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent Finally we can simplify the result.
+
+\begin{equation}
+\begin{gathered}
+\lim_{\rho\to 0}c_1\left[ 1 - \frac{\rho^2}{4}\right] = \frac{j}{4} \\
+c_1 = -\frac{j}{4}\\
+\end{gathered}
+\label{gf_eq:39d}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 Now letting $\rho \rightarrow |\boldsymbol{\rho}-\boldsymbol{\rho}'|$, we have the final free space 2-dimensional Green's function, $G_o$:
 
 \begin{equation}
-\boxed{G_o\left(\boldsymbol{\rho},\boldsymbol{\rho}'\right) = -\frac{j}{4}H_0^{(2)}\left(k_on_r|\boldsymbol{\rho} - \boldsymbol{\rho}' | \right)}
+\boxed{G_o\left(\boldsymbol{\rho},\boldsymbol{\rho}'\right) = -\frac{j}{4}H_0^{(2)}\left(k_o|\boldsymbol{\rho} - \boldsymbol{\rho}' | \right)}
 \label{gf_eq:40}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -727,25 +763,34 @@ G_o\left(\boldsymbol{\rho},0,t\right) = \frac{H\left(t -n_r\frac{\rho}{c}\right)
 In this section we derive the Green's function for the paraxial wave equation in the frequency domain.
 
 \subsubsection {Derivation of the Paraxial Wave Equation}
-We can derive the paraxial from the Helmholtz equation by assuming a wave propagating in the $x$ direction of the form $U(x,z) = A(x,z)e^{-jk_ox}$. We will see that by assuming the propagating wave is not dependent on the index of refraction, the Green's function dependence on the index of refraction can be easily factored out into a phase term.
+We can derive the paraxial from the Helmholtz equation by assuming a wave propagating in the $x$ direction and allow the amplitude to vary slowly in all directions. We will introduce the freespace wave number, $k_r = \omega n_r/c$ to keep the index of refraction explicitly separate so that our scalar wave takes the form $U(x,z) = A(x,z)e^{-jk_fx}$. We will see that with this assumption, the Green's function dependence on the index of refraction is factored out into a phase term.
 
  \begin{equation}
  \begin{gathered}
- \left[ \nabla^2 + k_o^2n_r^2\right]U = 0 \\
-\left[\frac{\partial^2 }{\partial x^2} + \frac{\partial^2 }{\partial z^2} + k_o^2n_r^2\right]U = 0 \\
-\frac{\partial }{\partial x}\left(\frac{\partial U}{\partial x} \right) + \frac{\partial^2 U}{\partial z^2} + k_o^2n_r^2 U = 0 \\
-\frac{\partial }{\partial x}\left(-jk_oAe^{-jk_ox}+e^{-jk_ox}\frac{\partial A}{\partial x} \right) + e^{-jk_ox}\frac{\partial^2 A}{\partial z^2} + k_o^2n_r^2 Ae^{-jk_ox} = 0 \\
--k_o^2Ae^{-jk_ox} -2jk_oe^{-jk_ox}\frac{\partial A}{\partial x}+e^{-jk_ox}\frac{\partial^2 A}{\partial x^2} + e^{-jk_ox}\frac{\partial^2 A}{\partial z^2} + k_o^2n_r^2 Ae^{-jk_ox} = 0 \\
-e^{-jk_ox}\left] -2jk_o\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partial x^2} + \frac{\partial^2 A}{\partial z^2} + k_o^2\left(n_2-1\right)A\right] = 0 \\
+ \left[ \nabla^2 + k_f^2n_r^2\right]U = 0 \\
+\left[\frac{\partial^2 }{\partial x^2} + \frac{\partial^2 }{\partial z^2} + k_f^2n_r^2\right]U = 0 \\
+\frac{\partial }{\partial x}\left(\frac{\partial U}{\partial x} \right) + \frac{\partial^2 U}{\partial z^2} + k_f^2n_r^2 U = 0 \\
 \end{gathered}
 \label{gf_eq:41}
 \end{equation}
- \renewcommand{\baselinestretch}{2} \small\normalsize
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent Expanding the derivative in terms of $x$ yields the following.
+
+ \begin{equation}
+ \begin{gathered}
+\frac{\partial }{\partial x}\left(-jk_fAe^{-jk_fx}+e^{-jk_fx}\frac{\partial A}{\partial x} \right) + e^{-jk_fx}\frac{\partial^2 A}{\partial z^2} + k_f^2n_r^2 Ae^{-jk_fx} = 0 \\
+-k_f^2Ae^{-jk_fx} -2jk_fe^{-jk_fx}\frac{\partial A}{\partial x}+e^{-jk_fx}\frac{\partial^2 A}{\partial x^2} + e^{-jk_fx}\frac{\partial^2 A}{\partial z^2} + k_f^2n_r^2 Ae^{-jk_fx} = 0 \\
+e^{-jk_fx}\left] -2jk_f\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partial x^2} + \frac{\partial^2 A}{\partial z^2} + k_f^2\left(n_2-1\right)A\right] = 0 \\
+\end{gathered}
+\label{gf_eq:41a}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
  
 \noindent This gives us an equation dependent only on the amplitude, $A$
 
  \begin{equation}
--2jk_o\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partial x^2} + \frac{\partial^2 A}{\partial z^2} + k_o^2\left(n_2-1\right)A= 0 \\
+-2jk_f\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partial x^2} + \frac{\partial^2 A}{\partial z^2} + k_f^2\left(n_2-1\right)A= 0 \\
 \label{gf_eq:42}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -753,7 +798,7 @@ e^{-jk_ox}\left] -2jk_o\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partia
  We can now apply the paraxial approximation which states that the change in the modulation function along the propagation direction is negligible over a wavelength. This can be expressed mathematically as
  
   \begin{equation}
-k_o\frac{\partial A}{\partial x} >> \frac{\partial^2 A}{\partial^2 x}
+k_f\frac{\partial A}{\partial x} >> \frac{\partial^2 A}{\partial^2 x}
 \label{gf_eq:43}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -761,18 +806,18 @@ k_o\frac{\partial A}{\partial x} >> \frac{\partial^2 A}{\partial^2 x}
  With this approximation we can neglect the 2nd derivative in $x$ and write the paraxial equation as
  
 \begin{equation}
-\boxed{-2jk_o\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} +k_o^2\left(n_r^2-1\right)A= 0} \\
+\boxed{-2jk_f\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} +k_f^2\left(n_r^2-1\right)A= 0} \\
 \label{gf_eq:44}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
  
-The paraxial wave equation is a parabolic differential equation with the same structure as the diffusion equation. However, since the effective diffusion coefficient is complex, we can expect the solution to oscillate rather than decay exponentially. Since we have reduced the original Helmholtz equation for the full propagating wave to one that is only dependent on the modulation function, we will need to scale the Green's function by $e^{-jk_ox}$ to get the full propagating wave solution.
+The paraxial wave equation is a parabolic differential equation with the same structure as the diffusion equation. However, since the effective diffusion coefficient is complex, we can expect the solution to oscillate rather than decay exponentially. Since we have reduced the original Helmholtz equation for the full propagating wave to one that is only dependent on the modulation function, we will need to scale the Green's function by $e^{-jk_fx}$ to get the full propagating wave solution.
  
 \subsubsection {Green's Function Derivation in the Frequency Domain} \label{gf_sec:paraxial_gf_derivation}
-As stated in the previous section, the Green's function for the paraxial wave equation, $G_p$, will only define the amplitude modulation. To get the full Green's function, we will need to scale by the plane wave, $G_o= G_p e^{-jk_ox}$. We can start with substituting the Greens function into equation \ref{gf_eq:44}.
+As stated in the previous section, the Green's function for the paraxial wave equation, $G_p$, will only define the amplitude modulation. To get the full Green's function, we will need to scale by the plane wave, $G_o= G_p e^{-jk_fx}$. We can start with substituting the Greens function into equation \ref{gf_eq:44}.
 
 \begin{equation}
--2jk_o\frac{\partial G_p}{\partial x} + \frac{\partial^2 G_p}{\partial z^2} +k_o^2(n_r^2-1)\hat{G_p}= -\delta(x)\delta(z)
+-2jk_f\frac{\partial G_p}{\partial x} + \frac{\partial^2 G_p}{\partial z^2} +k_f^2(n_r^2-1)\hat{G_p}= -\delta(x)\delta(z)
 \label{gf_eq:44a}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -780,7 +825,7 @@ As stated in the previous section, the Green's function for the paraxial wave eq
 We can then take the Fourier transform of Equation \ref{gf_eq:44a} along $z$ and multiply both sides by $-1$.
 
 \begin{equation}
-2jk_o\frac{\partial \hat{G_p}}{\partial x} +k^2\hat{G_p} +k_o^2(n_r^2-1)\hat{G_p}= \delta(x)
+2jk_f\frac{\partial \hat{G_p}}{\partial x} +k^2\hat{G_p} +k_f^2(n_r^2-1)\hat{G_p}= \delta(x)
 \label{gf_eq:45}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -788,7 +833,7 @@ We can then take the Fourier transform of Equation \ref{gf_eq:44a} along $z$ and
 Solving away from the delta function yields the following expression for $\hat{G_p}$:
 
 \begin{equation}
-\hat{G_p}= ce^{\frac{jk^2}{2k_o}x}e^{\frac{-jk_o(n_r^2-1)}{2}x}
+\hat{G_p}= ce^{\frac{jk^2}{2k_f}x}e^{\frac{-jk_f(n_r^2-1)}{2}x}
 \label{gf_eq:46}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -796,19 +841,19 @@ Solving away from the delta function yields the following expression for $\hat{G
 Here we see that the dependence on the index of refraction is separated into a phase term that is independent of $k$. To find $c$, we can integrate Equation \ref{gf_eq:45} over a small region $\pm\epsilon$ and take the limit as $x\rightarrow 0$.
 
 \begin{equation}
-\lim_{x\rightarrow 0}\int_{-\epsilon}^{\epsilon}dx\left[2jk_o\frac{\partial\hat{G_p}}{\partial x}+ k^2\hat{G_p} +k_o^2(n_r^2-1)\hat{G_p} \right] = \lim_{x\rightarrow 0}\int_{-\epsilon}^{\epsilon}dx\delta(x)\\
+\lim_{x\rightarrow 0}\int_{-\epsilon}^{\epsilon}dx\left[2jk_f\frac{\partial\hat{G_p}}{\partial x}+ k^2\hat{G_p} +k_f^2(n_r^2-1)\hat{G_p} \right] = \lim_{x\rightarrow 0}\int_{-\epsilon}^{\epsilon}dx\delta(x)\\
 \label{gf_eq:47}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
  
-\noindent $\hat{G_p}$ must be continuous, so the integral over the $k^2\hat{G_p}$ and $k_0^2(n_r^2-1)\hat{G_p}$ terms must be 0.
+\noindent $\hat{G_p}$ must be continuous, so the integral over the $k^2\hat{G_p}$ and $k_f^2(n_r^2-1)\hat{G_p}$ terms must be 0.
 
 \begin{equation}
 \begin{gathered}
-\lim_{x\rightarrow 0}2jk_o\int_{-\epsilon}^{\epsilon}dx\frac{\partial\hat{G_p}}{\partial x}= 1\\
-\lim_{x\rightarrow 0}2jk_o\hat{G_p} = 1 \\
-\lim_{x\rightarrow 0}2jk_oce^{\frac{jk^2}{2k_o}x}e^{\frac{-jk_o(n_r^2-1)}{2}x} = 1\\
-c = \frac{1}{j2k_o}\\
+\lim_{x\rightarrow 0}2jk_f\int_{-\epsilon}^{\epsilon}dx\frac{\partial\hat{G_p}}{\partial x}= 1\\
+\lim_{x\rightarrow 0}2jk_f\hat{G_p} = 1 \\
+\lim_{x\rightarrow 0}2jk_fce^{\frac{jk^2}{2k_o}x}e^{\frac{-jk_o(n_r^2-1)}{2}x} = 1\\
+c = \frac{1}{j2k_f}\\
 \end{gathered}
 \label{gf_eq:11cb}
 \end{equation}
@@ -817,7 +862,7 @@ c = \frac{1}{j2k_o}\\
 \noindent This yields the final expression for $\hat{G_p}$:
 
 \begin{equation}
-\hat{G_p}= \frac{1}{2jk_o}e^{\frac{jk^2}{2k_o}x}e^{\frac{-jk_o(n_r^2-1)}{2}x}
+\hat{G_p}= \frac{1}{2jk_f}e^{\frac{jk^2}{2k_f}x}e^{\frac{-jk_f(n_r^2-1)}{2}x}
 \label{gf_eq:11cc}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -826,8 +871,8 @@ c = \frac{1}{j2k_o}\\
 
 \begin{equation}
 \begin{aligned}
-G_p &= \mathcal{F}^{-1}\{\hat{G_p}\} = \frac{1}{2jk_o}\frac{1}{2\pi}\int_{-\infty}^{\infty}dk e^{\frac{jk^2}{2k_o}x}e^{\frac{-jk_o(n_r^2-1)}{2}x}e^{-jkz} \\
-& = \frac{1}{2jk_o}\frac{1}{2\pi}e^{\frac{-jk_o(n_r^2-1)}{2}x}\int_{-\infty}^{\infty}dk e^{\frac{jk^2}{2k_o}x-jkz} \\
+G_p &= \mathcal{F}^{-1}\{\hat{G_p}\} = \frac{1}{2jk_f}\frac{1}{2\pi}\int_{-\infty}^{\infty}dk e^{\frac{jk^2}{2k_f}x}e^{\frac{-jk_f(n_r^2-1)}{2}x}e^{-jkz} \\
+& = \frac{1}{2jk_f}\frac{1}{2\pi}e^{\frac{-jk_f(n_r^2-1)}{2}x}\int_{-\infty}^{\infty}dk e^{\frac{jk^2}{2k_f}x-jkz} \\
 \end{aligned}
 \label{gf_eq:11d}
 \end{equation}
@@ -837,9 +882,9 @@ G_p &= \mathcal{F}^{-1}\{\hat{G_p}\} = \frac{1}{2jk_o}\frac{1}{2\pi}\int_{-\inft
 
 \begin{equation}
 \begin{gathered}
-\frac{jx}{2k_o}\left[k^2  -2k\frac{k_oz}{x}\right]\\
-\frac{jx}{2k_o}\left[\left(k - \frac{k_oz}{x}\right)^2 - \frac{k_o^2z^2}{x^2} \right]\\
-\frac{jx}{2k_o}\left(k - \frac{k_oz}{x}\right)^2 - \frac{jk_oz^2}{x}\\
+\frac{jx}{2k_f}\left[k^2  -2k\frac{k_fz}{x}\right]\\
+\frac{jx}{2k_f}\left[\left(k - \frac{k_fz}{x}\right)^2 - \frac{k_f^2z^2}{x^2} \right]\\
+\frac{jx}{2k_f}\left(k - \frac{k_fz}{x}\right)^2 - \frac{jk_fz^2}{x}\\
 \end{gathered}
 \label{gf_eq:11e}
 \end{equation}
@@ -849,27 +894,36 @@ G_p &= \mathcal{F}^{-1}\{\hat{G_p}\} = \frac{1}{2jk_o}\frac{1}{2\pi}\int_{-\inft
 
 \begin{equation}
 \begin{aligned}
-G_p &= \frac{1}{2jk_o}\frac{1}{2\pi}e^{\frac{-jk_o(n_r^2-1)}{2}x}\int_{-\infty}^{\infty}dk e^{\frac{jx}{2k_o}\left(k  -\frac{k_oz}{x}\right)^2- \frac{jk_o}{2x}z^2 } \\
-&= \frac{1}{2jk_o}\frac{1}{2\pi} \sqrt{\frac{\pi j2k_o}{x}}e^{\frac{-jk_o(n_r^2-1)}{2}x}e^{-j\frac{k_o}{2x}z^2 } \\
-&= \frac{1}{2jk_o}\sqrt{\frac{jk_o}{2\pi x}}\exp\left[-j\frac{k_oz^2}{2x} \right]\\
-&= \sqrt{\frac{1}{8\pi j k_ox}}\exp\left[\frac{-jk_o(n_r^2-1)}{2}x\right]\exp\left[-j\frac{k_oz^2}{2x} \right]\\
+G_p &= \frac{1}{2jk_f}\frac{1}{2\pi}e^{\frac{-jk_f(n_r^2-1)}{2}x}\int_{-\infty}^{\infty}dk e^{\frac{jx}{2k_f}\left(k  -\frac{k_fz}{x}\right)^2- \frac{jk_f}{2x}z^2 } \\
+&= \frac{1}{2jk_f}\frac{1}{2\pi} \sqrt{\frac{\pi j2k_f}{x}}e^{\frac{-jk_f(n_r^2-1)}{2}x}e^{-j\frac{k_f}{2x}z^2 } \\
 \end{aligned}
 \label{gf_eq:11f}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
  
-\noindent Multiplying by $e^{-jk_ox}$ yields the full Green's function.
+\noindent Collecting terms and simplifying yields the following.
+
+ \begin{equation}
+\begin{aligned}
+G_p &= \frac{1}{2jk_f}\sqrt{\frac{jk_f}{2\pi x}}\exp\left[\frac{-jk_f(n_r^2-1)}{2}x\right]\exp\left[-j\frac{k_fz^2}{2x} \right]\\
+&= \sqrt{\frac{1}{8\pi j k_fx}}\exp\left[\frac{-jk_f(n_r^2-1)}{2}x\right]\exp\left[-j\frac{k_fz^2}{2x} \right]\\
+\end{aligned}
+\label{gf_eq:11ffa}
+\end{equation}
+ \renewcommand{\baselinestretch}{2} \small\normalsize
+ 
+\noindent Multiplying by $e^{-jk_fx}$ yields the full Green's function.
 
 \begin{equation}
-G= \sqrt{\frac{1}{8\pi jk_ox}}\exp\left[\frac{-jk_o(n_r^2-1)}{2}x\right]\exp\left[-j\frac{k_oz^2}{2x} \right]e^{-jk_ox}
+G_o= \sqrt{\frac{1}{8\pi jk_fx}}\exp\left[\frac{-jk_f(n_r^2-1)}{2}x\right]\exp\left[-j\frac{k_fz^2}{2x} \right]e^{-jk_fx}
 \label{gf_eq:11fa}
 \end{equation}
   \renewcommand{\baselinestretch}{2} \small\normalsize
   
-We can let $x\rightarrow |x-x'|$, $x\rightarrow |z-z'|$ and introduce the modified refractivity, $m = n_r^2-1$ to represent the Green's function as traditionally shown.
+We can let $x\rightarrow |x-x'|$, $x\rightarrow |z-z'|$ and introduce the modified refractivity, $m = n_r^2-1$ to present the final version of the Green's function.
 
 \begin{equation}
-\boxed{G\left(x,x',z,z' \right)= \sqrt{\frac{1}{8\pi jk_o|x-x'|}}\exp\left[-jk_o\left(|x-x'|\left[1+\frac{m}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right)\right]}\\
+\boxed{G_o\left(x,x',z,z' \right)= \sqrt{\frac{1}{8\pi jk_f|x-x'|}}\exp\left[-jk_f\left(|x-x'|\left[1+\frac{m}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right)\right]}\\
 \label{gf_eq:11fb}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -902,7 +956,7 @@ To help visualize this Green's function, the magnitude and phase is shown in Fig
 \renewcommand{\baselinestretch}{2}
 \small\normalsize
 
-It is important to note that with the paraxial approximation, only forward propagating waves are included in the solution. This means that effects such as backscattering are not captured with this method. 
+It is important to note that with the paraxial approximation, only forward propagating waves are included in the solution, which will become more apparent when we discuss the parabolic wave equation. This means that effects such as backscattering are not captured with this method. 
 
 \subsubsection{Derivation From 3-D Free Space Green's Function}
 A simpler method to derive the Green's function for the paraxial wave equation is to apply the paraxial assumption to the 3-D free space Green's function. This assumption allows us to substitute $r$ with $x$ for the amplitude, but we will need to integrate out the $y$ dependence of the phase because it is rapidly oscillating. We can use a binomial expansion to separate the $y$ and $z$ dependence.
@@ -916,7 +970,7 @@ r = \sqrt{x^2+y^2+z^2} \approx x + \frac{y^2}{2x}+\frac{z^2}{2x}
 \noindent The paraxial approximation of the 3-D free space Green's function is then
 
 \begin{equation}
-G_o \approx \frac{\exp\left[-jk_on_r\left(x+\frac{z^2}{2x} \right)\right]}{4\pi x} \exp\left[-jk_on_r\frac{y^2}{2x}\right]
+G_o \approx \frac{\exp\left[-jk_o\left(x+\frac{z^2}{2x} \right)\right]}{4\pi x} \exp\left[-jk_o\frac{y^2}{2x}\right]
 \label{gf_eq:11zb}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -924,7 +978,7 @@ G_o \approx \frac{\exp\left[-jk_on_r\left(x+\frac{z^2}{2x} \right)\right]}{4\pi 
 \noindent We can integrate out the $y$ dependence
 
 \begin{equation}
-\int_{-\infty}^{\infty} dy \exp\left[-jk_o\frac{y^2}{2x}\right] = \sqrt{\frac{2\pi x}{jk_on_r}}
+\int_{-\infty}^{\infty} dy \exp\left[-jk_o\frac{y^2}{2x}\right] = \sqrt{\frac{2\pi x}{jk_o}}
 \label{gf_eq:11zc}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -933,19 +987,19 @@ G_o \approx \frac{\exp\left[-jk_on_r\left(x+\frac{z^2}{2x} \right)\right]}{4\pi 
 
 \begin{equation}
 \begin{aligned}
-G_o &= \frac{\exp\left[-jk_on_r\left(x+\frac{z^2}{2x} \right)\right]}{4\pi x} \sqrt{\frac{2\pi x}{jk_on_r}}\\
-&= \sqrt{\frac{1}{j8\pi k_on_r x}}\exp\left[-jk_on_r\left(x+\frac{z^2}{2x} \right)\right]
+G_o &= \frac{\exp\left[-jk_o\left(x+\frac{z^2}{2x} \right)\right]}{4\pi x} \sqrt{\frac{2\pi x}{jk_o}}\\
+&= \sqrt{\frac{1}{j8\pi k_o x}}\exp\left[-jk_o\left(x+\frac{z^2}{2x} \right)\right]
 \label{gf_eq:11zd}
 \end{aligned}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
  
-Equation \ref{gf_eq:11zd} is different from Equation  \ref{gf_eq:11fa} in that the dependence on the index of refraction is no longer separable into a phase term. This is however the same answer we would have gotten if we assumed the propagating wave had the form $U(x,z) = A(x,z)e^{-jk_on_rx}$ when deriving the paraxial wave equation.
+Equation \ref{gf_eq:11zd} is different from Equation  \ref{gf_eq:11fa} in that the dependence on the index of refraction is no longer separable into a phase term. This is however the same answer we would have gotten if we assumed the propagating wave had the form $U(x,z) = A(x,z)e^{-jk_ox}$ when deriving the paraxial wave equation. If we let $n_r = 1$, then these two equations will be identical.
 
 \subsection{Parabolic Wave Equation}
 This section derives the Green's function for the parabolic wave equation (PWE), which is essentially the paraxial wave equation with a correction factor to account for the curvature of the earth.
 
-\subsubsection{Derivation of the Parabolic Wave Equation}
+\subsubsection{Earth Flattening Transformation}
 Because the earth is actually curved and not flat, it is often useful to treat the earth as a sphere when analyzing propagation. If we let $a_e$ be the radius of the earth, we can use a conformal mapping to implement the transformation \cite{kuttler_pe_theory} and keep the result in Cartesian coordinates.
 
 \begin{equation}
@@ -960,7 +1014,7 @@ Because the earth is actually curved and not flat, it is often useful to treat t
 Using this mapping and applying the paraxial approximation to the Helmholtz equation with refractivity included yields the PWE \cite{kuttler_pe_theory} \cite{dockery_pe}.
  
 \begin{equation}
--2jk_o\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} +k_0^2\left(n^2-1+\frac{2z}{a_e} \right)A = 0 \\
+-2jk_f\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} +k_f^2\left(n^2-1+\frac{2z}{a_e} \right)A = 0 \\
 \label{gf_eq:75}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -968,16 +1022,38 @@ Using this mapping and applying the paraxial approximation to the Helmholtz equa
 The only difference between Equation \ref{gf_eq:75} and Equation \ref{gf_eq:44} is the inclusion of the term $2z/a_e$ that represents the impact of the curvature of the Earth. We can incorporate this correction factor in the modified refractivity, $m_z = n^2-1 + 2z/a_e = m + 2z/a_e$, and treat it as a constant in $z$. With this substitution, we are explicitly defining the PWE as a special case of the paraxial wave equation that includes a correction factor for the curvature of the earth.
 
 \begin{equation}
--2jk_o\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} +k_0^2m_zA = 0 \\
+-2jk_f\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} +k_f^2m_zA = 0 \\
 \label{gf_eq:76}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
+\subsubsection{Factorization of the Helmholtz Equation}
+Equation \ref{gf_eq:76} is sometimes referred to as the narrow angle PWE as it is really only valid for small angles from horizontal. An alternate, but more intuitive, derivation is to factor the Helmholtz equation into a pair of first order differential equations. This factorization is typically done in terms of an operator $Q$ \cite{kuttler_pe_theory} \cite{dockery_pe} such that
+
+\begin{equation}
+Q = \frac{1}{k_f^2}\frac{\partial^2}{\partial z} + n_r^2-1
+\label{gf_pwe:1}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+The Helmholtz equation is then factored as given in the following.
+
+\begin{equation}
+\begin{gathered}
+\left[\nabla^2 + k_f^2n_r^2right]U = \\
+\left[\frac{\partial}{\partial x}+jk_f\left(1-\sqrt{1+Q} \right) \right]\left[\frac{\partial}{\partial x}+jk_f\left(1+\sqrt{1+Q} \right)\right]
+\end{gathered}
+\label{gf_pwe:2}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+The operator $Q$ is then simplified through a Taylor series expansion. If we only keep the first order terms, then we have exactly the paraxial wave solution. To implement wide angle solutions, we need to include higher order terms.
 
 \subsubsection{Green's Function Derivation in the Frequency Domain}
 The derivation of the Green's function for the PWE follows directly from Section \ref{gf_sec:paraxial_gf_derivation}, replacing $n_r^2-1$ with $m_z$. The final Green's function for the PWE is then given as
 
 \begin{equation}
-\boxed{G\left(x,x',z,z' \right)= \sqrt{\frac{1}{8\pi jk_o|x-x'|}}\exp\left[-jk_o\left(|x-x'|\left[1+\frac{m_z}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right) \right]}\\
+\boxed{G\left(x,x',z,z' \right)= \sqrt{\frac{1}{8\pi jk_f|x-x'|}}\exp\left[-jk_f\left(|x-x'|\left[1+\frac{m_z}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right) \right]}\\
 \label{gf_eq:202}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -993,10 +1069,10 @@ Table \ref{gf_tab:0} collects the various Green's functions derived in this sect
   \begin{tabular} {|c | c |}
     \hline
   \bf{Wave Equation} & \bf{Frequency Domain} \\ \hline
-  3-D Free Space & $\displaystyle\frac{e^{-jk_on_r|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|}$ \\ \hline
-  2-D Free Space & $\displaystyle -\frac{j}{4}H_0^{(2)}\left(k_on_r|\boldsymbol{\rho} - \boldsymbol{\rho}' | \right)$  \\ \hline
-  2-D Paraxial & $\displaystyle\sqrt{\frac{1}{8\pi jk_o|x-x'|}}\exp\left[-jk_o\left(|x-x'|\left[1+\frac{m}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right)\right]$\\ \hline
-  2-D PWE &$\displaystyle\sqrt{\frac{1}{8\pi jk_o|x-x'|}}\exp\left[-jk_o\left(|x-x'|\left[1+\frac{m_z}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right) \right]$ \\ \hline
+  3-D Free Space & $\displaystyle\frac{e^{-jk_o|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|}$ \\ \hline
+  2-D Free Space & $\displaystyle -\frac{j}{4}H_0^{(2)}\left(k_o|\boldsymbol{\rho} - \boldsymbol{\rho}' | \right)$  \\ \hline
+  2-D Paraxial & $\displaystyle\sqrt{\frac{1}{8\pi jk_f|x-x'|}}\exp\left[-jk_f\left(|x-x'|\left[1+\frac{m}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right)\right]$\\ \hline
+  2-D PWE &$\displaystyle\sqrt{\frac{1}{8\pi jk_f|x-x'|}}\exp\left[-jk_f\left(|x-x'|\left[1+\frac{m_z}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right) \right]$ \\ \hline
 \end{tabular}
 \end{center}
 \end{table}
