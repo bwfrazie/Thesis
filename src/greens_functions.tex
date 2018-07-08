@@ -1081,7 +1081,7 @@ Table \ref{gf_tab:0} collects the various Green's functions derived in this sect
 \section {Diffraction from an Aperture}
 The canonical diffraction problem is the propagation of light through an aperture and is heavily utilized in the field of Fourier Optics \cite{goodman_fourier} \cite{gaskill_fourier}. We will identify the disturbance at the observation point as $U(P_2)$ and the disturbance at the source as $U(P_1)$.
 
-\subsubsection{Rayleigh-Sommerfeld Diffraction Integral}
+\subsection{Rayleigh-Sommerfeld Diffraction Integral}
 Following Huygen's principle, we can use every point in the aperture as a source for secondary waves. In order to ensure the integral over the surface vanishes at far distances, we need to apply the Sommerfeld radiation condition on the disturbance $U$
 
 \begin{equation}
@@ -1215,13 +1215,60 @@ We can neglect the $\xi^2$ and $\eta^2$ terms in the exponential and let $(x-\xi
 Equation \ref{gf_eq:53h} is the Fraunhofer approximation and is simply the spatial Fourier transform of the aperture with spatial frequencies $f_x = x/(\lambda z)$ and $f_y = y/(\lambda z)$ \cite{goodman_fourier} \cite{gaskill_fourier}. In other words, the spatial frequencies are the source coordinates at the observation plane divided by the product of the wavelength with the propagation distance.
 
 \section {Diffraction from a Flat Earth}
-This section discusses the use of Green's functions to describe propagating over the earth with an assumption that the surface is flat.
-
-\subsection{Paraxial Approximation}\label{paraxial_diffraction}
 We can treat diffraction from a planar surface in the same fashion as diffraction through an aperture but we will need to include a reflection coefficient, $\Gamma$. As a specific example, the surface of the ocean can be approximated as a planar surface when the ocean wave heights are much smaller than the altitude of interest.
 
+\subsection{Reflection Coefficient for the Ocean}
+The reflection coefficient at the ocean’s surface will have a random component due to the height of the sea waves. We can follow the Miller-Brown model and divide the reflection coefficient into a smooth reflection coefficient and a rough reflection coefficient \cite{miller_reflection}, \cite{lohrmann_rcs}. 
+
+The smooth reflection coefficient is just the standard Fresnel reflection coefficient, though it is generally manipulated to show the dependence on grazing angle, $\chi$, rather than incident and transmitted angles. For a horizontally polarized wave, the smooth reflection coefficient is given as
+
+\begin{equation}
+\Gamma_H = \frac{\sin(\chi) - \sqrt{\epsilon_r - \cos^2(\chi)}}{\sin(\chi) + \sqrt{\epsilon_r - \cos^2(\chi)}}
+\label{gf_mb:1}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent For a vertically polarized wave, the smooth reflection coefficient is given as
+
+\begin{equation}
+\Gamma_V = \frac{\sin(\chi) - \sqrt{\frac{\epsilon_r - \cos^2(\chi)}{\epsilon_r^2} }}{\sin(\chi) - \sqrt{\frac{\epsilon_r + \cos^2(\chi)}{\epsilon_r^2} }}
+\label{gf_mb:2}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+The dielectric constant of seawater, $\epsilon_r$ at $20^{\circ}$ C and $3.6\%$ salinity is given as \cite{temper_guide}
+
+\begin{equation}
+\epsilon_r = \left[\frac{64.18}{1+3.30523e^{-21}f^2} + 4.9 \right]+ j\left[\frac{3.689702e^{-9}f}{1+3.30523e^{-21}f^2} + \frac{9.4e^{10}}{f}\right]
+\label{gf_mb:3}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+The smooth reflection coefficient, $\gamma$, is polarization independent and sgiven as \cite{miller_reflection}, \cite{lohrmann_rcs}
+
+\begin{equation}
+\gamma = \exp\left[-2(2\pi \kappa)^2 \right]I_0\left(2(2\pi \kappa)^2 \right)
+\label{gf_mb:4}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Here, $\kappa$ is related to the ocean wave standard deviation through $\kappa = \sigma_h \sin(\chi)/\lambda$. The full reflection coefficient is then the product of the smooth and rough reflection coefficients.
+
+\begin{equation}
+\Gamma =
+  \begin{cases}
+    \gamma\Gamma_H       & \quad \text{Horizontally polarized}\\
+    \gamma\Gamma_V & \quad \text{Vertically polarized}\\
+  \end{cases}
+\label{gf_mb:5}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\subsection{Paraxial Approximation}\label{paraxial_diffraction}
+In this section, we will use a paraxial Green's function to derive the propagation integral for a wave that is reflected off an ocean surface with small random components.
+
 \subsubsection{Integral Solution for Reflected Ray}
-In this section, we will use a paraxial Green's function to derive the propagation integral for a wave that is reflected off an ocean surface with small random components. The geometry is shown in Figure \ref{gf_fig:15}, where $\tilde{x}$ is the region over which the energy is significantly reflected, $x_m$ is the primary point of reflection, $L_1$ is the direct path, $L_2$ and $L_3$ are the path lengths for the various reflected rays, $s(x)$ is the altitude of the sea surface at $x$, $h_2$ is the altitude of the receiver at $P_2$, $h_1$ is the altitude of the transmitter at $P_1$, and $L$ is the ground distance between $P_1$ and $P_2$. 
+ The geometry is shown in Figure \ref{gf_fig:15}, where $\tilde{x}$ is the region over which the energy is significantly reflected, $x_m$ is the primary point of reflection, $L_1$ is the direct path, $L_2$ and $L_3$ are the path lengths for the various reflected rays, $s(x)$ is the altitude of the sea surface at $x$, $h_2$ is the altitude of the receiver at $P_2$, $h_1$ is the altitude of the transmitter at $P_1$, and $L$ is the ground distance between $P_1$ and $P_2$. 
 
 \begin{figure}[ht]
   \begin{center}
