@@ -781,7 +781,7 @@ We can derive the paraxial from the Helmholtz equation by assuming a wave propag
  \begin{gathered}
 \frac{\partial }{\partial x}\left(-jk_fAe^{-jk_fx}+e^{-jk_fx}\frac{\partial A}{\partial x} \right) + e^{-jk_fx}\frac{\partial^2 A}{\partial z^2} + k_f^2n_r^2 Ae^{-jk_fx} = 0 \\
 -k_f^2Ae^{-jk_fx} -2jk_fe^{-jk_fx}\frac{\partial A}{\partial x}+e^{-jk_fx}\frac{\partial^2 A}{\partial x^2} + e^{-jk_fx}\frac{\partial^2 A}{\partial z^2} + k_f^2n_r^2 Ae^{-jk_fx} = 0 \\
-e^{-jk_fx}\left] -2jk_f\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partial x^2} + \frac{\partial^2 A}{\partial z^2} + k_f^2\left(n_2-1\right)A\right] = 0 \\
+e^{-jk_fx}\left[ -2jk_f\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partial x^2} + \frac{\partial^2 A}{\partial z^2} + k_f^2\left(n_r^2-1\right)A\right] = 0 \\
 \end{gathered}
 \label{gf_eq:41a}
 \end{equation}
@@ -871,8 +871,8 @@ c = \frac{1}{j2k_f}\\
 
 \begin{equation}
 \begin{aligned}
-G_p &= \mathcal{F}^{-1}\{\hat{G_p}\} = \frac{1}{2jk_f}\frac{1}{2\pi}\int_{-\infty}^{\infty}dk e^{\frac{jk^2}{2k_f}x}e^{\frac{-jk_f(n_r^2-1)}{2}x}e^{-jkz} \\
-& = \frac{1}{2jk_f}\frac{1}{2\pi}e^{\frac{-jk_f(n_r^2-1)}{2}x}\int_{-\infty}^{\infty}dk e^{\frac{jk^2}{2k_f}x-jkz} \\
+G_p &= \mathcal{F}^{-1}\{\hat{G_p}\} = \frac{1}{2jk_f}\frac{1}{2\pi}\int_{-\infty}^{\infty}dk e^{\frac{jk^2}{2k_f}x}e^{-\frac{jk_f(n_r^2-1)}{2}x}e^{-jkz} \\
+& = \frac{1}{2jk_f}\frac{1}{2\pi}e^{-\frac{jk_f(n_r^2-1)}{2}x}\int_{-\infty}^{\infty}dk e^{\frac{jk^2}{2k_f}x-jkz} \\
 \end{aligned}
 \label{gf_eq:11d}
 \end{equation}
@@ -894,8 +894,8 @@ G_p &= \mathcal{F}^{-1}\{\hat{G_p}\} = \frac{1}{2jk_f}\frac{1}{2\pi}\int_{-\inft
 
 \begin{equation}
 \begin{aligned}
-G_p &= \frac{1}{2jk_f}\frac{1}{2\pi}e^{\frac{-jk_f(n_r^2-1)}{2}x}\int_{-\infty}^{\infty}dk e^{\frac{jx}{2k_f}\left(k  -\frac{k_fz}{x}\right)^2- \frac{jk_f}{2x}z^2 } \\
-&= \frac{1}{2jk_f}\frac{1}{2\pi} \sqrt{\frac{\pi j2k_f}{x}}e^{\frac{-jk_f(n_r^2-1)}{2}x}e^{-j\frac{k_f}{2x}z^2 } \\
+G_p &= \frac{1}{2jk_f}\frac{1}{2\pi}e^{-\frac{jk_f(n_r^2-1)}{2}x}\int_{-\infty}^{\infty}dk e^{\frac{jx}{2k_f}\left(k  -\frac{k_fz}{x}\right)^2- \frac{jk_f}{2x}z^2 } \\
+&= \frac{1}{2jk_f}\frac{1}{2\pi} \sqrt{\frac{\pi j2k_f}{x}}e^{-\frac{jk_f(n_r^2-1)}{2}x}e^{-j\frac{k_f}{2x}z^2 } \\
 \end{aligned}
 \label{gf_eq:11f}
 \end{equation}
@@ -915,7 +915,7 @@ G_p &= \frac{1}{2jk_f}\sqrt{\frac{jk_f}{2\pi x}}\exp\left[\frac{-jk_f(n_r^2-1)}{
 \noindent Multiplying by $e^{-jk_fx}$ yields the full Green's function.
 
 \begin{equation}
-G_o= \sqrt{\frac{1}{8\pi jk_fx}}\exp\left[\frac{-jk_f(n_r^2-1)}{2}x\right]\exp\left[-j\frac{k_fz^2}{2x} \right]e^{-jk_fx}
+G_o= \sqrt{\frac{1}{8\pi jk_fx}}\exp\left[-\frac{jk_f(n_r^2-1)}{2}x\right]\exp\left[-j\frac{k_fz^2}{2x} \right]e^{-jk_fx}
 \label{gf_eq:11fa}
 \end{equation}
   \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1040,7 +1040,7 @@ The Helmholtz equation is then factored as given in the following.
 
 \begin{equation}
 \begin{gathered}
-\left[\nabla^2 + k_f^2n_r^2right]U = \\
+\left[\nabla^2 + k_f^2n_r^2\right]U = \\
 \left[\frac{\partial}{\partial x}+jk_f\left(1-\sqrt{1+Q} \right) \right]\left[\frac{\partial}{\partial x}+jk_f\left(1+\sqrt{1+Q} \right)\right]
 \end{gathered}
 \label{gf_pwe:2}
@@ -1078,19 +1078,8 @@ Table \ref{gf_tab:0} collects the various Green's functions derived in this sect
 \end{table}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\section {Free Space Propagation and Diffraction from an Aperture}
-This section introduces how to use Green's functions for canonical propagation and diffraction problems. We will identify the disturbance at the observation point as $U(P_2)$ and the disturbance at the source as $U(P_1)$.
-
-\subsection {Free Space Propagation}
-For free space propagation problems, there are no boundaries present and we only have the forcing function of Equation \ref{gf_eq:11} surviving so that $U(P_0) = -\int d^3r' Gf$. 
-
-\subsubsection{Point Source}
-The simplest implementation is to assume a point source, so that $f= -\alpha \delta(\mathbf{r}-\mathbf{r_o})\delta(t-t_o)$, in which case the solution simply becomes $U = G(\mathbf{r},\mathbf{r}_o,t,t_o)$. In the 3-dimensional case, the disturbance is then $U(P_0) =1/(4\pi r)\exp[-jk_or]$.
-
-The point source approximation greatly simplifies the calculation and is adequate to capture propagation characteristics in many cases, especially at long ranges. At closer ranges, the distributed aspects of a source become apparent and may be important to include in cases such as predicting the infrared signature of objects.
-
-\subsection {Diffraction through an Aperture}
-The canonical diffraction problem is the propagation of light through an aperture and is heavily utilized in the field of Fourier Optics \cite{goodman_fourier} \cite{gaskill_fourier}.
+\section {Diffraction from an Aperture}
+The canonical diffraction problem is the propagation of light through an aperture and is heavily utilized in the field of Fourier Optics \cite{goodman_fourier} \cite{gaskill_fourier}. We will identify the disturbance at the observation point as $U(P_2)$ and the disturbance at the source as $U(P_1)$.
 
 \subsubsection{Rayleigh-Sommerfeld Diffraction Integral}
 Following Huygen's principle, we can use every point in the aperture as a source for secondary waves. In order to ensure the integral over the surface vanishes at far distances, we need to apply the Sommerfeld radiation condition on the disturbance $U$
@@ -1103,10 +1092,10 @@ Following Huygen's principle, we can use every point in the aperture as a source
 
 We will assume there is no additional forcing function in the aperture so the solution from Equation \ref{gf_eq:11} is just the surface integral over the aperture.
 
-The Rayleigh-Sommerfeld approach uses an alternative Green's function that is generated by a pair of mirrored point sources located at $\mathbf{r}_1$ and $\mathbf{r}_2$ such that $\mathbf{r}_1 = -\mathbf{r}_2$. This configuration ensures that the Green's function vanishes on the surface so the boundary conditions do not need to be applied to both $U$ and $\partial U/\partial n$. This Greens function, $G\_$, is then given as
+The Rayleigh-Sommerfeld approach uses an alternative Green's function that is generated by a pair of mirrored point sources located at $\mathbf{r}_1$ and $\mathbf{r}_2$ such that $\mathbf{r}_1 = -\mathbf{r}_2$. This configuration ensures that the Green's function vanishes on the surface so the boundary conditions do not need to be applied to both $U$ and $\partial U/\partial n$ however, due to the use of mirror images, the Rayleigh-Sommerfeld approach is only applicable to planar surfaces \cite{goodman_fourier}. This Greens function, $G\_$, is then given as
 
 \begin{equation}
-G\_= \frac{\exp[-jk_on_{r1}r_1]}{4\pi r_1} - \frac{\exp[-jk_on_{r2}r_2]}{4\pi r_2}
+G\_= \frac{\exp[-jk_or_1]}{4\pi r_1} - \frac{\exp[-jk_or_2]}{4\pi r_2}
 \label{gf_eq:49}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1114,17 +1103,20 @@ G\_= \frac{\exp[-jk_on_{r1}r_1]}{4\pi r_1} - \frac{\exp[-jk_on_{r2}r_2]}{4\pi r_
 With $\theta_1$ equal to the angle between $\hat{n}$ and $\mathbf{r_1}$ and $\theta_2$ equal to the angle between $\hat{n}$ and $\mathbf{r_2}$, we can write the normal derivative, $\partial G\_/\partial n$, as 
 
 \begin{equation}
+\begin{gathered}
 \frac{\partial G\_}{\partial n}
-=\cos(\theta_1)\left(-jk_on_{r1} - \frac{1}{r_1} \right)\frac{\exp[-jk_on_{r1}r_1]}{4\pi r_1} -\cos(\theta_2)\left(-jk_on_{r2} - \frac{1}{r_2} \right)\frac{\exp[-jk_on_{r2}r_2]}{4\pi r_2}
+=\cos(\theta_1)\left(-jk_o - \frac{1}{r_1} \right)\frac{\exp[-jk_or_1]}{4\pi r_1} \\
+-\cos(\theta_2)\left(-jk_o - \frac{1}{r_2} \right)\frac{\exp[-jk_or_2]}{4\pi r_2}\\
+\end{gathered}
 \label{gf_eq:50}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\noindent In the aperture, $\cos(\theta_1) = -\cos(\theta_2)$, $r_1=r_2=r$, and $n_{r1} = n_{r1} = n_r$ so that
+\noindent In the aperture, $\cos(\theta_1) = -\cos(\theta_2)$ and $r_1=r_2=r$, so that
 
 \begin{equation}
 \begin{aligned}
-\frac{\partial G\_}{\partial n}\bigg|_S &= -2\cos(\theta)\left(\frac{jk_on_r}{4\pi r} + \frac{1}{4\pi r^2}\right)\exp[-jk_on_rr]\\
+\frac{\partial G\_}{\partial n}\bigg|_S &= -2\cos(\theta)\left(\frac{jk_o}{4\pi r} + \frac{1}{4\pi r^2}\right)\exp[-jk_or]\\
 &=2\frac{\partial G}{\partial n}\bigg|_S \\
 \end{aligned}
 \label{gf_eq:51}
@@ -1145,7 +1137,7 @@ U(P_2) = -\oint\limits_{S}U(S)\frac{\partial G\_}{\partial n}dS\\
 This equation directly relates the disturbance at $P_2$ to the disturbance in the aperture. For the 3-dimensional case with the assumption that $1/r^2 << k_o$, we get the following expression for the Rayleigh-Sommerfeld formula, which is the mathematical representation of the Huygens-Fresnel principle.
 
 \begin{equation}
-\boxed{U(P_2) =\frac{j}{\lambda}\int_S U(S)\frac{\exp\left[-jk_on_r r\right]}{r}\cos(\theta)dS}
+\boxed{U(P_2) =\frac{j}{\lambda}\int_S U(S)\frac{\exp\left[-jk_o r\right]}{r}\cos(\theta)dS}
 \label{gf_eq:53}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1155,7 +1147,7 @@ As stated in \cite{goodman_fourier} and \cite{gaskill_fourier}, the Huygens-Fres
 \noindent If we let $r \rightarrow |\mathbf{r}-\mathbf{r}'|$ for generality, the convolution property becomes more apparent
 
 \begin{equation}
-U(P_2) =\frac{j}{\lambda}\int_S U(S)\frac{\exp\left[-jk_on_r |\mathbf{r}-\mathbf{r}'|\right]}{|\mathbf{r}-\mathbf{r}'|}\cos(\theta)dS
+U(P_2) =\frac{j}{\lambda}\int_S U(S)\frac{\exp\left[-jk_o |\mathbf{r}-\mathbf{r}'|\right]}{|\mathbf{r}-\mathbf{r}'|}\cos(\theta)dS
 \label{gf_eq:53a}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1163,12 +1155,12 @@ U(P_2) =\frac{j}{\lambda}\int_S U(S)\frac{\exp\left[-jk_on_r |\mathbf{r}-\mathbf
 Equation \ref{gf_eq:53a} tells us that propagation acts as a linear system with the convolution kernel, $h$, given as
 
 \begin{equation}
-h=\frac{j}{\lambda}\frac{\exp\left[-jk_on_r |\mathbf{r}-\mathbf{r}'|\right]}{|\mathbf{r}-\mathbf{r}'|}\cos(\theta)
+h=\frac{j}{\lambda}\frac{\exp\left[-jk_o |\mathbf{r}-\mathbf{r}'|\right]}{|\mathbf{r}-\mathbf{r}'|}\cos(\theta)
 \label{gf_eq:53b}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\subsubsection{Fresnel Diffraction}
+\subsection{Fresnel Diffraction}
 The Fresnel approximation is just the paraxial approximation retaining all 3 dimensions. If we take a binomial expansion of $r$ but keep both the $x$ and $y$ components and assume the source plane is located at $z=0$, we can approximate $r$ as
 
 \begin{equation}
@@ -1180,7 +1172,7 @@ r\approx z + \frac{(x-x')^2}{2z}+\frac{(y-y')^2}{2z}
 Here, $x'$ and $y'$ represent the coordinates in the source plane and $x$ and $y$ represent the coordinates in the observation plane. Because of the quadratic nature, the phase will rapidly oscillate as we move off axis. This means only a narrow region around the axis will contribute significantly and we can use the principle of stationary phase \cite{gbur_math} to extend the integration limits to $\pm \infty$. With the substitution $\cos(\theta) = z/r \approx 1$, we can now rewrite Equation \ref{gf_eq:53} as
 
 \begin{equation}
-\boxed{U(P_2) =\frac{je^{-jk_on_rz}}{\lambda z}\int_{-\infty}^{\infty} U(x',y')\exp\left[-j \frac{k_on_r}{2z}\left([x-x']^2 + [y-y']^2 \right) \right]dx' dy'}
+\boxed{U(P_2) =\frac{je^{-jk_oz}}{\lambda z}\int_{-\infty}^{\infty} U(x',y')\exp\left[-j \frac{k_o}{2z}\left([x-x']^2 + [y-y']^2 \right) \right]dx' dy'}
 \label{gf_eq:53d}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1188,14 +1180,14 @@ Here, $x'$ and $y'$ represent the coordinates in the source plane and $x$ and $y
 Equation \ref{gf_eq:53d} is the Fresnel approximation of the diffraction integral and represents propagation as convolution with a kernel, $h$, containing a quadratic phase factor
 
 \begin{equation}
-h = \frac{je^{-jk_on_r z}}{\lambda z}\exp\left[-j\frac{k_on_r}{2z}\left(x^2 + y^2 \right) \right]
+h = \frac{je^{-jk_o z}}{\lambda z}\exp\left[-j\frac{k_o}{2z}\left(x^2 + y^2 \right) \right]
 \label{gf_eq:53e}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 From \cite{goodman_fourier}, the Fresnel approximation is usually sufficient when $z\geq D_{\text{max}}^2/16$, where $D_{\text{max}}$ is the maximum spatial extent, $D_{\text{max}} = \sqrt{x_{\text{max}}^2 + y_{\text{max}}^2}$. 
 
-\subsubsection{Fraunhofer Diffraction}
+\subsection{Fraunhofer Diffraction}
 If we allow the wave to propagate further, the quadratic phase factor will not contribute significantly and we can factor it out of the integral. This approximation is valid when the propagation distance meets the following criteria.
 
 \begin{equation}
@@ -1207,7 +1199,7 @@ z >> \frac{k_oD_{\text{max}}}{2}
 For clarity, we typically replace $x'$ with $\xi$ and $y'$ with $\eta$ so that Equation \ref{gf_eq:53d} becomes
 
 \begin{equation}
-U(P_2) =\frac{je^{-jk_on_rz}}{\lambda z}\int_{-\infty}^{\infty} U(\xi,\eta)\exp\left[-j \frac{k_on_r}{2z}\left([x-\xi]^2 + [y-\eta]^2 \right) \right]d\xi d\eta
+U(P_2) =\frac{je^{-jk_oz}}{\lambda z}\int_{-\infty}^{\infty} U(\xi,\eta)\exp\left[-j \frac{k_o}{2z}\left([x-\xi]^2 + [y-\eta]^2 \right) \right]d\xi d\eta
 \label{gf_eq:53g}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1215,17 +1207,17 @@ U(P_2) =\frac{je^{-jk_on_rz}}{\lambda z}\int_{-\infty}^{\infty} U(\xi,\eta)\exp\
 We can neglect the $\xi^2$ and $\eta^2$ terms in the exponential and let $(x-\xi)^2 \approx x^2-2x\xi$ and $(y-\eta)^2\approx y^2-2y\eta$. We can factor out the quadratic phase in terms of observation coordinates, $x$ and $y$, and rewrite Equation \ref{gf_eq:53g} as
 
 \begin{equation}
-\boxed{U(P_2) =\frac{je^{-jk_on_rz}e^{-j\frac{k_on_r}{2z}(x^2+y^2)}}{\lambda z}\int_{-\infty}^{\infty} U(\xi,\eta)\exp\left[j2\pi n_r\left(\frac{x}{\lambda z}\xi + \frac{y}{\lambda z}\eta \right) \right]d\xi d\eta}
+\boxed{U(P_2) =\frac{je^{-jk_oz}e^{-j\frac{k_o}{2z}(x^2+y^2)}}{\lambda z}\int_{-\infty}^{\infty} U(\xi,\eta)\exp\left[j2\pi \left(\frac{x}{\lambda z}\xi + \frac{y}{\lambda z}\eta \right) \right]d\xi d\eta}
 \label{gf_eq:53h}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Equation \ref{gf_eq:53h} is the Fraunhofer approximation and is simply the spatial Fourier transform of the aperture with spatial frequencies $f_x = n_rx/(\lambda z)$ and $f_y = n_ry/(\lambda z)$ \cite{goodman_fourier} \cite{gaskill_fourier}. In other words, the spatial frequencies are the source coordinates at the observation plane divided by the product of the wavelength with the propagation distance.
+Equation \ref{gf_eq:53h} is the Fraunhofer approximation and is simply the spatial Fourier transform of the aperture with spatial frequencies $f_x = x/(\lambda z)$ and $f_y = y/(\lambda z)$ \cite{goodman_fourier} \cite{gaskill_fourier}. In other words, the spatial frequencies are the source coordinates at the observation plane divided by the product of the wavelength with the propagation distance.
 
-\section {Diffraction the Earth's Surface}
-This section discusses the use of Green's functions to describe propagating over the earth, specifically over the ocean.
+\section {Diffraction from a Flat Earth}
+This section discusses the use of Green's functions to describe propagating over the earth with an assumption that the surface is flat.
 
-\subsection{Planar Surface Approximation with Paraxial Approximation}
+\subsection{Paraxial Approximation}\label{paraxial_diffraction}
 We can treat diffraction from a planar surface in the same fashion as diffraction through an aperture but we will need to include a reflection coefficient, $\Gamma$. As a specific example, the surface of the ocean can be approximated as a planar surface when the ocean wave heights are much smaller than the altitude of interest.
 
 \subsubsection{Integral Solution for Reflected Ray}
@@ -1242,7 +1234,7 @@ In this section, we will use a paraxial Green's function to derive the propagati
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-We can simplify the various path lengths through a binomial expansion. Here $L_m$ represents the minimum reflected path, which would be given as a straight line between $P_1$ and the mirror image of $P_2$. 
+A simplified 2-ray geometry is given in Figure \ref{gf_fig:15a} to allow us to make some approximations. We can simplify the various path lengths through a binomial expansion. Here $L_m$ represents the minimum reflected path, which would be given as a straight line between $P_1$ and the mirror image of $P_2$. 
 
 \begin{equation}
 \begin{aligned}
@@ -1255,23 +1247,34 @@ L_3 & = \sqrt{\left(L - x\right)^2 + \left( h_2 - s(x)\right)^2}  \approx L-x + 
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
+\begin{figure}[ht]
+  \begin{center}
+\includegraphics[width=5in]{../media/analysis/multipath_2_ray.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[2-Ray Multipath Geometry]{2-Ray Multipath Geometry\label{gf_fig:15a}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
 We can use Equation \ref{gf_eq:52} with the paraxial Green's function where the surface normal is now given as $\hat{z}$. The reflected wave along $L_3$ will then be given by
 
 \begin{equation}
 \begin{aligned}
-U(P_2) &= 2jk_o\int\limits_{0}^{L}dx\Gamma U(s)\frac{z}{x}\sqrt{\frac{1}{8\pi jk_o x}}\exp\left[-jk_o\left(x +\frac{z^2}{2x} \right) \right]\exp\left[-\frac{jk_om}{2}x\right] \\
-&= \int\limits_{0}^{L}dx\Gamma U(s)\frac{z}{x}\sqrt{\frac{jk_o}{2\pi x}}\exp\left[-jk_o\left(x +\frac{z^2}{2x} \right) \right]\exp\left[-\frac{jk_om}{2}x\right] \\
+U(P_2) &= 2jk_f\int\limits_{0}^{L}dx\Gamma U(s)\frac{z}{x}\sqrt{\frac{1}{8\pi jk_f x}}\exp\left[-jk_f\left(x +\frac{z^2}{2x} \right) \right]\exp\left[-\frac{jk_fm}{2}x\right] \\
+&= \int\limits_{0}^{L}dx\Gamma U(s)\frac{z}{x}\sqrt{\frac{jk_f}{2\pi x}}\exp\left[-jk_f\left(x +\frac{z^2}{2x} \right) \right]\exp\left[-\frac{jk_fm}{2}x\right] \\
 \end{aligned}
 \label{gf_eq:55}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-From the geometry in Figure \ref{gf_fig:15}, we are shifting the starting point for the return path by $x$ and we need to let $x \rightarrow L-x$ and $z \rightarrow h_2-s$ so that we now have
+From the geometry in Figure \ref{gf_fig:15}, we are shifting the starting point for the return path by $x$ and we need to let $x \rightarrow L-x$ and $z \rightarrow h_2-s$. We can also assume that $h_2 >> s$ and neglect the $s$ term in the amplitude so that we now have
 
 \begin{equation}
 \begin{aligned}
-U_2(P_2) &= \int\limits_{0}^{L}dx\Gamma U(s)\frac{h_2-s}{L-x}\sqrt{\frac{jk_o}{2\pi (L-x)}}\exp\left[-jk_o\left(L-x +\frac{(h_2-s)^2}{2(L-x)} \right) \right]\exp\left[-\frac{jk_om}{2}(L-x)\right] \\
-&= \int\limits_{0}^{L}dx\Gamma U(s)\frac{h_2-s}{L-x}\sqrt{\frac{jk_o}{2\pi (L-x)}}\exp\left[-jk_oL_3\right]\exp\left[-\frac{jk_om}{2}(L-x)\right] \\
+U_2(P_2) &= \int\limits_{0}^{L}dx\Gamma U(s)\frac{h_2}{L-x}\sqrt{\frac{jk_f}{2\pi (L-x)}}\exp\left[-jk_f\left(L-x +\frac{(h_2-s)^2}{2(L-x)} \right) \right]\exp\left[-\frac{jk_fm}{2}(L-x)\right] \\
+&= \int\limits_{0}^{L}dx\Gamma U(s)\frac{h_2}{L-x}\sqrt{\frac{jk_f}{2\pi (L-x)}}\exp\left[-jk_fL_3\right]\exp\left[-\frac{jk_fm}{2}(L-x)\right] \\
 \end{aligned}
 \label{gf_eq:56}
 \end{equation}
@@ -1281,8 +1284,8 @@ The reflected wave solution at the sea surface, $U_2(s)$, follows from the free 
 
 \begin{equation}
 \begin{aligned}
-U_2(s) &= \sqrt{\frac{1}{8\pi jk_ox}}\exp\left[-jk_o\left(x+\frac{z^2}{2x} + \frac{m}{2}x\right)\right] \\
-&=\sqrt{\frac{1}{8\pi jk_ox}}\exp\left[-jk_oL_2\right]\exp\left[-\frac{jk_om}{2}x\right] \\
+U_2(s) &= \sqrt{\frac{1}{8\pi jk_fx}}\exp\left[-jk_f\left(x+\frac{z^2}{2x} + \frac{m}{2}x\right)\right] \\
+&=\sqrt{\frac{1}{8\pi jk_fx}}\exp\left[-jk_fL_2\right]\exp\left[-\frac{jk_fm}{2}x\right] \\
 \end{aligned}
 \label{gf_eq:57}
 \end{equation}
@@ -1292,8 +1295,8 @@ U_2(s) &= \sqrt{\frac{1}{8\pi jk_ox}}\exp\left[-jk_o\left(x+\frac{z^2}{2x} + \fr
 
 \begin{equation}
 \begin{aligned}
-U_2(P_2) &= \int_0^L dx \Gamma \sqrt{\frac{1}{8\pi j k_o x}}\exp[-jk_oL_2]\frac{h_2-s}{L-x}\sqrt{\frac{jk_o}{2\pi(L-x)}}\exp[-jk_oL_3]\exp\left[-\frac{jk_omL}{2}\right]\\
-&= \frac{1}{4\pi}\exp\left[-\frac{jk_omL}{2}\right]\int_0^L dx \Gamma \sqrt{\frac{1}{x}}\sqrt{\frac{1}{L-x}}\frac{h_2-s}{L-x}\exp\left[-jk_o\left(L_2+L_3\right) \right]
+U_2(P_2) &= \int_0^L dx \Gamma \sqrt{\frac{1}{8\pi j k_f x}}\exp[-jk_fL_2]\frac{h_2}{L-x}\sqrt{\frac{jk_f}{2\pi(L-x)}}\exp[-jk_fL_3]\exp\left[-\frac{jk_fmL}{2}\right]\\
+&= \frac{1}{4\pi}\exp\left[-\frac{jk_fmL}{2}\right]\int_0^L dx \Gamma \sqrt{\frac{1}{x}}\sqrt{\frac{1}{L-x}}\frac{h_2}{L-x}\exp\left[-jk_f\left(L_2+L_3\right) \right]
 \label{gf_eq:58}
 \end{aligned}
 \end{equation}
@@ -1303,9 +1306,9 @@ In the paraxial approximation, the phase term with the index of refraction is de
 
 \begin{equation}
 \begin{gathered}
-U_2(P_2) = U_1(P_2) + U_2(P_2)\\
-= \sqrt{\frac{1}{8\pi jk_oL}}\exp\left[-jk_oL_1\right]\exp\left[-\frac{jk_omL}{2}\right] \\
-+ \frac{1}{4\pi}\exp\left[-\frac{jk_omL}{2}\right]\int_0^L dx \Gamma \sqrt{\frac{1}{x}}\sqrt{\frac{1}{L-x}}\frac{h_2-s}{L-x}\exp\left[-jk_o\left(L_2+L_3\right) \right]
+U(P_2) = U_1(P_2) + U_2(P_2)\\
+= \sqrt{\frac{1}{8\pi jk_fL}}\exp\left[-jk_fL_1\right]\exp\left[-\frac{jk_fmL}{2}\right] \\
++ \frac{1}{4\pi}\exp\left[-\frac{jk_fmL}{2}\right]\int_0^L dx \Gamma \sqrt{\frac{1}{x}}\sqrt{\frac{1}{L-x}}\frac{h_2}{L-x}\exp\left[-jk_f\left(L_2+L_3\right) \right]
 \label{gf_eq:58a}
 \end{gathered}
 \end{equation}
@@ -1341,17 +1344,13 @@ L_0 \approx L_0(x_m) + \frac{1}{2}\frac{d^2L_0}{dx^2}\bigg|_{x_m}(x-x_m)^2 \\
 
 \begin{equation}
 \begin{gathered}
-\frac{-h_1^2}{x_m^2} + \frac{h_2^2}{(L-x_m)^2} = 0\\
-\frac{-h_1}{x_m} + \frac{h_2}{L-x_m} = 0\\
-\frac{h_1}{x_m} = \frac{h_2}{L-x_m}\\
-h_1(L-x_m) = h_2x_m\\
 x_m = \frac{h_1L}{h_1+h_2}
 \end{gathered}
 \label{gf_eq:64}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\noindent This gives the following for the lowest Taylor series terms:
+\noindent This gives the following Taylor series terms:
 
 \begin{equation}
 \begin{aligned}
@@ -1375,14 +1374,23 @@ L_0 \approx \frac{(h_1+h_2)^2}{2L} + \frac{(h_1+h_2)^4}{2h_1h_2L^3}(x-x_m)^2
 
 \begin{equation}
 \begin{aligned}
-&\exp\left[-jk_o\left( L_2 + L_3\right) \right] \\
-&= \exp\left[-jk_o\left( L+L_0-L_s\right) \right]\\
-&= \exp\left[-jk_o\left( L+L_0(x_m) + \frac{L_0''}{2}(x-x_m)^2-L_s\right) \right]\\
-&= \exp\left[-jk_o\left( L+\frac{(h_1+h_2)^2}{2L} + \frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
-&=\exp\left[-jk_o\left(L_m+\frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
-&=\exp\left[-jk_oL_m\right]\exp\left[-jk_o\left(\frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
-&=\exp\left[-jk_oL_m\right]\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2\right]\exp\left[jk_oL_s \right]\\
+&\exp\left[-jk_f\left( L+L_0-L_s\right) \right]\\
+&= \exp\left[-jk_f\left( L+L_0(x_m) + \frac{L_0''}{2}(x-x_m)^2-L_s\right) \right]\\
+&= \exp\left[-jk_f\left( L+\frac{(h_1+h_2)^2}{2L} + \frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
+&=\exp\left[-jk_f\left(L_m+\frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
 \label{gf_eq:67}
+\end{aligned}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent We can substitute in for $L_m$ and continue simplifying.
+
+\begin{equation}
+\begin{aligned}
+&\exp\left[-jk_f\left(L_m+\frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
+&=\exp\left[-jk_fL_m\right]\exp\left[-jk_f\left(\frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
+&=\exp\left[-jk_fL_m\right]\exp\left[\frac{-jk_fL_0''}{2}(x-x_m)^2\right]\exp\left[jk_fL_s \right]\\
+\label{gf_eq:67a}
 \end{aligned}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1391,7 +1399,7 @@ Because $L_m$ is not dependent on $x$, it can come outside of the integral. If w
 
 \begin{equation}
 \begin{aligned}
-\exp\left[jk_oL_s\right] =\exp\left[j\sigma \sin\left(k_{\omega} (x-x_m) + \theta\right) \right]
+\exp\left[jk_fL_s\right] =\exp\left[j\sigma \sin\left(k_{\omega} (x-x_m) + \theta\right) \right]
 \end{aligned}
 \label{gf_eq:68}
 \end{equation}
@@ -1401,7 +1409,7 @@ Because $L_m$ is not dependent on $x$, it can come outside of the integral. If w
 
 \begin{equation}
 \begin{aligned}
-\sigma = k_oL_s = \frac{2k_os(h_1+h_2)}{L}
+\sigma = k_fL_s = \frac{2k_fs(h_1+h_2)}{L}
 \end{aligned}
 \label{gf_eq:69}
 \end{equation}
@@ -1422,9 +1430,9 @@ We can then use the Jacobi-Anger expansion \cite{gbur_math} to convert the expon
 
 \begin{equation}
 \begin{gathered}
-\exp\left[-jk_o\left( L_2 + L_3\right) \right]= \\
-\exp\left[-jk_oL_m\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]
-\exp\left[\frac{-jk_oL_0''}{2}(x-x_m)^2+jlk_{\omega}(x-x_m)\right]\\
+\exp\left[-jk_f\left( L_2 + L_3\right) \right]= \\
+\exp\left[-jk_fL_m\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]
+\exp\left[-\frac{jk_fL_0''}{2}(x-x_m)^2+jlk_{\omega}(x-x_m)\right]\\
 \label{gf_eq:98}
 \end{gathered}
 \end{equation}
@@ -1434,10 +1442,10 @@ Only the last exponential term is dependent on $x$, so the other terms will come
 
 \begin{equation}
 \begin{aligned}
-&\frac{-jk_oL_0''}{2}\tilde{x}^2+jlk_{\omega}\tilde{x}\\
-&=-\frac{jk_oL_0''}{2}\left[\tilde{x}^2 - \frac{2lk_{\omega}}{k_oL_0''}\tilde{x} \right]\\
-&=-\frac{jk_oL_0''}{2}\left[\left(x-\frac{lk_{\omega}}{k_oL_0''} \right)^2 + \frac{l^2k_{\omega}^2}{k_o^2L_0''^2} \right]\\
-&=-\frac{jk_oL_0''}{2}\left(x-\frac{lk_{\omega}}{k_oL_0''} \right)^2 - \frac{jl^2k_{\omega}^2}{k_oL_0''} 
+&\frac{-jk_fL_0''}{2}\tilde{x}^2+jlk_{\omega}\tilde{x}\\
+&=-\frac{jk_fL_0''}{2}\left[\tilde{x}^2 - \frac{2lk_{\omega}}{k_fL_0''}\tilde{x} \right]\\
+&=-\frac{jk_fL_0''}{2}\left[\left(x-\frac{lk_{\omega}}{k_fL_0''} \right)^2 + \frac{l^2k_{\omega}^2}{k_f^2L_0''^2} \right]\\
+&=-\frac{jk_fL_0''}{2}\left(x-\frac{lk_{\omega}}{k_fL_0''} \right)^2 - \frac{jl^2k_{\omega}^2}{k_fL_0''} 
 \label{gf_eq:99}
 \end{aligned}
 \end{equation}
@@ -1447,9 +1455,9 @@ Only the last exponential term is dependent on $x$, so the other terms will come
 
 \begin{equation}
 \begin{gathered}
-\exp\left[-jk_o\left( L_2 + L_3\right) \right]= \\
-\exp\left[-jk_oL_m\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]
-\exp\left[- \frac{jl^2k_{\omega}^2}{k_oL_0''} \right]\exp\left[-\frac{jk_oL_0''}{2}\left(\tilde{x}-\frac{lk_{\omega}}{2k_oL_0''} \right)^2\right]\\
+\exp\left[-jk_f\left( L_2 + L_3\right) \right]= \\
+\exp\left[-jk_fL_m\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]
+\exp\left[- \frac{jl^2k_{\omega}^2}{k_fL_0''} \right]\exp\left[-\frac{jk_fL_0''}{2}\left(\tilde{x}-\frac{lk_{\omega}}{2k_fL_0''} \right)^2\right]\\
 \label{gf_eq:100}
 \end{gathered}
 \end{equation}
@@ -1458,7 +1466,7 @@ Only the last exponential term is dependent on $x$, so the other terms will come
 \noindent We can make a further substitution and introduce the variable $\phi_l$
 
 \begin{equation}
-\phi_l = l\theta - \frac{l^2k_{\omega}^2}{2k_oL_0''}
+\phi_l = l\theta - \frac{l^2k_{\omega}^2}{2k_fL_0''}
 \label{gf_eq:101}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1467,19 +1475,19 @@ Only the last exponential term is dependent on $x$, so the other terms will come
 
 \begin{equation}
 \begin{gathered}
-U_2(P_2) = \frac{1}{4\pi} \exp[-jk_oL_m] \exp\left[-\frac{jk_omL}{2}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[j\phi_l\right] \\
-\times \int_0^L  \Gamma \sqrt{\frac{1}{x}}\sqrt{\frac{1}{L-x}}\frac{h_2-s}{L-x}\exp\left[-\frac{jk_oL_0''}{2}\left([x-x_m]-\frac{lk_{\omega}}{k_oL_0''} \right)^2\right]
+U_2(P_2) = \frac{1}{4\pi} \exp[-jk_fL_m] \exp\left[-\frac{jk_fmL}{2}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[j\phi_l\right] \\
+\times \int_0^L  \Gamma \sqrt{\frac{1}{x}}\sqrt{\frac{1}{L-x}}\frac{h_2}{L-x}\exp\left[-\frac{jk_fL_0''}{2}\left([x-x_m]-\frac{lk_{\omega}}{k_fL_0''} \right)^2\right]
 \label{gf_eq:102}
 \end{gathered}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-As we have seen previously, the quadratic phase term rapidly oscillates as $x$ moves away from $x_m$, so we can let the integration limits go to $\pm \infty$ and find an asymptotic solution \cite{cheng_analytic_methods}. The amplitudes will be replaced by their values at $x_m$ and we can ignore the sea height, $s$, in the amplitude which results in the following expression.
+As we have seen previously, the quadratic phase term rapidly oscillates as $x$ moves away from $x_m$, so we can let the integration limits go to $\pm \infty$ and find an asymptotic solution \cite{cheng_analytic_methods}. The amplitudes will be replaced by their values at $x_m$, which results in the following expression.
 
 \begin{equation}
 \begin{gathered}
-U_2(P_2) = \frac{1}{4\pi} \exp[-jk_oL_m] \exp\left[-\frac{jk_omL}{2}\right] \sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[j\phi_l\right]\  \\
-\times \Gamma_1 \sqrt{\frac{1}{x_m}}\sqrt{\frac{1}{L-x_m}}\frac{h_2}{L-x_m}\sqrt{\frac{\pi 2}{jk_oL_0''}}
+U_2(P_2) = \frac{1}{4\pi} \exp[-jk_fL_m] \exp\left[-\frac{jk_fmL}{2}\right] \sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[j\phi_l\right]\  \\
+\times \Gamma_1 \sqrt{\frac{1}{x_m}}\sqrt{\frac{1}{L-x_m}}\frac{h_2}{L-x_m}\sqrt{\frac{\pi 2}{jk_fL_0''}}
 \label{gf_eq:72}
 \end{gathered}
 \end{equation}
@@ -1488,44 +1496,176 @@ U_2(P_2) = \frac{1}{4\pi} \exp[-jk_oL_m] \exp\left[-\frac{jk_omL}{2}\right] \sum
 \noindent Substituting in for $x_m$ and $L_0''$ yields the final asymptotic result for the reflected wave.
 
 \begin{equation}
-U_2(P_2) = \sqrt{\frac{1}{8\pi jk_o L}}\Gamma_1e^{-jk_oL_m} e^{-\frac{jk_omL}{2}} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}
+U_2(P_2) = \sqrt{\frac{1}{8\pi jk_f L}}\Gamma_1e^{-jk_fL_m} e^{-\frac{jk_fmL}{2}} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}
 \label{gf_eq:73}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-A simple plane wave solution would result in $U_2(P_2) = \Gamma_1\exp[-jk_oL_m]$ for the reflected wave. Here, we see that the deterministic component from the paraxial wave  solution scales the plane wave solution by the geometric spreading of a paraxial wave. The random sea height contributions are now contained in the sum of Bessel functions. We can now add the solution for the direct wave for the asymptotic solution for the full field.
+A simple plane wave solution would result in $U_2(P_2) = \Gamma_1\exp[-jk_fL_m]$ for the reflected wave. Here, we see that the deterministic component from the paraxial wave  solution scales the plane wave solution by the geometric spreading of a paraxial wave. The random sea height contributions are now contained in the sum of Bessel functions. We can now add the solution for the direct wave for the asymptotic solution for the full field.
 
 \begin{equation}
-\boxed{U(P_2) = \sqrt{\frac{1}{8\pi jk_o L}}e^{-\frac{jk_omL}{2}} \left[e^{-jk_oL_1}+\Gamma_1e^{-jk_oL_m} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}\right]}
+\boxed{U(P_2) = \sqrt{\frac{1}{8\pi jk_f L}}e^{-\frac{jk_fmL}{2}} \left[e^{-jk_fL_1}+\Gamma_1e^{-jk_fL_m} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}\right]}
 \label{gf_eq:73a}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Equation \ref{gf_eq:73a} is a significant result as the asymptotic expression allows us to look at the impact of random wave heights on the average field at the observation point, although it is really only valid only under a flat earth approximation.
+Equation \ref{gf_eq:73a} is a significant result as the asymptotic expression allows us to look at the impact of random wave heights on the average field at the observation point, although it is really only valid only under a flat earth approximation. We can however, implement this in a numerical method similar to ray tracing that allows $m$ to vary as a function of $z$.
 
-We can however, implement this in a numerical method similar to ray tracing that allows $m$ to vary as a function of $z$. If we discretize the $x$ axis into $N$ bins where the bin at the $ath$ position has length $\Delta x_a$, $z_a$ is the height of the particular ray, $L_p$, at the $ath$ position, and $\Delta L_pa$ is the total path length of the ray at the $ath$ position, we can replace the plane waves in Equation \ref{gf_eq:73a} with the following where $L_p = L_1, L_m$.
+It is often convenient to work with a propagation factor, $F_p$ instead of the field. The propagation factor acts as a multiplier on the direct path and will be a normalized version of Equation \ref{gf_eq:73a}. For the paraxial wave assumption, the propagation factor is the same as what we would have gotten from using plane waves.
 
 \begin{equation}
-e^{-jk_oL_p}=\prod_{a=1}^N \exp\left[-jk_o\left(\Delta L_{pa} +\frac{m(z_a)}{2}\Delta x_a\right)\right]
-\label{gf_eq:73z}
+F_p = e^{-jk_fL_1}+\Gamma_1e^{-jk_fL_m} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}
+\label{gf_eq:73ab}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\noindent With this representation, we can rewrite Equation \ref{gf_eq:73a} as
+\subsection{Cylindrical Waves}\label{cylindrical_diffraction}
+The analysis here will rely extensively on the work presented in Section \ref{paraxial_diffraction}, but we will use cylindrical waves instead of paraxial waves. We will again use the geometry shown in Figure \ref{gf_fig:15}, and will work with the 2-D free space Green's function.
+
+\begin{equation}
+G\left(\boldsymbol{\rho},\boldsymbol{\rho}'\right) = -\frac{j}{4}H_0^{(2)}\left(k_o|\boldsymbol{\rho} - \boldsymbol{\rho}' | \right)
+\label{cyl_eq:1}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\subsubsection{Integral Solution for Reflected Ray}
+We can again use Equation \ref{gf_eq:52} with the Green's function given in Equation \ref{cyl_eq:1}. The surface normal is still given as $\hat{z}$, so we will only need to take the derivative with respect to $\rho$.
+ 
+\begin{equation}
+\begin{aligned}
+U_2(P_2) &= -2\oint_s ds U_2(s)\hat{n}\cdot\nabla G\\
+&= -2\int_0^L dx \Gamma U_2(s)\cos(\phi)\frac{\partial G}{\partial \rho}\\
+\end{aligned}
+\label{cyl_eq:6}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+We can use the fact that $\partial H_0^{(2)}(k_o\rho)/\partial \rho = -k_oH_1^{(2)}(k_o\rho)$ and let $\rho \rightarrow L_3$ and $\cos(\phi) \rightarrow h2/L_3$ to solve for $U_2(P_2)$.
+
+\begin{equation}
+\begin{aligned}
+U_2(P_2) = -\frac{2j}{4}\int_0^L dx \Gamma U_2(s)k_o\frac{h_2}{L_3}H_1^{(2)}(k_oL_3)\\
+\label{cyl_eq:7}
+\end{aligned}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent We can now substitue the asymptotic expression for $H_1^{(2)}$
+
+\begin{equation}
+\begin{aligned}
+U_2(P_2) &= -\frac{jk_o}{2}\int_0^L dx \Gamma U_2(s)\frac{h_2}{L_3}\sqrt{\frac{2}{\pi k_o L_3}}e^{-j(k_oL_3-3\pi /4)}\\
+&= -\frac{jk_o}{2}\sqrt{\frac{2}{\pi k_o}}\int_0^L dx \Gamma U_2(s)\frac{h_2}{L_3}\frac{1}{\sqrt{L_3}}e^{-j(k_oL_3-3\pi /4)} \\
+\label{cyl_eq:7b}
+\end{aligned}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent We can factor out the  $e^{j3\pi /4} = j\sqrt{j}$ term.
+
+\begin{equation}
+\begin{aligned}
+U_2(P_2) &= -j\sqrt{\frac{k_o}{2\pi}}e^{j3\pi /4}\int_0^L dx \Gamma U_2(s)\frac{h_2}{L_3}\frac{1}{\sqrt{L_3}}e^{-jk_oL_3} \\
+&= \sqrt{\frac{j k_o}{2\pi}}\int_0^L dx \Gamma U_2(s)\frac{h_2}{L_3}\frac{1}{\sqrt{L_3}}e^{-jk_oL_3} \\
+\label{cyl_eq:7ba}
+\end{aligned}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent The solution at the sea surface, $U_2(s)$ follows again from the free space solution. Here we will let $\rho \rightarrow L_2$ and substitute the asymptotic expression for $H_0^{(2)}$.
+
+ \begin{equation}
+\begin{aligned}
+U_2(s) &= -\frac{j}{4}H_0^{(2)}(k_o L_2) \\
+&= -\frac{j}{4}\sqrt{\frac{2}{\pi k_o L_2}}e^{-jk_oL_2 -\pi/4}\\
+\label{cyl_eq:7c}
+\end{aligned}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent We can again factor out the $e^{j\pi/4} = \sqrt{j}$ term.
+ \begin{equation}
+\begin{aligned}
+U_2(s) &= -j\sqrt{\frac{1}{8\pi k_oj L_2}}e^{j\pi/4}e^{-jk_oL_2} \\
+&= \sqrt{\frac{1}{8 \pi k_o j L_2}}e^{-jk_oL_2} \\
+\label{cyl_eq:7ca}
+\end{aligned}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent The full solution for the reflected wave is then
+
+\begin{equation}
+\begin{aligned}
+U_2(P_2) &= \sqrt{\frac{j k_o}{2\pi}}\int_0^L dx \Gamma \sqrt{\frac{1}{8 \pi k_o j L_2}}e^{-jk_oL_2}  \frac{h_2}{L_3}\frac{1}{\sqrt{L_3}}e^{-jk_oL_3} \\
+&= \frac{1}{4\pi} \int_0^L dx \Gamma \frac{1}{\sqrt{L_2L_3}}\frac{h_2}{L_3} e^{-jk_o(L_2+L_3)}
+\label{cyl_eq:7d}
+\end{aligned}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Equation \ref{cyl_eq:7d} is very similar to Equation \ref{gf_eq:58}. The differences are now that the denominators have the actual path lengths instead of just the distance along the $x$ axis.
+
+\subsubsection{Asymptotic Approximation}
+Because the exponential term in the integral is the same, we will use the same asymptotic approximations used in Section \ref{paraxial_diffraction}. With these assumptions applied, we can rewrite Equation \ref{cyl_eq:7d} as
 
 \begin{equation}
 \begin{gathered}
-U(P_2) = \sqrt{\frac{1}{8\pi jk_o L}}\prod_{a=1}^N\bigg\{ \exp\left[-jk_o\left(\Delta L_{1a} +\frac{m(z_{1a})}{2}\Delta x_a\right)\right]\\
-+\Gamma_1\exp\left[-jk_o\left(\Delta L_{ma} +\frac{m(z_{ma})}{2}\Delta x_a\right)\right] \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}\bigg\} \\
+U_2(P_2) = \frac{1}{4\pi} \exp[-jk_oL_m] \sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[j\phi_l\right] \\
+\times \int_0^L  \Gamma \frac{1}{\sqrt{L_2L_3}}\frac{h_2}{L_3}\exp\left[-\frac{jk_oL_0''}{2}\left([x-x_m]-\frac{lk_{\omega}}{k_oL_0''} \right)^2\right]
+\label{cyl_eq:8}
 \end{gathered}
-\label{gf_eq:73za}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\subsection{Planar Surface Approximation with Cylindrical Waves}
+\noindent The asymptotic solution is then
+
+\begin{equation}
+\begin{gathered}
+U_2(P_2) = \frac{1}{4\pi} \exp[-jk_oL_m] \sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[j\phi_l\right]\  \\
+\times \Gamma_1 \frac{1}{\sqrt{L_2(x_m)L_3(x_m)}}\frac{h_2}{L_3(x_m)}\sqrt{\frac{\pi 2}{jk_oL_0''}}
+\label{cyl_eq:9}
+\end{gathered}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent Expanding $L_0''$ and collecting terms yields
+
+\begin{equation}
+\begin{gathered}
+U_2(P_2) = \sqrt{\frac{1}{8\pi j k_o}} \exp[-jk_oL_m] \sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[j\phi_l\right]\  \\
+\times \Gamma_1 \frac{1}{\sqrt{L_2(x_m)L_3(x_m)}}\frac{h_2\sqrt{h_1h_2L^3}}{L_3(x_m)(h_1+h_2)^2}
+\label{cyl_eq:10}
+\end{gathered}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent Substituting in for $x_m$ and performing some extensive algebraic manipulation yields the final asymptotic solution
+
+\begin{equation}
+U_2(P_2) = \sqrt{\frac{1}{8\pi j k_oL_m}} \Gamma_1\exp[-jk_oL_m] \sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[j\phi_l\right]
+\label{cyl_eq:11}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Adding in the direct path solution gives us the full field description.
+
+\begin{equation}
+\boxed{U(P_2) = \sqrt{\frac{1}{8\pi j k_o}}\left[\frac{1}{\sqrt{L_1}} e^{-jk_oL_1}+\Gamma_1\frac{1}{\sqrt{L_m}} e^{-jk_oL_m} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}\right]}
+\label{cyl_eq:12}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Equation \ref{cyl_eq:12} is again very similar to Equation \ref{gf_eq:73a}, where we now have the cylindrical spreading for each wave based on the path lengths.
+
+\begin{equation}
+F_p = \frac{1}{\sqrt{L_1}} e^{-jk_oL_1}+\Gamma_1\sqrt{\frac{L_1}{L_m}} e^{-jk_oL_m} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}
+\label{cyl_eq:13}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection {Knife Edges and Non-planar Terrain}
-In many cases of interest, the surface we want to propagate over is not planar. Under this condition, we can formulate the diffraction integral in altitude (perpendicular to the surface) and treat subsequent obstacles as knife edges \cite{whitteker_diffraction}. If we treat the knife edge as an aperture that starts at $z=\xi$, assume no $y$ dependence from the source, $U(x,y) = U(x)$, and let propagation be along the $x$ axis, we can integrate out the $y$ dependence from the Fresnel diffraction equation (Equation \ref{gf_eq:53d}) and rewrite it as 
+In many cases of interest, the surface we want to propagate over is not planar. In this case, we cannot use the Rayleigh-Sommerfeld approach with the earth as the surface. However, we can formulate the diffraction integral in altitude (perpendicular to the surface) and treat subsequent obstacles as knife edges \cite{whitteker_diffraction}. If we treat the knife edge as an aperture that starts at $z=\xi$, assume no $y$ dependence from the source, $U(x,y) = U(x)$, and let propagation be along the $x$ axis, we can integrate out the $y$ dependence from the Fresnel diffraction equation (Equation \ref{gf_eq:53d}) and rewrite it as 
 
 \begin{equation}
 \begin{aligned}
@@ -1536,7 +1676,7 @@ U(P_2) &=\frac{je^{-jk_ox}}{\lambda x}\int_{\xi}^{\infty}\int_{-\infty}^{\infty}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\noindent Simplifying terms yields the final result.
+\noindent Substituting $\lambda = 2\pi/k_o$ yields the final result.
 
 \begin{equation}
 \begin{aligned}
@@ -1548,14 +1688,17 @@ U(P_2) &=\frac{je^{-jk_ox}}{\lambda x}\int_{\xi}^{\infty}\int_{-\infty}^{\infty}
 
 Because we are integrating in altitude, we have the full field solution and do not need to add in a direct path. Equation \ref{gf_eq:82a} can be used in a marching algorithm that steps along the $x$ axis, solving in $z$.
 
+\section{Diffraction from a Curved Earth}
+This section discusses the use of Green's functions to describe propagating over the earth where the earth is allowed to be curved.
+
 \subsection{Fourier Split Step Marching Method for PWE}
 The typical PWE solution is formulated as a marching algorithm and will be derived here using the Green's function method and directly from the differential equation. 
 
 \subsubsection{Derivation from Green's Function}
-Because the additional phase term is treated only as a function of $x$, we can multiply the paraxial wave equation solution in Equation \ref{gf_eq:82a} by the additional phase and extend the lower limit to $-\infty$ for generality.
+As we saw in the development of the PWE, the dependence on the index of refraction can be factored out into a separate phase term. We can replace $k_o$ in Equation \ref{gf_eq:82a} with $k_f$ and then multiply it by the additional phase. We can also extend the lower limit of the integral to $-\infty$ for generality.
 
 \begin{equation}
-U(P_2) =\sqrt{\frac{jk_o}{2\pi x}}e^{-jk_ox\left(1+\frac{m}{2}\right)}\int_{\xi}^{\infty}U(z') \exp\left[-j \frac{k_o}{2x}\left(z-z'\right)^2 \right]dz'
+U(P_2) =\sqrt{\frac{jk_f}{2\pi x}}e^{-jk_fx\left(1+\frac{m}{2}\right)}\int_{\xi}^{\infty}U(z') \exp\left[-j \frac{k_f}{2x}\left(z-z'\right)^2 \right]dz'
 \label{gf_eq:301}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1564,8 +1707,8 @@ Because this is a convolution integral, and we can represent convolution in spac
 
 \begin{equation}
 \begin{aligned}
-U(P_2) &=\sqrt{\frac{jk_o}{2\pi x}}e^{-jk_ox\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\{U(z')\}\mathcal{F}\left\{ \exp\left[-j \frac{k_o}{2x}\left(z-z'\right)^2 \right]\right\} \right\} \\
-&=\sqrt{\frac{jk_o}{2\pi x}}e^{-jk_ox\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\{U(z')\}\sqrt{\frac{2\pi x}{jk_o}}\exp\left[-j\frac{k_z^2}{2k_o}x \right] \right\} \\
+U(P_2) &=\sqrt{\frac{jk_f}{2\pi x}}e^{-jk_fx\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\{U(z')\}\mathcal{F}\left\{ \exp\left[-j \frac{k_f}{2x}\left(z-z'\right)^2 \right]\right\} \right\} \\
+&=\sqrt{\frac{jk_f}{2\pi x}}e^{-jk_fx\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\{U(z')\}\sqrt{\frac{2\pi x}{jk_f}}\exp\left[-j\frac{k_z^2}{2k_f}x \right] \right\} \\
 \label{gf_eq:302}
 \end{aligned}
 \end{equation}
@@ -1575,7 +1718,7 @@ U(P_2) &=\sqrt{\frac{jk_o}{2\pi x}}e^{-jk_ox\left(1+\frac{m}{2}\right)}\mathcal{
 
 \begin{equation}
 \begin{aligned}
-U(P_2) = e^{-jk_ox\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\{U(z')\}\exp\left[-j\frac{k_z^2}{2k_o}x \right] \right\} \\
+U(P_2) = e^{-jk_fx\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\{U(z')\}\exp\left[-j\frac{k_z^2}{2k_f}x \right] \right\} \\
 \label{gf_eq:303}
 \end{aligned}
 \end{equation}
@@ -1586,7 +1729,7 @@ U(P_2) = e^{-jk_ox\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\
 \noindent The most straight forward approach is to start by taking the Fourier transform of the PWE (Equation \ref{gf_eq:76}) along $z$
 
 \begin{equation}
--k_z^2\hat{A} -2jk_o\frac{\partial \hat{A}}{\partial x} +k_o^2m\hat{A}
+-k_z^2\hat{A} -2jk_f\frac{\partial \hat{A}}{\partial x} +k_f^2m\hat{A}
 \label{gf_eq:77}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1595,8 +1738,8 @@ U(P_2) = e^{-jk_ox\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\
 
 \begin{equation}
 \begin{aligned}
-\hat{A}(x,k_z) &= \hat{A}(0,k_z)\exp\left[-j\frac{k_o^2m-k_z^2}{2k_o}x \right] \\
-&= \hat{A}(0,k_z)\exp\left[-j\frac{k_om}{2}x\right]\exp\left[j\frac{k_z^2}{2k_o}x \right]
+\hat{A}(x,k_z) &= \hat{A}(0,k_z)\exp\left[-j\frac{k_f^2m-k_z^2}{2k_f}x \right] \\
+&= \hat{A}(0,k_z)\exp\left[-j\frac{k_fm}{2}x\right]\exp\left[j\frac{k_z^2}{2k_f}x \right]
 \end{aligned}
 \label{gf_eq:78}
 \end{equation}
@@ -1607,7 +1750,7 @@ We will next take the inverse Fourier transform along $z$ of Equation \ref{gf_eq
 \begin{equation}
 \begin{aligned}
 A(x,z) &= \mathcal{F}^{-1}\left\{\hat{A}(x,k_z) \right\} \\
-&= \exp\left[-j\frac{k_om}{2}x\right]\mathcal{F}^{-1}\left\{\exp\left[j\frac{k_z^2}{2k_o}x \right]\hat{A}(0,k_z) \right\}
+&= \exp\left[-j\frac{k_fm}{2}x\right]\mathcal{F}^{-1}\left\{\exp\left[j\frac{k_z^2}{2k_f}x \right]\hat{A}(0,k_z) \right\}
 \end{aligned}
 \label{gf_eq:79}
 \end{equation}
@@ -1616,9 +1759,9 @@ A(x,z) &= \mathcal{F}^{-1}\left\{\hat{A}(x,k_z) \right\} \\
 \noindent We can convert Equation \ref{gf_eq:79} into a marching algorithm by letting $x\rightarrow \Delta x = x-x_o$.
 
 \begin{equation}
-\boxed{A(x,z) = \exp\left[-j\frac{k_om}{2}\Delta x\right]\mathcal{F}^{-1}\left\{\exp\left[j\frac{k_z^2}{2k_o}\Delta x \right]\hat{A}(x_o,k_z) \right\}}
+\boxed{A(x,z) = \exp\left[-j\frac{k_fm}{2}\Delta x\right]\mathcal{F}^{-1}\left\{\exp\left[j\frac{k_z^2}{2k_f}\Delta x \right]\hat{A}(x_o,k_z) \right\}}
 \label{gf_eq:80}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Equation \ref{gf_eq:80} is the split step algorithm for solving the PWE.
+Equation \ref{gf_eq:80} is the split step algorithm that solves for the modulation amplitude in the PWE. As shown previously, to get the full field we would need to multiply by $e^-jk_fx$.
