@@ -1268,7 +1268,7 @@ Here, $\kappa$ is related to the ocean wave standard deviation through $\kappa =
 In this section, we will use a paraxial Green's function to derive the propagation integral for a wave that is reflected off an ocean surface with small random components.
 
 \subsubsection{Integral Solution for Reflected Ray}
- The geometry is shown in Figure \ref{gf_fig:15}, where $\tilde{x}$ is the region over which the energy is significantly reflected, $x_m$ is the primary point of reflection, $L_1$ is the direct path, $L_2$ and $L_3$ are the path lengths for the various reflected rays, $s(x)$ is the altitude of the sea surface at $x$, $h_2$ is the altitude of the receiver at $P_2$, $h_1$ is the altitude of the transmitter at $P_1$, and $L$ is the ground distance between $P_1$ and $P_2$. 
+ The geometry is shown in Figure \ref{gf_fig:15}, where $\tilde{x}$ is the region over which the energy is significantly reflected, $x_m$ is the primary point of reflection, $L_1$ is the direct path, $L_2$ and $L_3$ are the path lengths for the various reflected rays along $\tilde{x}$, $s(x)$ is the altitude of the sea surface at $x$, $h_2$ is the altitude of the receiver at $P_2$, $h_1$ is the altitude of the transmitter at $P_1$, $L$ is the ground distance between $P_1$ and $P_2$, and $P_2'$ is the mirror image of $P_2$. Finally, $L_m$ represents the minimum reflected path, which is given as a straight line between $P_1$ and the mirror image of $P_2$. 
 
 \begin{figure}[ht]
   \begin{center}
@@ -1281,7 +1281,7 @@ In this section, we will use a paraxial Green's function to derive the propagati
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-A simplified 2-ray geometry is given in Figure \ref{gf_fig:15a} to allow us to make some approximations. We can simplify the various path lengths through a binomial expansion. Here $L_m$ represents the minimum reflected path, which would be given as a straight line between $P_1$ and the mirror image of $P_2$. 
+\noindent We can simplify the various path lengths through a binomial expansion. 
 
 \begin{equation}
 \begin{aligned}
@@ -1292,17 +1292,6 @@ L_3 & = \sqrt{\left(L - x\right)^2 + \left( h_2 - s(x)\right)^2}  \approx L-x + 
 \end{aligned}
 \label{gf_eq:59}
 \end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
-
-\begin{figure}[ht]
-  \begin{center}
-\includegraphics[width=5in]{../media/analysis/multipath_2_ray.png}
-  \end{center}
-  \renewcommand{\baselinestretch}{1} \small\normalsize
-  \begin{quote}
-    \caption[2-Ray Multipath Geometry]{2-Ray Multipath Geometry\label{gf_fig:15a}}
-  \end{quote}
-\end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 We can use Equation \ref{gf_eq:52} with the paraxial Green's function where the surface normal is now given as $\hat{z}$. The reflected wave along $L_3$ will then be given by
@@ -1558,7 +1547,7 @@ A simple plane wave solution would result in $U_2(P_2) = \Gamma_1\exp[-jk_fL_m]$
 
 Equation \ref{gf_eq:73a} is a significant result as the asymptotic expression allows us to look at the impact of random wave heights on the average field at the observation point, although it is really only valid only under a flat earth approximation. We can however, implement this in a numerical method similar to ray tracing that allows $m$ to vary as a function of $z$.
 
-It is often convenient to work with a propagation factor, $F_p$ instead of the field. The propagation factor acts as a multiplier on the direct path and will be a normalized version of Equation \ref{gf_eq:73a}. For the paraxial wave assumption, the propagation factor is the same as what we would have gotten from using plane waves.
+It is often convenient to work with a propagation factor, $F_p$ instead of the field. The propagation factor acts as a multiplier on the direct path and is really just Equation \ref{gf_eq:73a} normalized by the amplitude for the direct path. For the paraxial wave assumption, the propagation factor is the same as what we would have gotten from using plane waves.
 
 \begin{equation}
 F_p = e^{-jk_fL_1}+\Gamma_1e^{-jk_fL_m} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}
@@ -1703,7 +1692,7 @@ Adding in the direct path solution gives us the full field description.
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Equation \ref{cyl_eq:12} is again very similar to Equation \ref{gf_eq:73a}, where we now have the cylindrical spreading for each wave based on the path lengths.
+Equation \ref{cyl_eq:12} is again very similar to Equation \ref{gf_eq:73a}, where we now have the cylindrical spreading for each wave based on the path lengths. We can again normalize this equation by the direct path amplitude to get the propagation factor.
 
 \begin{equation}
 F_p =e^{-jk_oL_1}+\Gamma_1\sqrt{\frac{L_1}{L_m}} e^{-jk_oL_m} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}
