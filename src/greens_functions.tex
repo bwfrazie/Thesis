@@ -1,7 +1,7 @@
 \section{Introduction}
-In 1828, an English mathematician named George Green published "An Essay on the Application of Mathematical Analysis to the Theories of Electricity and Magnetism" with a theorem that is now used extensively to solve differential equations in electromagnetics, quantum mechanics, and applied mathematics \cite{green_phys_today}. Unfortunately, the scope of his contributions were not realized until after his death. 
+In 1828, an English mathematician named George Green published ``An Essay on the Application of Mathematical Analysis to the Theories of Electricity and Magnetism" with a theorem that is now used extensively to solve differential equations in electromagnetics, quantum mechanics, and applied mathematics \cite{green_phys_today}. Today Green's functions are a useful tool in solving inhomogeneous differential equations and can be thought of as an impulse response. There are many references for Green's functions from the mathematical perspective \cite{bender_orszag}, \cite{arfken_weber}, \cite{gbur_math}, \cite{guenther_partial_de}, \cite{duffy_green}, and for their application to electromagnetics \cite{jackson_classical_em}, \cite{zangwill_modern_em}, \cite{balanis_advanced}, \cite{goodman_fourier}, \cite{smith_radiation}, \cite{schwinger_em}. Unfortunately, these references are by necessity specialized, only highlighting one aspect and skipping over significant steps. In addition, they often have conflicting conventions for propagation direction and normalization. 
 
-Today Green's functions are a useful tool in solving inhomogeneous differential equations and can be thought of as an impulse response. There are many references for Green's functions from the mathematical perspective \cite{bender_orszag}, \cite{arfken_weber}, \cite{gbur_math}, \cite{guenther_partial_de}, \cite{duffy_green}, and for their application to electromagnetics \cite{jackson_classical_em}, \cite{zangwill_modern_em}, \cite{balanis_advanced}, \cite{goodman_fourier}, \cite{smith_radiation}, \cite{schwinger_em}. Unfortunately, these references are by necessity specialized, only highlighting one aspect and skipping over significant steps. In addition, they often have conflicting conventions for propagation direction and normalization. The purpose of this document is to fill this gap; presenting the theory behind Green's functions and demonstrating in a consistent manner how they can be used in electromagnetic propagation and diffraction problems. A particular emphasis is given to applications concerning the propagation of Radio Frequency (RF) waves in maritime environments and the discussion will be restricted to scalar analysis and will not address dyadic forms, series expansions, or stochastic integrals.
+The purpose of this document is to fill this gap; presenting the theory behind Green's functions and demonstrating in a consistent manner how they can be used in electromagnetic propagation and diffraction problems. A particular emphasis is given to applications concerning the propagation of Radio Frequency (RF) waves in maritime environments and the discussion will be restricted to scalar analysis and will not address dyadic forms, series expansions, or stochastic integrals.
 
 \subsection{Time Dependence Sign Convention} \label{gf_sec:time_dependence}
 Before getting started, we need to define the sign convention used for time dependence. We  assume harmonic propagating waves that follow the typical engineering literature with time dependence going as $e^{j\omega t}$. This choice of time dependence defines the spatial difference and the forward and reverse Fourier transforms in both the temporal and spatial domains.
@@ -30,8 +30,8 @@ Table \ref{gf_tab:0a} presents the forward Fourier transforms, $\hat{g} = \mathc
   \begin{tabular} {|c | c | c|}
     \hline
   \bf{Domain} & \bf{Forward Transform} & \bf{Inverse Transform}\\ \hline
-  Time & $\displaystyle \hat{g}(\omega) = \int_{-\infty}^{\infty} g(t)e^{-j\omega t}dt$ & $\displaystyle  g(t) = \frac{1}{2\pi}\int_{-\infty}^\infty \hat{g}(\omega)e^{j\omega t}d\omega$\\[2.5pt] \hline
- Space & $\displaystyle \hat{g}(k) = \int_{-\infty}^{\infty} g(x)e^{jk x}dx$ & $\displaystyle  g(x) = \frac{1}{2\pi}\int_{-\infty}^\infty \hat{g}(k)e^{-jk x}dk$\\[2.5pt] \hline
+  Time & $\displaystyle \hat{g}(\omega) = \int_{-\infty}^{\infty} g(t)e^{-j\omega t}dt$ & $\displaystyle  g(t) = \frac{1}{2\pi}\int_{-\infty}^\infty \hat{g}(\omega)e^{j\omega t}d\omega$\\[5pt] \hline
+ Space & $\displaystyle \hat{g}(k) = \int_{-\infty}^{\infty} g(x)e^{jk x}dx$ & $\displaystyle  g(x) = \frac{1}{2\pi}\int_{-\infty}^\infty \hat{g}(k)e^{-jk x}dk$\\[5pt] \hline
 \end{tabular}
 
 \end{table}
@@ -1066,10 +1066,10 @@ Table \ref{gf_tab:0} collects the various Green's functions derived in this sect
   \begin{tabular} {|c | c |}
     \hline
   \bf{Wave Equation} & \bf{Frequency Domain} \\ \hline
-  3-D Free Space & $\displaystyle\frac{e^{-jk_o|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|}$ \\[2.5pt] \hline
-  2-D Free Space & $\displaystyle -\frac{j}{4}H_0^{(2)}\left(k_o|\boldsymbol{\rho} - \boldsymbol{\rho}' | \right)$ \\[2.5pt]  \hline
-  2-D Paraxial & $\displaystyle\sqrt{\frac{1}{8\pi jk_f|x-x'|}}\exp\left[-jk_f\left(|x-x'|\left[1+\frac{m}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right)\right]$\\[2.5pt] \hline
-  2-D PWE &$\displaystyle\sqrt{\frac{1}{8\pi jk_f|x-x'|}}\exp\left[-jk_f\left(|x-x'|\left[1+\frac{m_z}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right) \right]$ \\[2.5pt] \hline
+  3-D Free Space & $\displaystyle\frac{e^{-jk_o|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|}$ \\[7.5pt] \hline
+  2-D Free Space & $\displaystyle -\frac{j}{4}H_0^{(2)}\left(k_o|\boldsymbol{\rho} - \boldsymbol{\rho}' | \right)$ \\[7.5pt]  \hline
+  2-D Paraxial & $\displaystyle\sqrt{\frac{1}{8\pi jk_f|x-x'|}}\exp\left[-jk_f\left(|x-x'|\left[1+\frac{m}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right)\right]$\\[7.5pt] \hline
+  2-D PWE &$\displaystyle\sqrt{\frac{1}{8\pi jk_f|x-x'|}}\exp\left[-jk_f\left(|x-x'|\left[1+\frac{m_z}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right) \right]$ \\[7.5pt] \hline
 \end{tabular}
 
 \end{table}
