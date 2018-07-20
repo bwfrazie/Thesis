@@ -769,13 +769,13 @@ G_o\left(\boldsymbol{\rho},0,t\right) = \frac{H\left(t -n_r\frac{\rho}{c}\right)
 In this section we derive the Green's function for the paraxial wave equation in the frequency domain.
 
 \subsubsection {Derivation of the Paraxial Wave Equation}
-We can derive the paraxial from the Helmholtz equation by assuming a wave propagating in the $x$ direction and allow the amplitude to vary slowly in all directions. We will introduce the freespace wave number, $k_f = \omega /c$ to keep the index of refraction explicitly separate so that our scalar wave takes the form $U(x,z) = A(x,z)e^{-jk_fx}$. We will see that with this assumption, the Green's function dependence on the index of refraction is factored out into a phase term.
+We can derive the paraxial from the Helmholtz equation by assuming a wave propagating in the $x$ direction and allow the amplitude to vary slowly in all directions. We will introduce the freespace wave number, $k_p = \omega /c$ to keep the index of refraction explicitly separate so that our scalar wave takes the form $U(x,z) = A(x,z)e^{-jk_px}$. We will see that with this assumption, the Green's function dependence on the index of refraction is factored out into a phase term.
 
  \begin{equation}
  \begin{gathered}
- \left[ \nabla^2 + k_f^2n_r^2\right]U = 0 \\
-\left[\frac{\partial^2 }{\partial x^2} + \frac{\partial^2 }{\partial z^2} + k_f^2n_r^2\right]U = 0 \\
-\frac{\partial }{\partial x}\left(\frac{\partial U}{\partial x} \right) + \frac{\partial^2 U}{\partial z^2} + k_f^2n_r^2 U = 0 \\
+ \left[ \nabla^2 + k_p^2n_r^2\right]U = 0 \\
+\left[\frac{\partial^2 }{\partial x^2} + \frac{\partial^2 }{\partial z^2} + k_p^2n_r^2\right]U = 0 \\
+\frac{\partial }{\partial x}\left(\frac{\partial U}{\partial x} \right) + \frac{\partial^2 U}{\partial z^2} + k_p^2n_r^2 U = 0 \\
 \end{gathered}
 \label{gf_eq:41}
 \end{equation}
@@ -785,9 +785,9 @@ We can derive the paraxial from the Helmholtz equation by assuming a wave propag
 
  \begin{equation}
  \begin{gathered}
-\frac{\partial }{\partial x}\left(-jk_fAe^{-jk_fx}+e^{-jk_fx}\frac{\partial A}{\partial x} \right) + e^{-jk_fx}\frac{\partial^2 A}{\partial z^2} + k_f^2n_r^2 Ae^{-jk_fx} = 0 \\
--k_f^2Ae^{-jk_fx} -2jk_fe^{-jk_fx}\frac{\partial A}{\partial x}+e^{-jk_fx}\frac{\partial^2 A}{\partial x^2} + e^{-jk_fx}\frac{\partial^2 A}{\partial z^2} + k_f^2n_r^2 Ae^{-jk_fx} = 0 \\
-e^{-jk_fx}\left[ -2jk_f\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partial x^2} + \frac{\partial^2 A}{\partial z^2} + k_f^2\left(n_r^2-1\right)A\right] = 0 \\
+\frac{\partial }{\partial x}\left(-jk_pAe^{-jk_px}+e^{-jk_px}\frac{\partial A}{\partial x} \right) + e^{-jk_px}\frac{\partial^2 A}{\partial z^2} + k_p^2n_r^2 Ae^{-jk_px} = 0 \\
+-k_p^2Ae^{-jk_px} -2jk_pe^{-jk_px}\frac{\partial A}{\partial x}+e^{-jk_px}\frac{\partial^2 A}{\partial x^2} + e^{-jk_px}\frac{\partial^2 A}{\partial z^2} + k_p^2n_r^2 Ae^{-jk_px} = 0 \\
+e^{-jk_px}\left[ -2jk_p\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partial x^2} + \frac{\partial^2 A}{\partial z^2} + k_p^2\left(n_r^2-1\right)A\right] = 0 \\
 \end{gathered}
 \label{gf_eq:41a}
 \end{equation}
@@ -796,7 +796,7 @@ e^{-jk_fx}\left[ -2jk_f\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partia
 \noindent This gives us an equation dependent only on the amplitude, $A$
 
  \begin{equation}
--2jk_f\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partial x^2} + \frac{\partial^2 A}{\partial z^2} + k_f^2\left(n_r^2-1\right)A= 0 \\
+-2jk_p\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partial x^2} + \frac{\partial^2 A}{\partial z^2} + k_p^2\left(n_r^2-1\right)A= 0 \\
 \label{gf_eq:42}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -804,7 +804,7 @@ e^{-jk_fx}\left[ -2jk_f\frac{\partial A}{\partial x}+\frac{\partial^2 A}{\partia
 We can now apply the paraxial approximation which is that the change in the modulation function along the propagation direction is negligible over a wavelength. This can be expressed mathematically as:
  
   \begin{equation}
-k_f\frac{\partial A}{\partial x} >> \frac{\partial^2 A}{\partial^2 x}
+k_p\frac{\partial A}{\partial x} >> \frac{\partial^2 A}{\partial^2 x}
 \label{gf_eq:43}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -812,18 +812,18 @@ k_f\frac{\partial A}{\partial x} >> \frac{\partial^2 A}{\partial^2 x}
 With this approximation we can neglect the 2nd derivative in $x$ and write the paraxial equation as
  
 \begin{equation}
-\boxed{-2jk_f\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} +k_f^2\left(n_r^2-1\right)A= 0} \\
+\boxed{-2jk_p\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} +k_p^2\left(n_r^2-1\right)A= 0} \\
 \label{gf_eq:44}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
  
-The paraxial wave equation is a parabolic differential equation with the same structure as the diffusion equation. However, since the effective diffusion coefficient is complex, we can expect the solution to oscillate rather than decay exponentially. Since we have reduced the original Helmholtz equation for the full propagating wave to one that is only dependent on the modulation function, we will need to scale the Green's function by $e^{-jk_fx}$ to get the full propagating wave solution.
+The paraxial wave equation is a parabolic differential equation with the same structure as the diffusion equation. However, since the effective diffusion coefficient is complex, we can expect the solution to oscillate rather than decay exponentially. Since we have reduced the original Helmholtz equation for the full propagating wave to one that is only dependent on the modulation function, we will need to scale the Green's function by $e^{-jk_px}$ to get the full propagating wave solution.
  
 \subsubsection {Green's Function Derivation in the Frequency Domain} \label{gf_sec:paraxial_gf_derivation}
-As stated in the previous section, the Green's function for the paraxial wave equation, $G_p$, will only define the amplitude modulation. To get the full Green's function, we will need to scale by the plane wave, $G_o= G_p e^{-jk_fx}$. We can start with substituting the Greens function into equation \ref{gf_eq:44}.
+As stated in the previous section, the Green's function for the paraxial wave equation, $G_p$, will only define the amplitude modulation. To get the full Green's function, we will need to scale by the plane wave, $G_o= G_p e^{-jk_px}$. We can start with substituting the Greens function into equation \ref{gf_eq:44}.
 
 \begin{equation}
--2jk_f\frac{\partial G_p}{\partial x} + \frac{\partial^2 G_p}{\partial z^2} +k_f^2(n_r^2-1)\hat{G_p}= -\delta(x)\delta(z)
+-2jk_p\frac{\partial G_p}{\partial x} + \frac{\partial^2 G_p}{\partial z^2} +k_p^2(n_r^2-1)\hat{G_p}= -\delta(x)\delta(z)
 \label{gf_eq:44a}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -831,7 +831,7 @@ As stated in the previous section, the Green's function for the paraxial wave eq
 We can then take the Fourier transform of Equation \ref{gf_eq:44a} along $z$ and multiply both sides by $-1$.
 
 \begin{equation}
-2jk_f\frac{\partial \hat{G_p}}{\partial x} +k^2\hat{G_p} -k_f^2(n_r^2-1)\hat{G_p}= \delta(x)
+2jk_p\frac{\partial \hat{G_p}}{\partial x} +k^2\hat{G_p} -k_p^2(n_r^2-1)\hat{G_p}= \delta(x)
 \label{gf_eq:45}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -840,8 +840,8 @@ Solving away from the delta function yields the following expression for $\hat{G
 
 \begin{equation}
 \begin{aligned}
-\hat{G_p}&=c\exp\left[-\frac{k^2 - k_f^2(n_r^2-1)}{2jk_f} \right]\\
-&= c\exp\left[\frac{jk^2}{2k_f}x \right] \exp\left[-\frac{jk_f(n_r^2-1)}{2}x\right]
+\hat{G_p}&=c\exp\left[-\frac{k^2 - k_p^2(n_r^2-1)}{2jk_p}x \right]\\
+&= c\exp\left[\frac{jk^2}{2k_p}x \right] \exp\left[-\frac{jk_p(n_r^2-1)}{2}x\right]
 \end{aligned}
 \label{gf_eq:46}
 \end{equation}
@@ -850,19 +850,19 @@ Solving away from the delta function yields the following expression for $\hat{G
 Here we see that the dependence on the index of refraction is separated into a phase term that is independent of $k$. To find $c$, we can integrate Equation \ref{gf_eq:45} over a small region $\pm\epsilon$ and take the limit as $x\rightarrow 0$.
 
 \begin{equation}
-\lim_{x\rightarrow 0}\int_{-\epsilon}^{\epsilon}dx\left[2jk_f\frac{\partial\hat{G_p}}{\partial x}+ k^2\hat{G_p} -k_f^2(n_r^2-1)\hat{G_p} \right] = \lim_{x\rightarrow 0}\int_{-\epsilon}^{\epsilon}dx\delta(x)\\
+\lim_{x\rightarrow 0}\int_{-\epsilon}^{\epsilon}dx\left[2jk_p\frac{\partial\hat{G_p}}{\partial x}+ k^2\hat{G_p} -k_p^2(n_r^2-1)\hat{G_p} \right] = \lim_{x\rightarrow 0}\int_{-\epsilon}^{\epsilon}dx\delta(x)\\
 \label{gf_eq:47}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
  
-\noindent $\hat{G_p}$ must be continuous, so the integral over the $k^2\hat{G_p}$ and $k_f^2(n_r^2-1)\hat{G_p}$ terms must be 0.
+\noindent $\hat{G_p}$ must be continuous, so the integral over the $k^2\hat{G_p}$ and $k_p^2(n_r^2-1)\hat{G_p}$ terms must be 0.
 
 \begin{equation}
 \begin{gathered}
-\lim_{x\rightarrow 0}2jk_f\int_{-\epsilon}^{\epsilon}dx\frac{\partial\hat{G_p}}{\partial x}= 1\\
-\lim_{x\rightarrow 0}2jk_f\hat{G_p} = 1 \\
-\lim_{x\rightarrow 0}2jk_fc\exp\left[\frac{jk^2}{2k_f}x\right]\exp\left[\frac{-jk_f(n_r^2-1)}{2}x\right] = 1\\
-c = \frac{1}{j2k_f}\\
+\lim_{x\rightarrow 0}2jk_p\int_{-\epsilon}^{\epsilon}dx\frac{\partial\hat{G_p}}{\partial x}= 1\\
+\lim_{x\rightarrow 0}2jk_p\hat{G_p} = 1 \\
+\lim_{x\rightarrow 0}2jk_pc\exp\left[\frac{jk^2}{2k_p}x\right]\exp\left[\frac{-jk_p(n_r^2-1)}{2}x\right] = 1\\
+c = \frac{1}{j2k_p}\\
 \end{gathered}
 \label{gf_eq:11cb}
 \end{equation}
@@ -871,7 +871,7 @@ c = \frac{1}{j2k_f}\\
 \noindent This yields the final expression for $\hat{G_p}$:
 
 \begin{equation}
-\hat{G_p}= \frac{1}{2jk_f}e^{\frac{jk^2}{2k_f}x}e^{\frac{-jk_f(n_r^2-1)}{2}x}
+\hat{G_p}= \frac{1}{2jk_p}e^{\frac{jk^2}{2k_p}x}e^{\frac{-jk_p(n_r^2-1)}{2}x}
 \label{gf_eq:11cc}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -880,8 +880,8 @@ c = \frac{1}{j2k_f}\\
 
 \begin{equation}
 \begin{aligned}
-G_p &= \mathcal{F}^{-1}\{\hat{G_p}\} = \frac{1}{2jk_f}\frac{1}{2\pi}\int_{-\infty}^{\infty}dk e^{\frac{jk^2}{2k_f}x}e^{-\frac{jk_f(n_r^2-1)}{2}x}e^{-jkz} \\
-& = \frac{1}{2jk_f}\frac{1}{2\pi}e^{-\frac{jk_f(n_r^2-1)}{2}x}\int_{-\infty}^{\infty}dk e^{\frac{jk^2}{2k_f}x-jkz} \\
+G_p &= \mathcal{F}^{-1}\{\hat{G_p}\} = \frac{1}{2jk_p}\frac{1}{2\pi}\int_{-\infty}^{\infty}dk e^{\frac{jk^2}{2k_p}x}e^{-\frac{jk_p(n_r^2-1)}{2}x}e^{-jkz} \\
+& = \frac{1}{2jk_p}\frac{1}{2\pi}e^{-\frac{jk_p(n_r^2-1)}{2}x}\int_{-\infty}^{\infty}dk e^{\frac{jk^2}{2k_p}x-jkz} \\
 \end{aligned}
 \label{gf_eq:11d}
 \end{equation}
@@ -891,9 +891,9 @@ G_p &= \mathcal{F}^{-1}\{\hat{G_p}\} = \frac{1}{2jk_f}\frac{1}{2\pi}\int_{-\inft
 
 \begin{equation}
 \begin{gathered}
-\frac{jx}{2k_f}\left[k^2  -2k\frac{k_fz}{x}\right]\\
-\frac{jx}{2k_f}\left[\left(k - \frac{k_fz}{x}\right)^2 - \frac{k_f^2z^2}{x^2} \right]\\
-\frac{jx}{2k_f}\left(k - \frac{k_fz}{x}\right)^2 - \frac{jk_fz^2}{x}\\
+\frac{jx}{2k_p}\left[k^2  -2k\frac{k_pz}{x}\right]\\
+\frac{jx}{2k_p}\left[\left(k - \frac{k_pz}{x}\right)^2 - \frac{k_p^2z^2}{x^2} \right]\\
+\frac{jx}{2k_p}\left(k - \frac{k_pz}{x}\right)^2 - \frac{jk_pz^2}{x}\\
 \end{gathered}
 \label{gf_eq:11e}
 \end{equation}
@@ -903,8 +903,8 @@ G_p &= \mathcal{F}^{-1}\{\hat{G_p}\} = \frac{1}{2jk_f}\frac{1}{2\pi}\int_{-\inft
 
 \begin{equation}
 \begin{aligned}
-G_p &= \frac{1}{2jk_f}\frac{1}{2\pi}e^{-\frac{jk_f(n_r^2-1)}{2}x}\int_{-\infty}^{\infty}dk e^{\frac{jx}{2k_f}\left(k  -\frac{k_fz}{x}\right)^2- \frac{jk_f}{2x}z^2 } \\
-&= \frac{1}{2jk_f}\frac{1}{2\pi} \sqrt{\frac{\pi j2k_f}{x}}e^{-\frac{jk_f(n_r^2-1)}{2}x}e^{-j\frac{k_f}{2x}z^2 } \\
+G_p &= \frac{1}{2jk_p}\frac{1}{2\pi}e^{-\frac{jk_p(n_r^2-1)}{2}x}\int_{-\infty}^{\infty}dk e^{\frac{jx}{2k_p}\left(k  -\frac{k_pz}{x}\right)^2- \frac{jk_p}{2x}z^2 } \\
+&= \frac{1}{2jk_p}\frac{1}{2\pi} \sqrt{\frac{\pi j2k_p}{x}}e^{-\frac{jk_p(n_r^2-1)}{2}x}e^{-j\frac{k_p}{2x}z^2 } \\
 \end{aligned}
 \label{gf_eq:11f}
 \end{equation}
@@ -914,17 +914,17 @@ G_p &= \frac{1}{2jk_f}\frac{1}{2\pi}e^{-\frac{jk_f(n_r^2-1)}{2}x}\int_{-\infty}^
 
  \begin{equation}
 \begin{aligned}
-G_p &= \frac{1}{2jk_f}\sqrt{\frac{jk_f}{2\pi x}}\exp\left[\frac{-jk_f(n_r^2-1)}{2}x\right]\exp\left[-j\frac{k_fz^2}{2x} \right]\\
-&= \sqrt{\frac{1}{8\pi j k_fx}}\exp\left[\frac{-jk_f(n_r^2-1)}{2}x\right]\exp\left[-j\frac{k_fz^2}{2x} \right]\\
+G_p &= \frac{1}{2jk_p}\sqrt{\frac{jk_p}{2\pi x}}\exp\left[\frac{-jk_p(n_r^2-1)}{2}x\right]\exp\left[-j\frac{k_pz^2}{2x} \right]\\
+&= \sqrt{\frac{1}{8\pi j k_px}}\exp\left[\frac{-jk_p(n_r^2-1)}{2}x\right]\exp\left[-j\frac{k_pz^2}{2x} \right]\\
 \end{aligned}
 \label{gf_eq:11ffa}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
  
-\noindent Multiplying by $e^{-jk_fx}$ yields the full Green's function.
+\noindent Multiplying by $e^{-jk_px}$ yields the full Green's function.
 
 \begin{equation}
-G_o= \sqrt{\frac{1}{8\pi jk_fx}}\exp\left[-\frac{jk_f(n_r^2-1)}{2}x\right]\exp\left[-j\frac{k_fz^2}{2x} \right]e^{-jk_fx}
+G_o= \sqrt{\frac{1}{8\pi jk_px}}\exp\left[-\frac{jk_p(n_r^2-1)}{2}x\right]\exp\left[-j\frac{k_pz^2}{2x} \right]e^{-jk_px}
 \label{gf_eq:11fa}
 \end{equation}
   \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -932,7 +932,7 @@ G_o= \sqrt{\frac{1}{8\pi jk_fx}}\exp\left[-\frac{jk_f(n_r^2-1)}{2}x\right]\exp\l
 We can let $x\rightarrow |x-x'|$, $x\rightarrow |z-z'|$ and introduce the modified refractivity, $m = n_r^2-1$ to present the final version of the Green's function.
 
 \begin{equation}
-\boxed{G_o\left(x,x',z,z' \right)= \sqrt{\frac{1}{8\pi jk_f|x-x'|}}\exp\left[-jk_f\left(|x-x'|\left[1+\frac{m}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right)\right]}\\
+\boxed{G_o\left(x,x',z,z' \right)= \sqrt{\frac{1}{8\pi jk_p|x-x'|}}\exp\left[-jk_p\left(|x-x'|\left[1+\frac{m}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right)\right]}\\
 \label{gf_eq:11fb}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1023,7 +1023,7 @@ Because the earth is actually curved and not flat, it is often useful to treat t
 Using this mapping and applying the paraxial approximation to the Helmholtz equation with refractivity included yields the PWE \cite{kuttler_pe_theory} \cite{dockery_pe}.
  
 \begin{equation}
--2jk_f\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} +k_f^2\left(n^2-1+\frac{2z}{a_e} \right)A = 0 \\
+-2jk_p\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} +k_p^2\left(n^2-1+\frac{2z}{a_e} \right)A = 0 \\
 \label{gf_eq:75}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1031,7 +1031,7 @@ Using this mapping and applying the paraxial approximation to the Helmholtz equa
 The only difference between Equation \ref{gf_eq:75} and Equation \ref{gf_eq:44} is the inclusion of the term $2z/a_e$ that represents the impact of the curvature of the Earth. We can incorporate this correction factor in the modified refractivity, $m_z = n^2-1 + 2z/a_e = m + 2z/a_e$, and treat it as a constant in $z$. With this substitution, we are explicitly defining the PWE as a special case of the paraxial wave equation that includes a correction factor for the curvature of the earth.
 
 \begin{equation}
--2jk_f\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} +k_f^2m_zA = 0 \\
+-2jk_p\frac{\partial A}{\partial x} + \frac{\partial^2 A}{\partial z^2} +k_p^2m_zA = 0 \\
 \label{gf_eq:76}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1040,7 +1040,7 @@ The only difference between Equation \ref{gf_eq:75} and Equation \ref{gf_eq:44} 
 Equation \ref{gf_eq:76} is sometimes referred to as the narrow angle PWE as it is really only valid for small angles from horizontal. An alternate, but more intuitive, derivation is to factor the Helmholtz equation into a pair of first order differential equations. This factorization is typically done in terms of an operator $Q$ \cite{kuttler_pe_theory} \cite{dockery_pe} such that
 
 \begin{equation}
-Q = \frac{1}{k_f^2}\frac{\partial^2}{\partial z} + n_r^2-1
+Q = \frac{1}{k_p^2}\frac{\partial^2}{\partial z} + n_r^2-1
 \label{gf_pwe:1}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1049,8 +1049,8 @@ The Helmholtz equation is then factored as given in the following.
 
 \begin{equation}
 \begin{gathered}
-\left[\nabla^2 + k_f^2n_r^2\right]U = \\
-\left[\frac{\partial}{\partial x}+jk_f\left(1-\sqrt{1+Q} \right) \right]\left[\frac{\partial}{\partial x}+jk_f\left(1+\sqrt{1+Q} \right)\right]
+\left[\nabla^2 + k_p^2n_r^2\right]U = \\
+\left[\frac{\partial}{\partial x}+jk_p\left(1-\sqrt{1+Q} \right) \right]\left[\frac{\partial}{\partial x}+jk_p\left(1+\sqrt{1+Q} \right)\right]
 \end{gathered}
 \label{gf_pwe:2}
 \end{equation}
@@ -1062,7 +1062,7 @@ The operator $Q$ is then simplified through a Taylor series expansion. If we onl
 The derivation of the Green's function for the PWE follows directly from Section \ref{gf_sec:paraxial_gf_derivation}, replacing $n_r^2-1$ with $m_z$. The final Green's function for the PWE is then given as
 
 \begin{equation}
-\boxed{G\left(x,x',z,z' \right)= \sqrt{\frac{1}{8\pi jk_f|x-x'|}}\exp\left[-jk_f\left(|x-x'|\left[1+\frac{m_z}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right) \right]}\\
+\boxed{G\left(x,x',z,z' \right)= \sqrt{\frac{1}{8\pi jk_p|x-x'|}}\exp\left[-jk_p\left(|x-x'|\left[1+\frac{m_z}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right) \right]}\\
 \label{gf_eq:202}
 \end{equation}
  \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1081,8 +1081,8 @@ Table \ref{gf_tab:0} collects the various Green's functions derived in this sect
   \bf{Wave Equation} & \bf{Frequency Domain} \\ \hline
   3-D Free Space & $\displaystyle\frac{e^{-jk_o|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|}$ \\[7.5pt] \hline
   2-D Free Space & $\displaystyle -\frac{j}{4}H_0^{(2)}\left(k_o|\boldsymbol{\rho} - \boldsymbol{\rho}' | \right)$ \\[7.5pt]  \hline
-  2-D Paraxial & $\displaystyle\sqrt{\frac{1}{8\pi jk_f|x-x'|}}\exp\left[-jk_f\left(|x-x'|\left[1+\frac{m}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right)\right]$\\[7.5pt] \hline
-  2-D PWE &$\displaystyle\sqrt{\frac{1}{8\pi jk_f|x-x'|}}\exp\left[-jk_f\left(|x-x'|\left[1+\frac{m_z}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right) \right]$ \\[7.5pt] \hline
+  2-D Paraxial & $\displaystyle\sqrt{\frac{1}{8\pi jk_p|x-x'|}}\exp\left[-jk_p\left(|x-x'|\left[1+\frac{m}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right)\right]$\\[7.5pt] \hline
+  2-D PWE &$\displaystyle\sqrt{\frac{1}{8\pi jk_p|x-x'|}}\exp\left[-jk_p\left(|x-x'|\left[1+\frac{m_z}{2}\right] + \frac{|z-z'|^2}{2|x-x'|}\right) \right]$ \\[7.5pt] \hline
 \end{tabular}
 
 \end{table}
@@ -1308,8 +1308,8 @@ We can use Equation \ref{gf_eq:52} with the paraxial Green's function where the 
 
 \begin{equation}
 \begin{aligned}
-U(P_2) &= 2jk_f\int\limits_{0}^{L}dx\Gamma U(s)\frac{z}{x}\sqrt{\frac{1}{8\pi jk_f x}}\exp\left[-jk_f\left(x +\frac{z^2}{2x} \right) \right]\exp\left[-\frac{jk_fm}{2}x\right] \\
-&= \int\limits_{0}^{L}dx\Gamma U(s)\frac{z}{x}\sqrt{\frac{jk_f}{2\pi x}}\exp\left[-jk_f\left(x +\frac{z^2}{2x} \right) \right]\exp\left[-\frac{jk_fm}{2}x\right] \\
+U(P_2) &= 2jk_p\int\limits_{0}^{L}dx\Gamma U(s)\frac{z}{x}\sqrt{\frac{1}{8\pi jk_p x}}\exp\left[-jk_p\left(x +\frac{z^2}{2x} \right) \right]\exp\left[-\frac{jk_pm}{2}x\right] \\
+&= \int\limits_{0}^{L}dx\Gamma U(s)\frac{z}{x}\sqrt{\frac{jk_p}{2\pi x}}\exp\left[-jk_p\left(x +\frac{z^2}{2x} \right) \right]\exp\left[-\frac{jk_pm}{2}x\right] \\
 \end{aligned}
 \label{gf_eq:55}
 \end{equation}
@@ -1319,8 +1319,8 @@ From the geometry in Figure \ref{gf_fig:15}, we are shifting the starting point 
 
 \begin{equation}
 \begin{aligned}
-U_2(P_2) &= \int\limits_{0}^{L}dx\Gamma U(s)\frac{h_2}{L-x}\sqrt{\frac{jk_f}{2\pi (L-x)}}\exp\left[-jk_f\left(L-x +\frac{(h_2-s)^2}{2(L-x)} \right) \right]\exp\left[-\frac{jk_fm}{2}(L-x)\right] \\
-&= \int\limits_{0}^{L}dx\Gamma U(s)\frac{h_2}{L-x}\sqrt{\frac{jk_f}{2\pi (L-x)}}\exp\left[-jk_fL_3\right]\exp\left[-\frac{jk_fm}{2}(L-x)\right] \\
+U_2(P_2) &= \int\limits_{0}^{L}dx\Gamma U(s)\frac{h_2}{L-x}\sqrt{\frac{jk_p}{2\pi (L-x)}}\exp\left[-jk_p\left(L-x +\frac{(h_2-s)^2}{2(L-x)} \right) \right]\exp\left[-\frac{jk_pm}{2}(L-x)\right] \\
+&= \int\limits_{0}^{L}dx\Gamma U(s)\frac{h_2}{L-x}\sqrt{\frac{jk_p}{2\pi (L-x)}}\exp\left[-jk_pL_3\right]\exp\left[-\frac{jk_pm}{2}(L-x)\right] \\
 \end{aligned}
 \label{gf_eq:56}
 \end{equation}
@@ -1330,8 +1330,8 @@ The reflected wave solution at the sea surface, $U_2(s)$, follows from the free 
 
 \begin{equation}
 \begin{aligned}
-U_2(s) &= \sqrt{\frac{1}{8\pi jk_fx}}\exp\left[-jk_f\left(x+\frac{z^2}{2x} + \frac{m}{2}x\right)\right] \\
-&=\sqrt{\frac{1}{8\pi jk_fx}}\exp\left[-jk_fL_2\right]\exp\left[-\frac{jk_fm}{2}x\right] \\
+U_2(s) &= \sqrt{\frac{1}{8\pi jk_px}}\exp\left[-jk_p\left(x+\frac{z^2}{2x} + \frac{m}{2}x\right)\right] \\
+&=\sqrt{\frac{1}{8\pi jk_px}}\exp\left[-jk_pL_2\right]\exp\left[-\frac{jk_pm}{2}x\right] \\
 \end{aligned}
 \label{gf_eq:57}
 \end{equation}
@@ -1341,8 +1341,8 @@ U_2(s) &= \sqrt{\frac{1}{8\pi jk_fx}}\exp\left[-jk_f\left(x+\frac{z^2}{2x} + \fr
 
 \begin{equation}
 \begin{aligned}
-U_2(P_2) &= \int_0^L dx \Gamma \sqrt{\frac{1}{8\pi j k_f x}}\exp[-jk_fL_2]\frac{h_2}{L-x}\sqrt{\frac{jk_f}{2\pi(L-x)}}\exp[-jk_fL_3]\exp\left[-\frac{jk_fmL}{2}\right]\\
-&= \frac{1}{4\pi}\exp\left[-\frac{jk_fmL}{2}\right]\int_0^L dx \Gamma \sqrt{\frac{1}{x}}\sqrt{\frac{1}{L-x}}\frac{h_2}{L-x}\exp\left[-jk_f\left(L_2+L_3\right) \right]
+U_2(P_2) &= \int_0^L dx \Gamma \sqrt{\frac{1}{8\pi j k_p x}}\exp[-jk_pL_2]\frac{h_2}{L-x}\sqrt{\frac{jk_p}{2\pi(L-x)}}\exp[-jk_pL_3]\exp\left[-\frac{jk_pmL}{2}\right]\\
+&= \frac{1}{4\pi}\exp\left[-\frac{jk_pmL}{2}\right]\int_0^L dx \Gamma \sqrt{\frac{1}{x}}\sqrt{\frac{1}{L-x}}\frac{h_2}{L-x}\exp\left[-jk_p\left(L_2+L_3\right) \right]
 \label{gf_eq:58}
 \end{aligned}
 \end{equation}
@@ -1353,8 +1353,8 @@ In the paraxial approximation, the phase term with the index of refraction is de
 \begin{equation}
 \begin{gathered}
 U(P_2) = U_1(P_2) + U_2(P_2)\\
-= \sqrt{\frac{1}{8\pi jk_fL}}\exp\left[-jk_fL_1\right]\exp\left[-\frac{jk_fmL}{2}\right] \\
-+ \frac{1}{4\pi}\exp\left[-\frac{jk_fmL}{2}\right]\int_0^L dx \Gamma \sqrt{\frac{1}{x}}\sqrt{\frac{1}{L-x}}\frac{h_2}{L-x}\exp\left[-jk_f\left(L_2+L_3\right) \right]
+= \sqrt{\frac{1}{8\pi jk_pL}}\exp\left[-jk_pL_1\right]\exp\left[-\frac{jk_pmL}{2}\right] \\
++ \frac{1}{4\pi}\exp\left[-\frac{jk_pmL}{2}\right]\int_0^L dx \Gamma \sqrt{\frac{1}{x}}\sqrt{\frac{1}{L-x}}\frac{h_2}{L-x}\exp\left[-jk_p\left(L_2+L_3\right) \right]
 \label{gf_eq:58a}
 \end{gathered}
 \end{equation}
@@ -1420,10 +1420,10 @@ L_0 \approx \frac{(h_1+h_2)^2}{2L} + \frac{(h_1+h_2)^4}{2h_1h_2L^3}(x-x_m)^2
 
 \begin{equation}
 \begin{aligned}
-&\exp\left[-jk_f\left( L+L_0-L_s\right) \right]\\
-&= \exp\left[-jk_f\left( L+L_0(x_m) + \frac{L_0''}{2}(x-x_m)^2-L_s\right) \right]\\
-&= \exp\left[-jk_f\left( L+\frac{(h_1+h_2)^2}{2L} + \frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
-&=\exp\left[-jk_f\left(L_m+\frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
+&\exp\left[-jk_p\left( L+L_0-L_s\right) \right]\\
+&= \exp\left[-jk_p\left( L+L_0(x_m) + \frac{L_0''}{2}(x-x_m)^2-L_s\right) \right]\\
+&= \exp\left[-jk_p\left( L+\frac{(h_1+h_2)^2}{2L} + \frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
+&=\exp\left[-jk_p\left(L_m+\frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
 \label{gf_eq:67}
 \end{aligned}
 \end{equation}
@@ -1433,9 +1433,9 @@ L_0 \approx \frac{(h_1+h_2)^2}{2L} + \frac{(h_1+h_2)^4}{2h_1h_2L^3}(x-x_m)^2
 
 \begin{equation}
 \begin{aligned}
-&\exp\left[-jk_f\left(L_m+\frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
-&=\exp\left[-jk_fL_m\right]\exp\left[-jk_f\left(\frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
-&=\exp\left[-jk_fL_m\right]\exp\left[\frac{-jk_fL_0''}{2}(x-x_m)^2\right]\exp\left[jk_fL_s \right]\\
+&\exp\left[-jk_p\left(L_m+\frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
+&=\exp\left[-jk_pL_m\right]\exp\left[-jk_p\left(\frac{L_0''}{2}(x-x_m)^2-L_s\right)\right]\\
+&=\exp\left[-jk_pL_m\right]\exp\left[\frac{-jk_pL_0''}{2}(x-x_m)^2\right]\exp\left[jk_pL_s \right]\\
 \label{gf_eq:67a}
 \end{aligned}
 \end{equation}
@@ -1445,7 +1445,7 @@ Because $L_m$ is not dependent on $x$, it can come outside of the integral. If w
 
 \begin{equation}
 \begin{aligned}
-\exp\left[jk_fL_s\right] =\exp\left[j\sigma \sin\left(k_{\omega} (x-x_m) + \theta\right) \right]
+\exp\left[jk_pL_s\right] =\exp\left[j\sigma \sin\left(k_{\omega} (x-x_m) + \theta\right) \right]
 \end{aligned}
 \label{gf_eq:68}
 \end{equation}
@@ -1455,7 +1455,7 @@ Because $L_m$ is not dependent on $x$, it can come outside of the integral. If w
 
 \begin{equation}
 \begin{aligned}
-\sigma = k_fL_s = \frac{2k_fs(h_1+h_2)}{L}
+\sigma = k_pL_s = \frac{2k_ps(h_1+h_2)}{L}
 \end{aligned}
 \label{gf_eq:69}
 \end{equation}
@@ -1476,9 +1476,9 @@ We can then use the Jacobi-Anger expansion \cite{gbur_math} to convert the expon
 
 \begin{equation}
 \begin{gathered}
-\exp\left[-jk_f\left( L_2 + L_3\right) \right]= \\
-\exp\left[-jk_fL_m\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]
-\exp\left[-\frac{jk_fL_0''}{2}(x-x_m)^2+jlk_{\omega}(x-x_m)\right]\\
+\exp\left[-jk_p\left( L_2 + L_3\right) \right]= \\
+\exp\left[-jk_pL_m\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]
+\exp\left[-\frac{jk_pL_0''}{2}(x-x_m)^2+jlk_{\omega}(x-x_m)\right]\\
 \label{gf_eq:98}
 \end{gathered}
 \end{equation}
@@ -1488,10 +1488,10 @@ Only the last exponential term is dependent on $x$, so the other terms will come
 
 \begin{equation}
 \begin{aligned}
-&\frac{-jk_fL_0''}{2}\tilde{x}^2+jlk_{\omega}\tilde{x}\\
-&=-\frac{jk_fL_0''}{2}\left[\tilde{x}^2 - \frac{2lk_{\omega}}{k_fL_0''}\tilde{x} \right]\\
-&=-\frac{jk_fL_0''}{2}\left[\left(x-\frac{lk_{\omega}}{k_fL_0''} \right)^2 + \frac{l^2k_{\omega}^2}{k_f^2L_0''^2} \right]\\
-&=-\frac{jk_fL_0''}{2}\left(x-\frac{lk_{\omega}}{k_fL_0''} \right)^2 - \frac{jl^2k_{\omega}^2}{k_fL_0''} 
+&\frac{-jk_pL_0''}{2}\tilde{x}^2+jlk_{\omega}\tilde{x}\\
+&=-\frac{jk_pL_0''}{2}\left[\tilde{x}^2 - \frac{2lk_{\omega}}{k_pL_0''}\tilde{x} \right]\\
+&=-\frac{jk_pL_0''}{2}\left[\left(x-\frac{lk_{\omega}}{k_pL_0''} \right)^2 + \frac{l^2k_{\omega}^2}{k_p^2L_0''^2} \right]\\
+&=-\frac{jk_pL_0''}{2}\left(x-\frac{lk_{\omega}}{k_pL_0''} \right)^2 - \frac{jl^2k_{\omega}^2}{k_pL_0''} 
 \label{gf_eq:99}
 \end{aligned}
 \end{equation}
@@ -1501,9 +1501,9 @@ Only the last exponential term is dependent on $x$, so the other terms will come
 
 \begin{equation}
 \begin{gathered}
-\exp\left[-jk_f\left( L_2 + L_3\right) \right]= \\
-\exp\left[-jk_fL_m\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]
-\exp\left[- \frac{jl^2k_{\omega}^2}{k_fL_0''} \right]\exp\left[-\frac{jk_fL_0''}{2}\left(\tilde{x}-\frac{lk_{\omega}}{2k_fL_0''} \right)^2\right]\\
+\exp\left[-jk_p\left( L_2 + L_3\right) \right]= \\
+\exp\left[-jk_pL_m\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[jl\theta\right]
+\exp\left[- \frac{jl^2k_{\omega}^2}{k_pL_0''} \right]\exp\left[-\frac{jk_pL_0''}{2}\left(\tilde{x}-\frac{lk_{\omega}}{2k_pL_0''} \right)^2\right]\\
 \label{gf_eq:100}
 \end{gathered}
 \end{equation}
@@ -1512,7 +1512,7 @@ Only the last exponential term is dependent on $x$, so the other terms will come
 \noindent We can make a further substitution and introduce the variable $\phi_l$
 
 \begin{equation}
-\phi_l = l\theta - \frac{l^2k_{\omega}^2}{2k_fL_0''}
+\phi_l = l\theta - \frac{l^2k_{\omega}^2}{2k_pL_0''}
 \label{gf_eq:101}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1521,8 +1521,8 @@ Only the last exponential term is dependent on $x$, so the other terms will come
 
 \begin{equation}
 \begin{gathered}
-U_2(P_2) = \frac{1}{4\pi} \exp[-jk_fL_m] \exp\left[-\frac{jk_fmL}{2}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[j\phi_l\right] \\
-\times \int_0^L  \Gamma \sqrt{\frac{1}{x}}\sqrt{\frac{1}{L-x}}\frac{h_2}{L-x}\exp\left[-\frac{jk_fL_0''}{2}\left([x-x_m]-\frac{lk_{\omega}}{k_fL_0''} \right)^2\right]
+U_2(P_2) = \frac{1}{4\pi} \exp[-jk_pL_m] \exp\left[-\frac{jk_pmL}{2}\right]\sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[j\phi_l\right] \\
+\times \int_0^L  \Gamma \sqrt{\frac{1}{x}}\sqrt{\frac{1}{L-x}}\frac{h_2}{L-x}\exp\left[-\frac{jk_pL_0''}{2}\left([x-x_m]-\frac{lk_{\omega}}{k_pL_0''} \right)^2\right]
 \label{gf_eq:102}
 \end{gathered}
 \end{equation}
@@ -1532,8 +1532,8 @@ As we have seen previously, the quadratic phase term rapidly oscillates as $x$ m
 
 \begin{equation}
 \begin{gathered}
-U_2(P_2) = \frac{1}{4\pi} \exp[-jk_fL_m] \exp\left[-\frac{jk_fmL}{2}\right] \sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[j\phi_l\right]\  \\
-\times \Gamma_1 \sqrt{\frac{1}{x_m}}\sqrt{\frac{1}{L-x_m}}\frac{h_2}{L-x_m}\sqrt{\frac{\pi 2}{jk_fL_0''}}
+U_2(P_2) = \frac{1}{4\pi} \exp[-jk_pL_m] \exp\left[-\frac{jk_pmL}{2}\right] \sum_{l=-\infty}^{\infty}J_l(\sigma)\exp\left[j\phi_l\right]\  \\
+\times \Gamma_1 \sqrt{\frac{1}{x_m}}\sqrt{\frac{1}{L-x_m}}\frac{h_2}{L-x_m}\sqrt{\frac{\pi 2}{jk_pL_0''}}
 \label{gf_eq:72}
 \end{gathered}
 \end{equation}
@@ -1542,15 +1542,15 @@ U_2(P_2) = \frac{1}{4\pi} \exp[-jk_fL_m] \exp\left[-\frac{jk_fmL}{2}\right] \sum
 \noindent Substituting in for $x_m$ and $L_0''$ yields the final asymptotic result for the reflected wave.
 
 \begin{equation}
-U_2(P_2) = \sqrt{\frac{1}{8\pi jk_f L}}\Gamma_1e^{-jk_fL_m} e^{-\frac{jk_fmL}{2}} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}
+U_2(P_2) = \sqrt{\frac{1}{8\pi jk_p L}}\Gamma_1e^{-jk_pL_m} e^{-\frac{jk_pmL}{2}} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}
 \label{gf_eq:73}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-A simple plane wave solution would result in $U_2(P_2) = \Gamma_1\exp[-jk_fL_m]$ for the reflected wave. Here, we see that the deterministic component from the paraxial wave  solution scales the plane wave solution by the geometric spreading of a paraxial wave. The random sea height contributions are now contained in the sum of Bessel functions. We can now add the solution for the direct wave for the asymptotic solution for the full field.
+A simple plane wave solution would result in $U_2(P_2) = \Gamma_1\exp[-jk_pL_m]$ for the reflected wave. Here, we see that the deterministic component from the paraxial wave  solution scales the plane wave solution by the geometric spreading of a paraxial wave. The random sea height contributions are now contained in the sum of Bessel functions. We can now add the solution for the direct wave for the asymptotic solution for the full field.
 
 \begin{equation}
-\boxed{U(P_2) = \sqrt{\frac{1}{8\pi jk_f L}}e^{-\frac{jk_fmL}{2}} \left[e^{-jk_fL_1}+\Gamma_1e^{-jk_fL_m} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}\right]}
+\boxed{U(P_2) = \sqrt{\frac{1}{8\pi jk_p L}}e^{-\frac{jk_pmL}{2}} \left[e^{-jk_pL_1}+\Gamma_1e^{-jk_pL_m} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}\right]}
 \label{gf_eq:73a}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1560,7 +1560,7 @@ Equation \ref{gf_eq:73a} is a significant result as the asymptotic expression al
 It is often convenient to work with a propagation factor, $F_p$ instead of the field. The propagation factor acts as a multiplier on the direct path and is really just Equation \ref{gf_eq:73a} normalized by the amplitude for the direct path. For the paraxial wave assumption, the propagation factor is the same as what we would have gotten from using plane waves.
 
 \begin{equation}
-F_p = e^{-jk_fL_1}+\Gamma_1e^{-jk_fL_m} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}
+F_p = e^{-jk_pL_1}+\Gamma_1e^{-jk_pL_m} \sum_{l=-\infty}^{\infty}J_l(\sigma)e^{j\phi_l}
 \label{gf_eq:73ab}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1741,10 +1741,10 @@ This section discusses the use of Green's functions to describe propagating over
 The typical PWE solution is formulated as a marching algorithm and will be derived here using the Green's function method and directly from the differential equation. 
 
 \subsubsection{Derivation from Green's Function}
-As we saw in the development of the PWE, the dependence on the index of refraction can be factored out into a separate phase term. We can replace $k_o$ in Equation \ref{gf_eq:82a} with $k_f$ and then multiply it by the additional phase. We can also extend the lower limit of the integral to $-\infty$ for generality.
+As we saw in the development of the PWE, the dependence on the index of refraction can be factored out into a separate phase term. We can replace $k_o$ in Equation \ref{gf_eq:82a} with $k_p$ and then multiply it by the additional phase. We can also extend the lower limit of the integral to $-\infty$ for generality.
 
 \begin{equation}
-U(P_2) =\sqrt{\frac{jk_f}{2\pi x}}e^{-jk_fx\left(1+\frac{m}{2}\right)}\int_{\xi}^{\infty}U(z') \exp\left[-j \frac{k_f}{2x}\left(z-z'\right)^2 \right]dz'
+U(P_2) =\sqrt{\frac{jk_p}{2\pi x}}e^{-jk_px\left(1+\frac{m}{2}\right)}\int_{\xi}^{\infty}U(z') \exp\left[-j \frac{k_p}{2x}\left(z-z'\right)^2 \right]dz'
 \label{gf_eq:301}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1753,8 +1753,8 @@ Because this is a convolution integral, and we can represent convolution in spac
 
 \begin{equation}
 \begin{aligned}
-U(P_2) &=\sqrt{\frac{jk_f}{2\pi x}}e^{-jk_fx\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\{U(z')\}\mathcal{F}\left\{ \exp\left[-j \frac{k_f}{2x}\left(z-z'\right)^2 \right]\right\} \right\} \\
-&=\sqrt{\frac{jk_f}{2\pi x}}e^{-jk_fx\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\{U(z')\}\sqrt{\frac{2\pi x}{jk_f}}\exp\left[-j\frac{k_z^2}{2k_f}x \right] \right\} \\
+U(P_2) &=\sqrt{\frac{jk_p}{2\pi x}}e^{-jk_px\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\{U(z')\}\mathcal{F}\left\{ \exp\left[-j \frac{k_p}{2x}\left(z-z'\right)^2 \right]\right\} \right\} \\
+&=\sqrt{\frac{jk_p}{2\pi x}}e^{-jk_px\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\{U(z')\}\sqrt{\frac{2\pi x}{jk_p}}\exp\left[-j\frac{k_z^2}{2k_p}x \right] \right\} \\
 \label{gf_eq:302}
 \end{aligned}
 \end{equation}
@@ -1764,7 +1764,7 @@ U(P_2) &=\sqrt{\frac{jk_f}{2\pi x}}e^{-jk_fx\left(1+\frac{m}{2}\right)}\mathcal{
 
 \begin{equation}
 \begin{aligned}
-U(P_2) = e^{-jk_fx\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\{U(z')\}\exp\left[-j\frac{k_z^2}{2k_f}x \right] \right\} \\
+U(P_2) = e^{-jk_px\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\{U(z')\}\exp\left[-j\frac{k_z^2}{2k_p}x \right] \right\} \\
 \label{gf_eq:303}
 \end{aligned}
 \end{equation}
@@ -1775,7 +1775,7 @@ U(P_2) = e^{-jk_fx\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\
 \noindent The most straight forward approach is to start by taking the Fourier transform of the PWE (Equation \ref{gf_eq:76}) along $z$
 
 \begin{equation}
--k_z^2\hat{A} -2jk_f\frac{\partial \hat{A}}{\partial x} +k_f^2m\hat{A}
+-k_z^2\hat{A} -2jk_p\frac{\partial \hat{A}}{\partial x} +k_p^2m\hat{A}
 \label{gf_eq:77}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
@@ -1784,8 +1784,8 @@ U(P_2) = e^{-jk_fx\left(1+\frac{m}{2}\right)}\mathcal{F}^{-1}\left\{\mathcal{F}\
 
 \begin{equation}
 \begin{aligned}
-\hat{A}(x,k_z) &= \hat{A}(0,k_z)\exp\left[-j\frac{k_f^2m-k_z^2}{2k_f}x \right] \\
-&= \hat{A}(0,k_z)\exp\left[-j\frac{k_fm}{2}x\right]\exp\left[j\frac{k_z^2}{2k_f}x \right]
+\hat{A}(x,k_z) &= \hat{A}(0,k_z)\exp\left[-j\frac{k_p^2m-k_z^2}{2k_p}x \right] \\
+&= \hat{A}(0,k_z)\exp\left[-j\frac{k_pm}{2}x\right]\exp\left[j\frac{k_z^2}{2k_p}x \right]
 \end{aligned}
 \label{gf_eq:78}
 \end{equation}
@@ -1796,7 +1796,7 @@ We will next take the inverse Fourier transform along $z$ of Equation \ref{gf_eq
 \begin{equation}
 \begin{aligned}
 A(x,z) &= \mathcal{F}^{-1}\left\{\hat{A}(x,k_z) \right\} \\
-&= \exp\left[-j\frac{k_fm}{2}x\right]\mathcal{F}^{-1}\left\{\exp\left[j\frac{k_z^2}{2k_f}x \right]\hat{A}(0,k_z) \right\}
+&= \exp\left[-j\frac{k_pm}{2}x\right]\mathcal{F}^{-1}\left\{\exp\left[j\frac{k_z^2}{2k_p}x \right]\hat{A}(0,k_z) \right\}
 \end{aligned}
 \label{gf_eq:79}
 \end{equation}
@@ -1805,9 +1805,9 @@ A(x,z) &= \mathcal{F}^{-1}\left\{\hat{A}(x,k_z) \right\} \\
 \noindent We can convert Equation \ref{gf_eq:79} into a marching algorithm by letting $x\rightarrow \Delta x = x-x_o$.
 
 \begin{equation}
-\boxed{A(x,z) = \exp\left[-j\frac{k_fm}{2}\Delta x\right]\mathcal{F}^{-1}\left\{\exp\left[j\frac{k_z^2}{2k_f}\Delta x \right]\hat{A}(x_o,k_z) \right\}}
+\boxed{A(x,z) = \exp\left[-j\frac{k_pm}{2}\Delta x\right]\mathcal{F}^{-1}\left\{\exp\left[j\frac{k_z^2}{2k_p}\Delta x \right]\hat{A}(x_o,k_z) \right\}}
 \label{gf_eq:80}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Equation \ref{gf_eq:80} is the split step algorithm that solves for the modulation amplitude in the PWE. As shown previously, to get the full field we would need to multiply by $e^-jk_fx$.
+Equation \ref{gf_eq:80} is the split step algorithm that solves for the modulation amplitude in the PWE. As shown previously, to get the full field we would need to multiply by $e^-jk_px$.
