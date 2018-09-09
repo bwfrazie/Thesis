@@ -164,14 +164,14 @@ In these equations, $\epsilon_r$ is the relative permittivity of the ocean and i
 The total reflection coefficient, $\Gamma_t$ is then the product of the rough and smooth reflection coefficients, $\Gamma_t = \rho\Gamma_h$ or $\Gamma_t = \rho\Gamma_v$.
 
 \section{Clutter}
-Clutter is the backscattered signal from the sea surface and its signal strength can be found from the RADAR range equation using the product of the backscatter cross section, $\sigma^0$ and the clutter cell area, $A_c$ as the target RCS. The area will depend on whether the signal is beam limited or pulse limited. The Signal to Clutter Ratio (SCR) is the ratio of the power received from the signal to the power received from clutter and is a good indicator of overall performance.
+Clutter is the backscattered signal from the sea surface and its signal strength can be found from the RADAR range equation using the product of the backscatter cross section, $\sigma_M^0$ and the clutter cell area, $A_c$ as the target RCS. The area will depend on whether the signal is beam limited or pulse limited. The Signal to Clutter Ratio (SCR) is the ratio of the power received from the signal to the power received from clutter and is a good indicator of overall performance.
 
-\subsection{NRL Model for $\sigma^0$}
+\subsection{NRL Model for $\sigma_M^0$}
 There are many models for estimating the backscatter cross section at various sea states \cite{blake_radar} \cite{richards_radar} \cite{nathanson_radar}. In 2012, an empirical model was developed by NRL that minimized differences with the extensive existing experimental databases \cite{gregers-hansen_clutter} and which will be presented here. Equation \ref{env_eq:7a} provides the model for $\sigma^0$ where $f$ is the radar frequency in GHz, $SS$ is the sea state, and $\Psi$ is the grazing angle in degrees. Table \ref{env_tab:0} lists the various constants used in the equation for both horizontal and vertical polarization.
 
 \begin{equation}
 \begin{aligned}
-  \sigma^0 &= c_1 + c_2 \log_{10}(\sin(\chi))+\frac{\left(27.5 + c_3\chi\right)\log_{10}(f)}{1+0.95\chi}\\
+  \sigma_M^0 &= c_1 + c_2 \log_{10}(\sin(\chi))+\frac{\left(27.5 + c_3\chi\right)\log_{10}(f)}{1+0.95\chi}\\
   &+c_4\left(1 + SS \right)^{1/\left(2+0.085\chi + 0.033SS\right)}
  + c_5\chi^2 
  \end{aligned}
@@ -186,7 +186,7 @@ There are many models for estimating the backscatter cross section at various se
   \end{quote}
   \begin{tabular} {|c | c | c|}
     \hline
-  \bf{Constant} & \bf{Horizontal Polarization}n & \bf{Vertical Polarization} \\ \hline
+  \bf{Constant} & \bf{Horizontal Polarization} & \bf{Vertical Polarization} \\ \hline
   $c_1$ & -73.0 & -50.79  \\ \hline
   $c_2$ & 20.78 & 25.93  \\ \hline
   $c_3$ & 7.351 & 0.7093 \\ \hline
@@ -198,7 +198,7 @@ There are many models for estimating the backscatter cross section at various se
 \renewcommand{\baselinestretch}{2} \small\normalsize
   
 \subsection{Beam Limited Case}
-In the beam limited case, the pulse width is large compared to the projection of the beamwidth on the surface and $A_c$ is then only limited by the geometric illuminated area of the beam. Here, $A_c$ is given by Equation \ref{env_eq:7b} where $theta_2$ is the two-way beamwidth in azimuth, $\phi_2$ is the two-way beamwidth in elevation, and $\chi$ is the grazing angle.
+In the beam limited case, the pulse width is large compared to the projection of the beamwidth on the surface and $A_c$ is then only limited by the geometric illuminated area of the beam. Here, $A_c$ is given by Equation \ref{env_eq:7b} where $\theta_2$ is the two-way beamwidth in azimuth, $\phi_2$ is the two-way beamwidth in elevation, and $\chi$ is the grazing angle.
 
 \begin{equation}
 \label{env_eq:7b}
@@ -218,7 +218,7 @@ Figure \ref{env_fig:3z} shows an example of the SCR with the beamlimited case. H
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection{Pulse Limited Case}
-In the pulse limited case, the pulse width is short compared to the projection of the beamwidth on the surface and $A_c$ is then limited by the projected pulse width. Here, $A_c$ is given by Equation \ref{env_eq:7c} where $tau$ is the pulse width, $theta_2$ is the two-way beamwidth in azimuth, $\phi_2$ is the two-way beamwidth in elevation, and $\chi$ is the grazing angle.
+In the pulse limited case, the pulse width is short compared to the projection of the beamwidth on the surface and $A_c$ is then limited by the projected pulse width. Here, $A_c$ is given by Equation \ref{env_eq:7c} where $\tau$ is the pulse width, $\theta_2$ is the two-way beamwidth in azimuth, $\phi_2$ is the two-way beamwidth in elevation, and $\chi$ is the grazing angle.
 
 \begin{equation}
 \label{env_eq:7c}
@@ -245,14 +245,11 @@ The next step in fidelity is to create a target out of multiple isotropic scatte
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-\subsection{Complex Scatterer Targets}
-The next step up in fidelity and complexity is to utilize component models (flat plates, cylinders, etc.) so that the RCS signature is made up of a collection of objects and not simply isotropic scatterers.
-
 \subsection{Fluctuating Target Models}\label{env_fluctuating_target_rcs}
 Fluctuating target RCS models were developed to describe the fluctuations observed in RCS due to motion of the ship in the waves. These models should only be applied to single point targets, as multi-scatterer targets will inherently include the dependence on motion and aspect angle.
 
 \subsubsection{Target RCS PDFs}
-For traditional monostatic RADAR systems, work done by Jess Marcum and Peter Swerling provided statistical models for the RCS of targets in the ocean\cite{richards_radar}. There are $4$ Swerling cases that are generally considered, using $2$ different decorrelation time lengths and $2$ different PDFs as shown in Table \ref{env_tab:1}. 
+For traditional monostatic RADAR systems, work done by Jess Marcum and Peter Swerling provided statistical models for the RCS of targets in the ocean \cite{richards_radar}. There are $4$ Swerling cases that are generally considered, using $2$ different decorrelation time lengths and $2$ different PDFs as shown in Table \ref{env_tab:1}. 
 
 \begin{table}[H]
   \begin{center}
