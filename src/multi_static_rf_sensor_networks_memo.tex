@@ -1,5 +1,4 @@
-%\documentclass[12pt]{../packages/thesis}  %12pt is larger than 11pt
-\documentclass[12pt,twoside]{book}  %12pt is larger than 11pt
+\documentclass[12pt,twoside]{paper}
 \usepackage[left=3.0cm, right = 2.5cm,bottom=3.5cm,headsep=12pt]{geometry}
 
 %include necessary packages      
@@ -8,31 +7,43 @@
 \usepackage{float}
 \usepackage{supertabular}
 \usepackage[section]{placeins}
+\usepackage{array}
 
 \usepackage[font=small,labelfont=bf]{caption}
-\renewcommand\figurename{Figure}
-\renewcommand\tablename{Table}
+\renewcommand{\figureshortname}{Figure}
+\renewcommand{\tableshortname}{Table}
 
 %Make sure to number Equations by chapter
-\numberwithin{equation}{chapter}
+\numberwithin{equation}{section}
 \setcounter{secnumdepth}{4}
 
 %make sure the number tables and figures by chapter
 \usepackage{chngcntr}
-\counterwithin{table}{chapter}
-\counterwithin{figure}{chapter}
+\counterwithin{table}{section}
+\counterwithin{figure}{section}
 
 %set up section display settings
 \usepackage{titlesec}
 \titleformat{\section}{\normalfont\bfseries\Large}{\thesection}{1em}{}
 \titleformat{\subsection}{\normalfont\bfseries\large}{\thesubsection}{1em}{}
 \titleformat{\subsubsection} {\normalfont\bfseries\large}{\thesubsubsection}{1em}{}
-\titleformat{\chapter}{\normalfont\bfseries\large}{Chapter \thechapter}{1em}{}
+\titleformat{\paragraph}{\normalfont\bfseries\Large}{\theparagraph}{1em}{}
 
 %reset the table of contents style     
 \usepackage[tocflat]{tocstyle}
 \usetocstyle{standard}
       
+%setup the header and footers    
+\usepackage{fancyhdr}    
+\setlength{\headheight}{43pt}
+\fancyhf{}
+\pagestyle{fancy}
+
+\fancyhead[R]{Attachment (1) to \\FPS-T-18-0292}
+\fancyhead[L]{\includegraphics[width=0.25\textwidth,keepaspectratio]{../media/apl_small_horizontal_blue_cropped}}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
 %setup etoolbox for toggles
 \usepackage{etoolbox}
 \newtoggle{separate_ocean_surface}
@@ -62,22 +73,11 @@
     fill opacity=0.5,thick,inner sep=0pt}
 }
 
-
-%setup the header and footers    
-\usepackage{fancyhdr}    
-\setlength{\headheight}{43pt}
-\fancyhf{}
-\pagestyle{fancy}
-
-\fancyhead[R]{Attachment (1) to \\ FPS-T-18-0292}
-\fancyhead[L]{\includegraphics[width=0.25\textwidth,keepaspectratio]{../media/apl_small_horizontal_blue_cropped}}
-\renewcommand{\headrulewidth}{1pt}
-\renewcommand{\footrulewidth}{1pt}
-
 \begin{document}
 \pagenumbering{roman}
 \input{MultistaticTitlepage} 
 \newpage
+
 \fancyhead[R]{Attachment (1) to \\FPS-T-18-0292 \\ Page \thepage}
 %\renewcommand{\baselinestretch}{1}
 %\small\normalsize
@@ -92,11 +92,11 @@
 \newpage
 %List of Abbreviations
 \addcontentsline{toc}{section}{List of Abbreviations}
-\include{Abbreviations}
+\include{gfAbbreviations}
 \newpage
 %List of Symbols
 \addcontentsline{toc}{section}{List of Symbols}
-\include{Symbols}
+\include{gfSymbols}
 \setlength{\parskip}{0em}
 \renewcommand{\baselinestretch}{2}
 \small\normalsize
@@ -105,33 +105,27 @@
 \include{supertabular}
 \setcounter{page}{1}
 
-%Pages from this point start at Arabic numeral 1
-\setcounter{page}{1}
-\pagenumbering{arabic}
-
-\renewcommand{\thechapter}{1}
 \include{introduction}
 
-\renewcommand{\thechapter}{2}
 \include{random_matrix_theory}
 
-\renewcommand{\thechapter}{3}
 \include{radar_basics}
 
-\renewcommand{\thechapter}{4}
 \include{RF_environmental_impacts}
 
-\renewcommand{\thechapter}{5}
+\include{prop_model}
+
 \include{amplitude_statistics}
 
-\renewcommand{\thechapter}{6}
 \include{bistatic_clutter}
 
- \titleformat{\chapter}{\normalfont\bfseries\Large}{Appendix \thechapter}{1em}{}
-\appendix
-\renewcommand{\thechapter}{A}
+\include{conclusions}
+
 \newpage
+\titleformat{\section}{\normalfont\bfseries\Large}{Appendix \thesection}{1em}{}
 \appendix
+\renewcommand{\thesection}{A}
+%\renewcommand{\sectionname}{Appendix}
 \input{geometric_derivations}
 
 \newpage
@@ -139,15 +133,6 @@
 \bibliography{background_bib}
 
 \end{document}
-
-
-
-
-
-
-
-
-
 
 
 

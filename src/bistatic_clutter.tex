@@ -1,8 +1,8 @@
-\chapter{Bistatic Clutter Impacts}
+\section{Bistatic Clutter Impacts}
 
 As previously discussed, the Signal to Clutter Ratio (SCR) is a valuable metric that determines the observability of a target against the background. Clutter is very well understood for monostatic geometries but still an active area of research for bistatic geometries.
 
-\section {Bistatic Clutter Estimation}
+\subsection {Bistatic Clutter Estimation}
 Because the RCS varies by target and both signal and clutter are captured under the same conditions, we can focus on the Clutter Cross Section (CCS) to get a relative sense of how background clutter relates to bistatic RADAR.
 
 We can use Long's model to determine the cross range clutter backscatter term, $\sigma_{Mx}^0$. This term is dependent on wind speed, $v_w$ and wind direction, $\phi_w$.
@@ -15,7 +15,7 @@ We can use Long's model to determine the cross range clutter backscatter term, $
 We can then use $\sigma_{Mx}^0$ to find the bistatic clutter backscatter strength, $\sigma_{B}^0$
 \begin{equation}
 \sigma_B^0 = 10\log\left[\sqrt{\sigma_M^0(\theta_1,0)\sigma_M^0(\theta_2,\phi)} |\cos(\phi)|^m  + k\sqrt{\sigma_{Mx}^0(\theta_1,0)\sigma_{Mx}^0(\theta_2,\phi)}|\sin(\phi)|^n \right]
-\label{bc_eq:1}
+\label{bc_eq:2}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
