@@ -21,6 +21,10 @@ We can then use $\sigma_{Mx}^0$ to find the bistatic clutter backscatter strengt
 
 Here, $\theta_1$ is the grazing angle relative to the receiver, $\theta_2$ is the grazing angle relative to the transmitter, $phi$ is the azimuth angle between the receiver and transmitter, $\sigma_M^0$ is the monostatic clutter backscatter strength. In addition, $k$, $m$, and $n$ are model "fudge-factors" that must all be positive. The $\cos(\phi)$ term captures the downrange component and the $\sin(\phi)$ term captures the cross range component.
 
+The NRL model for downrange clutter backscatter averages the backscatter responses for all wind directions and therefore effects of wind direction are not described in the model. Like the NRL model, Long's model for crossrange clutter backscatter is based on empirical data relating sea clutter to polarization and wind direction, however Long's model averages over a range of sea states rather than resolving it in the model. As a result, the inherent variance in the combined model is handled by fudge factors to adapt to environments of a given sea state and wind direction.
+
+An example image that shows a bistatic clutter map with the propagation factors superimposed is given in Figure \ref{bc_fig:1}. 
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=5in]{../media/analysis/FpCCSOverlay.png}
