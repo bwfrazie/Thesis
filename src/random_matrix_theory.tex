@@ -49,10 +49,12 @@ S_{n1} = \sqrt{\left|\frac{P_tG_tG_{rn}\lambda^2\sigma_{Bn}F_{p1}F_{pn}}{(4\pi)^
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-The scattering matrix approach captures the universal fluctuations from the underlying chaotic scattering system very well. In the real world, we interact with the chaotic scattering systems through deterministic components (antennas, transmission lines, etc.) that may not be well coupled to the chaotic system. In this case, the scattering matrix does not give us a clean method of separating the random and deterministic parts. To counter this, we can utilize a model such as the RCM and transform the scattering matrix to the impedance matrix, $\textbf{Z}$. The impedance matrix relates the output currents to the input voltages \cite{yeh_first_principles} and naturally separates the random and deterministic components \cite{zheng_single}.
+The scattering matrix approach captures the universal fluctuations from the underlying chaotic scattering system very well. In the real world, we interact with the chaotic scattering systems through deterministic components (antennas, transmission lines, etc.) that may not be well coupled to the chaotic system. In this case, the scattering matrix does not give us a clean method of separating the random and deterministic parts. To counter this, we can utilize a model such as the RCM and transform the scattering matrix to the impedance matrix, $\textbf{Z}$. The impedance matrix relates the output currents to the input voltages \cite{yeh_first_principles} and naturally separates the random and deterministic components \cite{zheng_single}. 
 \begin{equation}
 \textbf{Z} = \textbf{Z}_o(1+\textbf{S})(1-\textbf{S})^{-1}
 \label{rmt_eq:3}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 Here $\textbf{Z}_o$ is a diagonal matrix that captures the characteristic impedance of transmission lines connected to the ports.
+
+One of the primary contributions of the RCM is that it allows the overlap integral which describes the interaction between the eigenmodes and current shape profile to be represented through the radiation impedance of an antenna coupled to the port \cite{hart_time_domain} \cite{zheng_single}.

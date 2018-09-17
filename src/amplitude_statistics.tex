@@ -231,14 +231,9 @@ As shown in Figure \ref{stat_fig:2zz}, increasing the wind speed reduces the amp
 As shown in Figure \ref{stat_fig:2zzz}, decreasing the wind direction also shifts the phase of the multipath peaks and nulls upward. In this case, the amplitude does not monotonically decrease because changing the wind direction actually changes the power spectrum surface \cite{frazier_ocean} rather than simply affecting the overall amplitude.
 
 \subsection{PDF Fitting Results}
-As shown in \cite{yeh_first_principles} and \cite{yeh_fading}, we expect the statistics to follow a Rician distribution
-\begin{equation}
-P = \frac{x}{\sigma^2}\exp\left[\frac{-(x^2 + \nu^2}{2\sigma^2} \right]I_0\left(\frac{x\nu}{\sigma} \right)
-\label{stat_eq:5}
-\end{equation}
-\renewcommand{\baselinestretch}{2} \small\normalsize
+Propagation over the open ocean should result in a system with fairly high losses, so we expect the PDFs to be normally distributed \cite{yeh_first_principles} \cite{yeh_fading}. 
 
-This distribution has been previously shown to be applicable to modeling the amplitude statistics of multipath fading in communication systems with a strong direct line of sight path.
+Figure \ref{stat_fig:4} shows the propagation factor fit at constant range (20 km) at 10 m and 30 m altitude to demonstrate fitting around both a multipath peak and a multipath null. The standard deviation in both cases shown is identical ($\sigma = 0.176$) and in general is very similar for fits made at a constant range but different altitudes.
 
 \subsubsection{Example Fitting Metrics}
 \begin{figure}[H]
@@ -252,6 +247,8 @@ This distribution has been previously shown to be applicable to modeling the amp
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
+Figure \ref{stat_fig:5} shows the propagation factor fit at constant altitude (10 m) at 10 km and 15 km range, again to demonstrate fitting around both a multipath peak and a multipath null. The standard deviation is no longer the same ($\sigma_{10} = 0.223$ while $\sigma_{15} = 0.188$). In general, the standard deviation is not similar for fits made at a constant altitude but different ranges.
+
 \begin{figure}[H]
   \begin{center}
 \includegraphics[width=4in]{../media/statistics/constant_altitude_fit.png}
@@ -262,3 +259,20 @@ This distribution has been previously shown to be applicable to modeling the amp
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
+
+As shown in \cite{yeh_fading}, the relationship between the standard deviation, $\sigma$, of the PDF and the loss parameter, $\alpha$, that describes the RMT result is given by
+
+\begin{equation}
+\alpha = \frac{1}{8\pi\sigma^2}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+With this relationship, we can use RMT to match the signal fluctuations around a predetermined average propagation factor. What is currently lacking is the relationship between the sea state, geometry, and the loss parameter.
+
+The general process to include propagation factor statistics is to:
+\begin{enumerate}
+\item Run TEMPER with a deterministic reflection coefficient (Miller-Brown approximation) to create the baseline set of propagation factors for a given sea state.
+\item Determine the loss parameter for the given geometry (transmitter and receiver altitudes) and sea state.
+\item Determine the standard deviation from the loss parameter.
+\item Generate a random realization of the propagation factor from a Gaussian distribution with the prescribed standard deviation and mean given by the baseline propagation factor from the TEMPER run.
+\end{enumerate}
