@@ -1,6 +1,6 @@
 function plot_reflection_coefficient
 
-f = 35e9;
+f = 10e9;
 lambda = 3e8/f;
 
 %first look at rho vs RMS sea height
