@@ -68,7 +68,7 @@ The grazing angle, $\chi$, is the angle from the local horizontal plane at the t
 In the flat earth case, the grazing and depression angles are equal. The curvature of the earth changes the local tangent plane reference, so they are not equal in the case of a spherical or ellipsoidal earth.
   
 \subsubsection{RADAR Horizon}
-The curvature of the earth puts an upper limit on the distance an electromagnetic wave can travel before intercepting the earth. The range to the horizon, $R_h$, is given by Equation \ref{env_eq:3}. Slant ranges greater than this distance will be clipped by the earth and not reach the target unless anomalous propagation conditions (ducting) are present.
+The curvature of the earth puts an upper limit on the distance an electromagnetic wave can travel before intercepting the earth. The range to the horizon, $R_h$, is given by Equation \ref{env_eq:3}. Slant ranges greater than this distance will be clipped by the earth and not reach the target unless anomalous propagation conditions (such as ducting) are present.
 
   \begin{equation}
   \label{env_eq:3}
@@ -177,10 +177,10 @@ The smooth reflection coefficient depends on the polarization of the incident wa
 The total reflection coefficient, $\Gamma_t$ is then the product of the rough and smooth reflection coefficients, $\Gamma_t = \rho\Gamma_h$ or $\Gamma_t = \rho\Gamma_v$.
 
 \subsection{Clutter}
-Clutter is the backscattered signal from the sea surface and its signal strength can be found from the RADAR range equation using the product of the backscatter cross section, $\sigma_M^0$ and the clutter cell area, $A_c$ as the target RCS. The area will depend on whether the signal is beam limited or pulse limited. The Signal to Clutter Ratio (SCR) is the ratio of the power received from the signal to the power received from clutter and is a good indicator of overall performance.
+Clutter is the backscattered signal from the sea surface and its signal strength can be found from the RADAR range equation using the product of the backscatter cross section, $\sigma_M^0$, and the clutter cell area, $A_c$, as the target RCS. The area will depend on whether the signal is beam limited or pulse limited. The Signal to Clutter Ratio (SCR) is the ratio of the power received from the signal to the power received from clutter and is a good indicator of overall performance.
 
 \subsubsection{NRL Model for $\sigma_M^0$}
-There are many models for estimating the backscatter cross section at various sea states \cite{blake_radar} \cite{richards_radar} \cite{nathanson_radar}. In 2012, an empirical model was developed by NRL that minimized differences with the extensive existing experimental databases \cite{gregers-hansen_clutter} and which will be presented here. Equation \ref{env_eq:7a} provides the model for $\sigma^0$ where $f$ is the radar frequency in GHz, $SS$ is the sea state, and $\Psi$ is the grazing angle in degrees. Table \ref{env_tab:0} lists the various constants used in the equation for both horizontal and vertical polarization.
+There are many models for estimating the backscatter cross section at various sea states \cite{blake_radar} \cite{richards_radar} \cite{nathanson_radar}. In 2012, an empirical model was developed by NRL that minimized differences with the extensive existing experimental databases \cite{gregers-hansen_clutter} and which will be presented here. Equation \ref{env_eq:7a} provides the model for $\sigma_M^0$ where $f$ is the radar frequency in GHz, $SS$ is the sea state, and $\Psi$ is the grazing angle in degrees. Table \ref{env_tab:0} lists the various constants used in the equation for both horizontal and vertical polarization.
 
 \begin{equation}
 \begin{aligned}

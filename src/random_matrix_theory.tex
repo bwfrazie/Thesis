@@ -7,12 +7,23 @@ Since then, RMT has become extremely useful in characterizing chaotic systems th
 \subsection{Wave Chaotic Systems}
 The wave equation is linear, so solutions can not be chaotic. However, in the semi-classical limit where the wavelength is much smaller than the characteristic length scale ($\lambda << L$), these solutions can be described by rays with chaotic trajectories. This is also known as the random plane wave hypothesis where we can treat the chaotic propagation problem as a random superposition of plane waves.
 
-For the purposes of this work, the propagation has Time Reversal Symmetry (TRS), so the probability distribution of the Hamiltonian will be invariant under orthogonal transformations, $P(H) = P(O^THO)$ for any orthogonal matrix $O$ \cite{ott_chaos}. This is referred to as the Gaussian Orthogonal Ensemble (GOE) case. Because the matrix $O$ is orthogonal, the elements of the random matrix will be real, independent, and identically distributed Gaussian random variables with the variance of the diagonal elements equal to twice the variance of the off-diagonal elements.
+For the purposes of this work, the propagation has Time Reversal Symmetry (TRS), so the probability distribution of the Hamiltonian will be invariant under orthogonal transformations, $P(H) = P(O^THO)$ for any orthogonal matrix $O$ \cite{ott_chaos}. This is referred to as the Gaussian Orthogonal Ensemble (GOE) case. Because the matrix $O$ is orthogonal, the elements of the random matrix will be real, independent, and identically distributed (IID) Gaussian random variables with the standard deviation of the diagonal elements equal to twice the standard deviation of the off-diagonal elements.
+
+A simple method to generate a random matrix, $\textbf{M}$, following a GOE distribution is to first generate a matrix, $\textbf{A}$, whose elements are IID zero mean Gaussian random variables with unit standard deviation. The matrix $\textbf{M}$ is then given by
+
+\begin{equation}
+\textbf{M} = \frac{1}{2}\left(\textbf{A} + \textbf{A}^T \right)
+\label{rmt_eq:000}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
 Wave chaotic systems have both universal and system specific properties. The system specific features are due to the short orbit trajectories (the paths with few bounces between the ports) and the universal features are due to the chaotic nature of the system itself \cite{bohigas}. RMT works extremely well at predicting the statistical properties of the universal fluctuations; however, short orbit trajectories have a significant impact on the overall scattering statistics and should be included \cite{hart_so} \cite{yeh_universal}. One such model that includes both universal and system specific features is the Random Coupling Model (RCM), which normalizes the impedance matrix by the system specific impedance to separate the universal and system specific features  \cite{zheng_single} \cite{zheng_multiple} \cite{hemmady_review} \cite{gradoni_review}.
 
+One of the primary contributions of the RCM is that it allows the overlap integral which describes the interaction between the eigenmodes and current shape profile to be represented through the radiation impedance of an antenna coupled to the port \cite{hart_time_domain} \cite{zheng_single}.
+
 \subsection{Multi-static Configuration}
-The scattering matrix, $S$, contains all the information for the various propagation paths through the system with each transmitter and receiver considered as a port. This matrix then determines the relationship between the output voltages, $\textbf{V}^o$, and the input voltages, $\textbf{V}^i$ \cite{pozar_microwave}.
+The scattering matrix, $\textbf{S}$, contains all the information for the various propagation paths through the system with each transmitter and receiver considered as a port. This matrix then determines the relationship between the output voltages, $\textbf{V}^o$, and the input voltages, $\textbf{V}^i$ \cite{pozar_microwave}.
+
 \begin{equation}
 \textbf{V}^o = \textbf{S} \textbf{V}^i
 \label{rmt_eq:0}
@@ -56,5 +67,3 @@ The scattering matrix approach captures the universal fluctuations from the unde
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 Here $\textbf{Z}_o$ is a diagonal matrix that captures the characteristic impedance of transmission lines connected to the ports.
-
-One of the primary contributions of the RCM is that it allows the overlap integral which describes the interaction between the eigenmodes and current shape profile to be represented through the radiation impedance of an antenna coupled to the port \cite{hart_time_domain} \cite{zheng_single}.
