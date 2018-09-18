@@ -201,7 +201,21 @@ The mean and standard deviation with a 5 m/s wind speed and a $0^\circ$ wind dir
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-In both of these cases, we see that the standard deviation has deep nulls that are co-aligned with nulls in the mean and shallower nulls that are co-aligned with peaks in the mean. These results make sense if we think of propagation of a bundle of rays; at the peaks and nulls in the mean, the rays are all either strongly coherent (peak) or strongly anti-coherent (null). At these extremes, there is little phase variation between the waves and less room for variation in received power. This result also indicates that the standard deviation oscillates at twice the rate of the mean value.
+In both of these cases, we see that the standard deviation has deep nulls that are co-aligned with nulls in the mean and shallower nulls that are co-aligned with peaks in the mean. These results make sense if we think of propagation of a bundle of rays; at the peaks and nulls in the mean, the rays are all either strongly coherent (peak) or strongly anti-coherent (null). At these extremes, there is little phase variation between the waves and less room for variation in received power. 
+
+This result also indicates that the standard deviation oscillates at twice the rate of the mean value. From \cite{frazier_green}, we can express the phase difference between the primary and the reflected ray as
+
+\begin{equation}
+\Delta\phi = k\frac{h_1h_2}{L}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Using the observation stated above, we can break the standard deviation, $\sigma$, into an oscillatory term, $\sigma_s$, and a deterministic term $\sigma_d$ so that $\sigma = \sigma_s \sigma_d$. The oscillatory term can be approximated as:
+
+\begin{equation}
+\sigma_s = \sin^2\left(k\frac{h_1h_2}{L}\right)
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
 
 \subsection{Diffractive Phase Shift}
 Figure \ref{stat_fig:2zz} shows the mean propagation factor vs. altitude at a constant range (20 km) for various wind speeds and Figure \ref{stat_fig:2zzz} shows the mean propagation factor vs. altitude at a constant range (20 km) for various wind direction angles. These plots demonstrate there is a diffractive phase shift incurred when propagating over a numerical surface instead of a flat surface with the Miller-Brown approximation.
