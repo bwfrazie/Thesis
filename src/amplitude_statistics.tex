@@ -275,23 +275,84 @@ With this relationship, we can use RMT to match the signal fluctuations around a
 From \cite{frazier_green}, we can express the phase difference between the primary and the reflected ray as
 
 \begin{equation}
-\Delta\phi = k\frac{h_1h_2}{L}
+\Delta\phi = 2k\frac{h_1h_2}{L}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Using the observation that the standard deviation oscillates at twice the rate of the mean value, we can break the standard deviation, $\sigma$, into an oscillatory term, $\sigma_s$, and a deterministic term $\sigma_d$ so that $\sigma = \sigma_s \sigma_d$. The oscillatory term can then be approximated as:
+Using the observation that the standard deviation oscillates at twice the rate of the mean value, we can break the standard deviation, $\sigma$, into an oscillatory term, $\sigma_s$, and a deterministic term $\sigma_d$ so that $\sigma = \sigma_s \sigma_d$. The mean value oscillates relative to $Re\{\exp\left[j\Delta\phi\right]\} = \cos\left(\Delta\phi\right)$. Because the standard deviation must be out of phase with the mean, $\sigma_s$ can be approximated as:
 
 \begin{equation}
-\sigma_s = \sin^2\left(k\frac{h_1h_2}{L}\right)
+\sigma_s = \sin^2\left(2k\frac{h_1h_2}{L}\right)
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-For a 1-d system, the loss parameter can be estimated as $a ~ kL/Q$. The missing piece here is to derive an expression for an effective quality factor, $Q$, in terms of the sea state and geometry to express the standard deviation for the propagation factor.
+For a 1-d system, the loss parameter can be approximated as $a /approx kL/Q$, where $Q$ is the quality factor of a given cavity. $Q$ is defined as \cite{pozar_microwave}
 
-The general process to include propagation factor statistics is to:
-\begin{enumerate}
-\item Run TEMPER with a deterministic reflection coefficient (Miller-Brown approximation) to create the baseline set of propagation factors for a given sea state.
-\item Determine the loss parameter for the given geometry (transmitter and receiver altitudes) and sea state.
-\item Determine the standard deviation from the loss parameter.
-\item Generate a random realization of the propagation factor from a Gaussian distribution with the prescribed standard deviation and mean given by the baseline propagation factor from the TEMPER run.
-\end{enumerate}
+\begin{equation}
+Q = \omega_0\frac{\text{Energy Stored}}{\text{Power Lost}}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+For sufficiently shallow grazing angles there is little backscatter for clutter and we can assume all the energy is either absorbed into the ocean or scattered forward towards the target. Because we are working with propagation factors, we can normalize the transmitted power and approximate an effective quality factor as
+
+\begin{equation}
+Q \approx \omega_o\frac{1-\Gamma_t}{\Gamma_t^2}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Here, $\Gamma_t$ is the total reflection coefficient as described in Section \ref{section_reflection_coefficient}, which is dependent on the grazing angle and the RMS ocean wave height, $\sigma_h$.
+
+For voltage fluctuations, the standard deviation is given as $\sigma = (\pi \alpha)^{-1}$. Because we are working with power, the width will reduce by the square root and we need to add a scale factor that is the ratio of the region over which the reflected energy is not negligible, $\tilde{x}$ to the total down range distance, $L$:
+
+\begin{equation}
+\sigma_d \approx \sqrt{\frac{1}{\pi \alpha}}\left(\frac{\tilde{x}}{L}\right)^2
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent From \cite{frazier_green}, we can express $\tilde{x}$ as:
+
+\begin{equation}
+\tilde{x} = \sqrt{\frac{2}{kL_0''}}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent Where $L_0''$ is given as:
+\begin{equation}
+L_0''=\frac{(h_1+h_2)^4}{h_1h_2L^3} 
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+\noindent The predicted propagation factor standard deviation is then:
+\begin{equation}
+\sigma = \sin^2\left(2k\frac{h_1h_2}{L}\right)\sqrt{\frac{\omega_0(1-\Gamma_t)}{\pi kL\Gamma_t^2}}\left(\frac{\tilde{x}}{L}\right)^2
+\label{stat_eq:zzz}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Figure \ref{stat_fig:a1} shows the predicted standard deviation of the propagation factor vs. down range distance for an ocean wave height RMS of 0.165 m, a transmitter altitude of 30 m and a target altitude of 20 m.
+
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=4in]{../media/analysis/std_dev_vs_range.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[$F_p$ Standard Deviation vs. Range]{$F_p$ Standard Deviation vs. Range\label{stat_fig:a1}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Figure \ref{stat_fig:a1} shows the predicted standard deviation of the propagation factor vs. altitude for an ocean wave height RMS of 0.165 m, a transmitter altitude of 30 m and a down range distance of 20 km.
+
+\begin{figure}[H]
+  \begin{center}
+\includegraphics[width=4in]{../media/analysis/std_dev_vs_altitude.png}
+  \end{center}
+  \renewcommand{\baselinestretch}{1} \small\normalsize
+  \begin{quote}
+    \caption[$F_p$ Standard Deviation vs. Altitude]{$F_p$ Standard Deviation vs. Altitude\label{stat_fig:a2}}
+  \end{quote}
+\end{figure}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+Equation \ref {stat_eq:zzz} provides a reasonable approximation for the propagation factor standard deviations shown in Figure \ref{stat_fig:1zz} and Figure \ref{stat_fig:1zzz} but do not include the diffractive phase shift. Using this equation allows us to include propagation factor statistics around a single TEMPER baseline run rather than requiring many iterations. More work is needed to verify this approach over a wider range of conditions.

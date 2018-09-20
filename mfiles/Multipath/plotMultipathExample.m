@@ -16,16 +16,18 @@ r4 = linspace(1000,20000,10000);
 r1 = sqrt(r4.^2 + (h1-h2).^2);
 r23 = sqrt(r4.^2 + (h1+h2).^2);
 
+test = 2*h1*h2./r4;
+
 lambda = 3e8/35e9;
 k = 2*pi/lambda;
 
 value = abs(exp(1j*k*r1) + exp(1j*k*r23));
-value1 = abs(exp(1j*k*r1) + exp(1j*(k*r23 +pi/4)));
+% value1 = abs(exp(1j*k*r1) + exp(1j*(k*r23 +pi/4)));
 
 h = figure;
 plot(r4/1000,value,'LineWidth',2);
 hold on
-plot(r4/1000,value1,'LineWidth',2);
+% plot(r4/1000,value1,'LineWidth',2);
 grid on
 xlabel('Down Range Distance (km)')
 ylabel('F_p (unitless)');

@@ -1,47 +1,52 @@
-%function plotMultipathVariance(varargin)
+function plotMultipathVariance(varargin)
 
 saveFigs = 0;
 
-% if (nargin == 1)
-%     saveFigs = varargin{1};
-% end
+if (nargin == 1)
+    saveFigs = varargin{1};
+end
 
+f = 10e9;
 lambda = 3e8/10e9;
-k = 2*pi/lambda;
-
 sigmah = 0.165;
 
-re = 6371000*4/3;
+
 h1 = 30;
 h2 = 20;
 L = linspace(1000,20000,10000);
 
-graz = asin(h1./L*(1 + h1/(2*re)) - L/(2*re));
-gam = abs(getReflectionCoefficient( graz,sigmah,lambda));
+sigma_L = getFPStdDev(L,h1,h2,sigmah,lambda);
 
-L0 = (h1+h2).^4./(h1*h2*L.^3);
-L1 = L + (h1-h2).^2./(2*L);
-Lm = L + (h1+h2).^2./(2*L);
-
-Ld = 2*h1*h2./L;
-xtwiddle = sqrt(2./(k*L0));
-
-ofact = sin(k*2*h1*h2./L).^2;
-
-
-value = abs(exp(1j*k*L1) + exp(1j*k*Lm));
-
-h = figure;
-plot(L/1000,value,'LineWidth',2);
-hold on
+hh1 = figure;
+plot(L/1000,sigma_L,'LineWidth',2)
 grid on
+xlim([4 20])
 xlabel('Down Range Distance (km)')
-ylabel('F_p (unitless)');
+ylabel('F_p Std. Dev.');
 xlim([4 20])
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 
+
+h2 = linspace(1,30,10000);
+L = 20000;
+
+sigma_a = getFPStdDev(L,h1,h2,sigmah,lambda);
+
+hh2 = figure;
+plot(h2,sigma_a,'LineWidth',2)
+grid on
+xlim([2 20])
+xlabel('Altitude (m)')
+ylabel('F_p Std. Dev.');
+set(gca,'LineWidth',2)
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+
+
+
 if(saveFigs == 1)
-    saveas(h,'two_ray_multipath_results','png')
+    saveas(hh1,'std_dev_vs_range','png')
+    saveas(hh2,'std_dev_vs_altitude','png')
 end
