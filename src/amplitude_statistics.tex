@@ -279,14 +279,14 @@ From \cite{frazier_green}, we can express the phase difference between the prima
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Using the observation that the standard deviation oscillates at twice the rate of the mean value, we can break the standard deviation, $\sigma$, into an oscillatory term, $\sigma_s$, and a deterministic term $\sigma_d$ so that $\sigma = \sigma_s \sigma_d$. The mean value oscillates relative to $Re\{\exp\left[j\Delta\phi\right]\} = \cos\left(\Delta\phi\right)$. Because the standard deviation must be out of phase with the mean, $\sigma_s$ can be approximated as:
+Using the observation that the standard deviation oscillates at twice the rate of the mean value, we can break the standard deviation, $\sigma$, into an oscillatory term, $\sigma_s$, and an envelope term $\sigma_d$ so that $\sigma = \sigma_s \sigma_d$. The mean value oscillates relative to $Re\{\exp\left[j\Delta\phi\right]\} = \cos\left(\Delta\phi\right)$. Because the standard deviation must be out of phase with the mean, $\sigma_s$ can be approximated as:
 
 \begin{equation}
 \sigma_s = \sin^2\left(2k\frac{h_1h_2}{L}\right)
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-For a 1-d system, the loss parameter can be approximated as $a /approx kL/Q$, where $Q$ is the quality factor of a given cavity. $Q$ is defined as \cite{pozar_microwave}
+For a 1-d system, the loss parameter can be approximated as $a \approx kL/Q$, where $Q$ is the quality factor of a given cavity. $Q$ is defined as \cite{pozar_microwave}
 
 \begin{equation}
 Q = \omega_0\frac{\text{Energy Stored}}{\text{Power Lost}}
@@ -302,7 +302,7 @@ Q \approx \omega_o\frac{1-\Gamma_t}{\Gamma_t^2}
 
 Here, $\Gamma_t$ is the total reflection coefficient as described in Section \ref{section_reflection_coefficient}, which is dependent on the grazing angle and the RMS ocean wave height, $\sigma_h$.
 
-For voltage fluctuations, the standard deviation is given as $\sigma = (\pi \alpha)^{-1}$. Because we are working with power, the width will reduce by the square root and we need to add a scale factor that is the ratio of the region over which the reflected energy is not negligible, $\tilde{x}$ to the total down range distance, $L$:
+RMT predicts that the fluctuations will be normally distributed with standard deviation given by $\sigma_d = \sqrt{(\pi \alpha)^{-1}}$. This assumes that the entire path length, $L$, contributes, so we need to add a scale factor that is the ratio of the region over which the reflected energy is not negligible, $\tilde{x}$ to the total down range distance, $L$. With this scale factor, the envelope term becomes:
 
 \begin{equation}
 \sigma_d \approx \sqrt{\frac{1}{\pi \alpha}}\left(\frac{\tilde{x}}{L}\right)^2
