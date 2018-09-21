@@ -8,7 +8,7 @@ end
 
 f = 10e9;
 lambda = 3e8/10e9;
-sigmah = 0.165;
+sigmah = 0.01;
 
 
 h1 = 30;
