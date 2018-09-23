@@ -302,10 +302,17 @@ Q \approx \omega_o\frac{1-\Gamma_t}{\Gamma_t^2}
 
 Here, $\Gamma_t$ is the total reflection coefficient as described in Section \ref{section_reflection_coefficient}, which is dependent on the grazing angle and the RMS ocean wave height, $\sigma_h$.
 
-RMT predicts that the fluctuations will be normally distributed with standard deviation given by $\sigma_d = \sqrt{(\pi \alpha)^{-1}}$. This assumes that the entire path length, $L$, contributes, so we need to add a scale factor that is the ratio of the region over which the reflected energy is not negligible, $\tilde{x}$ to the total down range distance, $L$. With this scale factor, the envelope term becomes:
+RMT predicts that the voltage fluctuations will be normally distributed with standard deviation given by $\sigma = \sqrt{(\pi \alpha)^{-1}}$. Since we are looking at fluctuations in power, this standard deviation in voltage will be the variance in power so that
 
 \begin{equation}
-\sigma_d \approx \sqrt{\frac{1}{\pi \alpha}}\left(\frac{\tilde{x}}{L}\right)^2
+\sigma_d = \sqrt{\sigma} = \left( \frac{1}{\pi\alpha} \right)^{1/4}
+\end{equation}
+\renewcommand{\baselinestretch}{2} \small\normalsize
+
+This assumes that the entire path length, $L$, contributes, so we need to add a scale factor that is the ratio of the region over which the reflected energy is not negligible, $\tilde{x}$ to the total down range distance, $L$. With this scale factor, the envelope term becomes:
+
+\begin{equation}
+\sigma_d \approx \frac{1}{4} \left(\frac{1}{\pi \alpha}\right)^{1/4}\left(\frac{\tilde{x}}{L}\right)
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
@@ -324,35 +331,37 @@ L_0''=\frac{(h_1+h_2)^4}{h_1h_2L^3}
 
 \noindent The predicted propagation factor standard deviation is then:
 \begin{equation}
-\sigma = \sin^2\left(2k\frac{h_1h_2}{L}\right)\sqrt{\frac{\omega_0(1-\Gamma_t)}{\pi kL\Gamma_t^2}}\left(\frac{\tilde{x}}{L}\right)^2
+\sigma = \sin^2\left(2k\frac{h_1h_2}{L}\right) \frac{1}{4}\left(\frac{\omega_0(1-\Gamma_t)}{\pi kL\Gamma_t^2}\right)^{1/4}\left(\frac{\tilde{x}}{L}\right)
 \label{stat_eq:zzz}
 \end{equation}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Figure \ref{stat_fig:a1} shows the predicted standard deviation of the propagation factor vs. down range distance for an ocean wave height RMS of 0.165 m, a transmitter altitude of 30 m and a target altitude of 20 m.
+Figure \ref{stat_fig:a1} compares the predicted result with the numerical results for 10 mps wind speed at two different wind directions (0 $^{\circ}$ and 36$^{\circ}$). The target point in both cases is at 20 m in altitude.
 
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=4in]{../media/analysis/std_dev_vs_range.png}
+\includegraphics[width=6in]{../media/statistics/predicted_results_wind_direction.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
-    \caption[$F_p$ Standard Deviation vs. Range]{$F_p$ Standard Deviation vs. Range\label{stat_fig:a1}}
+    \caption[$F_p$ Standard Deviation Comparison vs. Wind Direction]{$F_p$ Standard Deviation Comparison vs. Wind Direction\label{stat_fig:a1}}
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Figure \ref{stat_fig:a1} shows the predicted standard deviation of the propagation factor vs. altitude for an ocean wave height RMS of 0.165 m, a transmitter altitude of 30 m and a down range distance of 20 km.
+Figure \ref{stat_fig:a1} compares the predicted result with the numerical results directly down range (0$^{\circ}$ wind direction) at two different wind speeds (8 mps and 12 mps). Again, the target point in both cases is at 20 m in altitude.
 
 \begin{figure}[H]
   \begin{center}
-\includegraphics[width=4in]{../media/analysis/std_dev_vs_altitude.png}
+\includegraphics[width=6in]{../media/statistics/predicted_results_wind_speed.png}
   \end{center}
   \renewcommand{\baselinestretch}{1} \small\normalsize
   \begin{quote}
-    \caption[$F_p$ Standard Deviation vs. Altitude]{$F_p$ Standard Deviation vs. Altitude\label{stat_fig:a2}}
+    \caption[$F_p$ Standard Deviation Comparison vs. Wind Speed]{$F_p$ Standard Deviation Comparison vs. Wind Speed\label{stat_fig:a2}}
   \end{quote}
 \end{figure}
 \renewcommand{\baselinestretch}{2} \small\normalsize
 
-Equation \ref {stat_eq:zzz} provides a reasonable approximation for the propagation factor standard deviations shown in Figure \ref{stat_fig:1zz} and Figure \ref{stat_fig:1zzz} but do not include the diffractive phase shift. Using this equation allows us to include propagation factor statistics around a single TEMPER baseline run rather than requiring many iterations. More work is needed to verify this approach over a wider range of conditions.
+In both Figure \ref{stat_fig:a1} and Figure \ref{stat_fig:a2}, the envelope term is a good match for the standard deviation when the assumption of shallow grazing angles is valid. As the wind speed increases, this assumption becomes tighter and indicates deviations from the model at short ranges. The location of the peaks and nulls do not line up because the predicted results do not include any corrections for the phase shift. 
+
+Equation \ref {stat_eq:zzz} provides a reasonable approximation for the propagation factor standard deviations shown in Figure \ref{stat_fig:1zz} and Figure \ref{stat_fig:1zzz} but does not include the diffractive phase shift. Using this equation allows us to include propagation factor statistics around a single TEMPER baseline run rather than requiring many iterations. More work is needed to verify this approach over a wider range of conditions and determine the limitations for various geometries.
